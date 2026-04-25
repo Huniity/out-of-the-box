@@ -1,0 +1,26 @@
+FROM node:25-alpine AS frontend-builder
+
+WORKDIR /frontend
+COPY srcs/frontend/package*.json ./
+RUN npm ci
+COPY srcs/frontend .
+RUN npm run build
+
+FROM python:3.14.4-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+
+RUN pip install uv
+
+COPY srcs/backend/requirements.txt .
+RUN uv pip install --system -r requirements.txt
+
+COPY srcs/backend .
+COPY --from=frontend-builder /frontend/dist ./dist
+
+RUN mkdir -p /app/logs && chmod 777 /app/logs
+
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000"]
