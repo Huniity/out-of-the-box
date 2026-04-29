@@ -4,10 +4,21 @@ Event management platform with Django backend and React frontend.
 
 ## Quick Start
 
-### Setup
+### First Time Setup (After Cloning)
 ```bash
-make env      # Create .env file
-make up-dev   # Start development environment
+git clone <repo-url>
+cd out-of-the-box
+
+# 1. Create environment variables
+make env
+
+# 2. Start containers and apply migrations
+make up-dev
+
+# 3. Create admin user (in another terminal)
+make superuser-dev
+# Username: admin
+# Password: (enter your choice)
 ```
 
 ### Development URLs
