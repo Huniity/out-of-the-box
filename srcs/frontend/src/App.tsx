@@ -35,7 +35,7 @@ function Homepage() {
             }}
         >
             <div className="absolute z-100 -left-24 bottom-0 h-52 w-52 rounded-full bg-[#c8ff00]/10 blur-3xl" />
-            <div className="absolute z-100 -right-24 top-0 h-52 w-52 rounded-full bg-[#745ff2]/10 blur-3xl" />
+            <div className="absolute z-100 right-0 sm:-right-24 top-0 h-52 w-52 rounded-full bg-[#745ff2]/10 blur-3xl" />
             <img
                 src={doodleBlue}
                 alt=""
@@ -56,11 +56,8 @@ function Homepage() {
                 src={doodleOrange}
                 alt=""
                 aria-hidden="true"
+                className="absolute bottom-0 right-0 w-[18%] sm:bottom-[-7%] sm:right-[-10%] sm:w-[25%]"
                 style={{
-                    position: 'absolute',
-                    bottom: '-7%',
-                    right: '-10%',
-                    width: '25%',
                     pointerEvents: 'none',
                     zIndex: 50,
                     userSelect: 'none',
@@ -69,7 +66,7 @@ function Homepage() {
                 }}
             />
         
-        
+
             <img
                 src={leafImg}
                 alt=""
@@ -112,13 +109,9 @@ function Homepage() {
                 src={leafImg3}
                 alt=""
                 aria-hidden="true"
-                className="leaf-3"
+                className="leaf-3 absolute right-0 top-[25%] w-[18%] sm:right-[-15%] sm:w-[30%]"
                 style={{
-                position: 'absolute',
-                right: '-15%',
-                top: '25%',
                 transform: 'translateY(-50%)',
-                width: '30%',
                 rotate: '270deg',
                 pointerEvents: 'none',
                 zIndex: 1,
@@ -179,7 +172,7 @@ function Homepage() {
 
             {/* Buttons: col 2, row 3, z-10 — aligned with logo */}
             <div
-                className="z-10 flex items-end justify-center pb-20 px-6 gap-4 pl-12 relative"
+                className="z-10 flex flex-col sm:flex-row items-end justify-center pb-20 px-6 gap-4 pl-12 relative"
                 style={{
                     gridColumn: '2 / 3',
                     gridRow: '3 / 4',
