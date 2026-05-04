@@ -13,7 +13,7 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
 
   return (
     <div
-      className={`relative aspect-video overflow-hidden rounded-[4px] border border-[#c6dc80]/25 bg-black ${!playing ? "cursor-pointer" : ""}`}
+      className={`relative aspect-video overflow-hidden rounded-[4px] border border-[#c8ff00]/25 bg-black ${!playing ? "cursor-pointer" : ""}`}
       style={{ boxShadow: "0 0 0 1px rgba(198,220,128,0.08), 0 24px 60px rgba(0,0,0,0.6)" }}
       onClick={() => !playing && setPlaying(true)}
     >
@@ -36,7 +36,7 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
 
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="group/btn flex h-[68px] w-[68px] items-center justify-center rounded-full border-2 border-[#c6dc80]/80 bg-black/50 backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:border-[#c6dc80] hover:bg-[#c6dc80]/15">
+            <div className="group/btn flex h-[68px] w-[68px] items-center justify-center rounded-full border-2 border-[#c8ff00]/80 bg-black/50 backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:border-[#c8ff00] hover:bg-[#c8ff00]/15">
               <div
                 className="ml-1"
                 style={{
@@ -44,7 +44,7 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
                   height: 0,
                   borderStyle: "solid",
                   borderWidth: "10px 0 10px 20px",
-                  borderColor: "transparent transparent transparent #c6dc80",
+                  borderColor: "transparent transparent transparent #c8ff00",
                 }}
               />
             </div>

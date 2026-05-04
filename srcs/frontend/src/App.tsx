@@ -48,8 +48,6 @@ function Homepage() {
                     pointerEvents: 'none',
                     zIndex: 1,
                     userSelect: 'none',
-                    opacity: 0.7,
-                    filter: 'contrast(70%)',
                 }}
             />
             <img
@@ -61,8 +59,6 @@ function Homepage() {
                     pointerEvents: 'none',
                     zIndex: 50,
                     userSelect: 'none',
-                    opacity: 0.7,
-                    filter: 'contrast(60%)',
                 }}
             />
         
@@ -82,8 +78,6 @@ function Homepage() {
                 pointerEvents: 'none',
                 zIndex: 50,
                 userSelect: 'none',
-                opacity: 0.3,
-                filter: 'contrast(60%)',
                 }}
             />
             <img
@@ -101,8 +95,6 @@ function Homepage() {
                 pointerEvents: 'none',
                 zIndex: 1,
                 userSelect: 'none',
-                opacity: 0.3,
-                filter: 'contrast(60%)',
                 }}
             />
             <img
@@ -116,8 +108,6 @@ function Homepage() {
                 pointerEvents: 'none',
                 zIndex: 1,
                 userSelect: 'none',
-                opacity: 0.3,
-                filter: 'contrast(60%)',
                 }}
             />
             <div
@@ -157,7 +147,7 @@ function Homepage() {
                 <img
                     src={OOTBLogo}
                     alt="OOTB Logo"
-                    className="w-full min-w-[10%] max-w-[46%] h-auto"
+                    className="w-full min-w-[10%] max-w-[55%] h-auto"
                 />
                 {/* Pink star — top-right of logotype */}
                 <img
@@ -188,11 +178,11 @@ function Homepage() {
                 <Button
                     name="PROGRAMAÇÃO"
                     textColor="black"
-                    hoverTextColor="#c6dc80"
-                    bgColor="#c6dc80"
+                    hoverTextColor="#c8ff00"
+                    bgColor="#c8ff00"
                     hoverBgColor="black"
                     borderColor="black"
-                    hoverBorderColor="#c6dc80"
+                    hoverBorderColor="#c8ff00"
                     borderWidth="2"
                     width="52"
                     height="8"
@@ -204,11 +194,11 @@ function Homepage() {
                 <Button
                     name="EXPLORE"
                     textColor="black"
-                    hoverTextColor="#c6dc80"
+                    hoverTextColor="#c8ff00"
                     bgColor="white"
                     hoverBgColor="black"
                     borderColor="black"
-                    hoverBorderColor="#c6dc80"
+                    hoverBorderColor="#c8ff00"
                     borderWidth="2"
                     width="52"
                     height="8"

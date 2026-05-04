@@ -37,7 +37,7 @@ export default function Countdown() {
         <div className="flex gap-3">
             {units.map(({ label, value }) => (
                 <div key={label} className="flex flex-col items-center">
-                    <span className="text-2xl font-black leading-none" style={{ color: '#c6dc80' }}>
+                    <span className="text-2xl font-black leading-none" style={{ color: '#c8ff00' }}>
                         {value}
                     </span>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
