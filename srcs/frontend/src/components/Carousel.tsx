@@ -19,18 +19,18 @@ type EventCard = {
 }
 
 const events: EventCard[] = [
-  { day: 3,  month: 'JUL', time: '19:00', accentColor: '#c6dc80',  title: 'Live in Sight',           subtitle: 'Abertura Oficial',          location: 'IPDJ, Faro',   tag: 'CONCERTO'   },
+  { day: 3,  month: 'JUL', time: '19:00', accentColor: '#c8ff00',  title: 'Live in Sight',           subtitle: 'Abertura Oficial',          location: 'IPDJ, Faro',   tag: 'CONCERTO'   },
   { day: 5,  month: 'JUL', time: '10:00', accentColor: '#f9a8d4',  title: 'Exposição de Design',      subtitle: 'Mostra de Trabalhos',        location: 'IPDJ, Faro',   tag: 'EXPOSIÇÃO'  },
-  { day: 7,  month: 'JUL', time: '11:00', accentColor: '#c6dc80',  title: 'Workshop Foto',            subtitle: 'Olhar Urbano',               location: 'IPDJ, Faro',   tag: 'WORKSHOP'   },
+  { day: 7,  month: 'JUL', time: '11:00', accentColor: '#c8ff00',  title: 'Workshop Foto',            subtitle: 'Olhar Urbano',               location: 'IPDJ, Faro',   tag: 'WORKSHOP'   },
   { day: 9,  month: 'JUL', time: '14:00', accentColor: '#fb923c',  title: 'Speed Hunting #1',         subtitle: 'Recrutamento & Networking',  location: 'IPDJ, Faro',   tag: 'NETWORK'    },
   { day: 10, month: 'JUL', time: '20:00', accentColor: '#f9a8d4',  title: 'Open Mic Night',           subtitle: 'Voz Livre',                  location: 'IPDJ, Faro',   tag: 'LIVE'       },
-  { day: 11, month: 'JUL', time: '18:00', accentColor: '#c6dc80',  title: 'Live Painting',            subtitle: 'Arte em Directo',            location: 'Jardim, Faro', tag: 'ARTE'       },
+  { day: 11, month: 'JUL', time: '18:00', accentColor: '#c8ff00',  title: 'Live Painting',            subtitle: 'Arte em Directo',            location: 'Jardim, Faro', tag: 'ARTE'       },
   { day: 12, month: 'JUL', time: '16:00', accentColor: '#60a5fa',  title: 'Projeções de Cinema',      subtitle: 'Sessão de Curtas',           location: 'IPDJ, Faro',   tag: 'CINEMA'     },
   { day: 13, month: 'JUL', time: '15:00', accentColor: '#fb923c',  title: 'Mercado Criativo',         subtitle: 'Pop-up de Artistas',         location: 'Jardim, Faro', tag: 'MERCADO'    },
   { day: 14, month: 'JUL', time: '19:00', accentColor: '#f9a8d4',  title: 'Dança Contemporânea',      subtitle: 'Performance ao Vivo',        location: 'IPDJ, Faro',   tag: 'DANÇA'      },
-  { day: 15, month: 'JUL', time: '22:00', accentColor: '#c6dc80',  title: 'DJ Set — Noite',           subtitle: 'Música Electrónica',         location: 'IPDJ, Faro',   tag: 'DJ SET'     },
+  { day: 15, month: 'JUL', time: '22:00', accentColor: '#c8ff00',  title: 'DJ Set — Noite',           subtitle: 'Música Electrónica',         location: 'IPDJ, Faro',   tag: 'DJ SET'     },
   { day: 16, month: 'JUL', time: '14:00', accentColor: '#60a5fa',  title: 'Speed Hunting #2',         subtitle: 'Recrutamento & Networking',  location: 'IPDJ, Faro',   tag: 'NETWORK'    },
-  { day: 17, month: 'JUL', time: '21:00', accentColor: '#c6dc80',  title: 'Concerto Final',           subtitle: 'Encerramento',               location: 'IPDJ, Faro',   tag: 'CONCERTO'   },
+  { day: 17, month: 'JUL', time: '21:00', accentColor: '#c8ff00',  title: 'Concerto Final',           subtitle: 'Encerramento',               location: 'IPDJ, Faro',   tag: 'CONCERTO'   },
 ]
 
 const CARD_W = 182
@@ -66,13 +66,13 @@ const Programacao = () => {
       }}
     >
       <div className="flex items-center justify-between mb-6">
-        {/* Section label — matches homepage #c6dc80 accent */}
+        {/* Section label — matches homepage #c8ff00 accent */}
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[#e8365d] text-lg leading-none">✦</span><span className="text-white/18 text-[10px] font-bold tracking-[0.2em] uppercase">THE FACES OF THE EVENT</span>
           </div>
           <h2 className="font-black text-3xl xl:text-4xl text-white tracking-widest uppercase leading-tight tracking-tight">
-            Em Destaque no <span className="text-[#c6dc80]">IPDJ</span>
+            Em Destaque no <span className="text-[#c8ff00]">IPDJ</span>
           </h2>
         </div>
 
@@ -97,7 +97,7 @@ const Programacao = () => {
               }}
               disabled={dir === -1 ? offset <= 0 : offset >= maxOffset}
             >
-              <Icon size={14} color="#c6dc80" />
+              <Icon size={14} color="#c8ff00" />
             </button>
           ))}
         </div>
@@ -153,7 +153,7 @@ const Programacao = () => {
                 <div className="flex items-start justify-between">
                   <div
                     className="text-black text-[11px] font-extrabold leading-none px-2 py-1 rounded-md uppercase tracking-tight"
-                    style={{ backgroundColor: '#c6dc80' }}
+                    style={{ backgroundColor: '#c8ff00' }}
                   >
                     <span className="text-base block">{ev.day}</span>
                     {ev.month}
@@ -215,7 +215,7 @@ const Programacao = () => {
               style={{
                 width: active ? '20px' : '6px',
                 height: '6px',
-                backgroundColor: active ? '#c6dc80' : 'rgba(255,255,255,0.2)',
+                backgroundColor: active ? '#c8ff00' : 'rgba(255,255,255,0.2)',
               }}
               aria-label={`Go to event ${i + 1}`}
             />
@@ -228,11 +228,11 @@ const Programacao = () => {
         <Button
           name="VER A PROGRAMAÇÃO COMPLETA"
           textColor="black"
-          hoverTextColor="#c6dc80"
-          bgColor="#c6dc80"
+          hoverTextColor="#c8ff00"
+          bgColor="#c8ff00"
           hoverBgColor="black"
           borderColor="black"
-          hoverBorderColor="#c6dc80"
+          hoverBorderColor="#c8ff00"
           borderWidth="2"
           width="82"
           height="8"

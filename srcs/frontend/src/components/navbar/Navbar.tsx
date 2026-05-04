@@ -21,7 +21,7 @@ function Navbar(){
                 <ul className="flex space-x-6 text-white font-semibold">
                     {pages.map((page) => (
                         <li key={page.name}>
-                            <a href={page.path} className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#c6dc80] after:transition-all after:duration-300 hover:after:w-full">
+                            <a href={page.path} className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#c8ff00] after:transition-all after:duration-300 hover:after:w-full">
                                 {page.name}
                             </a>
                         </li>
