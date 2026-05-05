@@ -132,7 +132,7 @@ function Homepage() {
                     <img
                         src={OOTBLogo}
                         alt="OOTB Logo"
-                        className="w-full min-w-[10%] max-w-[50%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%]"
+                        className="w-full min-w-[10%] max-w-[50%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%] mt-[20%] sm:mt-[10%] md:mt-[0%] lg:mt-[0%]"
                     />
                     {/* Pink star — top-right of logotype */}
                     <img
