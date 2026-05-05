@@ -17,7 +17,7 @@ function Navbar(){
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative z-60">
+        <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative z-[300]">
             {/* Logo — left */}
             <div className="flex items-center w-[50px]">
                 <img src={logo_etic} alt="Logo" width={50} height={50} />
