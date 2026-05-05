@@ -5,7 +5,7 @@ interface YouTubeFacadeProps {
   videoId: string;
 }
 
-export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
+const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
   const [playing, setPlaying] = useState(false);
 
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&controls=0&disablekb=1`;
@@ -13,7 +13,7 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
 
   return (
     <div
-      className={`relative aspect-video overflow-hidden rounded-[4px] border border-[#c8ff00]/25 bg-black ${!playing ? "cursor-pointer" : ""}`}
+      className={`relative aspect-video overflow-hidden rounded-[4px] border border-black bg-black ${!playing ? "cursor-pointer" : ""}`}
       style={{ boxShadow: "0 0 0 1px rgba(198,220,128,0.08), 0 24px 60px rgba(0,0,0,0.6)" }}
       onClick={() => !playing && setPlaying(true)}
     >
@@ -30,7 +30,7 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(135deg, rgba(198,220,128,0.06) 0%, transparent 50%), linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)",
+                "linear-gradient(135deg, rgba(0, 0, 0, 0.06) 0%, transparent 50%), linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)",
             }}
           />
 
@@ -64,3 +64,5 @@ export const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
     </div>
   );
 };
+
+export default YouTubeFacade;

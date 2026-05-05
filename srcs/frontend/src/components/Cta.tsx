@@ -1,7 +1,57 @@
+
+import doodleGreen from '../assets/d_g.png'
+import doodlePurple from '../assets/d_pu.png'
+import doodleOrange from '../assets/d_o.png'
+import Youtube from '../components/YoutubeFacade'
+
+
 const EticCTA = () => {
   return (
-    <section className="border-t border-white/10 rounded-2xl relative overflow-hidden bg-black px-8 py-16 text-white xl:px-20">
-
+    <section className="border-t border-white/10 relative overflow-hidden bg-white/5 px-8 py-16 text-white xl:px-20">
+      <img
+                    src={doodleGreen}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '15%',
+                        left: '41%',
+                        width: '20%',
+                        pointerEvents: 'none',
+                        zIndex: 1,
+                        userSelect: 'none',
+                    }}
+        />
+        <img
+                    src={doodlePurple}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '60%',
+                        left: '25%',
+                        width: '12%',
+                        pointerEvents: 'none',
+                        zIndex: 1,
+                        userSelect: 'none',
+                        transform: 'rotate(20deg)',
+                    }}
+        />
+                <img
+                    src={doodleOrange}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '60%',
+                        left: '87%',
+                        width: '15%',
+                        pointerEvents: 'none',
+                        zIndex: 1,
+                        userSelect: 'none',
+                        transform: 'rotate(150deg)',
+                    }}
+        />
       <div className="relative z-10 flex flex-col gap-12 md:flex-row md:items-center">
 
         {/* Left — text & CTA */}
@@ -38,13 +88,7 @@ const EticCTA = () => {
         {/* Right — video */}
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full aspect-video overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-            <iframe
-              className="h-full w-full"
-              src="https://www.youtube.com/embed/yNexikt6VsM?si=mN7FEu5BO3HI_yiS"
-              title="ETIC Algarve"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+            <Youtube videoId="yNexikt6VsM" />
           </div>
         </div>
 
