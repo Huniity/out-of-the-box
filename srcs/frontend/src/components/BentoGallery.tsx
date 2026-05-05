@@ -19,49 +19,49 @@ const projects = [
     title: "Projeto em Destaque",
     category: "Design / Multimédia",
     image: Fundo,
-    className: "md:col-span-6 md:row-span-2",
+    className: "col-span-2 md:col-span-6 md:row-span-2",
     color: "pink",
   },
   {
     title: "Fotografia",
     category: "Imagem",
     image: Fundo,
-    className: "md:col-span-3",
+    className: "col-span-1 md:col-span-3",
     color: "lime",
   },
   {
     title: "Curta Experimental",
     category: "Vídeo",
     image: Fundo,
-    className: "md:col-span-3",
+    className: "col-span-1 md:col-span-3",
     color: "blue",
   },
   {
     title: "Mundo Interativo",
     category: "Videojogos",
     image: Fundo,
-    className: "md:col-span-4",
+    className: "col-span-1 md:col-span-4",
     color: "orange",
   },
   {
     title: "Identidade Visual",
     category: "Marketing",
     image: Fundo,
-    className: "md:col-span-4",
+    className: "col-span-1 md:col-span-4",
     color: "purple",
   },
   {
     title: "Música ao Vivo",
     category: "Concertos",
     image: Fundo,
-    className: "md:col-span-4",
+    className: "col-span-2 md:col-span-4",
     color: "lime",
   },
 ];
 
 const BentoGallery = () => {
   return (
-    <section className="bg-black border-t border-white/10 rounded-2xl px-8 xl:px-20 py-16 text-white">
+    <section className="bg-white/5 border-t border-white/10 px-8 xl:px-20 py-16 text-white">
       {/* Header */}
       <div className = "max-w-8xl mx-[10%] auto">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between text-left">
@@ -89,7 +89,7 @@ const BentoGallery = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid auto-rows-[180px] grid-cols-1 gap-3 md:grid-cols-12">
+        <div className="grid auto-rows-[180px] grid-cols-2 gap-3 md:grid-cols-12">
           {projects.map((project) => {
             const accent = colorMap[project.color] ?? '#c8ff00'
             return (

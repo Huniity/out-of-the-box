@@ -104,7 +104,7 @@ export default function MarqueeBanner() {
     }, [])
 
     return (
-        <div className="marquee-banner z-5">
+        <div className="marquee-banner z-[1] relative">
             <div className="marquee-track" ref={trackRef}>
                 {Array.from({ length: COPIES }).map((_, i) => (
                     <span

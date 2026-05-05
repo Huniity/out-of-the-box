@@ -1,10 +1,17 @@
 'use client'
 
+import doodlePink from '../assets/d_p.png'
+import doodlePurple from '../assets/d_pu.png'
+import doodleBlue from '../assets/d_blu.png'
+import doodleGreen from '../assets/d_g.png'
+import BlueDoodle from '../assets/Artboard_11_2.png'
+import doodleBlack from '../assets/d_b.png'
+
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
+import BushImage from '../assets/bush.png'
 
-import doodleBlue from '../assets/d_b.png'
 
 const areas = [
   { num: '01', name: 'Exposições',      desc: 'Design, Fotografia e Videógrafos',             slug: 'exposicoes',    color: '#f97316', rotate: -1.2, side: 'right' },
@@ -84,7 +91,84 @@ export default function AreasWall() {
   }, [compute])
 
   return (
-    <section ref={sectionRef} className="bg-black px-8 xl:px-20 py-16">
+    <section ref={sectionRef} className="px-8 xl:px-20 py-16 overflow-hidden relative bg-white/5">
+      {/* Top fade — transparent → black */}
+      <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-50" style={{ background: 'linear-gradient(to bottom, black, transparent)' }} />
+                  <img
+                    src={doodleBlue}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '5%',
+                        left: '80%',
+                        width: '25%',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        opacity: 0.75,
+                        userSelect: 'none',
+                    }}
+        />
+        <img
+                    src={doodlePurple}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '75%',
+                        left: '15%',
+                        width: '12%',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        userSelect: 'none',
+                        transform: 'rotate(40deg)',
+                    }}
+        />
+                <img
+                    src={doodlePink}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '90%',
+                        width: '15%',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        userSelect: 'none',
+                        transform: 'rotate(270deg)',
+                    }}
+        />
+                    <img
+                    src={doodleGreen}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '90%',
+                        left: '85%',
+                        width: '15%',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        userSelect: 'none',
+                        transform: 'rotate(120deg)',
+                    }}
+        />
+        <img
+                    src={doodleBlack}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                        position: 'absolute',
+                        top: '39%',
+                        left: '15%',
+                        width: '20%',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        userSelect: 'none',
+                        transform: 'rotate(20deg)',
+                    }}
+        />
       {/* ── Header ───────────────────────────────────────────────────────────── */}
       <div className="max-w-8xl mx-[10%] auto">
         <div className="flex justify-between items-start mb-12 gap-6 text-left">
@@ -105,12 +189,12 @@ export default function AreasWall() {
         </div>
 
         {/* ── Board ────────────────────────────────────────────────────────────── */}
-        <div className="relative">
+        <div className="relative isolate">
 
           {/* SVG — always mounted so ref is available for measurement */}
           <svg
             ref={svgRef}
-            className="absolute inset-0 w-full pointer-events-none z-0"
+            className="absolute inset-0 w-full pointer-events-none z-"
             style={{ height: svgData?.h ?? '100%' }}
             viewBox={svgData ? `0 0 ${svgData.w} ${svgData.h}` : '0 0 800 1400'}
             overflow="visible"
@@ -121,6 +205,7 @@ export default function AreasWall() {
                   {/* Mask that progressively uncovers the dashed line on scroll */}
                   <mask id="trailRevealMask">
                     <motion.path
+                      
                       d={svgData.path}
                       fill="none"
                       stroke="white"
@@ -138,7 +223,7 @@ export default function AreasWall() {
                   d={svgData.path}
                   fill="none"
                   stroke="rgba(198,220,128,0.08)"
-                  strokeWidth="4"
+                  strokeWidth="5"
                   strokeDasharray="38 32"
                   strokeLinecap="butt"
                 />
@@ -148,33 +233,18 @@ export default function AreasWall() {
                   d={svgData.path}
                   fill="none"
                   stroke="#c8ff00"
-                  strokeWidth="5"
+                  strokeWidth="15"
                   strokeLinecap="butt"
                   strokeLinejoin="round"
                   strokeDasharray="38 32"
                   mask="url(#trailRevealMask)"
                 />
-
-                {/* Coloured dot at each card anchor */}
-                {svgData.points.map((pt, i) => (
-                  <motion.circle
-                    key={i}
-                    cx={pt.x}
-                    cy={pt.y}
-                    r={6}
-                    fill={areas[i].color}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={{ delay: i * 0.1, duration: 0.35, type: 'spring' }}
-                  />
-                ))}
               </>
             )}
           </svg>
 
           {/* ── Cards ────────────────────────────────────────────────────────── */}
-          <div className="relative z-10 flex flex-col">
+          <div className="relative z-[10] flex flex-col">
             {areas.map((area, i) => (
               <motion.div
                 key={area.slug}
@@ -186,18 +256,36 @@ export default function AreasWall() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.06, duration: 0.5, ease: 'easeOut' }}
               >
+                <div className="relative" style={{ isolation: 'isolate' }}>
+                  {/* Bush on the inner border edge */}
+                  <img
+                    src={BushImage}
+                    alt=""
+                    aria-hidden
+                    className="absolute pointer-events-none z-10 top-1/2 -translate-y-1/2"
+                    style={{
+                      width: 110,
+                      height: 110,
+                      objectFit: 'contain',
+                      opacity: 1,
+                      ...(area.side === 'right'
+                        ? { left: '100%', marginLeft: '-28px', transform: `translateY(-50%) rotate(${6 + i * 7}deg) scaleX(-1)` }
+                        : { right: '100%', marginRight: '-28px', transform: `translateY(-50%) rotate(${-5 - i * 6}deg)` }
+                      ),
+                    }}
+                  />
                 <a
                   href={`/areas/${area.slug}`}
                   ref={el => { cardRefs.current[i] = el }}
-                  className="block relative bg-[#111111] border border-[#2a2a2a] rounded-sm p-5 w-60
+                  className="z-20 block relative bg-[#f5f0e8] border border-[#e0d8c8] rounded-sm p-5 w-60
                             hover:rotate-0 hover:scale-[1.04] hover:z-20
                             transition-transform duration-300 ease-out group"
                   style={{ transform: `rotate(${area.rotate}deg)` }}
                 >
                   {/* Tape */}
                   <div
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-5 rounded-sm"
-                    style={{ background: 'rgba(198,220,128,0.65)' }}
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-5 z-50"
+                    style={{ background: 'rgba(198, 220, 128, 0.85)' }}
                   />
 
                   {/* Colour bar */}
@@ -205,25 +293,34 @@ export default function AreasWall() {
                     className="absolute bottom-0 left-0 right-0 h-[3px] rounded-b-sm"
                     style={{ background: area.color }}
                   />
+                  {/* Doodle overlay */}
+                  <div
+                    className="border-b-3 border-black absolute top-0 left-0 right-0 h-[28px] rounded-t-sm overflow-hidden opacity-90  pointer-events-none"
+                    style={{
+                      backgroundImage: `url(${BlueDoodle})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  />
 
-                  <div className="flex justify-between mb-3.5">
-                    <span className="text-[11px] font-black text-white/30 tracking-wide">//{area.num}</span>
-                    <span className="text-[10px] font-bold text-white/20 tracking-widest">FARO/26</span>
+                  <div className="flex justify-between mt-1.5 mb-3.5">
+                    <span className="text-[11px] font-black text-black/30 tracking-wide">//{area.num}</span>
+                    <span className="text-[10px] font-bold text-black/25 tracking-widest">FARO/26</span>
                   </div>
 
-                  <p className="font-black text-[24px] uppercase text-white leading-none tracking-tight mb-2">
+                  <p className="font-black text-[24px] uppercase text-black leading-none tracking-tight mb-2">
                     {area.name}
                   </p>
-                  <p className="text-[11px] text-white/40 leading-relaxed mb-4">{area.desc}</p>
+                  <p className="text-[11px] text-black/50 leading-relaxed mb-4">{area.desc}</p>
 
-                  <div className="flex justify-between items-center border-t border-white/10 pt-2.5">
-                    <span className="flex items-center gap-1.5 text-[10px] font-black text-white/35
-                                    uppercase tracking-widest group-hover:text-[#c8ff00] transition-colors">
+                  <div className="flex justify-between items-center border-t border-black/10 pt-2.5">
+                    <span className="flex items-center gap-1.5 text-[10px] font-black text-black/40
+                                    uppercase tracking-widest group-hover:text-[#3a7d00] transition-colors">
                       Ver a Área <ArrowRight size={10} strokeWidth={3} />
                     </span>
-                    {/* <span className="text-[10px] font-bold text-white/15">/{area.slug}</span> */}
                   </div>
                 </a>
+                </div>
               </motion.div>
             ))}
           </div>

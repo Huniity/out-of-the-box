@@ -19,7 +19,6 @@ createRoot(rootElement).render(
       <MarqueeBanner />
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/homepage" element={<Homepage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
