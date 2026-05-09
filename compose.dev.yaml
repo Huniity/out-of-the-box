@@ -27,6 +27,7 @@ services:
     env_file: .env
     volumes:
       - ./srcs/backend:/app
+      - ./scripts:/scripts
       - django_logs:/app/logs
     ports:
       - "8000:8000"
