@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_spectacular',
+    'apps.events',
 ]
 
 REST_FRAMEWORK = {
@@ -59,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -126,7 +130,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/app/logs/django.log',
+            'filename': 'logs/django.log',
             'maxBytes': 1024 * 1024 * 10,  # 10MB
             'backupCount': 5,  # keeps 5 old files
         },
