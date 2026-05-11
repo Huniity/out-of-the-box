@@ -1,5 +1,8 @@
 from rest_framework import viewsets
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from .models import (
     Exhibition,
     Palestra,
@@ -44,6 +47,15 @@ class VideoScreeningViewSet(viewsets.ModelViewSet):
 class ConcertViewSet(viewsets.ModelViewSet):
     queryset = Concert.objects.all()
     serializer_class = ConcertSerializer
+
+    @action(detail=True, methods=["post"], url_path="toggle-active")
+    def toggle_active(self, request, pk=None):
+        concert = self.get_object()
+        concert.is_active = not concert.is_active
+        concert.save()
+
+        serializer = self.get_serializer(concert)
+        return Response(serializer.data)
 
 
 class SpeedHuntingViewSet(viewsets.ModelViewSet):
