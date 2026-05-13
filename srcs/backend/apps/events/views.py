@@ -1,9 +1,12 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from django.db.models import Sum
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import (
+    Page,
     Exhibition,
     Palestra,
     Workshop,
@@ -14,6 +17,7 @@ from .models import (
 )
 
 from .serializers import (
+    PageSerializer,
     ExhibitionSerializer,
     PalestraSerializer,
     WorkshopSerializer,
@@ -22,6 +26,28 @@ from .serializers import (
     SpeedHuntingSerializer,
     SpecialZoneSerializer,
 )
+
+class PageCountView(APIView):
+    def get(self, request):
+        return Response({"count": Page.objects.count()})
+
+
+class PageListView(APIView):
+    def get(self, request):
+        pages = Page.objects.filter(is_hidden=False)
+        serializer = PageSerializer(pages, many=True)
+        return Response(serializer.data)
+
+
+class SpeakerCountView(APIView):
+    def get(self, request):
+        return Response({"count": Palestra.objects.count()})
+
+
+class TotalVisitorsView(APIView):
+    def get(self, request):
+        total = Page.objects.aggregate(total=Sum('views'))['total'] or 0
+        return Response({ "count": total })  
 
 
 class ExhibitionViewSet(viewsets.ModelViewSet):
