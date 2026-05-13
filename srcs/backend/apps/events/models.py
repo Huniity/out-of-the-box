@@ -1,5 +1,18 @@
 from django.db import models
 
+
+class Page(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255, unique=True)
+    url = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    views = models.IntegerField(default=0)
+    is_hidden = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Exhibition(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import (
+    Page,
     Exhibition,
     Palestra,
     Workshop,
@@ -10,6 +11,12 @@ from .models import (
     SpecialZone,
 )
 
+
+class PageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Page
+        fields = '__all__'
+        
 
 class ExhibitionSerializer(serializers.ModelSerializer):
     class Meta:
