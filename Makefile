@@ -27,6 +27,25 @@ env: ## Create .env file if it doesn't exist
 	@echo "Environment variables:"
 	@cat .env
 
+start-dev: sync-dev ## Start dev workflow with strict database readiness check
+	@echo "Starting Docker containers in background..."
+	docker compose -f compose.dev.yaml up --build -d
+	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
+	@until docker compose -f compose.dev.yaml exec backend python manage.py check > /dev/null 2>&1; do \
+		echo "Backend not ready yet... checking again in 2 seconds"; \
+		sleep 2; \
+	done
+	@echo "Backend is ready! Running migrations and setup..."
+	$(MAKE) migration-dev
+	$(MAKE) migrate-dev
+	$(MAKE) superuser-dev
+	$(MAKE) populate-dev
+	@echo "Setup complete! Attaching to container logs..."
+	docker compose -f compose.dev.yaml logs -f
+
+sync-dev:
+	cd srcs/frontend && npm install && cd ../../ && cd srcs/backend && uv sync && cd ../../
+
 up-dev: ## Start development environment
 	docker compose -f compose.dev.yaml up --build
 	$(MAKE) migrate-dev
@@ -85,6 +104,3 @@ logs-pytest-prod: ## Pytest logs in production environment
 
 populate-dev: ## Populate database with sample data in development environment
 	docker compose -f compose.dev.yaml exec backend python /scripts/seed_db.py
-restart-frontend: ## Restart frontend container
-	docker compose -f compose.dev.yaml restart frontend
-	docker compose -f compose.prod.yaml restart frontend
