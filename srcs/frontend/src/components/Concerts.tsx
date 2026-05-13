@@ -1,18 +1,6 @@
 import { useEffect, useState } from "react";
 
-type Concert = {
-  id: number;
-  title: string;
-  description: string;
-  artist_name: string;
-  lineup: string;
-  image: string | null;
-  start_datetime: string;
-  end_datetime: string;
-  location: string;
-  is_active: boolean;
-  created_at: string;
-};
+import type { Concert, ToggleIsActiveButtonProps } from "../types/concerts";
 
 export async function getConcerts(): Promise<Concert[]> {
   const response = await fetch("/api/concerts/");
@@ -24,11 +12,6 @@ export async function getConcerts(): Promise<Concert[]> {
   return response.json();
 }
 
-type ToggleIsActiveButtonProps = {
-  concertId: number;
-  isActive: boolean;
-  onToggle: (updatedConcert: Concert) => void;
-};
 
 const ToggleIsActiveButton = ({
   concertId,

@@ -18,6 +18,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 
 from apps.events.models import (
+    Page,
     Concert,
     Exhibition,
     Palestra,
@@ -51,6 +52,7 @@ def clear_database():
     SpeedHunting.objects.all().delete()
     VideoScreening.objects.all().delete()
     Workshop.objects.all().delete()
+    Page.objects.all().delete()
 
 
 def seed_database():
@@ -90,6 +92,19 @@ def seed_database():
         start_datetime=now + timedelta(days=3, hours=14),
         end_datetime=now + timedelta(days=3, hours=15),
         location="Conference Room A",
+        is_active=True,
+    )
+    add_image(palestra, "palestra.png")
+
+    palestra = Palestra.objects.create(
+        title="Future of Creative Technology 2",
+        description="A talk about technology, creativity, and new opportunities. 2",
+        speaker_name="João Silva",
+        speaker_role="Creative Director",
+        company="Tech Algarve",
+        start_datetime=now + timedelta(days=3, hours=14),
+        end_datetime=now + timedelta(days=4, hours=15),
+        location="Conference Room B",
         is_active=True,
     )
     add_image(palestra, "palestra.png")
@@ -144,6 +159,16 @@ def seed_database():
         is_active=True,
     )
     add_image(workshop, "workshop.png")
+
+    page = Page.objects.bulk_create([
+        Page(name="Exhibitions", url="exhibitions", is_hidden=False, views=12),
+        Page(name="Palestras", url="palestras", is_hidden=False, views=25),
+        Page(name="Workshops", url="workshops", is_hidden=False, views=2),
+        Page(name="Video Screenings", url="video-screenings", is_hidden=False, views=15),
+        Page(name="Concerts", url="concerts", is_hidden=False, views=12),
+        Page(name="Speed Hunting", url="speed-hunting", is_hidden=False, views=13),
+        Page(name="Special Zones", url="special-zones", is_hidden=False, views=22),
+])
 
 
 def main():
