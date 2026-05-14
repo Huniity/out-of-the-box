@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { ApiPage } from "../types/dashboard";
+import type { ApiPage } from "../../types/dashboard";
 
 type Props = {
     page: ApiPage;
