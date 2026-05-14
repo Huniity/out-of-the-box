@@ -1,13 +1,13 @@
 // components/ProgramacaoCarousel.tsx
 'use client'
 
-import doodleBlue from '../assets/d_blu2.png'
-import doodlePurple from '../assets/d_pu.png'
-import doodlePink from '../assets/d_p.png'
+import doodleBlue from '../../assets/d_blu2.png'
+import doodlePurple from '../../assets/d_pu.png'
+import doodlePink from '../../assets/d_p.png'
 import { useRef, useState, useEffect } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
-import Fundo from '../assets/FUNDO.jpg'
-import Button from './buttons/MainButton'
+import Fundo from '../../assets/FUNDO.jpg'
+import Button from '../buttons/MainButton'
 
 type EventCard = {
   day: number
@@ -18,7 +18,7 @@ type EventCard = {
   subtitle: string
   location: string
   image?: string
-  tag?: string // optional event-type pill
+  tag?: string
 }
 
 const events: EventCard[] = [
@@ -47,7 +47,6 @@ const Programacao = () => {
     }
   }
 
-  // fade-in on mount
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80)
     return () => clearTimeout(t)

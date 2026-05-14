@@ -1,8 +1,8 @@
 
-import doodleGreen from '../assets/d_g.png'
-import doodlePurple from '../assets/d_pu.png'
-import doodleOrange from '../assets/d_o.png'
-import Youtube from '../components/YoutubeFacade'
+import doodleGreen from '../../assets/d_g.png'
+import doodlePurple from '../../assets/d_pu.png'
+import doodleOrange from '../../assets/d_o.png'
+import Youtube from './YoutubeFacade'
 
 
 const EticCTA = () => {
