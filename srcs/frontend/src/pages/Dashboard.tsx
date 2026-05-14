@@ -9,11 +9,14 @@ import {
 
 import { Link } from "react-router-dom";
 
-import PageCount from "../components/PageCount";
-import VisitorCount from "../components/VisitorCount";
-import SpeakerCount from "../components/SpeakerCount";
-import DashboardNav from "../components/DashboardNav";
-import PageDataTable from "../components/PageDataTable";
+import PageCount from "../components/dashboard/MetricsPageCount";
+import VisitorCount from "../components/dashboard/MetricsVisitorCount";
+import SpeakerCount from "../components/dashboard/MetricsSpeakerCount";
+import DashboardNav from "../components/dashboard/DashboardNav";
+import PageDataTable from "../components/dashboard/DashboardPagesData";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
+import MobileTopbar from "../components/dashboard/mobile/MobileTopbar";
+import MobileOverlay from "../components/dashboard/mobile/MobileOverlay";
 import type { ApiPage } from "../types/dashboard";
 
 export default function Dashboard() {
@@ -31,35 +34,13 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            {/* Desktop top bar */}
-            <div className="hidden lg:flex fixed top-0 left-0 right-0 h-14 z-50 items-center px-8 border-b border-white/15 bg-white/5 backdrop-blur-xl">
-                <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">Dashboard</span>
-                <div className="text-center ml-4">
-                    <p className="text-sm font-bold leading-tight">{user.firstName} {user.lastName}</p>
-                </div>
-                <div className="text-center ml-2">
-                    <p className="text-xs text-gray-500">{user.role}</p>
-                </div>
-            </div>
+            <DashboardHeader user={user} />
 
-            <div className="flex h-screen flex-col lg:flex-row lg:pt-14">
-                {/* Mobile top bar */}
-                <div className="fixed left-0 right-0 top-0 z-40 flex h-16 items-center justify-between border-b border-white/15 bg-black/80 px-4 backdrop-blur-xl lg:hidden">
-                    <Link to="/" className="flex items-center gap-2 text-sm font-bold text-white hover:text-gray-300">
-                        <ArrowLeft size={18} />
-                        Back
-                    </Link>
-                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="rounded-lg p-2 transition hover:bg-white/10">
-                        {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
-                </div>
+            <div className="flex h-screen flex-col lg:flex-row lg:pt-16">
+                <MobileTopbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                <MobileOverlay sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-                {/* Mobile overlay */}
-                {sidebarOpen && (
-                    <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-30 mt-16 bg-black/50 backdrop-blur-sm lg:hidden" />
-                )}
 
-                {/* Sidebar */}
                 <aside className={`fixed left-0 top-16 z-40 flex h-[calc(100vh-4rem)] w-64 flex-col justify-between overflow-y-auto border-r border-white/15 bg-black/95 px-4 pb-8 pt-4 backdrop-blur-xl transition-transform duration-300 lg:relative lg:top-0 lg:z-auto lg:h-full lg:w-72 lg:translate-x-0 lg:overflow-y-hidden lg:bg-white/5 lg:px-8 lg:pt-8 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
                     <div>
                         <DashboardNav
@@ -80,7 +61,7 @@ export default function Dashboard() {
                     </button>
                 </aside>
 
-                {/* Main */}
+         
                 <main className="mt-16 h-[calc(100vh-4rem)] w-full flex-1 overflow-y-auto lg:mt-0 lg:h-full">
                     <div className="min-h-full px-4 py-6 pb-12 lg:px-16 lg:py-8">
                         {activeTab === "overview" && <Overview setActiveTab={setActiveTab} />}
