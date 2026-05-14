@@ -41,7 +41,7 @@ export default function Dashboard() {
                 <MobileOverlay sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
 
-                <aside className={`fixed left-0 top-16 z-40 flex h-[calc(100vh-4rem)] w-64 flex-col justify-between overflow-y-auto border-r border-white/15 bg-black/95 px-4 pb-8 pt-4 backdrop-blur-xl transition-transform duration-300 lg:relative lg:top-0 lg:z-auto lg:h-full lg:w-72 lg:translate-x-0 lg:overflow-y-hidden lg:bg-white/5 lg:px-8 lg:pt-8 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+                <aside className={`fixed left-0 top-16 z-40 flex h-[calc(100vh-4rem)] w-64 flex-col justify-between overflow-y-auto border-r border-white/15 bg-black/95 px-4 pb-8 pt-4 backdrop-blur-xl transition-transform duration-300 lg:relative lg:top-0 lg:z-auto lg:h-full lg:w-64 lg:translate-x-0 lg:overflow-y-hidden lg:bg-white/5 lg:px-8 lg:pt-8 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
                     <div>
                         <DashboardNav
                             activeTab={activeTab}
