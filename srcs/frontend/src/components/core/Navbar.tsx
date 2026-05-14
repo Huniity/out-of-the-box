@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react'
 import logo_etic from '../../assets/logo_etic_white.png'
 
 var pages = [
-    { name: "HOME", path: "/homepage" },
+    { name: "HOME", path: "/" },
     { name: "EXPOSIÇÕES", path: "/exposicoes" },
     { name: "PALESTRAS", path: "/palestras" },
     { name: "WORKSHOPS", path: "/workshops" },
