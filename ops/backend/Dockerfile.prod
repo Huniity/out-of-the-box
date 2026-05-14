@@ -38,7 +38,7 @@ FROM python:3.14.4-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+    libpq-dev gcc curl && rm -rf /var/lib/apt/lists/*
 
 RUN pip install uv
 
