@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Target, ArrowLeft, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { ApiPage,DashboardNavProps } from "../types/dashboard";
+import type { ApiPage,DashboardNavProps } from "../../types/dashboard";
 
 
 export default function DashboardNav({ activeTab, onTabChange, onPagesLoaded, onClose }: DashboardNavProps) {
