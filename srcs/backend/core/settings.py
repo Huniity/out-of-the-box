@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-du@=ttc8hp*snf^og$mt_zywso3s713sq+_m=8yrma3cf=8s54'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
@@ -53,6 +53,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,8 +62,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -160,7 +161,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 # STATIC_URL = 'static/'
-STATICFILES_DIRS = []
-if os.path.exists(BASE_DIR / 'dist' / 'assets'):
-    STATICFILES_DIRS = [BASE_DIR / 'dist' / 'assets']
-STATIC_URL = '/assets/'
+# STATICFILES_DIRS = []
+# if os.path.exists(BASE_DIR / 'dist' / 'assets'):
+#     STATICFILES_DIRS = [BASE_DIR / 'dist' / 'assets']
+# STATIC_URL = '/assets/'
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles' / 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'staticfiles' / 'media'

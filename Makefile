@@ -14,11 +14,13 @@ env: ## Create .env file if it doesn't exist
 		printf "DEBUG=True\n" >> .env; \
 		printf "ALLOWED_HOSTS=localhost,127.0.0.1,backend, *\n" >> .env; \
 		printf "DJANGO_SETTINGS_MODULE=core.settings\n" >> .env; \
+		printf "SECRET_KEY=django-insecure-du@=ttc8hp*snf^og$mt_zywso3s713sq+_m=8yrma3cf=8s54\n" >> .env; \
 		printf "\n" >> .env; \
 		printf "# Production settings\n" >> .env; \
 		printf "\n" >> .env; \
 		printf "# ALLOWED_HOSTS=ootb.com,www.ootb.com\n" >> .env; \
 		printf "# DEBUG=False\n" >> .env; \
+		printf "\n" >> .env; \
 	else \
 		echo ".env file already exists."; \
 	fi
