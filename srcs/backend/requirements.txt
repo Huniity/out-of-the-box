@@ -65,3 +65,4 @@ tzdata==2026.2 ; sys_platform == 'win32'
 uritemplate==4.2.0
     # via drf-spectacular
 Pillow
+gunicorn
