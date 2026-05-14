@@ -1,148 +1,170 @@
-# Frontend Contributor Guide
+# Frontend Contributors Guide
 
-This document defines the visual system currently used in the frontend so new sections stay consistent.
+This file is the source of truth for frontend visual consistency.
 
-## 1) Core Design Principles
+## Stack and Styling Setup
 
-- Base mood: dark-first UI (`black` backgrounds) with high-contrast neon accents.
-- Main accent: lime green (`#c8ff00`) used for highlights, buttons, and interactive states.
-- Supporting accents: pink, orange, blue, purple, teal for category/event differentiation.
-- Most layout and typography is done with Tailwind utility classes.
+- Framework: React + Vite.
+- Utility styling: Tailwind CSS v4.
+- Tailwind is integrated with `@tailwindcss/vite` in `vite.config.js`.
+- Tailwind is loaded from `src/index.css` using `@import "tailwindcss";`.
+- There is currently no `tailwind.config.*` file.
 
-## 2) Colors
+Implication:
 
-### Primary and Neutral Colors
+- Theme and design tokens are currently managed with CSS variables in `src/index.css` and Tailwind arbitrary values in components.
 
-| Token / Purpose | Value | Where it appears |
-|---|---|---|
-| Main page background | `#000000` / `black` | Hero, navbar, many section backgrounds |
-| Main text on dark | `#ffffff` / `white` | Headings and labels |
-| Primary accent (brand action) | `#c8ff00` | Buttons, hover states, stars, highlighted words |
-| Border neutral (light mode tokenized) | `#e5e4e7` | Root border token in `index.css` |
-| Border neutral (dark mode tokenized) | `#2e303a` | Dark token in `index.css` |
+## CSS Architecture
 
-### Tokenized Global Colors (`src/index.css`)
+Primary style files:
 
-Light mode tokens:
+- `src/index.css`: global defaults, root variables, base typography, utility layer.
+- `src/styles/leaves.css`: decorative leaf motion keyframes.
+- `src/styles/marquee.css`: marquee animation and separators.
+- `src/styles/path.css`: area label accent color helpers.
 
-- `--text: #6b6375`
+Current custom utility:
+
+- `.no-scrollbar` in `src/index.css` under `@layer utilities`.
+
+Guidelines:
+
+- Put reusable utility classes in `src/index.css` under `@layer utilities`.
+- Keep section-specific animation in `src/styles/*.css`.
+- Keep component inline styles for one-off visual behavior only.
+
+## Current Global Tokens (`src/index.css`)
+
+Current root token values:
+
+- `--text: #fff`
 - `--text-h: #08060d`
-- `--bg: #fff`
-- `--border: #e5e4e7`
-- `--code-bg: #f4f3ec`
-- `--accent: #aa3bff`
-
-Dark mode tokens:
-
-- `--text: #9ca3af`
-- `--text-h: #f3f4f6`
 - `--bg: #000`
-- `--border: #2e303a`
-- `--code-bg: #1f2028`
-- `--accent: #c084fc`
+- `--sans: system-ui, 'Segoe UI', Roboto, sans-serif`
+- `--heading: system-ui, 'Segoe UI', Roboto, sans-serif`
+- `--mono: ui-monospace, Consolas, monospace`
 
-### Secondary Accent Palette (used by cards/areas/categories)
+Global type defaults:
 
-- Lime: `#c8ff00`
-- Pink: `#f9a8d4` / `#ff2f7e` / `#ec4899`
-- Orange: `#fb923c` / `#f97316` / `#f26a00`
-- Blue: `#60a5fa` / `#3b82f6` / `#2f70ff`
-- Purple: `#a78bfa` / `#a855f7` / `#9b4dff`
-- Teal/Green: `#14b8a6` / `#00c58d` / `#22c55e`
-- Yellow variant: `#eab308` / `#f4ff00`
+- Root font shorthand: `font: 18px/145% var(--sans)`
+- Letter spacing: `0.01rem`
 
-### Color Usage Rules for New Work
+Note:
 
-- Use `#c8ff00` for primary CTA/background accent and key hover highlights.
-- Keep dark surfaces (`black`, `white/5`, `white/10`) as the base canvas.
-- Use secondary colors for categorization (events, area cards, badges), not for primary actions.
-- If adding reusable styles, prefer CSS variables/tokens first; hardcoded hex should be for contextual accents.
+- Older tokens like `--border`, `--accent-bg`, `--social-bg` are not present in the current `src/index.css` and should not be treated as active system tokens.
 
-## 3) Typography
+## Color System
 
-## Current Font Stack
+### Primary visual language
 
-Defined in `src/index.css`:
+- Base canvas: black / near-black surfaces.
+- Primary interaction accent: `#c8ff00`.
+- Primary contrast text: white.
 
-- Sans: `system-ui, 'Segoe UI', Roboto, sans-serif`
-- Heading: `system-ui, 'Segoe UI', Roboto, sans-serif`
+### Secondary accents currently used in components
+
+- Pink family: `#f9a8d4`, `#ec4899`, `#ff2f7e`, `#e8365d`
+- Orange family: `#fb923c`, `#f97316`, `#f26a00`
+- Blue family: `#60a5fa`, `#3b82f6`, `#2f70ff`, `#745ff2`
+- Purple family: `#a78bfa`, `#a855f7`, `#9b4dff`
+- Green/teal family: `#22c55e`, `#14b8a6`, `#00c58d`
+- Yellow/lime family: `#eab308`, `#f4ff00`, `#b7ff00`
+- Supporting card neutrals: `#f5f0e8`, `#e0d8c8`, `#111`
+
+Guidelines:
+
+- Use `#c8ff00` for primary actions and key highlights.
+- Use secondary accents for category/event coding only.
+- Keep dark base surfaces consistent across sections.
+
+## Typography
+
+Font stack in use:
+
+- Sans/Heading: `system-ui, 'Segoe UI', Roboto, sans-serif`
 - Mono: `ui-monospace, Consolas, monospace`
 
-No custom webfont is currently loaded from Google/Adobe/local files.
+Current conventions:
 
-## Type Style Pattern in Components
+- Section titles: `font-black`, uppercase, tight tracking.
+- Metadata labels: small uppercase (`text-[10px]`) with extended tracking (`tracking-[0.2em]` or `tracking-widest`).
+- CTA labels: bold/black uppercase with strong contrast.
 
-- Heavy uppercase headings: classes like `font-black uppercase tracking-tight`.
-- Small metadata labels: classes like `text-[10px] font-bold tracking-[0.2em] uppercase`.
-- CTA buttons: compact, bold uppercase with wider tracking (`tracking-widest`).
+Guidelines:
 
-## Typography Rules for New Work
+- Keep the current font stack unless a team decision introduces brand fonts.
+- Preserve uppercase-heavy hierarchy for key headings and labels.
 
-- Follow existing utility pattern (`font-black` for section headings, `font-bold` for metadata).
-- Keep uppercase + letter-spacing style for labels and CTA text.
-- Do not introduce a new font family unless the team agrees and updates this guide.
+## Tailwind Usage Conventions
 
-## 4) Asset System
+Common patterns:
 
-## Asset Location
+- Section shells often use `bg-white/5 border-t border-white/10`.
+- Accent text and borders frequently use `[#c8ff00]` arbitrary values.
+- CTA hover style typically flips between lime and black.
+- Layout uses responsive arbitrary values (`top-[..]`, `left-[..]`, `w-[..]`, `rotate-[..]`) in decorative compositions.
 
-Primary location:
+Guidelines:
+
+- Reuse established class patterns before adding new visual systems.
+- Keep transitions mostly in the `duration-200` to `duration-300` range.
+- If an arbitrary value repeats in 3+ places, consider extracting a CSS variable or reusable class.
+
+## Assets
+
+Main directory:
 
 - `src/assets/`
 
-Current asset types used:
+Asset groups currently used:
 
 - Logos: `ootb_*.png`, `logo_etic_*.png`
-- Doodles/shapes: `d_*.png`, stars (`star_*.png`)
-- Leaves/plants: `leaf*.png`, `Artboard_*.png`, `bush.png`
-- Photography backgrounds/content: `.jpg`, `.webp` files such as `FUNDO.jpg`, `Design.webp`, `Jogos.webp`, etc.
+- Decorative doodles/stars: `d_*.png`, `star_*.png`, `Artboard_*.png`
+- Nature elements: `leaf*.png`, `bush.png`
+- Photography/content media: `FUNDO.jpg`, `*.webp` section images
 
-## Naming Pattern (already present)
+Guidelines:
 
-- Doodles: short prefixed names (`d_o.png`, `d_pu.png`, `d_blu.png`, etc.)
-- Series exports: `Artboard_#.png`
-- Semantic media names for feature cards: `Design.webp`, `marketing.webp`, etc.
+- Prefer `webp` for large photographic content.
+- Keep transparent decorative elements in `png`.
+- Use short, descriptive names for newly added assets.
 
-## Asset Usage Rules for New Work
+## Buttons and Interactions
 
-- Prefer `webp` for large photos/content cards when possible.
-- Keep transparent decorative assets as `png`.
-- Keep naming short but meaningful; if the asset is for a section, include section prefix (example: `carousel_ticket_bg.webp`).
-- Reuse existing decorative families (doodles/leaves/stars) before adding new visual styles.
+Current shared button language (from `MainButton` usage):
 
-## 5) Repeating UI Patterns
+- 2px bordered button silhouette.
+- Primary variant: lime background + black text.
+- Hover variant: black background + lime text/border.
+- Small icon motion on hover.
 
-## Buttons
+Guidelines:
 
-Primary button style pattern:
+- Extend `src/components/buttons/MainButton.tsx` for new CTA variants where possible.
+- Avoid introducing conflicting button systems in isolated sections.
 
-- Background: lime (`#c8ff00`) or white
-- Text: black
-- Hover: black background + lime text/border
-- Border: 2px solid
+## Contributor Checklist (Before PR)
 
-When possible, use/extend the shared button component (`src/components/buttons/MainButton.tsx`) instead of creating one-off button implementations.
+- Colors follow the current palette and role usage.
+- Typography follows the existing uppercase/weight hierarchy.
+- Tailwind classes follow existing section patterns.
+- Reusable styles are placed in global/style files where appropriate.
+- New assets are stored in `src/assets/` with clear naming.
+- Hover/focus states remain readable on dark backgrounds.
 
-## Section Shell
+## PR Checklist Template
 
-Many sections use:
+Copy this into PR descriptions for frontend visual changes:
 
-- `bg-white/5`
-- `border-t border-white/10`
-- white text with lime highlights
+- [ ] I used the current accent system (`#c8ff00` + contextual secondary accents).
+- [ ] I followed current typography conventions (`font-black`, uppercase metadata labels).
+- [ ] I avoided unnecessary new arbitrary Tailwind values.
+- [ ] Repeated custom values were extracted when appropriate.
+- [ ] New assets were added under `src/assets/` and optimized.
+- [ ] Hover/focus/active states were checked on dark backgrounds.
+- [ ] I updated `CONTRIBUTOR.md` if I changed visual conventions.
 
-Use this shell for visual continuity unless a section intentionally differs.
+## Maintenance Notes
 
-## 6) Consistency Checklist (Before PR)
-
-- Colors follow this palette (especially primary lime + dark base).
-- Typography uses existing utility conventions (heavy uppercase hierarchy).
-- Assets are placed in `src/assets/` with clear naming.
-- Decorative elements (doodles/leaves/stars) match current style language.
-- CTA and hover states keep the same contrast behavior.
-
-## 7) Recommended Improvement (Team TODO)
-
-Some components currently import assets using relative paths that look inconsistent with the real folder structure. As a team, consider normalizing imports to avoid confusion (for example via a shared alias like `@/assets/...`).
-
-This guide should be updated whenever the design system changes.
+- Update this file in the same PR whenever frontend visual patterns change.
+- If a Tailwind config file is introduced later, document token mapping and conventions here.
