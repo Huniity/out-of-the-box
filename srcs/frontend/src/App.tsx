@@ -1,10 +1,10 @@
 
 
 import Button from './components/buttons/MainButton'
-import AreasTrail from './components/Path'
+import AreasTrail from './components/homepage/Path'
 import { CalendarCheck, MoveRight, MoveDown, MapPin } from 'lucide-react'
-import Carousel from './components/Carousel'
-import BentoGallery from './components/BentoGallery'
+import Carousel from './components/homepage/Carousel'
+import BentoGallery from './components/homepage/BentoGallery'
 
 
 import OOTBLogo from './assets/ootb_w2.png'
@@ -17,7 +17,7 @@ import starPink from './assets/star_p.png'
 import doodleOrange from './assets/d_o.png'
 import doodleBlue from './assets/d_blu.png'
 import './styles/leaves.css'
-import EticCTA from './components/Cta'
+import EticCTA from './components/homepage/Cta'
 
 
 
@@ -111,21 +111,16 @@ function Homepage() {
                         alt="Background"
                         className="w-full h-full object-cover contrast-125 brightness-90"
                     />
-                    {/* Gray-100 fade — left edge */}
                     <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent" />
                     {/* <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-gray-100 to-transparent" /> */}
-                    {/* Gray-100 fade — right edge */}
                     <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent" />
                     {/* <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-gray-100 to-transparent" /> */}
-                    {/* Gray-100 fade — top edge */}
                     <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black to-transparent" />
                     {/* <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-gray-100 to-transparent" /> */}
-                    {/* Gray-100 fade — bottom edge */}
                     <div className="absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-t from-black to-transparent" />
                     {/* <div className="absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-t from-gray-100 to-transparent" /> */}
                 </div>
 
-                {/* Logo: col 2, row 1, z-10 */}
                 <div
                     className="z-10 flex items-start justify-start px-6 pt-[7%] relative [grid-column:2/4] [grid-row:1/2] max-sm:[grid-column:1/6] max-sm:justify-center"
                 >
@@ -143,9 +138,6 @@ function Homepage() {
                     />
                 </div>
 
-
-
-                {/* Buttons: col 2, row 3, z-10 — aligned with logo */}
                 <div
                     className="z-30 flex flex-col sm:flex-row items-end justify-center pb-20 px-6 gap-4 pl-12 relative [grid-column:2/3] [grid-row:3/4] max-sm:absolute max-sm:top-[55%] max-sm:left-0 max-sm:right-0 max-sm:justify-center max-sm:items-center max-sm:px-0 max-sm:pl-0 max-sm:pb-0"
                 >

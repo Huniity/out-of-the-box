@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CalendarCheck, MapPin, Timer } from 'lucide-react'
-import '../styles/marquee.css'
+import '../../styles/marquee.css'
 
 const COPIES = 4 // enough to always fill any screen width
 

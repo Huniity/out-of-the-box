@@ -1,16 +1,16 @@
 'use client'
 
-import doodlePink from '../assets/d_p.png'
-import doodlePurple from '../assets/d_pu.png'
-import doodleBlue from '../assets/d_blu.png'
-import doodleGreen from '../assets/d_g.png'
-import BlueDoodle from '../assets/Artboard_11_2.png'
-import doodleBlack from '../assets/d_b.png'
+import doodlePink from '../../assets/d_p.png'
+import doodlePurple from '../../assets/d_pu.png'
+import doodleBlue from '../../assets/d_blu.png'
+import doodleGreen from '../../assets/d_g.png'
+import BlueDoodle from '../../assets/Artboard_11_2.png'
+import doodleBlack from '../../assets/d_b.png'
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
-import BushImage from '../assets/bush.png'
+import BushImage from '../../assets/bush.png'
 
 
 const areas = [

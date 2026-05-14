@@ -2,11 +2,11 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGlobeEurope } from "react-icons/fa";
-import EticWhite from '../assets/logo_etic_white.png'
-import leafImg from '../assets/Artboard_4.png'
-import leafImg2 from '../assets/Artboard_13.png'
-import leafImg3 from '../assets/Artboard_12.png'
-import '../styles/leaves.css'
+import EticWhite from '../../assets/logo_etic_white.png'
+import leafImg from '../../assets/Artboard_4.png'
+import leafImg2 from '../../assets/Artboard_13.png'
+import leafImg3 from '../../assets/Artboard_12.png'
+import '../../styles/leaves.css'
 
 
 export default function Footer() {
