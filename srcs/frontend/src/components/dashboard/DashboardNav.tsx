@@ -40,10 +40,10 @@ export default function DashboardNav({ activeTab, onTabChange, onPagesLoaded, on
             <nav className="flex flex-col gap-1">
                 <button
                     onClick={() => select("overview")}
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border-none bg-transparent px-4 py-3 text-left text-sm font-medium transition-colors ${
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
                         activeTab === "overview"
-                            ? "bg-white/15 text-white"
-                            : "text-gray-400 hover:bg-white/5 hover:text-white"
+                            ? "border-[#c8ff00] bg-transparent text-[#c8ff00]"
+                            : "border-transparent bg-transparent text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white"
                     }`}
                 >
                     <Target size={18} className="shrink-0" />
@@ -57,10 +57,10 @@ export default function DashboardNav({ activeTab, onTabChange, onPagesLoaded, on
                         <button
                             key={page.id}
                             onClick={() => select(String(page.id))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border-none bg-transparent px-4 py-3 text-left text-sm font-medium transition-colors ${
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
                                 activeTab === String(page.id)
-                                    ? "bg-white/15 text-white"
-                                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                                    ? "border-[#c8ff00] bg-transparent text-[#c8ff00]"
+                                    : "border-transparent bg-transparent text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white"
                             }`}
                         >
                             <FileText size={18} className="shrink-0" />
