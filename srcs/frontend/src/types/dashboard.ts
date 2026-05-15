@@ -1,3 +1,5 @@
+
+
 export type ApiPage = {
     id: number;
     name: string;
@@ -12,4 +14,14 @@ export type DashboardNavProps = {
     onTabChange: (tab: string) => void;
     onPagesLoaded: (pages: ApiPage[]) => void;
     onClose: () => void;
+};
+
+export type DashboardProps = {
+    page: ApiPage;
+};
+
+export type PaginationProps = {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
 };
