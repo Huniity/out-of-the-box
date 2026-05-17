@@ -122,63 +122,73 @@ function Homepage() {
                 </div>
 
                 <div
-                    className="z-10 flex items-start justify-start px-6 pt-[7%] relative [grid-column:2/4] [grid-row:1/2] max-sm:[grid-column:1/6] max-sm:justify-center"
+                    className="z-10 flex flex-col items-start px-8 pt-[8%] relative [grid-column:2/4] [grid-row:1/4] max-sm:[grid-column:1/6] max-sm:items-center max-sm:px-6 max-sm:pt-[20%]"
                 >
                     <img
                         src={OOTBLogo}
                         alt="OOTB Logo"
-                        className="w-full min-w-[10%] max-w-[50%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%] mt-[20%] sm:mt-[10%] md:mt-[0%] lg:mt-[0%]"
+                        className="w-full min-w-[10%] max-w-[55%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%]"
                     />
-                    {/* Pink star — top-right of logotype */}
                     <img
                         src={starPink}
                         alt=""
                         aria-hidden="true"
                         style={{ width: '7%', position: 'absolute', top: '4%', left: '45%', pointerEvents: 'none', rotate: '-20deg' }}
                     />
-                </div>
 
-                <div
-                    className="z-30 flex flex-col sm:flex-row items-end justify-center pb-20 px-6 gap-4 pl-12 relative [grid-column:2/3] [grid-row:3/4] max-sm:absolute max-sm:top-[55%] max-sm:left-0 max-sm:right-0 max-sm:justify-center max-sm:items-center max-sm:px-0 max-sm:pl-0 max-sm:pb-0"
-                >
-                    {/* Green star — near Explore button */}
-                    <img
-                        src={starGreen}
-                        alt=""
-                        aria-hidden="true"
-                        style={{ width: '7%', position: 'absolute', bottom: '100%', left: '100%', pointerEvents: 'none', rotate: '-70deg' }}
-                    />
-                    <Button
-                        name="PROGRAMAÇÃO"
-                        textColor="black"
-                        hoverTextColor="#c8ff00"
-                        bgColor="#c8ff00"
-                        hoverBgColor="black"
-                        borderColor="black"
-                        hoverBorderColor="#c8ff00"
-                        borderWidth="2"
-                        width="52"
-                        height="8"
-                        textSize="text-base"
-                        fontSize="semibold"
-                        svgLeft={<CalendarCheck size={18} />}
-                        svgRight={<MoveRight size={18} />}
-                    />
-                    <Button
-                        name="EXPLORE"
-                        textColor="black"
-                        hoverTextColor="#c8ff00"
-                        bgColor="white"
-                        hoverBgColor="black"
-                        borderColor="black"
-                        hoverBorderColor="#c8ff00"
-                        borderWidth="2"
-                        width="52"
-                        height="8"
-                        textSize="text-base"
-                        fontSize="semibold"
-                        svgRight={<MoveDown size={18} />}
-                    />
+                    {/* Event info strip */}
+                    <div className="mt-5 flex items-center gap-3 flex-wrap">
+                        <span className="flex items-center gap-1.5 text-white/60 text-xs font-semibold tracking-wide uppercase">
+                            <CalendarCheck size={13} color="#c8ff00" />
+                            3–17 Jul 2026
+                        </span>
+                        <span className="text-white/20">·</span>
+                        <span className="flex items-center gap-1.5 text-white/60 text-xs font-semibold tracking-wide uppercase">
+                            <MapPin size={13} color="#c8ff00" />
+                            IPDJ, Faro
+                        </span>
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="relative mt-6 flex flex-col sm:flex-row gap-3">
+                        <img
+                            src={starGreen}
+                            alt=""
+                            aria-hidden="true"
+                            style={{ width: '7%', position: 'absolute', bottom: '120%', left: '95%', pointerEvents: 'none', rotate: '-70deg' }}
+                        />
+                        <Button
+                            name="PROGRAMAÇÃO"
+                            textColor="black"
+                            hoverTextColor="#c8ff00"
+                            bgColor="#c8ff00"
+                            hoverBgColor="black"
+                            borderColor="#c8ff00"
+                            hoverBorderColor="#c8ff00"
+                            borderWidth="2"
+                            width="52"
+                            height="8"
+                            textSize="text-base"
+                            fontSize="semibold"
+                            svgLeft={<CalendarCheck size={18} />}
+                            svgRight={<MoveRight size={18} />}
+                        />
+                        <Button
+                            name="EXPLORE"
+                            textColor="white"
+                            hoverTextColor="#c8ff00"
+                            bgColor="transparent"
+                            hoverBgColor="rgba(255,255,255,0.05)"
+                            borderColor="rgba(255,255,255,0.35)"
+                            hoverBorderColor="#c8ff00"
+                            borderWidth="2"
+                            width="52"
+                            height="8"
+                            textSize="text-base"
+                            fontSize="semibold"
+                            svgRight={<MoveDown size={18} />}
+                        />
+                    </div>
                 </div>
             </div>
         </section>
