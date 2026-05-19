@@ -6,6 +6,8 @@
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
 
 	"runArgs": ["--privileged"],
+	
+	// "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
 
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
