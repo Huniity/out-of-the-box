@@ -12,7 +12,7 @@ import '../../styles/leaves.css'
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-white/5 px-6 py-12 text-white md:px-16">
-      <img
+      {/* <img
         src={leafImg}
         alt=""
         aria-hidden="true"
@@ -22,7 +22,7 @@ export default function Footer() {
         sm:w-[20%] sm:right-[5%] sm:top-[35%] sm:rotate-[30deg]
         md:w-[20%] md:right-[22%] md:top-[65%] md:rotate-[35deg]
         lg:w-[20%] lg:right-[25%] lg:top-[60%] lg:rotate-[40deg]"
-      />
+      /> */}
       <img
         src={leafImg2}
         alt=""
@@ -36,7 +36,7 @@ export default function Footer() {
         "
       />
 
-      <img
+      {/* <img
         src={leafImg3}
         alt=""
         aria-hidden="true"
@@ -47,9 +47,9 @@ export default function Footer() {
           md:w-[20%] md:right-[61%] md:top-[85%] md:rotate-[295deg]
           lg:w-[20%] lg:left-[35%] lg:top-[110%] lg:rotate-[295deg]
         "
-      />
+      /> */}
 
-      <img
+      {/* <img
         src={leafImg}
         alt=""
         aria-hidden="true"
@@ -60,7 +60,7 @@ export default function Footer() {
           md:w-[20%] md:right-[75%] md:top-[100%] md:rotate-[5deg]
           lg:w-[20%] lg:left-[5%] lg:top-[100%] lg:rotate-[10deg]
         "
-      />
+      /> */}
 
       <img
         src={leafImg3}
@@ -142,10 +142,10 @@ export default function Footer() {
             <p>IPDJ, Faro</p>
             <p className="font-black text-[#c8ff00]">Entrada Livre</p>
             <a
-              href="mailto:geral@etic-algarve.pt"
+              href="mailto:secretaria@eticalgarve.pt"
               className="mt-4 block transition hover:text-[#c8ff00]"
             >
-              geral@etic-algarve.pt
+              secretaria@eticalgarve.pt
             </a>
           </div>
         </div>
