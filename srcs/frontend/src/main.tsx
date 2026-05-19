@@ -6,7 +6,8 @@ import './index.css'
 
 import App from './App'
 import Navbar from './components/core/Navbar'
-import MarqueeBanner from './components/homepage/MarqueeBanner'
+// import MarqueeBanner from './components/homepage/MarqueeBanner'
+// <MarqueeBanner />
 import Footer from './components/core/Footer'
 
 
@@ -23,7 +24,7 @@ import Dashboard from './pages/Dashboard'
 const MainLayout = () => (
   <>
     <Navbar />
-    <MarqueeBanner />
+    {/* <MarqueeBanner /> */}
     <Outlet />
     <Footer />
   </>
