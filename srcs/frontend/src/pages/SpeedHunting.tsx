@@ -72,7 +72,7 @@ const SpeedHunting = () => {
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
 
             {/* ── HERO ── */}
-            <section className="relative min-h-[calc(100vh-66px)] flex items-start px-8 xl:px-20 overflow-hidden">
+            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
 
