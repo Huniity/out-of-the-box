@@ -79,11 +79,6 @@ const SpeedHunting = () => {
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}
                     <div className="flex-1 flex flex-col py-8">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Recrutamento & Networking</span>
-                        </div>
-
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
                             SPEED<br />
@@ -142,7 +137,7 @@ const SpeedHunting = () => {
 
             {/* ── METRICS BAR ── */}
             <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 ml-12 mr-12">
                     {metrics.map((m, i) => (
                         <div key={i} className="flex flex-col gap-1">
                             <div className="flex items-center gap-3 mb-1">
@@ -152,7 +147,7 @@ const SpeedHunting = () => {
                                 )}
                             </div>
                             <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#c8ff00] mb-1">{m.label}</p>
-                            <p className="text-xs text-white/40 leading-relaxed mt-2 mx-2">{m.desc}</p>
+                            <p className="text-xs text-white/40 leading-relaxed mt-2">{m.desc}</p>
                         </div>
                     ))}
                 </div>
