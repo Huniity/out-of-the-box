@@ -7,7 +7,7 @@ import Carousel from './components/homepage/Carousel'
 import BentoGallery from './components/homepage/BentoGallery'
 
 
-import OOTBLogo from './assets/ootb_w2.png'
+import OOTBLogo from './assets/ootb_w24.png'
 import Fundo from './assets/FUNDO.jpg'
 import leafImg from './assets/leaf1.png'
 import leafImg2 from './assets/leaf2.png'
@@ -122,12 +122,12 @@ function Homepage() {
                 </div>
 
                 <div
-                    className="z-10 flex items-start justify-start px-6 pt-[7%] relative [grid-column:2/4] [grid-row:1/2] max-sm:[grid-column:1/6] max-sm:justify-center"
+                    className="z-10 flex items-start justify-start px-6 relative [grid-column:2/4] [grid-row:1/2] max-sm:[grid-column:1/6] max-sm:justify-center"
                 >
                     <img
                         src={OOTBLogo}
                         alt="OOTB Logo"
-                        className="w-full min-w-[10%] max-w-[50%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%] mt-[20%] sm:mt-[10%] md:mt-[0%] lg:mt-[0%]"
+                        className="w-full min-w-[10%] max-w-[60%] h-auto max-sm:max-w-[80%] max-md:max-w-[60%] mt-[20%] sm:mt-[10%] md:mt-[0%] lg:mt-[0%]"
                     />
                     {/* Pink star — top-right of logotype */}
                     <img
