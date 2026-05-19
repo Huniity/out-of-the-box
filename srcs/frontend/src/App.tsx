@@ -4,12 +4,11 @@ import AreasTrail from './components/homepage/Path'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import Carousel from './components/homepage/Carousel'
 import BentoGallery from './components/homepage/BentoGallery'
-import StaticZigzagPath from './components/core/StaticZigzagPath'
-import Fundo from './assets/FUNDO.jpg'
+import HeroGallery from './components/homepage/HeroGallery'
 import OOTBLogo from './assets/ootb_w26.png'
 import leafImg from './assets/leaf1.png'
 import leafImg2 from './assets/leaf2.png'
-import leafImg3 from './assets/leaf3.png'
+// import leafImg3 from './assets/leaf3.png'
 import doodleOrange from './assets/d_o.png'
 import doodleBlue from './assets/d_blu.png'
 import starGreen from './assets/star_g.png'
@@ -55,7 +54,7 @@ function Homepage() {
                 src={doodleOrange}
                 alt=""
                 aria-hidden="true"
-                className="absolute bottom-0 right-0 w-[18%] sm:bottom-[-7%] sm:right-[-10%] sm:w-[25%] pointer-events-none select-none z-[50]"
+                className="absolute bottom-0 right-0 w-[18%] sm:bottom-[40%] sm:right-[-10%] sm:w-[25%] pointer-events-none select-none z-[50]"
             />
 
             {/* Leaves */}
@@ -68,7 +67,7 @@ function Homepage() {
                     w-[55%] right-[-10%] top-[28%] -translate-y-1/2 rotate-[10deg]
                     sm:w-[45%] sm:right-[90%] sm:top-[18%] sm:rotate-[46deg]
                     md:w-[40%] md:right-[110%] md:top-[50%] md:rotate-[52deg]
-                    lg:w-[40%] lg:right-[112%] lg:top-[45%] lg:rotate-[60deg]
+                    lg:w-[35%] lg:right-[112%] lg:top-[45%] lg:rotate-[60deg]
                 "
             />
             <img
@@ -79,10 +78,10 @@ function Homepage() {
                     leaf-2 absolute pointer-events-none select-none z-[2]
                     w-[65%] right-[60%] top-[45%] -translate-y-1/2 rotate-[8deg]
                     sm:w-[46%] sm:right-[70%] sm:top-[52%] sm:rotate-[12deg]
-                    md:w-[40%] md:right-[80%] md:top-[90%] md:rotate-[16deg]
+                    md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
                 "
             />
-            <img
+            {/* <img
                 src={leafImg3}
                 alt=""
                 aria-hidden="true"
@@ -92,7 +91,7 @@ function Homepage() {
                     sm:w-[30%] sm:right-[-15%] sm:top-[23%] sm:rotate-[260deg]
                     md:w-[20%] md:right-[-5%] md:top-[35%] md:rotate-[290deg]
                 "
-            />
+            /> */}
 
             <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                 {/* Left — logotype + CTAs */}
@@ -122,12 +121,8 @@ function Homepage() {
                     </div>
                 </div>
 
-                {/* Right — hero image */}
-                <div className="flex-1 relative overflow-hidden min-h-64 lg:min-h-0 -mr-8 xl:-mr-20">
-                    <img src={Fundo} alt="Out of the Box 2026" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-                </div>
+                {/* Right — hero gallery */}
+                <HeroGallery />
             </div>
         </section>
             <AreasTrail />
