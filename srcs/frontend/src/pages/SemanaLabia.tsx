@@ -79,16 +79,16 @@ const SemanaLabia = () => {
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
             {/* ── HERO ── */}
-            <section className="relative min-h-[calc(100vh-66px)] flex items-start px-8 xl:px-20 overflow-hidden">
+            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
                 {/* Glow blobs */}
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
 
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}
-                    <div className="flex-1 flex flex-col">
+                    <div className="flex-1 flex flex-col py-8">
                         {/* Title */}
-                        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4 py-8"
+                        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
                             SEMANA<br />
                             <span className="text-[#c8ff00]">LÁBIA</span> 2026
@@ -152,7 +152,7 @@ const SemanaLabia = () => {
                                 )}
                             </div>
                             <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#c8ff00] mb-1">{m.label}</p>
-                            <p className="text-xs text-white/40 leading-relaxed">{m.desc}</p>
+                            <p className="text-xs text-white/40 leading-relaxed mt-2">{m.desc}</p>
                         </div>
                     ))}
                 </div>
