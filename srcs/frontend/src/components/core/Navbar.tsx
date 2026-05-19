@@ -9,6 +9,7 @@ var pages = [
     { name: "PALESTRAS", path: "/palestras" },
     { name: "WORKSHOPS", path: "/workshops" },
     { name: "PROJEÇÕES", path: "/projecoes" },
+    { name: "CONCERTOS", path: "/concertos" },
     { name: "SPEED HUNTING", path: "/speed-hunting" },
     { name: "SEMANA LÁBIA", path: "/semana-labia" },
 ]
