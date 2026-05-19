@@ -1,7 +1,8 @@
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import logo_etic from '../../assets/logo_etic_white.png'
+import MarqueeBanner from './MarqueeBanner'
 
 var pages = [
     { name: "HOME", path: "/" },
@@ -16,9 +17,34 @@ var pages = [
 
 function Navbar(){
     const [open, setOpen] = useState(false)
+    const [visible, setVisible] = useState(true)
+    const [navHeight, setNavHeight] = useState(0)
+    const lastScrollY = useRef(0)
+    const wrapperRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (wrapperRef.current) {
+            setNavHeight(wrapperRef.current.offsetHeight)
+        }
+    }, [])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentY = window.scrollY
+            setVisible(currentY < lastScrollY.current || currentY < 10)
+            lastScrollY.current = currentY
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     return (
-        <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative z-[300]">
+        <>
+        <div
+            ref={wrapperRef}
+            className={`fixed top-0 left-0 right-0 z-[300] transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}
+        >
+        <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative">
             {/* Logo — left */}
             <div className="flex items-center w-[50px]">
                 <img src={logo_etic} alt="Logo" width={50} height={50} />
@@ -68,6 +94,10 @@ function Navbar(){
                 </div>
             )}
         </nav>
+        <MarqueeBanner />
+        </div>
+        <div style={{ height: navHeight }} />
+        </>
     )
 
 }
