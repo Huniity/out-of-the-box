@@ -93,7 +93,7 @@ export default function AreasWall() {
   return (
     <section ref={sectionRef} className="px-8 xl:px-20 py-16 overflow-hidden relative bg-white/5">
       {/* Top fade — transparent → black */}
-      <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-50" style={{ background: 'linear-gradient(to bottom, black, transparent)' }} />
+      {/* <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-50" style={{ background: 'linear-gradient(to bottom, black, transparent)' }} /> */}
                   <img
                     src={doodleBlue}
                     alt=""
