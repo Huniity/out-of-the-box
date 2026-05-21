@@ -4,6 +4,7 @@ import heroImg from '../assets/FUNDO.jpg'
 import proj from '../assets/FUNDO.jpg'
 import '../styles/leaves.css'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
+import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 
 const metrics = [
@@ -103,16 +104,14 @@ const SemanaLabia = () => {
 
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="#sobre"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                            <PrimaryButton href="#sobre">
                                 Saber mais
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a href="#projetos"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                            </PrimaryButton>
+                            <SecondaryButton href="#projetos">
                                 Ver projetos
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
 
@@ -289,11 +288,10 @@ const SemanaLabia = () => {
                         <p className="mt-4 text-xs text-white/40">Criatividade, colaboração e aprendizagem em contexto real.</p>
                     </div>
                     <div className="shrink-0">
-                        <a href="#projetos"
-                            className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-6 py-3 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                        <PrimaryButton href="#projetos" size="lg">
                             Explorar Área Especial
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                        </a>
+                        </PrimaryButton>
                     </div>
                 </div>
             </section>

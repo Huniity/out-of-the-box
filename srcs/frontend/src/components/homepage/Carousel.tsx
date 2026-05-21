@@ -7,7 +7,7 @@ import doodlePink from '../../assets/d_p.png'
 import { useRef, useState, useEffect } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
 import Fundo from '../../assets/FUNDO.jpg'
-import Button from '../buttons/MainButton'
+import { PrimaryButton } from '../buttons/MainButton'
 
 type EventCard = {
   day: number
@@ -126,7 +126,7 @@ const Programacao = () => {
               <span className="text-[#e8365d] text-lg leading-none">✦</span><span className="text-white/18 text-[10px] font-bold tracking-[0.2em] uppercase">CABEÇAS DE CARTAZ</span>
             </div>
             <h2 className="font-black text-3xl xl:text-4xl text-white tracking-widest uppercase leading-tight tracking-tight">
-              Os Destaques do <span className="text-[#c8ff00]">OOTB</span>
+              Os Destaques do <span className="text-[#c8ff00]">Out of The Box</span>
             </h2>
           </div>
 
@@ -135,7 +135,7 @@ const Programacao = () => {
               <button
                 key={dir}
                 onClick={() => shift(dir)}
-                className="w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 disabled:opacity-25"
+                className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-200 disabled:opacity-25"
                 style={{
                   borderColor: dir === -1
                     ? (offset <= 0 ? 'rgba(198,220,128,0.2)' : 'rgba(198,220,128,0.5)')
@@ -151,7 +151,7 @@ const Programacao = () => {
                 }}
                 disabled={dir === -1 ? offset <= 0 : offset >= maxOffset}
               >
-                <Icon size={14} color="#c8ff00" />
+                <Icon size={24} color="#c8ff00" />
               </button>
             ))}
           </div>
@@ -267,8 +267,8 @@ const Programacao = () => {
                 onClick={() => setOffset(Math.min(i * CARD_W, maxOffset))}
                 className="rounded-full transition-all duration-300"
                 style={{
-                  width: active ? '20px' : '6px',
-                  height: '6px',
+                  width: active ? '50px' : '10px',
+                  height: '10px',
                   backgroundColor: active ? '#c8ff00' : 'rgba(255,255,255,0.2)',
                 }}
                 aria-label={`Go to event ${i + 1}`}
@@ -279,21 +279,10 @@ const Programacao = () => {
 
         {/* CTA button */}
         <div className="flex justify-center mt-6">
-          <Button
-            name="PROGRAMAÇÃO COMPLETA"
-            textColor="black"
-            hoverTextColor="#c8ff00"
-            bgColor="#c8ff00"
-            hoverBgColor="black"
-            borderColor="black"
-            hoverBorderColor="#c8ff00"
-            borderWidth="2"
-            width="82"
-            height="8"
-            textSize="text-base"
-            fontSize="semibold"
-            svgRight={<MoveRight size={18} />}
-          />
+          <PrimaryButton href="/programacao">
+            PROGRAMAÇÃO COMPLETA
+            <MoveRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+          </PrimaryButton>
         </div>
       </div>
     </section>
