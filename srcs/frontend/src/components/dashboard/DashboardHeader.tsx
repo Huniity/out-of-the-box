@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import logo_etic from "../../assets/logo_etic_white.png";
+import logo_etic from "../../assets/Asset5.svg";
 
 interface User {
   firstName: string;
@@ -14,8 +14,8 @@ export default function DashboardHeader({ user }: { user: User }) {
     return (
         <header className="hidden lg:flex fixed top-0 left-0 right-0 h-16 z-50 items-center justify-between px-6 border-b border-white/10 bg-[#0A0A0A] text-white">
             <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center h-9 w-9">
-                    <img src={logo_etic} alt="Logo" width={50} height={50} />
+                <div className="flex items-center justify-center h-90 w-30">
+                    <img src={logo_etic} alt="Logo" width={100} height={100} />
                 </div>
                 <div className="h-8 w-[1px] bg-white/15" />
                 <div className="flex flex-col justify-center">
