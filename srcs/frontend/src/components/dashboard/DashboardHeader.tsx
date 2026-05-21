@@ -12,9 +12,9 @@ interface User {
 
 export default function DashboardHeader({ user }: { user: User }) {
     return (
-        <header className="hidden lg:flex fixed top-0 left-0 right-0 h-16 z-50 items-center justify-between px-6 border-b border-white/10 bg-[#0A0A0A] text-white">
+        <header className="hidden lg:flex fixed top-0 left-0 right-0 h-16 z-50 items-center justify-between px-6 border-b border-white/10 bg-[#0A0A0A] text-white overflow-hidden">
             <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center h-90 w-30">
+                <div className="flex items-center justify-center w-30">
                     <img src={logo_etic} alt="Logo" width={100} height={100} />
                 </div>
                 <div className="h-8 w-[1px] bg-white/15" />

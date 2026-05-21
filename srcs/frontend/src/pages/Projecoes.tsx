@@ -2,6 +2,7 @@
 import { CalendarDays, MapPin, Users, Play, Star, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
 import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
+import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 const metrics = [
     {
@@ -134,16 +135,14 @@ const Projecoes = () => {
 
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="#programa"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                            <PrimaryButton href="#programa">
                                 Ver Programa
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a href="#sobre"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                            </PrimaryButton>
+                            <SecondaryButton href="#sobre">
                                 Sobre as Projeções
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
 
@@ -238,11 +237,10 @@ const Projecoes = () => {
                 </div>
 
                 <div className="mt-10 flex justify-center">
-                    <a href="#sobre"
-                        className="group inline-flex items-center gap-2 rounded-sm border border-white/20 px-8 py-3 text-xs font-black uppercase tracking-widest text-white/60 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                    <SecondaryButton href="#sobre" size="lg">
                         Ver Programa Completo
                         <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </a>
+                    </SecondaryButton>
                 </div>
             </section>
 
@@ -300,11 +298,10 @@ const Projecoes = () => {
                         <p className="mt-4 text-xs text-white/40">A tua presença inspira o futuro do cinema e da televisão.</p>
                     </div>
                     <div className="shrink-0">
-                        <a href="#programa"
-                            className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-6 py-3 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                        <PrimaryButton href="#programa" size="lg">
                             Saber Mais
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                        </a>
+                        </PrimaryButton>
                     </div>
                 </div>
             </section>

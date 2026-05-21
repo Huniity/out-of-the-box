@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Briefcase, Users, MessageSquare, Link2, CheckCircle2, ChevronRight } from 'lucide-react'
 import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
+import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 const metrics = [
     {
@@ -100,16 +101,14 @@ const SpeedHunting = () => {
 
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="#empresas"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                            <PrimaryButton href="#empresas">
                                 Ver Empresas Confirmadas
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a href="#como-funciona"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                            </PrimaryButton>
+                            <SecondaryButton href="#como-funciona">
                                 Como Funciona
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
 
@@ -319,11 +318,10 @@ const SpeedHunting = () => {
                         <p className="mt-4 text-xs text-white/40">Vem fazer acontecer. 9 e 10 de Julho · IPDJ, Faro · Entrada Livre.</p>
                     </div>
                     <div className="shrink-0">
-                        <a href="#empresas"
-                            className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-6 py-3 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                        <PrimaryButton href="#empresas" size="lg">
                             Saber Mais Sobre o OUTB
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                        </a>
+                        </PrimaryButton>
                     </div>
                 </div>
             </section>
