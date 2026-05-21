@@ -66,9 +66,6 @@ const Workshops = () => {
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}
                     <div className="flex-1 flex flex-col py-8">
-                        <p className="text-[#c8ff00] text-[10px] font-black uppercase tracking-[0.25em] mb-4">
-                            Sessões Práticas
-                        </p>
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
                             WORK
@@ -268,13 +265,8 @@ const Workshops = () => {
             </section>
 
             {/* ── CTA BANNER ── */}
-            <section className="relative overflow-hidden px-8 xl:px-20 py-24">
-                <div className="absolute inset-0 z-0">
-                    <img src={heroImg} alt="" className="w-full h-full object-cover brightness-[0.2]" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
-                </div>
-
-                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
+            <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
+                <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
                         <div className="mb-6 flex items-center gap-3">
                             <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
@@ -285,14 +277,14 @@ const Workshops = () => {
                             APRENDE COM AS EQUIPAS.<br />
                             CRIA <span className="text-[#c8ff00]">SEM LIMITES.</span>
                         </h2>
-                    </div>
-                    <div className="flex flex-col gap-5 max-w-xs">
                         <p className="text-sm text-white/50 leading-relaxed">
                             Workshops intensivos para desafiar ideias, ganhar novas skills
                             e transformar criatividade em ação.
                         </p>
+                    </div>
+                    <div className="flex flex-col gap-5 max-w-xs">
                         <PrimaryButton href="#programa" size="lg" className="self-start">
-                            Garantir Lugar
+                            Garante o teu Lugar
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>

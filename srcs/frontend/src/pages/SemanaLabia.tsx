@@ -274,10 +274,6 @@ const SemanaLabia = () => {
             <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Semana Lábia 2026</span>
-                        </div>
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             <span className="text-[#c8ff00]">1</span> SEMANA. <br />
@@ -285,7 +281,6 @@ const SemanaLabia = () => {
                             <span className="text-[#c8ff00]">104</span> FORMANDOS.<br />
                             <span className="text-[#c8ff00]">INÚMERAS</span> EXPERIÊNCIAS.
                         </h2>
-                        <p className="mt-4 text-xs text-white/40">Criatividade, colaboração e aprendizagem em contexto real.</p>
                     </div>
                     <div className="shrink-0">
                         <PrimaryButton href="#projetos" size="lg">
