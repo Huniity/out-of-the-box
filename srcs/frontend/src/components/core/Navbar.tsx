@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
-import logo_etic from '../../assets/logo_etic_white.png'
+import logo_etic from '../../assets/Asset5.svg'
 import MarqueeBanner from './MarqueeBanner'
 
 var pages = [
@@ -46,8 +46,8 @@ function Navbar(){
         >
         <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative">
             {/* Logo — left */}
-            <div className="flex items-center w-[50px]">
-                <img src={logo_etic} alt="Logo" width={50} height={50} />
+            <div className="flex items-center w-[125px]">
+                <img src={logo_etic} alt="Logo" width={250} height={250} />
             </div>
 
             {/* Desktop links — centered */}

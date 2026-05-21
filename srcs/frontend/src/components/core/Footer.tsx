@@ -2,7 +2,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGlobeEurope } from "react-icons/fa";
-import EticWhite from '../../assets/logo_etic_white.png'
+import EticWhite from '../../assets/Asset5.svg'
 import leafImg from '../../assets/Artboard_4.png'
 import leafImg2 from '../../assets/Artboard_13.png'
 import leafImg3 from '../../assets/Artboard_12.png'
@@ -91,10 +91,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-4">
           <div className="mb-5 flex items-center gap-3">
-            <img src={EticWhite} alt="ETIC Algarve Logo" className="w-12 shrink-0" />
-            <p className="max-w-[220px] text-sm text-left font-bold uppercase leading-tight text-white/80">
-              Escola de Tecnologias, Inovação e Criação do Algarve
-            </p>
+            <img src={EticWhite} alt="ETIC Algarve Logo" className="w-60 shrink-0" />
           </div>
 
 

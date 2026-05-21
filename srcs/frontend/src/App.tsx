@@ -81,18 +81,6 @@ function Homepage() {
                     md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
                 "
             />
-            {/* <img
-                src={leafImg3}
-                alt=""
-                aria-hidden="true"
-                className="
-                    leaf-3 absolute pointer-events-none select-none z-[200]
-                    w-[45%] right-[-5%] top-[92%] -translate-y-1/2 rotate-[280deg]
-                    sm:w-[30%] sm:right-[-15%] sm:top-[23%] sm:rotate-[260deg]
-                    md:w-[20%] md:right-[-5%] md:top-[35%] md:rotate-[290deg]
-                "
-            /> */}
-
             <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                 {/* Left — logotype + CTAs */}
                 <div className="flex-1 flex flex-col items-center justify-center py-8 pb-32">
@@ -121,7 +109,7 @@ function Homepage() {
                     </div>
                 </div>
 
-                {/* Right — hero gallery */}
+
                 <HeroGallery />
             </div>
         </section>
