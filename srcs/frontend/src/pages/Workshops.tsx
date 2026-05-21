@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Zap, Camera, Film, Music2, Code2, Megaphone, Gamepad2, Tv2, X } from 'lucide-react'
 import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
+import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 const areas = [
     { icon: <Zap      size={26} strokeWidth={1.5} />, name: 'DESIGN',       color: '#c8ff00', desc: 'Comunicação visual, branding e design de experiências.' },
@@ -89,16 +90,14 @@ const Workshops = () => {
 
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="#programa"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                            <PrimaryButton href="#programa">
                                 Ver Workshops
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a href="#areas"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                            </PrimaryButton>
+                            <SecondaryButton href="#areas">
                                 Explorar Áreas
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
 
@@ -292,11 +291,10 @@ const Workshops = () => {
                             Workshops intensivos para desafiar ideias, ganhar novas skills
                             e transformar criatividade em ação.
                         </p>
-                        <a href="#programa"
-                            className="group inline-flex items-center gap-2 self-start rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-6 py-3 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                        <PrimaryButton href="#programa" size="lg" className="self-start">
                             Garantir Lugar
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                        </a>
+                        </PrimaryButton>
                     </div>
                 </div>
             </section>

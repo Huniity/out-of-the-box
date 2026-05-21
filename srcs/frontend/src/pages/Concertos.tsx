@@ -2,6 +2,7 @@
 import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock, Music2, Eye, Shuffle } from 'lucide-react'
 import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
+import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 const featuredEvent = {
     day: '3',
@@ -85,16 +86,14 @@ const Concertos = () => {
 
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="#programa"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                            <PrimaryButton href="#programa">
                                 <Music size={14} /> Ver Programa
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a href="#atuacoes"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white">
+                            </PrimaryButton>
+                            <SecondaryButton href="#atuacoes">
                                 Explorar Atuações
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
 
@@ -180,11 +179,10 @@ const Concertos = () => {
                             PROGRAMA DE <span className="text-[#c8ff00]">ATUAÇÕES</span>
                         </h2>
                     </div>
-                    <a href="#"
-                        className="group inline-flex items-center gap-2 rounded-sm border border-white/20 px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-white/50 transition-colors duration-200 hover:border-white/40 hover:text-white shrink-0">
+                    <SecondaryButton href="#" className="shrink-0">
                         Ver Programa Completo
                         <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </a>
+                    </SecondaryButton>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -238,11 +236,10 @@ const Concertos = () => {
                             ATUAÇÕES DOS <span className="text-[#c8ff00]">ALUNOS</span>
                         </h2>
                     </div>
-                    <a href="#"
-                        className="group inline-flex items-center gap-2 rounded-sm border border-white/20 px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-white/50 transition-colors duration-200 hover:border-white/40 hover:text-white shrink-0">
+                    <SecondaryButton href="#" className="shrink-0">
                         Ver Todas as Atuações
                         <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </a>
+                    </SecondaryButton>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
@@ -307,11 +304,10 @@ const Concertos = () => {
                         </p>
                     </div>
                     <div className="shrink-0">
-                        <a href="#programa"
-                            className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-6 py-3 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]">
+                        <PrimaryButton href="#programa" size="lg">
                             Vem Viver
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                        </a>
+                        </PrimaryButton>
                     </div>
                 </div>
             </section>
