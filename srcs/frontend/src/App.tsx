@@ -92,11 +92,11 @@ function Homepage() {
                             className="w-full max-w-[450px] h-auto select-none"
                         />
                         <div className="flex flex-wrap justify-center gap-3">
-                            <PrimaryButton href="#programacao">
+                            <PrimaryButton href="/programacao">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                             </PrimaryButton>
-                            <SecondaryButton href="#descobrir">
+                            <SecondaryButton href="">
                                 Descobrir Festival
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
                             </SecondaryButton>

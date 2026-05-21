@@ -30,7 +30,7 @@ export default function HeroGallery() {
     }, [])
 
     return (
-        <div className="flex-1 relative overflow-hidden min-h-64 lg:min-h-0 -mr-8 xl:-mr-20">
+        <div className=" flex-1 relative overflow-hidden min-h-64 lg:min-h-0 -mr-8 xl:-mr-20">
             {images.map((img, i) => (
                 <img
                     key={img.src}
