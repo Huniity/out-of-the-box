@@ -116,8 +116,8 @@ const Projecoes = () => {
                     <div className="flex-1 flex flex-col py-8">
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            O CINEMA<br />
-                            <span className="text-[#c8ff00]">QUE CRIAMOS</span>
+                            ETIC<br />
+                            <span className="text-[#c8ff00]">EM CARTAZ </span>
                         </h1>
 
                         <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
@@ -283,17 +283,13 @@ const Projecoes = () => {
             </section>
 
             {/* ── CTA BANNER ── */}
-            <section className="relative overflow-hidden px-8 xl:px-20 py-20">
+            <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Projeções Vídeo 2026</span>
-                        </div>
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                            APOIA O TALENTO.<br />
-                            <span className="text-[#c8ff00]">VEM VER.</span>
+                            APOIA O  <span className="text-[#c8ff00]">TALENTO.</span><br />
+                            VEM<span className="text-[#c8ff00]"> VER.</span>
                         </h2>
                         <p className="mt-4 text-xs text-white/40">A tua presença inspira o futuro do cinema e da televisão.</p>
                     </div>
@@ -305,7 +301,6 @@ const Projecoes = () => {
                     </div>
                 </div>
             </section>
-
         </div>
     )
 }

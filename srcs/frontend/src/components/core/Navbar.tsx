@@ -21,17 +21,32 @@ function Navbar(){
     const [navHeight, setNavHeight] = useState(0)
     const lastScrollY = useRef(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
+    const navHeightRef = useRef(0)
 
     useLayoutEffect(() => {
-        if (wrapperRef.current) {
-            setNavHeight(wrapperRef.current.offsetHeight)
-        }
+        const el = wrapperRef.current
+        if (!el) return
+        const h = el.offsetHeight
+        navHeightRef.current = h
+        setNavHeight(h)
+        // Seed lastScrollY with the current position so the scroll handler
+        // never misreads direction on the very first event after mount.
+        lastScrollY.current = window.scrollY
+        // If the browser restores scroll past the navbar (e.g. history.back()),
+        // start hidden immediately — before first paint, so no CSS transition fires.
+        if (window.scrollY > h) setVisible(false)
+        const ro = new ResizeObserver(() => {
+            navHeightRef.current = el.offsetHeight
+            setNavHeight(el.offsetHeight)
+        })
+        ro.observe(el)
+        return () => ro.disconnect()
     }, [])
 
     useEffect(() => {
         const handleScroll = () => {
             const currentY = window.scrollY
-            setVisible(currentY < lastScrollY.current || currentY < 10)
+            setVisible(currentY < lastScrollY.current || currentY < navHeightRef.current)
             lastScrollY.current = currentY
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
