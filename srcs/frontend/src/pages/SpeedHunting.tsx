@@ -303,29 +303,24 @@ const SpeedHunting = () => {
             </section>
 
             {/* ── CTA BANNER ── */}
-            <section className="relative overflow-hidden px-8 xl:px-20 py-20">
+            <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Speed Hunting 2026</span>
-                        </div>
-                        <h2 className="font-black uppercase leading-none tracking-tight text-white"
+                                                <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                            DOIS DIAS. CENTENAS DE ENCONTROS.<br />
-                            <span className="text-[#c8ff00]">INÚMERAS OPORTUNIDADES.</span>
+                            <span className="text-[#c8ff00]">DOIS</span> DIAS. <br />
+                            <span className="text-[#c8ff00]">DEZENAS</span> PROJETOS.<br />
+                            <span className="text-[#c8ff00]">INÚMERAS</span> OPORTUNIDADES.<br />
                         </h2>
-                        <p className="mt-4 text-xs text-white/40">Vem fazer acontecer. 9 e 10 de Julho · IPDJ, Faro · Entrada Livre.</p>
                     </div>
                     <div className="shrink-0">
-                        <PrimaryButton href="#empresas" size="lg">
-                            Saber Mais Sobre o OUTB
+                        <PrimaryButton href="#projetos" size="lg">
+                            Vem visitar nos!
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>
                 </div>
             </section>
-
         </div>
     )
 }

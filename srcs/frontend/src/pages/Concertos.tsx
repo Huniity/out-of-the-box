@@ -284,15 +284,9 @@ const Concertos = () => {
             </section>
 
             {/* ── CTA BANNER ── */}
-            <section className="relative overflow-hidden px-8 xl:px-20 py-20">
-                <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover brightness-20 pointer-events-none" />
-                <div className="absolute inset-0 bg-black/70" />
-                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-10 justify-between max-w-4xl">
-                    <div className="flex-1">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Vive o Out of the Box</span>
-                        </div>
+            <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
+                <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
+                   <div className="flex-1">
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             QUERES VIVER A EXPERIÊNCIA<br />
@@ -311,7 +305,6 @@ const Concertos = () => {
                     </div>
                 </div>
             </section>
-
         </div>
     )
 }
