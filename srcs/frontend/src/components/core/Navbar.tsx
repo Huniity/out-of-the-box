@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import logo_etic from '../../assets/Asset5.svg'
 import MarqueeBanner from './MarqueeBanner'
@@ -22,7 +22,7 @@ function Navbar(){
     const lastScrollY = useRef(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (wrapperRef.current) {
             setNavHeight(wrapperRef.current.offsetHeight)
         }
@@ -44,7 +44,7 @@ function Navbar(){
             ref={wrapperRef}
             className={`fixed top-0 left-0 right-0 z-[300] transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}
         >
-        <nav className="w-full flex items-center md:p-2 bg-black md:pl-2 pl-4 p-4 relative">
+        <nav className="w-full flex items-center md:p-4 bg-black md:pl-4 pl-4 p-4 relative">
             {/* Logo — left */}
             <div className="flex items-center w-[125px]">
                 <img src={logo_etic} alt="Logo" width={250} height={250} />

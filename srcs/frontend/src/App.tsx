@@ -2,8 +2,9 @@
 
 import AreasTrail from './components/homepage/Path'
 import { ArrowRight, ChevronDown } from 'lucide-react'
+import { PrimaryButton, SecondaryButton } from './components/buttons/MainButton'
 import Carousel from './components/homepage/Carousel'
-import BentoGallery from './components/homepage/BentoGallery'
+// import BentoGallery from './components/homepage/BentoGallery'
 import HeroGallery from './components/homepage/HeroGallery'
 import OOTBLogo from './assets/ootb_w26.png'
 import leafImg from './assets/leaf1.png'
@@ -15,7 +16,7 @@ import starGreen from './assets/star_g.png'
 import starPink from './assets/star_p.png'
 import './styles/leaves.css'
 import EticCTA from './components/homepage/Cta'
-import MarqueeBanner from './components/core/MarqueeBanner'
+// import MarqueeBanner from './components/core/MarqueeBanner'
 
 
 
@@ -91,20 +92,14 @@ function Homepage() {
                             className="w-full max-w-[450px] h-auto select-none"
                         />
                         <div className="flex flex-wrap justify-center gap-3">
-                            <a
-                                href="#programacao"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2.5 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]"
-                            >
+                            <PrimaryButton href="#programacao">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </a>
-                            <a
-                                href="#descobrir"
-                                className="group inline-flex items-center gap-2 rounded-sm border-2 border-white/20 px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white/70 transition-colors duration-200 hover:border-white/40 hover:text-white"
-                            >
+                            </PrimaryButton>
+                            <SecondaryButton href="#descobrir">
                                 Descobrir Festival
                                 <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </a>
+                            </SecondaryButton>
                         </div>
                     </div>
                 </div>
@@ -115,7 +110,6 @@ function Homepage() {
         </section>
             <AreasTrail />
             <Carousel />
-            <BentoGallery />
             <EticCTA />
         </>
     );
