@@ -61,12 +61,9 @@ def seed_database():
     print("Creating sample events...")
 
     concert = Concert.objects.create(
-        title="Opening Night Concert",
+        band_name="The Algarve Collective",
         description="A live concert to open the event with energy and music.",
-        artist_name="The Algarve Collective",
-        lineup="DJ Luna, The Wave Riders, Maria Sol",
         start_datetime=now + timedelta(days=1, hours=18),
-        end_datetime=now + timedelta(days=1, hours=21),
         location="Main Stage",
         is_active=True,
     )
@@ -74,10 +71,12 @@ def seed_database():
 
     exhibition = Exhibition.objects.create(
         title="Digital Art Exhibition",
-        description="An exhibition showcasing local digital artists.",
-        artist_name="Ana Martins",
-        start_datetime=now + timedelta(days=2, hours=10),
-        end_datetime=now + timedelta(days=2, hours=18),
+        area="DESIGN",
+        synopsis="An exhibition showcasing local digital artists.",
+        artists="Ana Martins",
+        opening_hours="10:00 - 18:00",
+        start_date=(now + timedelta(days=2)).date(),
+        end_date=(now + timedelta(days=5)).date(),
         location="Gallery Room",
         is_active=True,
     )
@@ -87,10 +86,8 @@ def seed_database():
         title="Future of Creative Technology",
         description="A talk about technology, creativity, and new opportunities.",
         speaker_name="João Silva",
-        speaker_role="Creative Director",
-        company="Tech Algarve",
+        speaker_activity="Creative Director",
         start_datetime=now + timedelta(days=3, hours=14),
-        end_datetime=now + timedelta(days=3, hours=15),
         location="Conference Room A",
         is_active=True,
     )
@@ -100,10 +97,8 @@ def seed_database():
         title="Future of Creative Technology 2",
         description="A talk about technology, creativity, and new opportunities. 2",
         speaker_name="João Silva",
-        speaker_role="Creative Director",
-        company="Tech Algarve",
+        speaker_activity="Creative Director",
         start_datetime=now + timedelta(days=3, hours=14),
-        end_datetime=now + timedelta(days=4, hours=15),
         location="Conference Room B",
         is_active=True,
     )
@@ -121,26 +116,19 @@ def seed_database():
     add_image(special_zone, "special-zone.png")
 
     speed_hunting = SpeedHunting.objects.create(
-        title="Speed Hunting Sessions",
-        description="Fast networking between companies and candidates.",
         company_name="Algarve Jobs Hub",
-        recruiter_name="Carla Mendes",
-        max_candidates=30,
         start_datetime=now + timedelta(days=4, hours=10),
-        end_datetime=now + timedelta(days=4, hours=13),
         location="Networking Area",
-        registration_required=True,
         is_active=True,
     )
-    add_image(speed_hunting, "speed-hunting.png")
+    speed_hunting.company_logo.save("speed-hunting.png", ContentFile(DUMMY_IMAGE), save=True)
 
     video_screening = VideoScreening.objects.create(
         title="Short Film Screening",
-        description="A selection of short films from emerging creators.",
-        duration_minutes=90,
-        director_name="Miguel Costa",
+        synopsis="A selection of short films from emerging creators.",
+        duration="90 minutos",
+        director_team="Miguel Costa",
         start_datetime=now + timedelta(days=2, hours=20),
-        end_datetime=now + timedelta(days=2, hours=21, minutes=30),
         location="Cinema Room",
         is_active=True,
     )
@@ -149,13 +137,10 @@ def seed_database():
     workshop = Workshop.objects.create(
         title="Intro to Creative Coding",
         description="A beginner-friendly workshop about coding visual experiences.",
-        capacity=25,
-        materials_required="Laptop, charger, notebook",
+        max_participants=25,
         mentor_name="Beatriz Rocha",
         start_datetime=now + timedelta(days=3, hours=10),
-        end_datetime=now + timedelta(days=3, hours=12),
         location="Workshop Room B",
-        registration_required=True,
         is_active=True,
     )
     add_image(workshop, "workshop.png")
