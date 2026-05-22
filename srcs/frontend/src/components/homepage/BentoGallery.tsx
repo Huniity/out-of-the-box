@@ -68,7 +68,7 @@ const BentoGallery = () => {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-              <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Galeria · ETIC_Algarve</span>
+              <span className="text-white/30 text-xs font-bold tracking-[0.2em] uppercase">Galeria · ETIC_Algarve</span>
             </div>
             <h2 className="font-black text-4xl xl:text-5xl uppercase leading-none tracking-tight">
               OUR STUDENT<span className="text-[#c8ff00]"> SHOWROOM</span>
@@ -89,7 +89,7 @@ const BentoGallery = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid auto-rows-[180px] grid-cols-2 gap-3 md:grid-cols-12">
+        <div className="grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-12">
           {projects.map((project) => {
             const accent = colorMap[project.color] ?? '#c8ff00'
             return (
@@ -113,7 +113,7 @@ const BentoGallery = () => {
 
                 {/* Category badge */}
                 <div
-                  className="absolute left-4 top-4 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm"
+                  className="absolute left-4 top-4 px-2.5 py-1 text-xs font-black uppercase tracking-widest text-black rounded-sm"
                   style={{ backgroundColor: accent }}
                 >
                   {project.category}
@@ -121,11 +121,11 @@ const BentoGallery = () => {
 
                 {/* Bottom info */}
                 <div className="absolute bottom-5 left-4 right-4">
-                  <h3 className="mb-2 text-base font-black uppercase leading-tight tracking-tight text-white">
+                  <h3 className="mb-2 text-lg font-black uppercase leading-tight tracking-tight text-white">
                     {project.title}
                   </h3>
                   <span
-                    className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest opacity-0 translate-y-1 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+                    className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-widest opacity-0 translate-y-1 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{ color: accent }}
                   >
                     Ver Projeto →

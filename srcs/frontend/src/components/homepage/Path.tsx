@@ -182,7 +182,7 @@ export default function AreasWall() {
             <h2 className="font-black text-4xl xl:text-5xl uppercase leading-none tracking-tight">
               <span className="text-white">O que é o</span><span className="text-[#c8ff00]"> OUT OF THE BOX</span>
             </h2>
-            <p className="max-w-sm text-xs leading-relaxed text-white/40">
+            <p className="max-w-sm text-sm leading-relaxed text-white/40">
               O Out of the Box é um evento anual que celebra a criatividade e o talento dos alunos da ETIC_Algarve, reunindo exposições, palestras, workshops, projeções vídeo, concertos e muito mais.
             </p>
           </div>
@@ -277,7 +277,7 @@ export default function AreasWall() {
                 <a
                   href={`/areas/${area.slug}`}
                   ref={el => { cardRefs.current[i] = el }}
-                  className="z-20 block relative bg-[#f5f0e8] border border-[#e0d8c8] rounded-sm p-5 w-60
+                  className="z-20 block relative bg-[#f5f0e8] border border-[#e0d8c8] rounded-sm p-6 w-80
                             hover:rotate-0 hover:scale-[1.04] hover:z-20
                             transition-transform duration-300 ease-out group"
                   style={{ transform: `rotate(${area.rotate}deg)` }}
@@ -304,19 +304,19 @@ export default function AreasWall() {
                   />
 
                   <div className="flex justify-between mt-1.5 mb-3.5">
-                    <span className="text-[11px] font-black text-black/30 tracking-wide">//{area.num}</span>
-                    <span className="text-[10px] font-bold text-black/25 tracking-widest">FARO/26</span>
+                    <span className="text-xs font-black text-black/30 tracking-wide">//{area.num}</span>
+                    <span className="text-[11px] font-bold text-black/25 tracking-widest">FARO/26</span>
                   </div>
 
-                  <p className="font-black text-[24px] uppercase text-black leading-none tracking-tight mb-2">
+                  <p className="font-black text-3xl uppercase text-black leading-none tracking-tight mb-2">
                     {area.name}
                   </p>
-                  <p className="text-[11px] text-black/50 leading-relaxed mb-4">{area.desc}</p>
+                  <p className="text-sm text-black/50 leading-relaxed mb-4">{area.desc}</p>
 
                   <div className="flex justify-between items-center border-t border-black/10 pt-2.5">
-                    <span className="flex items-center gap-1.5 text-[10px] font-black text-black/40
+                    <span className="flex items-center gap-1.5 text-[11px] font-black text-black/40
                                     uppercase tracking-widest group-hover:text-[#3a7d00] transition-colors">
-                      Ver a Área <ArrowRight size={10} strokeWidth={3} />
+                      Ver a Área <ArrowRight size={11} strokeWidth={3} />
                     </span>
                   </div>
                 </a>

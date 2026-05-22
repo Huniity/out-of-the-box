@@ -31,7 +31,7 @@ const events: EventCard[] = [
   { day: 9,  month: 'JUL', time: '19:00', accentColor: '#c8ff00',  title: 'A Confirmar',   subtitle: 'Cabeça de Cartaz — Dia 7',  location: 'IPDJ, Faro',   tag: 'CONCERTO'   },
 ]
 
-const CARD_W = 182
+const CARD_W = 256
 
 const Programacao = () => {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -125,7 +125,7 @@ const Programacao = () => {
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[#e8365d] text-lg leading-none">✦</span><span className="text-white/18 text-[10px] font-bold tracking-[0.2em] uppercase">CABEÇAS DE CARTAZ</span>
             </div>
-            <h2 className="font-black text-3xl xl:text-4xl text-white tracking-widest uppercase leading-tight tracking-tight">
+            <h2 className="font-black text-4xl xl:text-5xl text-white uppercase leading-tight tracking-tight">
               Os Destaques do <span className="text-[#c8ff00]">OOTB</span>
             </h2>
           </div>
@@ -171,7 +171,7 @@ const Programacao = () => {
             {events.map((ev, i) => (
               <div
                 key={i}
-                className="flex-none w-[170px] rounded-xl overflow-hidden relative cursor-pointer group"
+                className="flex-none w-[240px] rounded-xl overflow-hidden relative cursor-pointer group"
                 style={{
                   // staggered entrance animation
                   opacity: visible ? 1 : 0,
@@ -183,7 +183,7 @@ const Programacao = () => {
                 <img
                   src={ev.image ?? Fundo}
                   alt={ev.title}
-                  className="w-full h-56 object-cover brightness-[0.55] group-hover:brightness-[0.75] transition-[filter] duration-300"
+                  className="w-full h-72 object-cover brightness-[0.55] group-hover:brightness-[0.75] transition-[filter] duration-300"
                 />
 
                 {/* Hover glow overlay */}
@@ -206,15 +206,15 @@ const Programacao = () => {
                   {/* Top row: date badge + tag */}
                   <div className="flex items-start justify-between">
                     <div
-                      className="text-black text-[11px] font-extrabold leading-none px-2 py-1 rounded-md uppercase tracking-tight"
+                      className="text-black text-xs font-extrabold leading-none px-2.5 py-1.5 rounded-md uppercase tracking-tight"
                       style={{ backgroundColor: '#c8ff00' }}
                     >
-                      <span className="text-base block">{ev.day}</span>
+                      <span className="text-lg block">{ev.day}</span>
                       {ev.month}
                     </div>
                     {ev.tag && (
                       <span
-                        className="text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest"
+                        className="text-[11px] font-extrabold px-2 py-1 rounded tracking-widest"
                         style={{ color: '#000', backgroundColor: ev.accentColor, opacity: 0.92 }}
                       >
                         {ev.tag}
@@ -225,22 +225,22 @@ const Programacao = () => {
                   {/* Bottom info */}
                   <div className="flex flex-col gap-1">
                     {/* Animated time badge — subtle pulse */}
-                    <p className="text-white text-[13px] font-extrabold uppercase leading-tight tracking-wide group-hover:text-white transition-colors duration-200">
+                    <p className="text-white text-sm font-extrabold uppercase leading-tight tracking-wide group-hover:text-white transition-colors duration-200">
                       {ev.title}
                     </p>
-                    <p className="text-white/55 text-[11px] font-medium">{ev.subtitle}</p>
-                    <div className="flex items-center gap-1 mt-0.5">
-                                        <span
-                      className="self-start text-black text-[11px] font-extrabold px-2 py-0.5 rounded animate-pulse"
-                      style={{
-                        backgroundColor: ev.accentColor,
-                        animationDuration: '3s',
-                      }}
-                    >
-                      {ev.time}
-                    </span>
-                      <MapPin size={10} color="rgba(198,220,128,0.55)" />
-                      <span className="text-white/45 text-[11px]">{ev.location}</span>
+                    <p className="text-white/55 text-xs font-medium">{ev.subtitle}</p>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span
+                        className="self-start text-black text-xs font-extrabold px-2 py-0.5 rounded animate-pulse"
+                        style={{
+                          backgroundColor: ev.accentColor,
+                          animationDuration: '3s',
+                        }}
+                      >
+                        {ev.time}
+                      </span>
+                      <MapPin size={11} color="rgba(198,220,128,0.55)" />
+                      <span className="text-white/45 text-xs">{ev.location}</span>
                       
                     </div>
                   </div>

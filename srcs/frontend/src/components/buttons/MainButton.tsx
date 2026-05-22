@@ -32,15 +32,15 @@ function Maintbutton({ children, name, leftName, rightName, bgColor, borderColor
 
     return (
         <button
-            className={`group flex items-center justify-center gap-2 rounded-sm px-4 py-2 ${fontSize ? `font-${fontSize}` : ''}`}
+            className={`group flex items-center justify-center gap-2 rounded-sm px-5 py-2.5 tracking-widest uppercase ${fontSize ? `font-${fontSize}` : ''}`}
             style={{
                 backgroundColor: hovered ? (hoverBgColor ?? 'transparent') : (bgColor ?? undefined),
                 color: hovered ? (hoverTextColor ?? (bgColor ?? textColor)) : (textColor ?? undefined),
                 borderColor: hovered ? (hoverBorderColor ?? borderColor) : (borderColor ?? undefined),
                 borderWidth: borderWidth ? `${borderWidth}px` : undefined,
                 borderStyle: borderColor ? 'solid' : undefined,
-                width: width ? `${width === '52' ? '13rem' : width}` : undefined,
-                height: height ? `${height === '8' ? '2.5rem' : height}` : undefined,
+                width: width ? `${width === '52' ? '14rem' : width === '82' ? '20rem' : width}` : undefined,
+                height: height ? `${height === '8' ? '3rem' : height}` : undefined,
                 fontSize: resolvedFontSize,
                 transition: 'background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease',
             }}
