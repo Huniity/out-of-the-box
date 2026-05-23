@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     PageCountView,
     PageListView,
+    PageDetailView,
     SpeakerCountView,
     TotalVisitorsView,
     ExhibitionViewSet,
@@ -33,6 +34,7 @@ urlpatterns = [
     path('page/views/', TotalVisitorsView.as_view()),
     path("page/", PageCountView.as_view(), name="page-count"),
     path("pages/", PageListView.as_view(), name="page-list"),
+    path("pages/<int:pk>/", PageDetailView.as_view(), name="page-detail"),
     path("speaker/", SpeakerCountView.as_view(), name="speaker-count"),
     path("auth/me/", me, name="auth-me"),
     path("auth/logout/", logout_view, name="auth-logout"),

@@ -19,13 +19,13 @@ class Page(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, unique=True)
     url = models.CharField(max_length=255, unique=True)
-    title = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True)
+    main_title = models.CharField(max_length=255, blank=True)
+    main_description = models.TextField(blank=True)
     views = models.IntegerField(default=0)
-    is_hidden = models.BooleanField(default=False)
-    button_link = models.CharField(max_length=255, blank=True)
-    button_text = models.CharField(max_length=255, blank=True)
-    date = models.DateField(null=True, blank=True)
+    is_live = models.BooleanField(default=True)
+    cta_button_link = models.CharField(max_length=255, blank=True)
+    cta_button_text = models.CharField(max_length=255, blank=True)
+    event_date = models.DateField(null=True, blank=True)
 
 
     def __str__(self):

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import type React from "react";
+import { Eye, Pencil } from "lucide-react";
 import { hiddenFields } from "../../../utils/dashboard";
 import FieldRenderer from "./FieldRenderer";
 
@@ -8,6 +10,8 @@ type EventFormProps = {
     onSave: (data: Record<string, unknown>) => Promise<void>;
     initial?: Record<string, unknown>;
     fields?: string[];
+    title?: string;
+    renderPreview?: (data: Record<string, unknown>) => React.ReactNode;
 };
 
 const EventForm = ({
@@ -16,9 +20,12 @@ const EventForm = ({
     onSave,
     initial,
     fields = [],
+    title,
+    renderPreview,
 }: EventFormProps) => {
     const [formData, setFormData] = useState<Record<string, unknown>>({});
     const [saving, setSaving] = useState(false);
+    const [previewing, setPreviewing] = useState(false);
 
     const formFields = useMemo(() => {
         if (fields.length > 0) {
@@ -42,6 +49,7 @@ const EventForm = ({
         }
 
         setFormData(nextData);
+        setPreviewing(false);
     }, [initial, formFields, open]);
 
     if (!open) return null;
@@ -66,12 +74,43 @@ const EventForm = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl">
-                <h2 className="mb-4 text-lg font-bold">
-                    {initial ? "Editar Evento" : "Adicionar Evento"}
-                </h2>
+            <div className={`w-full rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl transition-[max-width] duration-300 ${previewing ? 'max-w-4xl' : 'max-w-lg'}`}>
+                {/* Header */}
+                <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-lg font-bold leading-tight">
+                        {title ?? (initial ? "Editar Evento" : "Adicionar Evento")}
+                    </h2>
+                    {renderPreview && (
+                        <div className="flex shrink-0 items-center gap-1 rounded-lg border border-white/10 p-0.5">
+                            <button
+                                onClick={() => setPreviewing(false)}
+                                className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                                    !previewing
+                                        ? "bg-white/10 text-white"
+                                        : "text-gray-500 hover:text-gray-300"
+                                }`}
+                            >
+                                <Pencil size={11} />
+                                Editar
+                            </button>
+                            <button
+                                onClick={() => setPreviewing(true)}
+                                className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                                    previewing
+                                        ? "bg-white/10 text-white"
+                                        : "text-gray-500 hover:text-gray-300"
+                                }`}
+                            >
+                                <Eye size={11} />
+                                Preview
+                            </button>
+                        </div>
+                    )}
+                </div>
 
-                {formFields.length === 0 ? (
+                {previewing && renderPreview ? (
+                    renderPreview(formData)
+                ) : formFields.length === 0 ? (
                     <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4 text-sm text-gray-400">
                         No editable fields available.
                     </div>

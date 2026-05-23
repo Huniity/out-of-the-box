@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.db.models import Sum
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -37,9 +38,24 @@ class PageCountView(APIView):
 
 class PageListView(APIView):
     def get(self, request):
-        pages = Page.objects.filter(is_hidden=False)
+        pages = Page.objects.filter(is_live=False)
         serializer = PageSerializer(pages, many=True)
         return Response(serializer.data)
+
+
+class PageDetailView(APIView):
+    def get(self, request, pk):
+        page = get_object_or_404(Page, pk=pk)
+        serializer = PageSerializer(page)
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        page = get_object_or_404(Page, pk=pk)
+        serializer = PageSerializer(page, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 
 class SpeakerCountView(APIView):

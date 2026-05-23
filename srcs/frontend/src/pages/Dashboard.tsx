@@ -5,6 +5,7 @@ import {
     LogOut,
     Menu,
     X,
+    Pencil,
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -17,6 +18,8 @@ import PageDataTable from "../components/dashboard/DashboardPagesData";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import MobileTopbar from "../components/dashboard/mobile/MobileTopbar";
 import MobileOverlay from "../components/dashboard/mobile/MobileOverlay";
+import EventForm from "../components/dashboard/modal/EventForm";
+import PageLivePreview from "../components/dashboard/PageLivePreview";
 import type { ApiPage } from "../types/dashboard";
 
 export default function Dashboard() {
@@ -94,7 +97,13 @@ export default function Dashboard() {
          
                 <main className="mt-16 h-[calc(100vh-4rem)] w-full flex-1 overflow-y-auto lg:mt-0 lg:h-full">
                     <div className="min-h-full px-4 py-6 pb-12 lg:px-16 lg:py-8">
-                        {activeTab === "overview" && <Overview setActiveTab={setActiveTab} />}
+                        {activeTab === "overview" && (
+                            <Overview
+                                apiPages={apiPages}
+                                onPageUpdated={updatePage}
+                                setActiveTab={setActiveTab}
+                            />
+                        )}
                         {activePage && <PageDataTable page={activePage} />}
                     </div>
                 </main>
@@ -103,19 +112,133 @@ export default function Dashboard() {
     );
 }
 
-function Overview({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+// ── Page fields shown/editable in the overview modal ───────────────────────
+const PAGE_EDITABLE_FIELDS = [
+    "name", "url", "main_title", "main_description",
+    "cta_button_text", "cta_button_link", "event_date", "is_live",
+];
+
+function Overview({
+    apiPages,
+    onPageUpdated,
+    setActiveTab,
+}: {
+    apiPages: ApiPage[];
+    onPageUpdated: (page: ApiPage) => void;
+    setActiveTab: (tab: string) => void;
+}) {
+    const [editingPage, setEditingPage] = useState<ApiPage | null>(null);
+
+    const handleSave = async (data: Record<string, unknown>) => {
+        if (!editingPage) return;
+        const res = await fetch(`/api/pages/${editingPage.id}/`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Failed to save page");
+        const updated: ApiPage = await res.json();
+        onPageUpdated(updated);
+        setEditingPage(null);
+    };
+
     return (
         <div>
-            <div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-                <StatCard label="PAGES" value={<PageCount />} />
-                <StatCard label="SPEAKERS" value={<SpeakerCount />} />
-                <StatCard label="VISITORS" value={<VisitorCount />} />
-                <StatCard label="METRICS" value="METRICS" />
+            {/* Page cards */}
+            <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                Páginas
+            </h2>
+            {apiPages.length === 0 ? (
+                <p className="text-sm text-gray-600">No pages loaded yet.</p>
+            ) : (
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {apiPages.map((page) => (
+                        <PageCard
+                            key={page.id}
+                            page={page}
+                            onEdit={() => setEditingPage(page)}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {/* Edit modal */}
+            {editingPage && (
+                <EventForm
+                    open
+                    title={`Editar — ${editingPage.name}`}
+                    onClose={() => setEditingPage(null)}
+                    onSave={handleSave}
+                    initial={editingPage as unknown as Record<string, unknown>}
+                    fields={PAGE_EDITABLE_FIELDS}
+                    renderPreview={(data) => (
+                        <PageLivePreview url={String(data.url ?? "")} />
+                    )}
+                />
+            )}
+        </div>
+    );
+}
+
+function PageCard({ page, onEdit }: { page: ApiPage; onEdit: () => void }) {
+    return (
+        <div className="flex flex-col rounded-xl border border-white/15 bg-white/[0.04] p-5 backdrop-blur-xl">
+            {/* Header */}
+            <div className="mb-4 flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                    <h3 className="truncate font-bold text-white">Página: {page.name}</h3>
+                    <p className="truncate text-xs text-gray-500">URL: {page.url}</p>
+                </div>
+                <span
+                    className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                        !page.is_live
+                            ? "bg-red-500/20 text-red-400"
+                            : "bg-emerald-500/20 text-emerald-400"
+                    }`}
+                >
+                    {!page.is_live ? "Hidden" : "Live"}
+                </span>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 xl:grid-cols-1">
-                <section className="rounded-xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-xl" />
+            {/* Fields */}
+            <div className="flex-1 space-y-2">
+                {page.main_title && <InfoRow label="Título" value={page.main_title} />}
+                {page.main_description && (
+                    <InfoRow
+                        label="Descrição"
+                        value={
+                            page.main_description.length > 80
+                                ? page.main_description.slice(0, 80) + "…"
+                                : page.main_description
+                        }
+                    />
+                )}
+                {page.event_date && <InfoRow label="Data" value={page.event_date} />}
+                {page.cta_button_text && (
+                    <InfoRow
+                        label="Botão"
+                        value={`${page.cta_button_text}${page.cta_button_link ? ` → ${page.cta_button_link}` : ""}`}
+                    />
+                )}
             </div>
+
+            {/* Edit button */}
+            <button
+                onClick={onEdit}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 py-2 text-xs font-medium text-gray-400 transition-colors hover:border-[#c8ff00]/40 hover:text-[#c8ff00]"
+            >
+                <Pencil size={12} />
+                Editar página
+            </button>
+        </div>
+    );
+}
+
+function InfoRow({ label, value }: { label: string; value: string }) {
+    return (
+        <div className="flex items-start gap-2 text-xs">
+            <span className="w-20 shrink-0 text-gray-600">{label}</span>
+            <span className="text-gray-300">{value}</span>
         </div>
     );
 }

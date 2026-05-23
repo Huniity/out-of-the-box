@@ -16,7 +16,18 @@ export const dashboardFields = [
 
 
 export const fieldLabels: Record<string, string> = {
-    title: "Evento",
+    name: "Nome",
+    url: "URL",
+    // Page model fields
+    main_title: "Título",
+    main_description: "Descrição",
+    views: "Visitas",
+    is_live: "Ao Vivo",
+    cta_button_link: "Link do Botão",
+    cta_button_text: "Texto do Botão",
+    event_date: "Data do Evento",
+    // Event model shared fields
+    title: "Título",
     description: "Descrição",
     is_active: "Ativo",
     start_datetime: "Início",
