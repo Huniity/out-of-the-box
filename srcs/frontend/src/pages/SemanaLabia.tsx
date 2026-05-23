@@ -6,7 +6,7 @@ import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 
-import { metrics, projects, reasons, processSteps } from '../utils/metrics'
+import { semanaLabiaMetrics as metrics, semanaLabiaProjects as projects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
 
 
 const SemanaLabia = () => {
@@ -45,7 +45,7 @@ const SemanaLabia = () => {
                         {/* CTAs */}
                         <div className="flex flex-wrap gap-3">
                             <PrimaryButton href="#sobre">
-                                Saber mais
+                                O que é a lábia?
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                             </PrimaryButton>
                             <SecondaryButton href="#projetos">

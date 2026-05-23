@@ -5,64 +5,21 @@ import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-const metrics = [
-    {
-        icon: <CalendarDays size={38} strokeWidth={1.8} />,
-        value: '2',
-        label: 'DIAS',
-        desc: '9 e 10 de Julho de 2026 — dois dias de encontros.',
-    },
-    {
-        icon: <MapPin size={38} strokeWidth={1.8} />,
-        value: '',
-        label: 'IPDJ, FARO',
-        desc: 'Instalações do IPDJ — Instituto Português do Desporto e Juventude.',
-    },
-    {
-        icon: <Users size={38} strokeWidth={1.8} />,
-        value: '10+',
-        label: 'EMPRESAS',
-        desc: 'Empresas confirmadas de diferentes setores criativos.',
-    },
-    {
-        icon: <Ticket size={38} strokeWidth={1.8} />,
-        value: '',
-        label: 'ENTRADA LIVRE',
-        desc: 'Participação gratuita para todos os formandos da ETIC_Algarve.',
-    },
-]
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies as companies, speedHuntingCategories as categories} from '../utils/metrics'
+import { usePageData } from '../hooks/usePageData'
 
-const categories = ['TODAS', 'DESIGN', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'FOTOGRAFIA']
-
-const companies = [
-    { initials: 'AC', name: 'ALGARVE CREATIVE', category: 'DESIGN',      color: '#f97316', desc: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
-    { initials: 'PF', name: 'PIXEL FORGE',      category: 'VÍDEO',       color: '#3b82f6', desc: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
-    { initials: 'SS', name: 'SONORA STUDIO',    category: 'SOM',         color: '#a855f7', desc: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
-    { initials: 'LT', name: 'LUMIA TECH',       category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
-    { initials: 'BH', name: 'BRAND HOUSE',      category: 'MARKETING',   color: '#ec4899', desc: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
-    { initials: 'FL', name: 'FRAME LAB',        category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
-    { initials: 'CI', name: 'CUBO INTERATIVO',  category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
-    { initials: 'NF', name: 'NORTE FILMES',     category: 'VÍDEO',       color: '#3b82f6', desc: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
-    { initials: 'VC', name: 'VOZES CRIATIVAS',  category: 'SOM',         color: '#a855f7', desc: 'Design de som, locução e produção musical para multimédia.' },
-    { initials: 'FV', name: 'FOCO VISUAL',      category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
-]
-
-const steps = [
-    { num: '01', icon: <Briefcase size={32} strokeWidth={1.5} />,      title: 'PREPARA O TEU PORTFÓLIO',        desc: 'Atualiza os teus melhores projetos e escolhe o que te representa.' },
-    { num: '02', icon: <Users size={32} strokeWidth={1.5} />,           title: 'APRESENTA-TE EM POUCOS MINUTOS', desc: 'Tens alguns minutos para te apresentares de forma clara e objetiva.' },
-    { num: '03', icon: <MessageSquare size={32} strokeWidth={1.5} />,   title: 'CONVERSA COM EMPRESAS',          desc: 'Fala sobre o teu trabalho, interesses e recebe feedback.' },
-    { num: '04', icon: <Link2 size={32} strokeWidth={1.5} />,         title: 'CRIA CONTACTOS PARA O FUTURO',   desc: 'Mantém a ligação e transforma a conversa de hoje em oportunidades amanhã.' },
-]
-
-const tips = [
-    'Portfólio atualizado e bem organizado',
-    'Apresentação curta e objetiva (1–2 min)',
-    'Mostra projetos relevantes para a área',
-    'Leva contactos / LinkedIn / QR Code',
-    'Atitude profissional e curiosidade',
-]
 
 const SpeedHunting = () => {
+    const {
+            main_white_title,
+            main_green_title,
+            main_description,
+            cta_button_text,
+            cta_button_link,
+            event_date,
+        } = usePageData('speed-hunting');
+
+
     const [activeCategory, setActiveCategory] = useState('TODAS')
 
     const filtered = activeCategory === 'TODAS'
@@ -82,14 +39,12 @@ const SpeedHunting = () => {
                     <div className="flex-1 flex flex-col py-8">
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            SPEED<br />
-                            <span className="text-[#c8ff00]">HUNTING</span>
+                            {main_white_title}<br />
+                            <span className="text-[#c8ff00]">{main_green_title}</span>
                         </h1>
 
                         <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            Encontros rápidos entre empresas e alunos da ETIC_Algarve
-                            para apresentação de portfólio, conversa profissional e
-                            criação de oportunidades.
+                            {main_description}
                         </p>
 
                         {/* Info pills */}
@@ -314,8 +269,8 @@ const SpeedHunting = () => {
                         </h2>
                     </div>
                     <div className="shrink-0">
-                        <PrimaryButton href="#projetos" size="lg">
-                            Vem visitar nos!
+                        <PrimaryButton href={cta_button_link} size="lg">
+                            {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>

@@ -59,7 +59,7 @@ export default Maintbutton
 
 // ── Shared hero / CTA button props ──────────────────────────────────────────
 interface CTAButtonProps {
-    href?: string;
+    href?: string | null;
     children: React.ReactNode;
     /** 'sm' = px-5 py-2.5 (default), 'lg' = px-6 py-3 */
     size?: 'sm' | 'lg';

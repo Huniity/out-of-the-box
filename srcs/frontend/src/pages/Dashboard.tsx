@@ -193,7 +193,8 @@ function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => v
 
             {/* Fields */}
             <div className="flex-1 space-y-2">
-                {page.main_title && <InfoRow label="Título" value={page.main_title} />}
+                {page.main_white_title && <InfoRow label="Título" value={page.main_white_title} />}
+                {page.main_green_title && <InfoRow label="Título Verde" value={page.main_green_title} />}
                 {page.main_description && (
                     <InfoRow
                         label="Descrição"
