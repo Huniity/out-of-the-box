@@ -1,82 +1,24 @@
 
 import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye } from 'lucide-react'
 import heroImg from '../assets/FUNDO.jpg'
-import proj from '../assets/FUNDO.jpg'
 import '../styles/leaves.css'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
+import { usePageData } from '../hooks/usePageData'
 
+import { metrics, projects, reasons, processSteps } from '../utils/metrics'
 
-const metrics = [
-    {
-        icon: <CalendarDays size={38} strokeWidth={1.8} />,
-        value: '1',
-        label: 'SEMANA',
-        desc: 'Uma semana intensiva de criação e colaboração.',
-    },
-    {
-        icon: <FolderOpen size={38} strokeWidth={1.8} />,
-        value: '12',
-        label: 'PROJETOS',
-        desc: 'Doze projetos desenvolvidos por equipas multidisciplinares.',
-    },
-    {
-        icon: <Users size={38} strokeWidth={1.8} />,
-        value: '104',
-        label: 'FORMANDOS',
-        desc: 'Cento e quatro formandos envolvidos no desafio.',
-    },
-    {
-        icon: <Star size={38} strokeWidth={1.8} />,
-        value: '',
-        label: 'EQUIPAS MULTIDISCIPLINARES',
-        desc: 'Aprendizagem em contexto real e fora da zona de conforto.',
-    },
-]
-
-const projects = [
-    { title: 'NARRATIVAS VISUAIS', image: proj },
-    { title: 'EXPERIÊNCIA INTERATIVA', image: proj },
-    { title: 'INSTALAÇÃO MULTIMÉDIA', image: proj },
-    { title: 'PERFORMANCE HÍBRIDA', image: proj },
-    { title: 'PROJETO COLABORATIVO', image: proj },
-    { title: 'LABORATÓRIO CRIATIVO', image: proj },
-    { title: 'LABORATÓRIO CRIATIVO', image: proj },
-    { title: 'LABORATÓRIO CRIATIVO', image: proj },
-    { title: 'LABORATÓRIO CRIATIVO', image: proj },
-]
-
-const reasons = [
-    {
-        icon: <Zap size={38} strokeWidth={1.8} className="text-[#c8ff00]" />,
-        title: 'DESAFIO REAL',
-        desc: 'Trabalhas em projetos com objetivos concretos e prazos reais, tal como na indústria.',
-    },
-    {
-        icon: <Users2 size={38} strokeWidth={1.8} className="text-[#c8ff00]" />,
-        title: 'TRABALHO EM EQUIPA',
-        desc: 'Aprendes a colaborar com colegas de outras áreas e a comunicar de forma eficaz.',
-    },
-    {
-        icon: <Puzzle size={38} strokeWidth={1.8} className="text-[#c8ff00]" />,
-        title: 'PROJETOS MULTIDISCIPLINARES',
-        desc: 'Combinas diferentes competências e linguagens para criar soluções inovadoras.',
-    },
-    {
-        icon: <Rocket size={38} strokeWidth={1.8} className="text-[#c8ff00]" />,
-        title: 'PREPARAÇÃO PARA A INDÚSTRIA',
-        desc: 'Desenvolves competências essenciais para o teu futuro profissional nas indústrias criativas.',
-    },
-]
-
-const processSteps = [
-    { icon: <Users size={38} strokeWidth={1.8} />, label: 'Equipas mistas e multidisciplinares' },
-    { icon: <FolderOpen size={38} strokeWidth={1.8} />, label: 'Tema proposto pela escola' },
-    { icon: <Zap size={38} strokeWidth={1.8} />, label: 'Criação e colaboração intensa' },
-    { icon: <Eye size={38} strokeWidth={1.8} />, label: 'Apresentação do projeto mais completo' },
-]
 
 const SemanaLabia = () => {
+    const {
+        main_white_title,
+        main_green_title,
+        main_description,
+        cta_button_text,
+        cta_button_link,
+        event_date,
+    } = usePageData('semana-labia');
+
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
             {/* ── HERO ── */}
@@ -91,15 +33,13 @@ const SemanaLabia = () => {
                         {/* Title */}
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            SEMANA<br />
-                            <span className="text-[#c8ff00]">LÁBIA</span> 2026
+                            {main_white_title}{' '}
+                            <span className="text-[#c8ff00]">{main_green_title}</span>
                         </h1>
 
                         {/* Description */}
                         <p className="mb-8 max-w-md text-sm leading-relaxed text-white/50">
-                            Uma secção dedicada aos projetos da Semana Lábia 2026,
-                            a semana intensiva e multidisciplinar de criação e aprendizagem
-                            em contexto real da ETIC_Algarve.
+                            {main_description}
                         </p>
 
                         {/* CTAs */}
@@ -283,8 +223,8 @@ const SemanaLabia = () => {
                         </h2>
                     </div>
                     <div className="shrink-0">
-                        <PrimaryButton href="#projetos" size="lg">
-                            Explorar Área Especial
+                        <PrimaryButton href={cta_button_link} size="lg">
+                            {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>
