@@ -95,3 +95,27 @@ class SpeedHuntingViewSet(viewsets.ModelViewSet):
 class SpecialZoneViewSet(viewsets.ModelViewSet):
     queryset = SpecialZone.objects.all()
     serializer_class = SpecialZoneSerializer
+
+@api_view(['GET'])
+def me(request):
+    if not request.user.is_authenticated:
+        return Response({"detail": "Not authenticated"}, status=401)
+    user = request.user
+    if user.is_superuser:
+        role = "Administrator"
+    elif user.is_staff:
+        role = "Staff"
+    else:
+        role = "User"
+    return Response({
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "username": user.username,
+        "role": role,
+    })
+
+
+@api_view(['POST'])
+def logout_view(request):
+    auth_logout(request)
+    return Response({"detail": "Logged out"})

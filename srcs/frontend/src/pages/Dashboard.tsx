@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     ArrowLeft,
     User,
@@ -23,12 +23,42 @@ export default function Dashboard() {
     const [activeTab, setActiveTab] = useState<string>("overview");
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [apiPages, setApiPages] = useState<ApiPage[]>([]);
+    const [user, setUser] = useState<{ firstName: string; lastName: string; role: string } | null>(null);
 
-    const user = {
-        firstName: "Adrien",
-        lastName: "Dejonc",
-        role: "Admin",
+    useEffect(() => {
+        fetch('/api/auth/me/', { credentials: 'include' })
+            .then(res => {
+                if (res.status === 401) {
+                    window.location.href = '/admin/login/?next=/dashboard';
+                    return null;
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data) {
+                    setUser({
+                        firstName: data.first_name || data.username,
+                        lastName: data.last_name || '',
+                        role: data.role,
+                    });
+                }
+            });
+    }, []);
+
+    const handleLogout = async () => {
+        const csrfToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='))
+            ?.split('=')[1] ?? '';
+        await fetch('/api/auth/logout/', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrfToken },
+            credentials: 'include',
+        });
+        window.location.href = '/admin/login/';
     };
+
+    if (!user) return <div className="min-h-screen bg-black" />;
 
     const activePage = apiPages.find((p) => String(p.id) === activeTab);
 
@@ -53,7 +83,7 @@ export default function Dashboard() {
 
                     <button
                         type="button"
-                        onClick={() => console.log("logout")}
+                        onClick={handleLogout}
                         className="flex w-full cursor-pointer items-center gap-3 rounded-lg border-none bg-transparent px-4 py-3 text-left text-sm font-medium text-gray-500 transition-colors hover:bg-white/5 hover:text-red-400"
                     >
                         <LogOut size={18} />
