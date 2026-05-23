@@ -1,4 +1,4 @@
-import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2 } from 'lucide-react'
+import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play } from 'lucide-react'
 import proj from '../assets/FUNDO.jpg'
 
 // SEMANA LABIA
@@ -175,3 +175,103 @@ export const concertosFeatures = [
     },
 ]
     
+
+// Projecoes
+
+export const projecoesMetrics = [
+    {
+        icon: <CalendarDays size={38} strokeWidth={1.8} />,
+        value: '',
+        label: 'Quando?',
+        desc: 'Durante o Out of the Box 2026 — uma semana de cinema.',
+    },
+    {
+        icon: <MapPin size={38} strokeWidth={1.8} />,
+        value: '',
+        label: 'IPDJ, FARO',
+        desc: 'Auditório Principal — exibições públicas e gratuitas.',
+    },
+    {
+        icon: <Users size={38} strokeWidth={1.8} />,
+        value: '',
+        label: 'SESSÕES',
+        desc: 'Sessões temáticas ao longo do festival.',
+    },
+    {
+        icon: <Star size={38} strokeWidth={1.8} />,
+        value: '',
+        label: 'ENTRADA LIVRE',
+        desc: 'Abertas ao público. A tua presença faz a diferença.',
+    },
+]
+
+export const projecoesSessions = [
+    {
+        day: '9',
+        month: 'JUL',
+        tag: 'REALIZAÇÃO',
+        tagColor: '#ec4899',
+        title: 'NARRATIVAS DO REAL',
+        desc: 'Curtas-metragens de ficção e documentário.',
+        time: '19:00',
+        venue: 'AUDITÓRIO',
+    },
+    {
+        day: '10',
+        month: 'JUL',
+        tag: 'CINEMA',
+        tagColor: '#3b82f6',
+        title: 'OLHARES DO AMANHÃ',
+        desc: 'Histórias, personagens e novas formas de ver o mundo.',
+        time: '19:00',
+        venue: 'AUDITÓRIO',
+    },
+    {
+        day: '11',
+        month: 'JUL',
+        tag: 'TV',
+        tagColor: '#22c55e',
+        title: 'DE ATRÁS DAS CÂMARAS',
+        desc: 'Projetos de reportagem, entretenimento e formatos TV.',
+        time: '19:00',
+        venue: 'AUDITÓRIO',
+    },
+    {
+        day: '12',
+        month: 'JUL',
+        tag: 'REALIZAÇÃO',
+        tagColor: '#ec4899',
+        title: 'EXPERIMENTAR É CRIAR',
+        desc: 'Trabalhos experimentais e autorais dos alunos.',
+        time: '19:00',
+        venue: 'AUDITÓRIO',
+    },
+    {
+        day: '16',
+        month: 'JUL',
+        tag: 'SESSÃO ESPECIAL',
+        tagColor: '#a855f7',
+        title: 'BEST OF OUT OF THE BOX',
+        desc: 'Seleção dos melhores projetos do festival.',
+        time: '19:00',
+        venue: 'AUDITÓRIO',
+    },
+]
+
+export const projecoesFeatures = [
+    {
+        icon: <Play size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'PROJETOS FINAIS',
+        desc: 'Trabalhos originais de alunos das áreas de Realização, Cinema e TV.',
+    },
+    {
+        icon: <Users size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'SESSÕES PÚBLICAS',
+        desc: 'Exibição em auditório, abertas ao público durante o festival.',
+    },
+    {
+        icon: <Star size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'CRIATIVIDADE SEM LIMITES',
+        desc: 'Ficção, documentário, experimental, reportagem e muito mais.',
+    },
+]
