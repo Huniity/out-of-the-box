@@ -6,49 +6,23 @@ import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-const areas = [
-    { icon: <Zap      size={26} strokeWidth={1.5} />, name: 'DESIGN',       color: '#c8ff00', desc: 'Comunicação visual, branding e design de experiências.' },
-    { icon: <Camera   size={26} strokeWidth={1.5} />, name: 'FOTOGRAFIA',   color: '#f97316', desc: 'Imagem, luz e composição para contar histórias.' },
-    { icon: <Film     size={26} strokeWidth={1.5} />, name: 'VÍDEO',        color: '#ec4899', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
-    { icon: <Music2   size={26} strokeWidth={1.5} />, name: 'SOM',          color: '#a855f7', desc: 'Captação, edição e produção de som profissional.' },
-    { icon: <Code2    size={26} strokeWidth={1.5} />, name: 'PROGRAMAÇÃO',  color: '#22c55e', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
-    { icon: <Megaphone size={26} strokeWidth={1.5} />, name: 'MARKETING',   color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
-    { icon: <Gamepad2 size={26} strokeWidth={1.5} />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
-    { icon: <Tv2      size={26} strokeWidth={1.5} />, name: 'CINEMA / TV',  color: '#ec4899', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
-]
+import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops as workshops } from '../utils/metrics'
+import { usePageData } from '../hooks/usePageData'
+import { formatEventDateRange } from '../utils/dashboard'
 
-const areaColor: Record<string, string> = {
-    'DESIGN':       '#c8ff00',
-    'FOTOGRAFIA':   '#f97316',
-    'VÍDEO':        '#ec4899',
-    'SOM':          '#a855f7',
-    'PROGRAMAÇÃO':  '#22c55e',
-    'MARKETING':    '#f97316',
-    'VIDEOJOGOS':   '#3b82f6',
-    'CINEMA/TV':    '#ec4899',
-}
 
-const workshops = [
-    { num: '01', area: 'DESIGN',      title: 'DESIGN QUE COMUNICA',   desc: 'Do briefing ao conceito final',         team: 'EQUIPA DESIGN',    day: '04', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '02', area: 'VÍDEO',       title: 'LUZ, CÂMARA, AÇÃO!',    desc: 'Realização de vídeo na prática',        team: 'EQUIPA VÍDEO',     day: '05', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '03', area: 'SOM',         title: 'SOM EM DETALHE',         desc: 'Gravação, edição e mixagem',           team: 'EQUIPA SOM',       day: '06', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '04', area: 'FOTOGRAFIA',  title: 'FOTOGRAFIA CRIATIVA',   desc: 'Composição e narrativa visual',         team: 'EQUIPA FOTO',      day: '08', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '05', area: 'PROGRAMAÇÃO', title: 'CÓDIGO CRIATIVO',        desc: 'Interatividade com Javascript',         team: 'EQUIPA DEV',       day: '11', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '06', area: 'MARKETING',   title: 'CONTEÚDO QUE MARCA',    desc: 'Estratégia e criação de campanhas',     team: 'EQUIPA MARKETING', day: '12', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '07', area: 'VIDEOJOGOS',  title: 'CRIAR PARA JOGAR',       desc: 'Design e prototipagem de jogos',        team: 'EQUIPA GAMES',     day: '15', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '08', area: 'CINEMA/TV',   title: 'DO GUIÃO AO ECRÃ',      desc: 'Escrita e produção para TV/Cinema',     team: 'EQUIPA CINEMA',    day: '17', month: 'JUL', time: '10:00 – 13:00' },
-]
-
-const metrics = [
-    { icon: <CalendarDays size={38} strokeWidth={1.8} />, value: '8',  label: 'WORKSHOPS',      desc: 'Oito workshops práticos, um por área formativa.' },
-    { icon: <MapPin       size={38} strokeWidth={1.8} />, value: '',   label: 'IPDJ, FARO',     desc: 'Instalações do IPDJ — Instituto Português do Desporto e Juventude.' },
-    { icon: <Clock        size={38} strokeWidth={1.8} />, value: '3H', label: 'POR SESSÃO',     desc: 'Sessões intensivas de 3 horas cada, totalmente práticas.' },
-    { icon: <Ticket       size={38} strokeWidth={1.8} />, value: '',   label: 'ENTRADA GRÁTIS', desc: 'Participação gratuita para todos os formandos da ETIC_Algarve.' },
-]
-
-const filterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
 
 const Workshops = () => {
+        const {
+                main_white_title,
+                main_green_title,
+                main_description,
+                cta_button_text,
+                cta_button_link,
+                start_event_date,
+                end_event_date,
+            } = usePageData('workshops');
+            
     const [activeArea, setActiveArea] = useState('TODAS')
 
     const filtered = activeArea === 'TODAS'
@@ -68,19 +42,17 @@ const Workshops = () => {
                     <div className="flex-1 flex flex-col py-8">
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            WORK
-                            <span className="text-[#c8ff00]">SHOPS</span>
+                            {main_white_title}<br />
+                            <span className="text-[#c8ff00]">{main_green_title}</span>
                         </h1>
 
                         <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            Descobre as sessões práticas da Out of the Box – Faro 2026.
-                            Explora workshops por área formativa e conhece as equipas
-                            que vão desafiar-te a aprender, criar e experimentar.
+                            {main_description}
                         </p>
 
                         {/* Info pills */}
                         <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> 3 a 17 de Julho de 2026</span>
+                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
                             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
                             <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Grátis</span>
                         </div>
@@ -283,8 +255,8 @@ const Workshops = () => {
                         </p>
                     </div>
                     <div className="flex flex-col gap-5 max-w-xs">
-                        <PrimaryButton href="#programa" size="lg" className="self-start">
-                            Garante o teu Lugar
+                        <PrimaryButton href={cta_button_link} size="lg" className="self-start">
+                            {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>
