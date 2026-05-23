@@ -16,7 +16,8 @@ const SemanaLabia = () => {
         main_description,
         cta_button_text,
         cta_button_link,
-        event_date,
+        start_event_date,
+        end_event_date,
     } = usePageData('semana-labia');
 
     return (
