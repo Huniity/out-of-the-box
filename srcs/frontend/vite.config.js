@@ -16,7 +16,15 @@ export default defineConfig({
       protocol: 'ws'
     },
     proxy: {
-      '/api': 'http://backend:8000'
+      '/api': 'http://backend:8000',
+      '/admin': {
+        target: 'http://backend:8000',
+        changeOrigin: true,
+      },
+      '/static': {
+        target: 'http://backend:8000',
+        changeOrigin: true,
+      },
     }
   },
   build: {

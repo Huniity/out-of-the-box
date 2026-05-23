@@ -14,6 +14,8 @@ from .views import (
     ConcertViewSet,
     SpeedHuntingViewSet,
     SpecialZoneViewSet,
+    me,
+    logout_view,
 )
 
 router = DefaultRouter()
@@ -32,4 +34,6 @@ urlpatterns = [
     path("page/", PageCountView.as_view(), name="page-count"),
     path("pages/", PageListView.as_view(), name="page-list"),
     path("speaker/", SpeakerCountView.as_view(), name="speaker-count"),
+    path("auth/me/", me, name="auth-me"),
+    path("auth/logout/", logout_view, name="auth-logout"),
 ]
