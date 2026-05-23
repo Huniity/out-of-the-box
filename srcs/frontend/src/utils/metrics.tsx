@@ -1,5 +1,7 @@
 import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock, Camera, Film, Code2, Megaphone, Gamepad2, Tv2 } from 'lucide-react'
 import proj from '../assets/FUNDO.jpg'
+import Fundo from '../assets/FUNDO.jpg'
+import { Session, SessionType } from '../types/palestras'
 
 // SEMANA LABIA
 
@@ -320,3 +322,54 @@ export const workshopsMetrics = [
 ]
 
 export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
+
+
+// Palestras
+
+export const palestrasTypeColors: Record<SessionType, string> = {
+  'PALESTRA':     '#c8ff00',
+  'WORKSHOP':     '#60a5fa',
+  'CONCERTOS': '#fb923c',
+  'PROJEÇÕES': '#a855f7',
+}
+
+
+
+export const palestrasSessions: Session[] = [
+  // ── 3 Jul ──
+  { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo },
+  { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo },
+  { id: 3,  day: 3,  time: '14:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Criar Marcas que Ficam',              speaker_name: 'Tiago Gouveia',                   speaker_activity: 'Brand Strategist',          description: 'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                       image: Fundo },
+  { id: 4,  day: 3,  time: '15:45', location: 'SALA 4', type: 'CONCERTOS', title: 'Criatividade sem Fronteiras',         speaker_name: 'Marta Nunes · João Correia · Inês Lopes', moderator: 'Pedro Fernandes', speaker_activity: 'Mesa Redonda', description: 'Uma conversa sobre processos criativos, colaboração e o impacto da educação no futuro.', image: Fundo },
+  // ── 4 Jul ──
+  { id: 5,  day: 4,  time: '10:00', location: 'SALA 2', type: 'PROJEÇÕES', title: 'Fotografia de Produto',               speaker_name: 'Ana Sofia Ferreira',              speaker_activity: 'Fotógrafa Comercial',       description: 'Técnicas e setup para fotografar produtos de forma profissional com equipamento acessível.', image: Fundo },
+  { id: 6,  day: 4,  time: '14:30', location: 'SALA 2', type: 'PALESTRA',  title: 'Do Algarve para o Mundo',             speaker_name: 'Carlos Nobre',                    speaker_activity: 'Empreendedor Digital',      description: 'Como construir uma carreira criativa internacional sem sair do Algarve.', image: Fundo },
+  // ── 5 Jul ──
+  { id: 7,  day: 5,  time: '11:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Game Design do Zero',                 speaker_name: 'Filipe Guerreiro',                speaker_activity: 'Game Designer',             description: 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.', image: Fundo },
+  { id: 8,  day: 5,  time: '15:00', location: 'SALA 4', type: 'WORKSHOP',  title: 'Som e Identidade de Marca',           speaker_name: 'Luísa Marques',                   speaker_activity: 'Sound Designer',            description: 'Como o som define marcas, emoções e experiências. Workshop prático com ferramentas básicas.', image: Fundo },
+  // ── 6 Jul ──
+  { id: 9,  day: 6,  time: '10:30', location: 'SALA 2', type: 'CONCERTOS', title: 'Ilustração e Mercado Editorial',      speaker_name: 'Beatriz Cruz',                    speaker_activity: 'Ilustradora',               description: 'Percurso na ilustração editorial e como chegar ao mercado de livros e revistas.', image: Fundo },
+  { id: 10, day: 6,  time: '14:00', location: 'SALA 2', type: 'WORKSHOP',  title: 'Edição de Vídeo Avançada',            speaker_name: 'Marco Faria',                     speaker_activity: 'Editor de Vídeo',           description: 'Fluxos de trabalho profissionais em DaVinci Resolve e After Effects.', image: Fundo },
+  // ── 7 Jul ──
+  { id: 11, day: 7,  time: '10:00', location: 'SALA 3', type: 'PALESTRA',  title: 'UX/UI no Mercado Real',               speaker_name: 'Vanessa Monteiro',                speaker_activity: 'Product Designer',          description: 'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.', image: Fundo },
+  { id: 12, day: 7,  time: '15:30', location: 'SALA 4', type: 'PROJEÇÕES', title: 'O Futuro das Profissões Criativas',   speaker_name: 'Ricardo Santos · Cláudia Leal',   moderator: 'Ana Costa', speaker_activity: 'Mesa Redonda', description: 'Debate sobre as tendências do mercado e as competências que as empresas procuram.', image: Fundo },
+  // ── 8 Jul ──
+  { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo },
+  { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo },
+  // ── 9 & 10 Jul (Speed Hunting) — sem palestras ──
+  // ── 11 Jul ──
+  { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo },
+  { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo },
+]
+
+export const palestrasEventDays = [
+  { day: 3,  weekday: 'SEX' }, { day: 4,  weekday: 'SÁB' }, { day: 5,  weekday: 'DOM' },
+  { day: 6,  weekday: 'SEG' }, { day: 7,  weekday: 'TER' }, { day: 8,  weekday: 'QUA' },
+  { day: 9,  weekday: 'QUI' }, { day: 10, weekday: 'SEX' }, { day: 11, weekday: 'SÁB' },
+  { day: 12, weekday: 'DOM' }, { day: 13, weekday: 'SEG' }, { day: 14, weekday: 'TER' },
+  { day: 15, weekday: 'QUA' }, { day: 16, weekday: 'QUI' }, { day: 17, weekday: 'SEX' },
+]
+
+export const palestrasAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
+export const palestrasAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
+export const palestrasPageSize = 4

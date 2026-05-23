@@ -1,6 +1,6 @@
 import os
 import sys
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from pathlib import Path
 
 # Make Django project importable inside Docker
@@ -82,27 +82,35 @@ def seed_database():
     )
     add_image(exhibition, "exhibition.png")
 
-    palestra = Palestra.objects.create(
-        title="Future of Creative Technology",
-        description="A talk about technology, creativity, and new opportunities.",
-        speaker_name="João Silva",
-        speaker_activity="Creative Director",
-        start_datetime=now + timedelta(days=3, hours=14),
-        location="Conference Room A",
-        is_active=True,
-    )
-    add_image(palestra, "palestra.png")
-
-    palestra = Palestra.objects.create(
-        title="Future of Creative Technology 2",
-        description="A talk about technology, creativity, and new opportunities. 2",
-        speaker_name="João Silva",
-        speaker_activity="Creative Director",
-        start_datetime=now + timedelta(days=3, hours=14),
-        location="Conference Room B",
-        is_active=True,
-    )
-    add_image(palestra, "palestra.png")
+    for title, description, speaker_name, speaker_activity, day, hour, minute, location in [
+        ('O Futuro do Design é Humano',         'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', 'Inês Almeida',                          'Designer & Art Director',  25,  10,  0, 'SALA 1'),
+        ('O Futuro do Design é Humano',         'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', 'Inês Almeida',                          'Designer & Art Director',  3,  10,  0, 'SALA 1'),
+        ('Motion Design com Propósito',         'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                     'Rui Tomás',                             'Motion Designer',          3,  11, 30, 'SALA 2'),
+        ('Criar Marcas que Ficam',              'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                        'Tiago Gouveia',                         'Brand Strategist',         3,  14,  0, 'SALA 3'),
+        ('Criatividade sem Fronteiras',         'Uma conversa sobre processos criativos, colaboração e o impacto da educação no futuro.',                                                    'Marta Nunes · João Correia · Inês Lopes','Mesa Redonda',             3,  15, 45, 'SALA 4'),
+        ('Fotografia de Produto',               'Técnicas e setup para fotografar produtos de forma profissional com equipamento acessível.',                                                'Ana Sofia Ferreira',                    'Fotógrafa Comercial',      4,  10,  0, 'SALA 2'),
+        ('Do Algarve para o Mundo',             'Como construir uma carreira criativa internacional sem sair do Algarve.',                                                                   'Carlos Nobre',                          'Empreendedor Digital',     4,  14, 30, 'SALA 2'),
+        ('Game Design do Zero',                 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.',                                                        'Filipe Guerreiro',                      'Game Designer',            5,  11,  0, 'SALA 3'),
+        ('Som e Identidade de Marca',           'Como o som define marcas, emoções e experiências. Workshop prático com ferramentas básicas.',                                               'Luísa Marques',                         'Sound Designer',           5,  15,  0, 'SALA 4'),
+        ('Ilustração e Mercado Editorial',      'Percurso na ilustração editorial e como chegar ao mercado de livros e revistas.',                                                           'Beatriz Cruz',                          'Ilustradora',              6,  10, 30, 'SALA 2'),
+        ('Edição de Vídeo Avançada',            'Fluxos de trabalho profissionais em DaVinci Resolve e After Effects.',                                                                      'Marco Faria',                           'Editor de Vídeo',          6,  14,  0, 'SALA 2'),
+        ('UX/UI no Mercado Real',               'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.',                                                     'Vanessa Monteiro',                      'Product Designer',         7,  10,  0, 'SALA 3'),
+        ('O Futuro das Profissões Criativas',   'Debate sobre as tendências do mercado e as competências que as empresas procuram.',                                                         'Ricardo Santos · Cláudia Leal',         'Mesa Redonda',             7,  15, 30, 'SALA 4'),
+        ('Produção Musical para Imagem',        'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.',                                                         'DJ Marcos',                             'Produtor Musical',         8,  11,  0, 'SALA 5'),
+        ('Arquitectura de Marca Digital',       'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.',                                                    'Joana Pereira',                         'Brand Strategist',         8,  16,  0, 'SALA 6'),
+        ('Fotografia Documental',               'Ética, técnica e oportunidades na fotografia documental e reportagem.',                                                                     'Pedro Tavares',                         'Fotógrafo Documental',     11, 10,  0, 'SALA 7'),
+        ('Narrativa Visual em Banda Desenhada', 'Estrutura narrativa, storyboard e composição visual na banda desenhada.',                                                                   'Sofia Matos',                           'Ilustradora & BD',         11, 14, 30, 'SALA 8'),
+    ]:
+        p = Palestra.objects.create(
+            title=title,
+            description=description,
+            speaker_name=speaker_name,
+            speaker_activity=speaker_activity,
+            start_datetime=timezone.make_aware(datetime(2026, 7, day, hour, minute)),
+            location=location,
+            is_active=True,
+        )
+        add_image(p, 'palestra.png')
 
     special_zone = SpecialZone.objects.create(
         title="Innovation Zone",
@@ -148,8 +156,8 @@ def seed_database():
     page = Page.objects.bulk_create([
         Page(name="Home", url="/", is_live=True, views=50),
         Page(name="Exhibitions", url="exhibitions", is_live=True, views=12),
-        Page(name="Palestras", url="palestras", is_live=True, views=25),
-        Page(name="Workshops", url="workshops", is_live=True, views=2, main_white_title="Work", main_green_title="shops", main_description="Descobre as sessões práticas da Out of the Box – Faro 2026. Explora workshops por área formativa e conhece as equipas que vão desafiar-te a aprender, criar e experimentar.", cta_button_text="Garante o teu lugar!", cta_button_link="https://docs.google.com/forms", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
+        Page(name="Palestras", url="palestras", is_live=True, views=25, main_white_title="As Grandes", main_green_title="Vozes", main_description="Conecta-te com os profissionais que estão a ditar o rumo da indústria. Explora as palestras, workshops e debates do Out of the Box 2026.", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
+        Page(name="Workshops", url="workshops", is_live=True, views=2, main_white_title="Work", main_green_title="shops", main_description="Descobre as sessões práticas da Out of the Box Faro 2026. Explora workshops por área formativa e conhece as equipas que vão desafiar-te a aprender, criar e experimentar.", cta_button_text="Garante o teu lugar!", cta_button_link="https://docs.google.com/forms", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Video Screenings", url="projecoes", is_live=True, views=15, main_white_title="ETIC", main_green_title="EM CARTAZ", main_description="Apresentação dos projetos finais das turmas de Realização, Cinema e TV da ETIC_Algarve. Sessões abertas ao público, entrada livre.", cta_button_text="Explorar Curtas Metragens", cta_button_link="https://www.youtube.com/watch?v=z69B4lJ-sUE", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Concerts", url="concertos", is_live=True, views=12, main_white_title="Concertos", main_green_title="Live", main_description="A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.", cta_button_text="Live In Sight ", cta_button_link="https://www.eticalgarve.com/comunidade/live-insight/", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Speed Hunting", url="speed-hunting", is_live=True, views=13, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/palestras", start_event_date=date(2026, 7, 9), end_event_date=date(2026, 7, 10)),
