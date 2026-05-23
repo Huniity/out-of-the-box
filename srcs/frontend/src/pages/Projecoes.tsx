@@ -4,105 +4,24 @@ import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-const metrics = [
-    {
-        icon: <CalendarDays size={38} strokeWidth={1.8} />,
-        value: '9→16',
-        label: 'JULHO',
-        desc: 'Durante o Out of the Box 2026 — uma semana de cinema.',
-    },
-    {
-        icon: <MapPin size={38} strokeWidth={1.8} />,
-        value: '',
-        label: 'IPDJ, FARO',
-        desc: 'Auditório Principal — exibições públicas e gratuitas.',
-    },
-    {
-        icon: <Users size={38} strokeWidth={1.8} />,
-        value: '5',
-        label: 'SESSÕES',
-        desc: 'Cinco sessões temáticas ao longo do festival.',
-    },
-    {
-        icon: <Star size={38} strokeWidth={1.8} />,
-        value: '',
-        label: 'ENTRADA LIVRE',
-        desc: 'Abertas ao público. A tua presença faz a diferença.',
-    },
-]
+import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFeatures as features } from '../utils/metrics'
 
-const sessions = [
-    {
-        day: '9',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'NARRATIVAS DO REAL',
-        desc: 'Curtas-metragens de ficção e documentário.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '10',
-        month: 'JUL',
-        tag: 'CINEMA',
-        tagColor: '#3b82f6',
-        title: 'OLHARES DO AMANHÃ',
-        desc: 'Histórias, personagens e novas formas de ver o mundo.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '11',
-        month: 'JUL',
-        tag: 'TV',
-        tagColor: '#22c55e',
-        title: 'DE ATRÁS DAS CÂMARAS',
-        desc: 'Projetos de reportagem, entretenimento e formatos TV.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '12',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'EXPERIMENTAR É CRIAR',
-        desc: 'Trabalhos experimentais e autorais dos alunos.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '16',
-        month: 'JUL',
-        tag: 'SESSÃO ESPECIAL',
-        tagColor: '#a855f7',
-        title: 'BEST OF OUT OF THE BOX',
-        desc: 'Seleção dos melhores projetos do festival.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-]
-
-const features = [
-    {
-        icon: <Play size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'PROJETOS FINAIS',
-        desc: 'Trabalhos originais de alunos das áreas de Realização, Cinema e TV.',
-    },
-    {
-        icon: <Users size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'SESSÕES PÚBLICAS',
-        desc: 'Exibição em auditório, abertas ao público durante o festival.',
-    },
-    {
-        icon: <Star size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'CRIATIVIDADE SEM LIMITES',
-        desc: 'Ficção, documentário, experimental, reportagem e muito mais.',
-    },
-]
+import { usePageData } from '../hooks/usePageData'
+import { formatEventDateRange } from '../utils/dashboard'
 
 const Projecoes = () => {
+        const {
+            main_white_title,
+            main_green_title,
+            main_description,
+            cta_button_text,
+            cta_button_link,
+            start_event_date,
+            end_event_date,
+        } = usePageData('projecoes');
+        
+
+
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
 
@@ -116,19 +35,17 @@ const Projecoes = () => {
                     <div className="flex-1 flex flex-col py-8">
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            ETIC<br />
-                            <span className="text-[#c8ff00]">EM CARTAZ </span>
+                            {main_white_title}<br />
+                            <span className="text-[#c8ff00]">{main_green_title}</span>
                         </h1>
 
                         <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            Apresentação dos projetos finais das turmas de Realização,
-                            Cinema e TV da ETIC_Algarve. Sessões abertas ao público,
-                            entrada livre.
+                            {main_description}
                         </p>
 
                         {/* Info pills */}
                         <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> 9 a 16 de Julho</span>
+                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
                             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
                             <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
                         </div>
@@ -294,8 +211,8 @@ const Projecoes = () => {
                         <p className="mt-4 text-xs text-white/40">A tua presença inspira o futuro do cinema e da televisão.</p>
                     </div>
                     <div className="shrink-0">
-                        <PrimaryButton href="#programa" size="lg">
-                            Saber Mais
+                        <PrimaryButton href={cta_button_link} size="lg">
+                            {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>
