@@ -1,12 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.db.models import Sum
-from django.shortcuts import get_object_or_404
+from django.contrib.auth import logout as auth_logout
 
-from rest_framework.decorators import action
-from rest_framework.response import Response
-
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
 from .models import (
@@ -38,7 +35,7 @@ class PageCountView(APIView):
 
 class PageListView(APIView):
     def get(self, request):
-        pages = Page.objects.filter(is_live=False)
+        pages = Page.objects.all()
         serializer = PageSerializer(pages, many=True)
         return Response(serializer.data)
 
@@ -52,10 +49,9 @@ class PageDetailView(APIView):
     def patch(self, request, pk):
         page = get_object_or_404(Page, pk=pk)
         serializer = PageSerializer(page, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 class SpeakerCountView(APIView):
@@ -111,6 +107,7 @@ class SpeedHuntingViewSet(viewsets.ModelViewSet):
 class SpecialZoneViewSet(viewsets.ModelViewSet):
     queryset = SpecialZone.objects.all()
     serializer_class = SpecialZoneSerializer
+
 
 @api_view(['GET'])
 def me(request):

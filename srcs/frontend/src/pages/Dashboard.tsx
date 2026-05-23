@@ -1,18 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-    ArrowLeft,
-    User,
-    LogOut,
-    Menu,
-    X,
-    Pencil,
-} from "lucide-react";
+import { LogOut, Pencil, Eye } from "lucide-react";
 
 import { Link } from "react-router-dom";
 
-import PageCount from "../components/dashboard/MetricsPageCount";
-import VisitorCount from "../components/dashboard/MetricsVisitorCount";
-import SpeakerCount from "../components/dashboard/MetricsSpeakerCount";
 import DashboardNav from "../components/dashboard/DashboardNav";
 import PageDataTable from "../components/dashboard/DashboardPagesData";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
@@ -29,24 +19,26 @@ export default function Dashboard() {
     const [user, setUser] = useState<{ firstName: string; lastName: string; role: string } | null>(null);
 
     useEffect(() => {
-        fetch('/api/auth/me/', { credentials: 'include' })
-            .then(res => {
-                if (res.status === 401) {
-                    window.location.href = '/admin/login/?next=/dashboard';
+        const ctrl = new AbortController();
+        fetch("/api/auth/me/", { credentials: "include", signal: ctrl.signal })
+            .then((r) => {
+                if (r.status === 401) {
+                    window.location.href = "/admin/login/?next=/dashboard";
                     return null;
                 }
-                return res.json();
+                return r.json();
             })
-            .then(data => {
-                if (data) {
-                    setUser({
-                        firstName: data.first_name || data.username,
-                        lastName: data.last_name || '',
-                        role: data.role,
-                    });
-                }
+            .then((data) => {
+                if (data) setUser({ firstName: data.first_name || data.username, lastName: data.last_name ?? "", role: data.role ?? "" });
+            })
+            .catch((err) => {
+                if (err.name === "AbortError") return;
+                window.location.href = "/admin/login/?next=/dashboard";
             });
+        return () => ctrl.abort();
     }, []);
+
+    if (!user) return <div className="min-h-screen bg-black" />;
 
     const handleLogout = async () => {
         const csrfToken = document.cookie
@@ -58,18 +50,20 @@ export default function Dashboard() {
             headers: { 'X-CSRFToken': csrfToken },
             credentials: 'include',
         });
-        window.location.href = '/admin/login/';
+        window.location.href = '/';
     };
-
-    if (!user) return <div className="min-h-screen bg-black" />;
 
     const activePage = apiPages.find((p) => String(p.id) === activeTab);
 
+    function updatePage(page: ApiPage): void {
+        throw new Error("Function not implemented.");
+    }
+
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="max-h-screen bg-black text-white">
             <DashboardHeader user={user} />
 
-            <div className="flex h-screen flex-col lg:flex-row lg:pt-16">
+            <div className="flex h-screen flex-col lg:flex-row lg:mt-16 lg:h-[calc(100vh-4rem)]">
                 <MobileTopbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 <MobileOverlay sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
@@ -144,10 +138,6 @@ function Overview({
 
     return (
         <div>
-            {/* Page cards */}
-            <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                Páginas
-            </h2>
             {apiPages.length === 0 ? (
                 <p className="text-sm text-gray-600">No pages loaded yet.</p>
             ) : (
@@ -157,6 +147,7 @@ function Overview({
                             key={page.id}
                             page={page}
                             onEdit={() => setEditingPage(page)}
+                            onNavigate={() => setActiveTab(String(page.id))}
                         />
                     ))}
                 </div>
@@ -180,7 +171,7 @@ function Overview({
     );
 }
 
-function PageCard({ page, onEdit }: { page: ApiPage; onEdit: () => void }) {
+function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => void; onNavigate: () => void }) {
     return (
         <div className="flex flex-col rounded-xl border border-white/15 bg-white/[0.04] p-5 backdrop-blur-xl">
             {/* Header */}
@@ -221,15 +212,23 @@ function PageCard({ page, onEdit }: { page: ApiPage; onEdit: () => void }) {
                     />
                 )}
             </div>
-
+            <div className="flex items-center gap-3 mt-4">
             {/* Edit button */}
-            <button
-                onClick={onEdit}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 py-2 text-xs font-medium text-gray-400 transition-colors hover:border-[#c8ff00]/40 hover:text-[#c8ff00]"
-            >
-                <Pencil size={12} />
-                Editar página
-            </button>
+                <button
+                    onClick={onNavigate}
+                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 py-2 text-xs font-medium text-gray-400 transition-colors hover:border-[#c8ff00]/40 hover:text-[#c8ff00]"
+                >
+                    <Eye size={12} />
+                    Ver Conteúdo
+                </button>
+                <button
+                    onClick={onEdit}
+                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 py-2 text-xs font-medium text-gray-400 transition-colors hover:border-[#c8ff00]/40 hover:text-[#c8ff00]"
+                >
+                    <Pencil size={12} />
+                    Editar página
+                </button>
+            </div>
         </div>
     );
 }
