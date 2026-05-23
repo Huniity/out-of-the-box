@@ -146,13 +146,14 @@ def seed_database():
     add_image(workshop, "workshop.png")
 
     page = Page.objects.bulk_create([
-        Page(name="Exhibitions", url="exhibitions", is_hidden=False, views=12),
-        Page(name="Palestras", url="palestras", is_hidden=False, views=25),
-        Page(name="Workshops", url="workshops", is_hidden=False, views=2),
-        Page(name="Video Screenings", url="video-screenings", is_hidden=False, views=15),
-        Page(name="Concerts", url="concerts", is_hidden=False, views=12),
-        Page(name="Speed Hunting", url="speed-hunting", is_hidden=False, views=13),
-        Page(name="Special Zones", url="special-zones", is_hidden=False, views=22),
+        Page(name="Home", url="/", is_live=False, views=50),
+        Page(name="Exhibitions", url="exhibitions", is_live=False, views=12),
+        Page(name="Palestras", url="palestras", is_live=False, views=25),
+        Page(name="Workshops", url="workshops", is_live=False, views=2),
+        Page(name="Video Screenings", url="video-screenings", is_live=False, views=15),
+        Page(name="Concerts", url="concerts", is_live=False, views=12),
+        Page(name="Speed Hunting", url="speed-hunting", is_live=False, views=13),
+        Page(name="Special Zones", url="special-zones", is_live=False, views=22),
 ])
 
 

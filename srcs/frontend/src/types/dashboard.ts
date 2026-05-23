@@ -4,9 +4,13 @@ export type ApiPage = {
     id: number;
     name: string;
     url: string;
-    description: string;
+    main_title: string;
+    main_description: string;
     views: number;
-    is_hidden: boolean;
+    is_live: boolean;
+    cta_button_link: string;
+    cta_button_text: string;
+    event_date: string | null;
 };
 
 export type DashboardNavProps = {
