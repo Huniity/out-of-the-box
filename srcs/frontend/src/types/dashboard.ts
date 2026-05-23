@@ -4,7 +4,8 @@ export type ApiPage = {
     id: number;
     name: string;
     url: string;
-    main_title: string;
+    main_white_title: string;
+    main_green_title: string;
     main_description: string;
     views: number;
     is_live: boolean;

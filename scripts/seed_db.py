@@ -152,7 +152,7 @@ def seed_database():
         Page(name="Workshops", url="workshops", is_live=False, views=2),
         Page(name="Video Screenings", url="video-screenings", is_live=False, views=15),
         Page(name="Concerts", url="concerts", is_live=False, views=12),
-        Page(name="Speed Hunting", url="speed-hunting", is_live=False, views=13),
+        Page(name="Speed Hunting", url="speed-hunting", is_live=False, views=13, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/palestras"),
         Page(name="Special Zones", url="semana-labia", is_live=False, views=22, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
 ])
 
