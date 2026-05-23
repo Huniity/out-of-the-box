@@ -2,6 +2,7 @@ import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, Che
 import proj from '../assets/FUNDO.jpg'
 import Fundo from '../assets/FUNDO.jpg'
 import { Session, SessionType } from '../types/palestras'
+import { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
 // SEMANA LABIA
 
@@ -373,3 +374,40 @@ export const palestrasEventDays = [
 export const palestrasAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
 export const palestrasAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
 export const palestrasPageSize = 4
+
+
+// Exposições
+
+export const exposicoesAreaColors: Record<ExhibitionArea, string> = {
+  DESIGN: '#fb923c',
+  FOTO:   '#60a5fa',
+  GAMES:  '#c8ff00',
+  LABIA:  '#ec4899',
+}
+
+export const exposicoesAreaLabels: Record<ExhibitionArea, string> = {
+  DESIGN: 'Design',
+  FOTO:   'Fotografia',
+  GAMES:  'Videojogos',
+  LABIA:  'Espaço Lábia',
+}
+
+
+export const exposicoesDestaques: Exhibition[] = [
+  { id: 1, title: 'Identidades em Movimento', area: 'DESIGN', image: Fundo, synopsis: 'Projetos de design gráfico que exploram identidade, cultura e comunicação visual.',        artists: 'Turma de Design 2024',       opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 2, title: 'Olhares do Algarve',       area: 'FOTO',   image: Fundo,   synopsis: 'Fotografias que captam paisagens, pessoas e histórias que nos rodeiam.',              artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 3, title: 'Mundos Interativos',        area: 'GAMES',  image: Fundo,  synopsis: 'Experiências de jogo desenvolvidas pelos alunos, da ideia ao protótipo.',            artists: 'Turma de Videojogos 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 4, title: 'Narrativas Visuais',        area: 'FOTO',   image: Fundo,   synopsis: 'Projetos fotográficos que contam histórias através da luz e da composição.',        artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 5, title: 'Exposição Final OOTB',      area: 'DESIGN', image: Fundo, synopsis: 'Uma seleção dos melhores projetos do ano, reunidos numa exposição imperdível.',     artists: 'Alunos ETIC_Algarve 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+]
+
+export const exposicoesGalleryImages = [Fundo, Fundo, Fundo, Fundo, Fundo, Fundo]
+
+export const exposicoesDestCardW = 216  // 200px card + 16px gap
+export const exposicoesGalCardW  = 212  // 200px card + 12px gap-3
+
+export const exposicoesCriatividade = [
+  { icon: <Star size={24} />, label: 'PROJETOS FINAIS',         desc: 'Trabalhos originais desenvolvidos ao longo do curso, do conceito à apresentação final.' },
+  { icon: <Eye size={24} />,  label: 'MOSTRA PÚBLICA',          desc: 'Aberta a todos, esta é uma oportunidade de conhecer e apoiar o talento emergente da ETIC_Algarve.' },
+  { icon: <Zap size={24} />,  label: 'TALENTO MULTIDISCIPLINAR', desc: 'Três áreas criativas, múltiplas perspetivas e um mesmo objetivo: criar impacto.' },
+]
