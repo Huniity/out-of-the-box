@@ -4,7 +4,6 @@ import doodlePink from '../../assets/d_p.png'
 import doodlePurple from '../../assets/d_pu.png'
 import doodleBlue from '../../assets/d_blu.png'
 import doodleGreen from '../../assets/d_g.png'
-import BlueDoodle from '../../assets/Artboard_11_2.png'
 import doodleBlack from '../../assets/d_b.png'
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
@@ -12,15 +11,23 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
 import BushImage from '../../assets/bush.png'
 
+import polaroidExposicoes   from '../../assets/polaroid_exposicoes.png'
+import polaroidPalestras    from '../../assets/polaroid_palestras.png'
+import polaroidWorkshops    from '../../assets/polaroid_workshops.png'
+import polaroidCinema       from '../../assets/polaroid_cinema.png'
+import polaroidConcertos    from '../../assets/polaroid_concertos.png'
+import polaroidSpeedHunting from '../../assets/polaroid_speedhunting.png'
+import polaroidSemanaLabia  from '../../assets/polaroid_semanalabias.png'
+
 
 const areas = [
-  { num: '01', name: 'Exposições',      desc: 'Design, Fotografia e Videógrafos',             slug: 'exposicoes',    color: '#f97316', rotate: -1.2, side: 'right' },
-  { num: '02', name: 'Palestras',       desc: 'Conversas com convidados e oradores',           slug: 'palestras',     color: '#22c55e', rotate:  0.8, side: 'left'  },
-  { num: '03', name: 'Workshops',       desc: 'Sessões práticas em várias áreas formativas',   slug: 'workshops',     color: '#a855f7', rotate: -0.6, side: 'right' },
-  { num: '04', name: 'Projeções Vídeo', desc: 'Projetos finais de Realização, Cinema e TV',    slug: 'projecoes',     color: '#3b82f6', rotate:  1.4, side: 'left'  },
-  { num: '05', name: 'Concertos',       desc: 'Live in Sight e atuações de alunos',            slug: 'concertos',     color: '#eab308', rotate: -1.0, side: 'right' },
-  { num: '06', name: 'Speed Hunting',   desc: 'Encontros entre empresas e alunos',             slug: 'speed-hunting', color: '#ec4899', rotate:  0.5, side: 'left'  },
-  { num: '07', name: 'Área Especial',   desc: 'Projetos da Semana Lábia 2026',                 slug: 'area-especial', color: '#14b8a6', rotate: -0.8, side: 'right' },
+  { num: '01', name: 'Exposições',    desc: 'Design, Fotografia e Videógrafos',           slug: 'exposicoes',    rotate: -3,   side: 'right', polaroid: polaroidExposicoes   },
+  { num: '02', name: 'Palestras',     desc: 'Conversas com convidados e oradores',         slug: 'palestras',     rotate:  2.5, side: 'left',  polaroid: polaroidPalestras    },
+  { num: '03', name: 'Workshops',     desc: 'Sessões práticas em várias áreas formativas', slug: 'workshops',     rotate: -2,   side: 'right', polaroid: polaroidWorkshops    },
+  { num: '04', name: 'Cinema',        desc: 'Projetos finais de Realização, Cinema e TV',  slug: 'projecoes',     rotate:  3.5, side: 'left',  polaroid: polaroidCinema       },
+  { num: '05', name: 'Concertos',     desc: 'Live in Sight e atuações de alunos',          slug: 'concertos',     rotate: -2.5, side: 'right', polaroid: polaroidConcertos    },
+  { num: '06', name: 'Speed Hunting', desc: 'Encontros entre empresas e alunos',           slug: 'speed-hunting', rotate:  2,   side: 'left',  polaroid: polaroidSpeedHunting },
+  { num: '07', name: 'Semana Lábia',  desc: 'Projetos da Semana Lábia 2026',               slug: 'area-especial', rotate: -3,   side: 'right', polaroid: polaroidSemanaLabia  },
 ]
 
 function buildZigzagPath(pts: { x: number; y: number }[]): string {
@@ -274,52 +281,38 @@ export default function AreasWall() {
                       ),
                     }}
                   />
-                <a
+                <motion.a
                   href={`/areas/${area.slug}`}
                   ref={el => { cardRefs.current[i] = el }}
-                  className="z-20 block relative bg-[#f5f0e8] border border-[#e0d8c8] rounded-sm p-5 w-60
-                            hover:rotate-0 hover:scale-[1.04] hover:z-20
-                            transition-transform duration-300 ease-out group"
-                  style={{ transform: `rotate(${area.rotate}deg)` }}
+                  className="z-20 block relative group"
+                  style={{ rotate: area.rotate }}
+                  whileHover={{ rotate: 0, scale: 1.06 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
                 >
-                  {/* Tape */}
-                  <div
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-5 z-50"
-                    style={{ background: 'rgba(198, 220, 128, 0.85)' }}
+                  {/* Number badge */}
+                  <span
+                    className="absolute -top-3 -left-3 z-30 w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-black text-black leading-none"
+                    style={{ background: '#c8ff00', boxShadow: '0 2px 10px rgba(200,255,0,0.45)' }}
+                  >
+                    {area.num}
+                  </span>
+
+                  <img
+                    src={area.polaroid}
+                    alt={area.name}
+                    draggable={false}
+                    className="w-64 md:w-72 lg:w-80 block select-none"
+                    style={{ filter: 'drop-shadow(0 8px 28px rgba(0,0,0,0.6))' }}
                   />
 
-                  {/* Colour bar */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-[3px] rounded-b-sm"
-                    style={{ background: area.color }}
-                  />
-                  {/* Doodle overlay */}
-                  <div
-                    className="border-b-3 border-black absolute top-0 left-0 right-0 h-[28px] rounded-t-sm overflow-hidden opacity-90  pointer-events-none"
-                    style={{
-                      backgroundImage: `url(${BlueDoodle})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  />
-
-                  <div className="flex justify-between mt-1.5 mb-3.5">
-                    <span className="text-[11px] font-black text-black/30 tracking-wide">//{area.num}</span>
-                    <span className="text-[10px] font-bold text-black/25 tracking-widest">FARO/26</span>
-                  </div>
-
-                  <p className="font-black text-[24px] uppercase text-black leading-none tracking-tight mb-2">
-                    {area.name}
-                  </p>
-                  <p className="text-[11px] text-black/50 leading-relaxed mb-4">{area.desc}</p>
-
-                  <div className="flex justify-between items-center border-t border-black/10 pt-2.5">
-                    <span className="flex items-center gap-1.5 text-[10px] font-black text-black/40
-                                    uppercase tracking-widest group-hover:text-[#3a7d00] transition-colors">
-                      Ver a Área <ArrowRight size={10} strokeWidth={3} />
+                  {/* Description + link below the polaroid */}
+                  <div className="mt-2 px-2 flex flex-col gap-0.5">
+                    <p className="text-white/45 text-[11px] leading-snug text-center">{area.desc}</p>
+                    <span className="flex items-center justify-center gap-1 text-[10px] font-black uppercase tracking-widest text-[#c8ff00]/60 group-hover:text-[#c8ff00] transition-colors duration-200">
+                      Ver a Área <ArrowRight size={9} strokeWidth={3} />
                     </span>
                   </div>
-                </a>
+                </motion.a>
                 </div>
               </motion.div>
             ))}
