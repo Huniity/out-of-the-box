@@ -1,4 +1,4 @@
-import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2 } from 'lucide-react'
+import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2 } from 'lucide-react'
 import proj from '../assets/FUNDO.jpg'
 
 // SEMANA LABIA
@@ -123,3 +123,55 @@ export const speedHuntingTips = [
     'Leva contactos / LinkedIn / QR Code',
     'Atitude profissional e curiosidade',
 ]
+
+// Concertos
+
+export const concertosFeaturedEvent = {
+    day: '3',
+    month: 'JUL',
+    time: '19:00',
+    venue: 'IPDJ, Faro',
+    tag: 'EVENTO DE ABERTURA',
+    title: 'LIVE IN SIGHT',
+    subtitle: 'Live de Abertura do Out of the Box – Faro 2026',
+    desc: 'Um concerto especial que marca o arranque do festival. Música, audiovisual e energia coletiva para abrir 15 dias de criatividade sem limites.',
+    badges: ['CONCERTO', 'ENTRADA LIVRE'],
+}
+
+export const concertosProgramme = [
+    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC',               time: '20:00', venue: 'IPDJ, Faro' },
+    { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
+    { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
+    { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },
+    { day: '8',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'ALUNOS EM PALCO SESSÃO 1',     time: '20:00', venue: 'IPDJ, Faro' },
+    { day: '9',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'VIBE COLLECTIVE DJ SET',       time: '21:00', venue: 'IPDJ, Faro' },
+    { day: '10', month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'ACÚSTICO E EXPERIMENTAL',      time: '20:30', venue: 'IPDJ, Faro' },
+    { day: '11', month: 'JUL', tag: 'HAPPENING', tagColor: '#ec4899', title: 'HAPPENING MULTIDISCIPLINAR',   time: '20:00', venue: 'IPDJ, Faro' },
+]
+
+export const concertosHappenings = [
+    { title: 'FRAGMENTOS SONOROS',   desc: 'Performance sonora' },
+    { title: 'LUGARES INTERIORES',   desc: 'Performance audiovisual' },
+    { title: 'CORPOS EM MOVIMENTO',  desc: 'Dança e projeção' },
+    { title: 'PAISAGENS SONORAS',    desc: 'Instalação sonora' },
+    { title: 'INTERFERÊNCIAS AO VIVO', desc: 'Live experimental' },
+]
+
+export const concertosFeatures = [
+    {
+        icon: <Music2 size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'MÚSICA AO VIVO',
+        desc: 'Concertos, DJ sets e lives com diferentes linguagens e sonoridades.',
+    },
+    {
+        icon: <Shuffle size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'PERFORMANCES MULTIDISCIPLINARES',
+        desc: 'Happenings que juntam música, vídeo, dança e arte digital.',
+    },
+    {
+        icon: <Eye size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
+        title: 'EXPERIÊNCIAS IMERSIVAS',
+        desc: 'Ambientes criativos que convidam à descoberta e participação.',
+    },
+]
+    

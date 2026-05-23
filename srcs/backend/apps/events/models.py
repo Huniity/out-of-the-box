@@ -13,7 +13,8 @@ class Page(models.Model):
     is_live = models.BooleanField(default=True)
     cta_button_link = models.CharField(max_length=255, blank=True)
     cta_button_text = models.CharField(max_length=255, blank=True)
-    event_date = models.DateField(null=True, blank=True)
+    start_event_date = models.DateField(null=True, blank=True)
+    end_event_date = models.DateField(null=True, blank=True)
 
 
     def __str__(self):

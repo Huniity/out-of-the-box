@@ -1,6 +1,6 @@
 import os
 import sys
-from datetime import timedelta
+from datetime import timedelta, date
 from pathlib import Path
 
 # Make Django project importable inside Docker
@@ -146,14 +146,14 @@ def seed_database():
     add_image(workshop, "workshop.png")
 
     page = Page.objects.bulk_create([
-        Page(name="Home", url="/", is_live=False, views=50),
-        Page(name="Exhibitions", url="exhibitions", is_live=False, views=12),
-        Page(name="Palestras", url="palestras", is_live=False, views=25),
-        Page(name="Workshops", url="workshops", is_live=False, views=2),
-        Page(name="Video Screenings", url="video-screenings", is_live=False, views=15),
-        Page(name="Concerts", url="concerts", is_live=False, views=12),
-        Page(name="Speed Hunting", url="speed-hunting", is_live=False, views=13, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/palestras"),
-        Page(name="Special Zones", url="semana-labia", is_live=False, views=22, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
+        Page(name="Home", url="/", is_live=True, views=50),
+        Page(name="Exhibitions", url="exhibitions", is_live=True, views=12),
+        Page(name="Palestras", url="palestras", is_live=True, views=25),
+        Page(name="Workshops", url="workshops", is_live=True, views=2),
+        Page(name="Video Screenings", url="video-screenings", is_live=True, views=15),
+        Page(name="Concerts", url="concertos", is_live=True, views=12, main_white_title="Concertos", main_green_title="Live", main_description="A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.", cta_button_text="Live In Sight ", cta_button_link="https://www.eticalgarve.com/comunidade/live-insight/", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
+        Page(name="Speed Hunting", url="speed-hunting", is_live=True, views=13, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/palestras", start_event_date=date(2026, 7, 9), end_event_date=date(2026, 7, 10)),
+        Page(name="Special Zones", url="semana-labia", is_live=True, views=22, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
 ])
 
 

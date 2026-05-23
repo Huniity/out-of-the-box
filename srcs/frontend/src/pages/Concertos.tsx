@@ -4,56 +4,21 @@ import heroImg from '../assets/FUNDO.jpg'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-const featuredEvent = {
-    day: '3',
-    month: 'JUL',
-    time: '19:00',
-    venue: 'IPDJ, Faro',
-    tag: 'EVENTO DE ABERTURA',
-    title: 'LIVE IN SIGHT',
-    subtitle: 'Live de Abertura do Out of the Box – Faro 2026',
-    desc: 'Um concerto especial que marca o arranque do festival. Música, audiovisual e energia coletiva para abrir 15 dias de criatividade sem limites.',
-    badges: ['CONCERTO', 'ENTRADA LIVRE'],
-}
-
-const programme = [
-    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC',               time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '8',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'ALUNOS EM PALCO SESSÃO 1',     time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '9',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'VIBE COLLECTIVE DJ SET',       time: '21:00', venue: 'IPDJ, Faro' },
-    { day: '10', month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'ACÚSTICO E EXPERIMENTAL',      time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '11', month: 'JUL', tag: 'HAPPENING', tagColor: '#ec4899', title: 'HAPPENING MULTIDISCIPLINAR',   time: '20:00', venue: 'IPDJ, Faro' },
-]
-
-const happenings = [
-    { title: 'FRAGMENTOS SONOROS',   desc: 'Performance sonora' },
-    { title: 'LUGARES INTERIORES',   desc: 'Performance audiovisual' },
-    { title: 'CORPOS EM MOVIMENTO',  desc: 'Dança e projeção' },
-    { title: 'PAISAGENS SONORAS',    desc: 'Instalação sonora' },
-    { title: 'INTERFERÊNCIAS AO VIVO', desc: 'Live experimental' },
-]
-
-const features = [
-    {
-        icon: <Music2 size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'MÚSICA AO VIVO',
-        desc: 'Concertos, DJ sets e lives com diferentes linguagens e sonoridades.',
-    },
-    {
-        icon: <Shuffle size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'PERFORMANCES MULTIDISCIPLINARES',
-        desc: 'Happenings que juntam música, vídeo, dança e arte digital.',
-    },
-    {
-        icon: <Eye size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
-        title: 'EXPERIÊNCIAS IMERSIVAS',
-        desc: 'Ambientes criativos que convidam à descoberta e participação.',
-    },
-]
+import { concertosFeaturedEvent as featuredEvent, concertosProgramme as programme, concertosHappenings as happenings, concertosFeatures as features } from '../utils/metrics'
+import { usePageData } from '../hooks/usePageData'
+import { formatEventDateRange } from '../utils/dashboard'
 
 const Concertos = () => {
+        const {
+            main_white_title,
+            main_green_title,
+            main_description,
+            cta_button_text,
+            cta_button_link,
+            start_event_date,
+            end_event_date,
+        } = usePageData('concertos');
+
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
 
@@ -67,19 +32,17 @@ const Concertos = () => {
                     <div className="flex-1 flex flex-col py-8">
                         <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            CONCERTOS <br />
-                            <span className="text-[#c8ff00]">LIVE</span>
+                            {main_white_title} <br />
+                            <span className="text-[#c8ff00]">{main_green_title}</span>
                         </h1>
 
                         <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            A música ao vivo e os happenings dão ritmo ao Out of the Box.
-                            Aqui encontras o evento de abertura Live In Sight e todas as
-                            atuações dos alunos durante o festival.
+                            {main_description}
                         </p>
 
                         {/* Info pills */}
                         <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> 3 a 17 de Julho</span>
+                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
                             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
                             <span className="flex items-center gap-1.5"><Music size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
                         </div>
@@ -298,8 +261,8 @@ const Concertos = () => {
                         </p>
                     </div>
                     <div className="shrink-0">
-                        <PrimaryButton href="#programa" size="lg">
-                            Vem Viver
+                        <PrimaryButton href={cta_button_link} size="lg">
+                            {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>

@@ -11,7 +11,8 @@ export type ApiPage = {
     is_live: boolean;
     cta_button_link: string;
     cta_button_text: string;
-    event_date: string | null;
+    start_event_date: string | null;
+    end_event_date: string | null;
 };
 
 export type DashboardNavProps = {

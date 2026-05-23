@@ -205,7 +205,8 @@ function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => v
                         }
                     />
                 )}
-                {page.event_date && <InfoRow label="Data" value={page.event_date} />}
+                {page.start_event_date && <InfoRow label="Data de Início" value={page.start_event_date} />}
+                {page.end_event_date && <InfoRow label="Data de Fim" value={page.end_event_date} />}
                 {page.cta_button_text && (
                     <InfoRow
                         label="Botão"

@@ -6,6 +6,7 @@ import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies as companies, speedHuntingCategories as categories} from '../utils/metrics'
+import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 
 
@@ -16,7 +17,8 @@ const SpeedHunting = () => {
             main_description,
             cta_button_text,
             cta_button_link,
-            event_date,
+            start_event_date,
+            end_event_date,
         } = usePageData('speed-hunting');
 
 
@@ -49,7 +51,7 @@ const SpeedHunting = () => {
 
                         {/* Info pills */}
                         <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> 9 e 10 de Julho</span>
+                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
                             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
                             <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
                         </div>

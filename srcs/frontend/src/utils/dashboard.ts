@@ -26,7 +26,6 @@ export const fieldLabels: Record<string, string> = {
     cta_button_link: "Link do Botão",
     cta_button_text: "Texto do Botão",
     event_date: "Data do Evento",
-    // Event model shared fields
     title: "Título",
     description: "Descrição",
     is_active: "Ativo",
@@ -51,6 +50,20 @@ export const fieldLabels: Record<string, string> = {
     max_candidates: "Máx. Candidatos",
     featured_projects: "Projeto em Destaque",
 };
+
+/**
+ * Formats two ISO date strings (YYYY-MM-DD) into Portuguese range text.
+ * e.g. "2026-07-09" + "2026-07-10" → "9 a 10 de julho 2026"
+ */
+export function formatEventDateRange(start: string | null, end: string | null): string {
+    if (!start) return '';
+    const [y, m, d1] = start.split('-').map(Number);
+    const d2 = end ? end.split('-')[2].replace(/^0/, '') : null;
+    const month = new Date(y, m - 1).toLocaleString('pt-PT', { month: 'long' });
+    return d2 && d2 !== String(d1)
+        ? `${d1} a ${d2} de ${month} ${y}`
+        : `${d1} de ${month} ${y}`;
+}
 
 const formatFieldName = (field: string): string => {
     return field
