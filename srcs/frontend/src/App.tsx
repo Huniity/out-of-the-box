@@ -37,16 +37,7 @@ function Homepage() {
                 alt=""
                 aria-hidden="true"
                 className="leaf-1 absolute pointer-events-none select-none z-[2]"
-                style={{ width: '4%', bottom: '18%', left: '50%', rotate: '-70deg' }}
-            />
-
-            {/* Doodles */}
-            <img
-                src={doodleBlue}
-                alt=""
-                aria-hidden="true"
-                className="absolute pointer-events-none select-none z-[1]"
-                style={{ top: '9%', right: '15%', width: '12%' }}
+                style={{ width: '4%', bottom: '18%', left: '46%', rotate: '-70deg' }}
             />
             <img
                 src={doodleOrange}
@@ -102,7 +93,7 @@ function Homepage() {
                 </div>
 
 
-                <HeroGallery className="mr-8 xl:mr-20" />
+                <HeroGallery className="hidden lg:block mr-8 xl:mr-20" />
             </div>
         </section>
             <AreasTrail />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Fundo from '../../assets/FUNDO.jpg'
+import Fundo2 from '../../assets/FUNDO.jpg'
 import galleryDesign from '../../assets/Design.webp'
 import galleryFoto from '../../assets/foto.webp'
 import galleryVideo from '../../assets/video.webp'
@@ -10,13 +11,13 @@ import galleryJogos from '../../assets/Jogos.webp'
 
 const images = [
     { src: Fundo,            alt: 'Out of the Box 2026' },
-    { src: galleryDesign,    alt: 'Design' },
-    { src: galleryFoto,      alt: 'Fotografia' },
-    { src: galleryVideo,     alt: 'Vídeo' },
-    { src: gallerySom,       alt: 'Som' },
-    { src: galleryMarketing, alt: 'Marketing' },
-    { src: galleryPrograma,  alt: 'Programa' },
-    { src: galleryJogos,     alt: 'Jogos' },
+    // { src: Fundo,    alt: 'Design' },
+    // { src: Fundo,      alt: 'Fotografia' },
+    // { src: Fundo,     alt: 'Vídeo' },
+    // { src: Fundo,       alt: 'Som' },
+    // { src: Fundo, alt: 'Marketing' },
+    // { src: Fundo,  alt: 'Programa' },
+    // { src: Fundo,     alt: 'Jogos' },
 ]
 
 export default function HeroGallery({ className = '' }: { className?: string }) {
