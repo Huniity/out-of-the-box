@@ -69,7 +69,7 @@ function Navbar(){
             </div>
 
             {/* Desktop links — centered */}
-            <div className="hidden md:flex flex-1 justify-center items-center">
+            <div className="hidden lg:flex flex-1 justify-center items-center">
                 <ul className="flex space-x-6 text-white font-semibold">
                     {pages.map((page) => (
                         <li key={page.id}>
@@ -82,11 +82,11 @@ function Navbar(){
             </div>
 
             {/* Spacer to balance logo on desktop */}
-            <div className="hidden md:block w-[50px]" />
+            <div className="hidden lg:block w-[50px]" />
 
-            {/* Burger button — mobile only */}
+            {/* Burger button — mobile + tablet */}
             <button
-                className="md:hidden ml-auto flex items-center justify-center p-2 text-white"
+                className="lg:hidden ml-auto flex items-center justify-center p-2 text-white"
                 onClick={() => setOpen(o => !o)}
                 aria-label="Toggle menu"
             >
@@ -95,7 +95,7 @@ function Navbar(){
 
             {/* Mobile dropdown */}
             {open && (
-                <div className="absolute top-full left-0 w-full bg-black border-t border-white/10 md:hidden z-50">
+                <div className="absolute top-full left-0 w-full bg-black border-t border-white/10 lg:hidden z-50">
                     <ul className="flex flex-col text-white font-semibold">
                         {pages.map((page) => (
                             <li key={page.id}>
