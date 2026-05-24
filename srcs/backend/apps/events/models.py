@@ -33,7 +33,7 @@ class Exposicoes(models.Model):
     area = models.CharField(max_length=10, choices=AREA_CHOICES, default='DESIGN')
     synopsis = models.TextField(help_text="Sinopse da exposição")
     artists = models.TextField(help_text="Identificação dos artistas")
-    image = models.ImageField(upload_to='exposicoes/')
+    image = models.ImageField(upload_to='exposicoes/', blank=True, null=True)
     
     opening_hours = models.CharField(max_length=255, help_text="Ex: 09:00 - 18:00 (Flexível IPDJ)")
     start_date = models.DateField()
@@ -55,7 +55,7 @@ class Palestras(models.Model):
     social_link = models.URLField(blank=True, null=True, help_text="Rede social ou Site")
     registration_link = models.URLField(blank=True, null=True, help_text="Link para inscrição")
     
-    image = models.ImageField(upload_to='palestras/')
+    image = models.ImageField(upload_to='palestras/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -73,7 +73,7 @@ class Workshops(models.Model):
     max_participants = models.IntegerField()
     registration_link = models.URLField(blank=True, null=True)
     
-    image = models.ImageField(upload_to='workshops/')
+    image = models.ImageField(upload_to='workshops/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -89,7 +89,7 @@ class Projecoes(models.Model):
     duration = models.CharField(max_length=100)
     social_link = models.URLField(blank=True, null=True, help_text="Rede social do realizador/projeto")
     
-    image = models.ImageField(upload_to='projecoes/')
+    image = models.ImageField(upload_to='projecoes/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -103,7 +103,7 @@ class Concertos(models.Model):
     info_link = models.URLField(blank=True, null=True)
     social_link = models.URLField(blank=True, null=True)
     
-    image = models.ImageField(upload_to='concertos/')
+    image = models.ImageField(upload_to='concertos/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -113,7 +113,7 @@ class Concertos(models.Model):
 
 class SpeedHunting(models.Model):
     company_name = models.CharField(max_length=255)
-    company_logo = models.ImageField(upload_to='speed_hunting/logos/')
+    company_logo = models.ImageField(upload_to='speed_hunting/logos/', blank=True, null=True)
     
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
@@ -127,7 +127,7 @@ class SemanaLabia(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     featured_projects = models.TextField()
-    image = models.ImageField(upload_to='semana_labia/')
+    image = models.ImageField(upload_to='semana_labia/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)

@@ -27,6 +27,9 @@ const crudDashboard = (apiBase: string) => {
     async function saveEvent(data: Record<string, unknown>, id?: unknown) {
         const url = id ? `${apiBase}/${id}/` : `${apiBase}/`;
         const method = id ? "PATCH" : "POST";
+        const cleaned = Object.fromEntries(
+            Object.entries(data).map(([k, v]) => [k, v === "" ? null : v])
+        );
         await fetch(url, {
             method,
             headers: {
@@ -34,7 +37,7 @@ const crudDashboard = (apiBase: string) => {
                 "X-CSRFToken": getCsrf(),
             },
             credentials: "include",
-            body: JSON.stringify(data),
+            body: JSON.stringify(cleaned),
         });
         load();
     }

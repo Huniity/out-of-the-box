@@ -30,6 +30,8 @@ export const dashboardFields = [
 export const fieldLabels: Record<string, string> = {
     name: "Nome",
     main_title: "Título",
+    main_white_title: "Título Branco",
+    main_green_title: "Título Verde",
     main_description: "Descrição",
     views: "Visitas",
     is_live: "Ao Vivo",
