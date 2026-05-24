@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.db.models import Sum
 from django.contrib.auth import logout as auth_logout
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
@@ -68,26 +70,31 @@ class TotalVisitorsView(APIView):
 class ExposicoesViewSet(viewsets.ModelViewSet):
     queryset = Exposicoes.objects.all()
     serializer_class = ExposicoesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class PalestrasViewSet(viewsets.ModelViewSet):
     queryset = Palestras.objects.all()
     serializer_class = PalestrasSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class WorkshopsViewSet(viewsets.ModelViewSet):
     queryset = Workshops.objects.all()
     serializer_class = WorkshopsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ProjecoesViewSet(viewsets.ModelViewSet):
     queryset = Projecoes.objects.all()
     serializer_class = ProjecoesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ConcertosViewSet(viewsets.ModelViewSet):
     queryset = Concertos.objects.all()
     serializer_class = ConcertosSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     @action(detail=True, methods=["post"], url_path="toggle-active")
     def toggle_active(self, request, pk=None):
@@ -102,11 +109,13 @@ class ConcertosViewSet(viewsets.ModelViewSet):
 class SpeedHuntingViewSet(viewsets.ModelViewSet):
     queryset = SpeedHunting.objects.all()
     serializer_class = SpeedHuntingSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class SemanaLabiaViewSet(viewsets.ModelViewSet):
     queryset = SemanaLabia.objects.all()
     serializer_class = SemanaLabiaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 @api_view(['GET'])

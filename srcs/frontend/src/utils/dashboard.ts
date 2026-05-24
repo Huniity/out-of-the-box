@@ -7,6 +7,18 @@ export const hiddenFields = new Set([
     "updated_at"
 ]);
 
+// Maps Page.name → URL slug (used for navigation and API endpoints)
+export const PAGE_SLUG_MAP: Record<string, string> = {
+    "Home":          "",
+    "Exposições":    "exposicoes",
+    "Palestras":     "palestras",
+    "Workshops":     "workshops",
+    "Projeções":     "projecoes",
+    "Concertos":     "concertos",
+    "Speed Hunting": "speed-hunting",
+    "Semana Lábia":  "semana-labia",
+};
+
 //Fields that should be displayed first in the dashboard table
 export const dashboardFields = [
     "title", 
@@ -17,8 +29,6 @@ export const dashboardFields = [
 
 export const fieldLabels: Record<string, string> = {
     name: "Nome",
-    url: "URL",
-    // Page model fields
     main_title: "Título",
     main_description: "Descrição",
     views: "Visitas",

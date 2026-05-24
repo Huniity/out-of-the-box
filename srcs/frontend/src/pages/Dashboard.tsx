@@ -55,8 +55,8 @@ export default function Dashboard() {
 
     const activePage = apiPages.find((p) => String(p.id) === activeTab);
 
-    function updatePage(page: ApiPage): void {
-        throw new Error("Function not implemented.");
+    function updatePage(updated: ApiPage): void {
+        setApiPages(prev => prev.map(p => p.id === updated.id ? updated : p));
     }
 
     return (
@@ -108,7 +108,7 @@ export default function Dashboard() {
 
 // ── Page fields shown/editable in the overview modal ───────────────────────
 const PAGE_EDITABLE_FIELDS = [
-    "name", "url", "main_title", "main_description",
+    "name", "main_title", "main_description",
     "cta_button_text", "cta_button_link", "event_date", "is_live",
 ];
 
@@ -125,9 +125,14 @@ function Overview({
 
     const handleSave = async (data: Record<string, unknown>) => {
         if (!editingPage) return;
+        const csrfToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='))
+            ?.split('=')[1] ?? '';
         const res = await fetch(`/api/pages/${editingPage.id}/`, {
             method: "PATCH",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-CSRFToken": csrfToken },
+            credentials: "include",
             body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error("Failed to save page");
@@ -178,7 +183,6 @@ function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => v
             <div className="mb-4 flex items-start justify-between gap-2">
                 <div className="min-w-0">
                     <h3 className="truncate font-bold text-white">Página: {page.name}</h3>
-                    <p className="truncate text-xs text-gray-500">URL: {page.url}</p>
                 </div>
                 <span
                     className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
