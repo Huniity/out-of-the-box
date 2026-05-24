@@ -1,11 +1,12 @@
 
 //Hidden fields that shouldn't be displayed in the table
 export const hiddenFields = new Set([
-    "id", 
-    "image", 
-    "created_at", 
+    "id",
+    "created_at",
     "updated_at"
 ]);
+
+export const imageFields = new Set(["image", "company_logo"]);
 
 // Maps Page.name → URL slug (used for navigation and API endpoints)
 export const PAGE_SLUG_MAP: Record<string, string> = {

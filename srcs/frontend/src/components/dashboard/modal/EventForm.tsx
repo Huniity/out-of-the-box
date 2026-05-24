@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type React from "react";
 import { Eye, Pencil } from "lucide-react";
-import { hiddenFields } from "../../../utils/dashboard";
+import { hiddenFields, imageFields } from "../../../utils/dashboard";
 import FieldRenderer from "./FieldRenderer";
 
 type EventFormProps = {
@@ -45,7 +45,7 @@ const EventForm = ({
         const nextData: Record<string, unknown> = {};
 
         for (const field of formFields) {
-            nextData[field] = initial?.[field] ?? "";
+            nextData[field] = imageFields.has(field) ? null : (initial?.[field] ?? "");
         }
 
         setFormData(nextData);

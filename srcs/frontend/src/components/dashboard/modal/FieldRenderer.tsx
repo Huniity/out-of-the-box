@@ -1,4 +1,4 @@
-import { getFieldLabel } from "../../../utils/dashboard";
+import { getFieldLabel, imageFields } from "../../../utils/dashboard";
 
 type FieldRendererProps = {
     field: string;
@@ -14,6 +14,41 @@ const FieldRenderer = ({
     onChange,
 }: FieldRendererProps) => {
     const label = getFieldLabel(field);
+
+    // Image / file upload fields
+    if (imageFields.has(field)) {
+        const existingUrl = typeof initialValue === "string" && initialValue
+            ? (initialValue.startsWith("http") || initialValue.startsWith("/")
+                ? initialValue
+                : `/media/${initialValue}`)
+            : null;
+        const previewUrl = value instanceof File
+            ? URL.createObjectURL(value as File)
+            : existingUrl;
+
+        return (
+            <label className="block text-sm">
+                <span className="mb-1 block text-gray-300">{label}</span>
+                {previewUrl && (
+                    <img
+                        src={previewUrl}
+                        alt="preview"
+                        className="mb-2 h-24 w-auto rounded-lg object-cover border border-white/10"
+                    />
+                )}
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => onChange(field, e.target.files?.[0] ?? null)}
+                    className="w-full text-sm text-gray-400 file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-white/10 file:px-3 file:py-1.5 file:text-xs file:text-white hover:file:bg-white/20"
+                />
+                {existingUrl && !(value instanceof File) && (
+                    <p className="mt-1 text-xs text-gray-500">Nenhuma imagem nova — a atual mantém-se</p>
+                )}
+            </label>
+        );
+    }
+
     // Special case: is_active checkbox
     if (field === "is_active") {
         return (
