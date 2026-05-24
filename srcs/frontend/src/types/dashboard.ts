@@ -3,7 +3,6 @@
 export type ApiPage = {
     id: number;
     name: string;
-    url: string;
     main_white_title: string;
     main_green_title: string;
     main_description: string;

@@ -5,7 +5,6 @@ from django.db import models
 class Page(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, unique=True)
-    url = models.CharField(max_length=255, unique=True)
     main_white_title = models.CharField(max_length=255, blank=True)
     main_green_title = models.CharField(max_length=255, blank=True)
     main_description = models.TextField(blank=True)
