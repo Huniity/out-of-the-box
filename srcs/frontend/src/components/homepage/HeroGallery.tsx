@@ -19,7 +19,7 @@ const images = [
     { src: galleryJogos,     alt: 'Jogos' },
 ]
 
-export default function HeroGallery() {
+export default function HeroGallery({ className = '' }: { className?: string }) {
     const [activeIndex, setActiveIndex] = useState(0)
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function HeroGallery() {
     }, [])
 
     return (
-        <div className=" flex-1 relative overflow-hidden min-h-64 lg:min-h-0 -mr-8 xl:-mr-20">
+        <div className={`flex-1 relative overflow-hidden min-h-64 lg:min-h-0 ${className}`}>
             {images.map((img, i) => (
                 <img
                     key={img.src}

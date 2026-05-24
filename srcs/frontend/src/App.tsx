@@ -25,7 +25,7 @@ function Homepage() {
         <>
         <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden bg-black z-[200]">
             <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-            <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+            
 
             {/* Stars */}
             <img
@@ -105,7 +105,7 @@ function Homepage() {
                 </div>
 
 
-                <HeroGallery />
+                <HeroGallery className="mr-8 xl:mr-20" />
             </div>
         </section>
             <AreasTrail />
