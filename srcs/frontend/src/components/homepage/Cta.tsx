@@ -3,6 +3,7 @@ import doodleGreen from '../../assets/d_g.png'
 import doodlePurple from '../../assets/d_pu.png'
 import doodleOrange from '../../assets/d_o.png'
 import Youtube from './YoutubeFacade'
+import { PrimaryButton } from '../buttons/MainButton'
 
 
 const EticCTA = () => {
@@ -76,13 +77,10 @@ const EticCTA = () => {
             design, som, vídeo, fotografia e tecnologia.
           </p>
 
-          <a
-            href="/cursos"
-            className="mt-24 group inline-flex w-fit items-center gap-2 rounded-sm border-2 border-[#c8ff00] bg-[#c8ff00] px-5 py-2 text-xs font-black uppercase tracking-widest text-black transition-colors duration-200 hover:bg-transparent hover:text-[#c8ff00]"
-          >
+          <PrimaryButton href="/cursos" className="w-[300px] justify-center">
             Saber mais
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </a>
+          </PrimaryButton>
         </div>
 
         {/* Right — video */}

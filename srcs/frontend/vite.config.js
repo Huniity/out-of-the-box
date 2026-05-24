@@ -4,10 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss()
-  ],
+  plugins: [react(), tailwindcss()],
   server: {
     host: '0.0.0.0',
     watch: {
@@ -19,7 +16,15 @@ export default defineConfig({
       protocol: 'ws'
     },
     proxy: {
-      '/api': 'http://backend:8000'
+      '/api': 'http://backend:8000',
+      '/admin': {
+        target: 'http://backend:8000',
+        changeOrigin: true,
+      },
+      '/static': {
+        target: 'http://backend:8000',
+        changeOrigin: true,
+      },
     }
   },
   build: {

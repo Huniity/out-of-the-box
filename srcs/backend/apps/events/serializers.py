@@ -1,43 +1,50 @@
 from rest_framework import serializers
 
 from .models import (
-    Exhibition,
-    Palestra,
-    Workshop,
-    VideoScreening,
-    Concert,
+    Page,
+    Exposicoes,
+    Palestras,
+    Workshops,
+    Projecoes,
+    Concertos,
     SpeedHunting,
-    SpecialZone,
+    SemanaLabia,
 )
 
 
-class ExhibitionSerializer(serializers.ModelSerializer):
+class PageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Exhibition
+        model = Page
+        fields = '__all__'
+        
+
+class ExposicoesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exposicoes
         fields = '__all__'
 
 
-class PalestraSerializer(serializers.ModelSerializer):
+class PalestrasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Palestra
+        model = Palestras
         fields = '__all__'
 
 
-class WorkshopSerializer(serializers.ModelSerializer):
+class WorkshopsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Workshop
+        model = Workshops
         fields = '__all__'
 
 
-class VideoScreeningSerializer(serializers.ModelSerializer):
+class ProjecoesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VideoScreening
+        model = Projecoes
         fields = '__all__'
 
 
-class ConcertSerializer(serializers.ModelSerializer):
+class ConcertosSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Concert
+        model = Concertos
         fields = '__all__'
 
 
@@ -47,7 +54,7 @@ class SpeedHuntingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SpecialZoneSerializer(serializers.ModelSerializer):
+class SemanaLabiaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SpecialZone
+        model = SemanaLabia
         fields = '__all__'

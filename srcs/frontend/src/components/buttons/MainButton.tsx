@@ -1,58 +1,27 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 
-export interface ButtonProps {
-    children?: React.ReactNode;
-    name?: string;
-    leftName?: string;
-    rightName?: string;
-    bgColor?: string;
-    borderColor?: string;
-    borderWidth?: string;
-    hoverBgColor?: string;
-    hoverTextColor?: string;
-    hoverBorderColor?: string;
-    width: string;
-    height: string;
-    textSize: string;
-    fontSize?: string;
-    textColor?: string;
-    svgLeft?: string | React.ReactNode;
-    svgRight?: string | React.ReactNode;
+interface CTAButtonProps {
+    href?: string | null;
+    children: React.ReactNode;
+    /** 'sm' = px-5 py-2.5 (default), 'lg' = px-6 py-3 */
+    size?: 'sm' | 'lg';
+    className?: string;
+    onClick?: React.MouseEventHandler;
 }
 
-function Maintbutton({ children, name, leftName, rightName, bgColor, borderColor, borderWidth, hoverBgColor, hoverTextColor, hoverBorderColor, width, height, textSize, fontSize, textColor, svgLeft, svgRight }: ButtonProps) {
-    const [hovered, setHovered] = useState(false)
+const ctaBase = 'group inline-flex items-center gap-2 rounded-sm border-2 text-xs font-black uppercase tracking-widest transition-colors duration-200'
 
-    const resolvedFontSize = textSize?.replace('text-', '') === 'base' ? '1rem'
-        : textSize?.replace('text-', '') === 'sm' ? '0.875rem'
-        : textSize?.replace('text-', '') === 'lg' ? '1.125rem'
-        : textSize?.replace('text-', '') === 'xl' ? '1.25rem'
-        : undefined
-
-    return (
-        <button
-            className={`group flex items-center justify-center gap-2 rounded-sm px-5 py-2.5 tracking-widest uppercase ${fontSize ? `font-${fontSize}` : ''}`}
-            style={{
-                backgroundColor: hovered ? (hoverBgColor ?? 'transparent') : (bgColor ?? undefined),
-                color: hovered ? (hoverTextColor ?? (bgColor ?? textColor)) : (textColor ?? undefined),
-                borderColor: hovered ? (hoverBorderColor ?? borderColor) : (borderColor ?? undefined),
-                borderWidth: borderWidth ? `${borderWidth}px` : undefined,
-                borderStyle: borderColor ? 'solid' : undefined,
-                width: width ? `${width === '52' ? '14rem' : width === '82' ? '20rem' : width}` : undefined,
-                height: height ? `${height === '8' ? '3rem' : height}` : undefined,
-                fontSize: resolvedFontSize,
-                transition: 'background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease',
-            }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-            {svgLeft && <span className="transition-transform duration-200 group-hover:-translate-x-0.5">{svgLeft}</span>}
-            {name || children}
-            {svgRight && <span className="transition-transform duration-200 group-hover:translate-x-1">{svgRight}</span>}
-        </button>
-    );
+export function PrimaryButton({ href, children, size = 'sm', className, onClick }: CTAButtonProps) {
+    const sizeClass = size === 'lg' ? 'px-6 py-3' : 'px-5 py-2.5'
+    const cls = `${ctaBase} border-[#c8ff00] bg-[#c8ff00] text-black hover:bg-transparent hover:text-[#c8ff00] ${sizeClass}${className ? ` ${className}` : ''}`
+    if (href) return <a href={href} className={cls}>{children}</a>
+    return <button className={cls} onClick={onClick}>{children}</button>
 }
 
-
-export default Maintbutton
+export function SecondaryButton({ href, children, size = 'sm', className, onClick }: CTAButtonProps) {
+    const sizeClass = size === 'lg' ? 'px-6 py-3' : 'px-5 py-2.5'
+    const cls = `${ctaBase} border-white/20 text-white/70 hover:border-white/40 hover:text-white ${sizeClass}${className ? ` ${className}` : ''}`
+    if (href) return <a href={href} className={cls}>{children}</a>
+    return <button className={cls} onClick={onClick}>{children}</button>
+}

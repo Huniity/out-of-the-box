@@ -3,7 +3,15 @@
 {
 	"name": "Docker in Docker",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
+
+	"runArgs": ["--privileged"],
+	
+	// "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
+
+	"runArgs": ["--privileged"],
+	
+	// "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
 
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
@@ -11,7 +19,7 @@
 			"enableNonRootDocker": "true",
 			"moby": "false"
 		},
-		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/node:2.0.0": {},
 		"ghcr.io/devcontainer-community/devcontainer-features/astral.sh-uv:1": {}
 	},
 "forwardPorts": [8000, 5173, 5432, 8080, 80]
