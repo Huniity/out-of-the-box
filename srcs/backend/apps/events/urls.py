@@ -8,26 +8,26 @@ from .views import (
     PageDetailView,
     SpeakerCountView,
     TotalVisitorsView,
-    ExhibitionViewSet,
-    PalestraViewSet,
-    WorkshopViewSet,
-    VideoScreeningViewSet,
-    ConcertViewSet,
+    ExposicoesViewSet,
+    PalestrasViewSet,
+    WorkshopsViewSet,
+    ProjecoesViewSet,
+    ConcertosViewSet,
     SpeedHuntingViewSet,
-    SpecialZoneViewSet,
+    SemanaLabiaViewSet,
     me,
     logout_view,
 )
 
 router = DefaultRouter()
 
-router.register(r'exhibitions', ExhibitionViewSet)
-router.register(r'palestras', PalestraViewSet)
-router.register(r'workshops', WorkshopViewSet)
-router.register(r'video-screenings', VideoScreeningViewSet)
-router.register(r'concerts', ConcertViewSet)
+router.register(r'exposicoes', ExposicoesViewSet)
+router.register(r'palestras', PalestrasViewSet)
+router.register(r'workshops', WorkshopsViewSet)
+router.register(r'projecoes', ProjecoesViewSet)
+router.register(r'concertos', ConcertosViewSet)
 router.register(r'speed-hunting', SpeedHuntingViewSet)
-router.register(r'special-zones', SpecialZoneViewSet)
+router.register(r'semana-labia', SemanaLabiaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -22,7 +22,7 @@ class Page(models.Model):
 
 
 
-class Exhibition(models.Model):
+class Exposicoes(models.Model):
     AREA_CHOICES = [
         ('DESIGN', 'Design'),
         ('FOTO', 'Fotografia'),
@@ -34,7 +34,7 @@ class Exhibition(models.Model):
     area = models.CharField(max_length=10, choices=AREA_CHOICES, default='DESIGN')
     synopsis = models.TextField(help_text="Sinopse da exposição")
     artists = models.TextField(help_text="Identificação dos artistas")
-    image = models.ImageField(upload_to='exhibitions/')
+    image = models.ImageField(upload_to='exposicoes/')
     
     opening_hours = models.CharField(max_length=255, help_text="Ex: 09:00 - 18:00 (Flexível IPDJ)")
     start_date = models.DateField()
@@ -46,7 +46,7 @@ class Exhibition(models.Model):
     def __str__(self):
         return f"[{self.area}] {self.title}"
 
-class Palestra(models.Model):
+class Palestras(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     speaker_name = models.CharField(max_length=255)
@@ -64,7 +64,7 @@ class Palestra(models.Model):
     def __str__(self):
         return self.title
 
-class Workshop(models.Model):
+class Workshops(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     mentor_name = models.CharField(max_length=255)
@@ -82,7 +82,7 @@ class Workshop(models.Model):
     def __str__(self):
         return self.title
 
-class VideoScreening(models.Model):
+class Projecoes(models.Model):
     title = models.CharField(max_length=255)
     director_team = models.CharField(max_length=255, help_text="Realizador/Equipa")
     synopsis = models.TextField()
@@ -90,7 +90,7 @@ class VideoScreening(models.Model):
     duration = models.CharField(max_length=100)
     social_link = models.URLField(blank=True, null=True, help_text="Rede social do realizador/projeto")
     
-    image = models.ImageField(upload_to='video_screenings/')
+    image = models.ImageField(upload_to='projecoes/')
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -98,13 +98,13 @@ class VideoScreening(models.Model):
     def __str__(self):
         return self.title
 
-class Concert(models.Model):
+class Concertos(models.Model):
     band_name = models.CharField(max_length=255)
     description = models.TextField(help_text="Descrição da banda")
     info_link = models.URLField(blank=True, null=True)
     social_link = models.URLField(blank=True, null=True)
     
-    image = models.ImageField(upload_to='concerts/')
+    image = models.ImageField(upload_to='concertos/')
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -124,11 +124,11 @@ class SpeedHunting(models.Model):
         return self.company_name
 
 
-class SpecialZone(models.Model):
+class SemanaLabia(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     featured_projects = models.TextField()
-    image = models.ImageField(upload_to='special_zones/')
+    image = models.ImageField(upload_to='semana_labia/')
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
