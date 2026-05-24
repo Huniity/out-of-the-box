@@ -1,68 +1,143 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.db.models import Sum
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import get_object_or_404
 
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
 from .models import (
-    Exhibition,
-    Palestra,
-    Workshop,
-    VideoScreening,
-    Concert,
+    Page,
+    Exposicoes,
+    Palestras,
+    Workshops,
+    Projecoes,
+    Concertos,
     SpeedHunting,
-    SpecialZone,
+    SemanaLabia,
 )
 
 from .serializers import (
-    ExhibitionSerializer,
-    PalestraSerializer,
-    WorkshopSerializer,
-    VideoScreeningSerializer,
-    ConcertSerializer,
+    PageSerializer,
+    ExposicoesSerializer,
+    PalestrasSerializer,
+    WorkshopsSerializer,
+    ProjecoesSerializer,
+    ConcertosSerializer,
     SpeedHuntingSerializer,
-    SpecialZoneSerializer,
+    SemanaLabiaSerializer,
 )
 
-
-class ExhibitionViewSet(viewsets.ModelViewSet):
-    queryset = Exhibition.objects.all()
-    serializer_class = ExhibitionSerializer
-
-
-class PalestraViewSet(viewsets.ModelViewSet):
-    queryset = Palestra.objects.all()
-    serializer_class = PalestraSerializer
+class PageCountView(APIView):
+    def get(self, request):
+        return Response({"count": Page.objects.count()})
 
 
-class WorkshopViewSet(viewsets.ModelViewSet):
-    queryset = Workshop.objects.all()
-    serializer_class = WorkshopSerializer
+class PageListView(APIView):
+    def get(self, request):
+        pages = Page.objects.all()
+        serializer = PageSerializer(pages, many=True)
+        return Response(serializer.data)
 
 
-class VideoScreeningViewSet(viewsets.ModelViewSet):
-    queryset = VideoScreening.objects.all()
-    serializer_class = VideoScreeningSerializer
+class PageDetailView(APIView):
+    def get(self, request, pk):
+        page = get_object_or_404(Page, pk=pk)
+        serializer = PageSerializer(page)
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        page = get_object_or_404(Page, pk=pk)
+        serializer = PageSerializer(page, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
-class ConcertViewSet(viewsets.ModelViewSet):
-    queryset = Concert.objects.all()
-    serializer_class = ConcertSerializer
+class SpeakerCountView(APIView):
+    def get(self, request):
+        return Response({"count": Palestras.objects.count()})
+
+
+class TotalVisitorsView(APIView):
+    def get(self, request):
+        total = Page.objects.aggregate(total=Sum('views'))['total'] or 0
+        return Response({ "count": total })  
+
+
+class ExposicoesViewSet(viewsets.ModelViewSet):
+    queryset = Exposicoes.objects.all()
+    serializer_class = ExposicoesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class PalestrasViewSet(viewsets.ModelViewSet):
+    queryset = Palestras.objects.all()
+    serializer_class = PalestrasSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class WorkshopsViewSet(viewsets.ModelViewSet):
+    queryset = Workshops.objects.all()
+    serializer_class = WorkshopsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class ProjecoesViewSet(viewsets.ModelViewSet):
+    queryset = Projecoes.objects.all()
+    serializer_class = ProjecoesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class ConcertosViewSet(viewsets.ModelViewSet):
+    queryset = Concertos.objects.all()
+    serializer_class = ConcertosSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     @action(detail=True, methods=["post"], url_path="toggle-active")
     def toggle_active(self, request, pk=None):
-        concert = self.get_object()
-        concert.is_active = not concert.is_active
-        concert.save()
+        concerto = self.get_object()
+        concerto.is_active = not concerto.is_active
+        concerto.save()
 
-        serializer = self.get_serializer(concert)
+        serializer = self.get_serializer(concerto)
         return Response(serializer.data)
 
 
 class SpeedHuntingViewSet(viewsets.ModelViewSet):
     queryset = SpeedHunting.objects.all()
     serializer_class = SpeedHuntingSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class SpecialZoneViewSet(viewsets.ModelViewSet):
-    queryset = SpecialZone.objects.all()
-    serializer_class = SpecialZoneSerializer
+class SemanaLabiaViewSet(viewsets.ModelViewSet):
+    queryset = SemanaLabia.objects.all()
+    serializer_class = SemanaLabiaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+@api_view(['GET'])
+def me(request):
+    if not request.user.is_authenticated:
+        return Response({"detail": "Not authenticated"}, status=401)
+    user = request.user
+    if user.is_superuser:
+        role = "Administrator"
+    elif user.is_staff:
+        role = "Staff"
+    else:
+        role = "User"
+    return Response({
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "username": user.username,
+        "role": role,
+    })
+
+
+@api_view(['POST'])
+def logout_view(request):
+    auth_logout(request)
+    return Response({"detail": "Logged out"})
