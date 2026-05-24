@@ -27,18 +27,30 @@ const crudDashboard = (apiBase: string) => {
     async function saveEvent(data: Record<string, unknown>, id?: unknown) {
         const url = id ? `${apiBase}/${id}/` : `${apiBase}/`;
         const method = id ? "PATCH" : "POST";
-        const cleaned = Object.fromEntries(
-            Object.entries(data).map(([k, v]) => [k, v === "" ? null : v])
-        );
-        await fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": getCsrf(),
-            },
-            credentials: "include",
-            body: JSON.stringify(cleaned),
-        });
+        const hasFile = Object.values(data).some(v => v instanceof File);
+
+        let body: BodyInit;
+        const headers: Record<string, string> = { "X-CSRFToken": getCsrf() };
+
+        if (hasFile) {
+            const form = new FormData();
+            for (const [k, v] of Object.entries(data)) {
+                if (v instanceof File) {
+                    form.append(k, v);
+                } else if (v !== null && v !== undefined && v !== "") {
+                    form.append(k, String(v));
+                }
+            }
+            body = form;
+        } else {
+            const cleaned = Object.fromEntries(
+                Object.entries(data).map(([k, v]) => [k, v === "" ? null : v])
+            );
+            headers["Content-Type"] = "application/json";
+            body = JSON.stringify(cleaned);
+        }
+
+        await fetch(url, { method, headers, credentials: "include", body });
         load();
     }
 
