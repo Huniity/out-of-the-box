@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 import type { DashboardProps } from "../../types/dashboard";
 import type { ModalAction } from "../../types/modal";
 import crudDashboard from "../../hooks/crudDashboard";
-import { formatValue, hiddenFields, dashboardFields } from "../../utils/dashboard";
+import { formatValue, hiddenFields, dashboardFields, PAGE_SLUG_MAP } from "../../utils/dashboard";
 import SearchFilter from "./filters/SearchFilter";
 import SortNameFilter from "./filters/SortNameFilter";
 import SortDateFilter from "./filters/SortDateFilter";
@@ -17,7 +17,7 @@ import ClearFiltersButton from "./filters/ClearFiltersButton";
 
 
 export default function PageDataTable({ page }: DashboardProps) {
-    const apiBase = `/api/${page.url}`;
+    const apiBase = `/api/${PAGE_SLUG_MAP[page.name] ?? page.name.toLowerCase()}`;
     const { rows, loading, saveEvent, deleteEvent } = crudDashboard(apiBase);
     const [modal, setModal] = useState<ModalAction>({ mode: "closed" });
 

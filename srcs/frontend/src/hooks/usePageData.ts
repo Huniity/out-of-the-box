@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import type { ApiPage } from '../types/dashboard';
+import { PAGE_SLUG_MAP } from '../utils/dashboard';
 
-export function usePageData(pageUrl: string) {
+export function usePageData(pageSlug: string) {
     const [page, setPage] = useState<ApiPage | null>(null);
 
     useEffect(() => {
         fetch('/api/pages/')
             .then(r => r.json())
             .then((pages: ApiPage[]) => {
-                const match = pages.find(p => p.url === pageUrl);
+                const match = pages.find(p => PAGE_SLUG_MAP[p.name] === pageSlug);
                 if (match) setPage(match);
             })
             .catch(() => {});
-    }, [pageUrl]);
+    }, [pageSlug]);
 
     return {
         main_white_title: page?.main_white_title ?? null,
