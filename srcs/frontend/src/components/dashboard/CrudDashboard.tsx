@@ -124,9 +124,6 @@ function EventCard({
                 >
                     <Trash size={14} /> Eliminar
                 </button>
-                <button className="ml-1 rounded-lg p-2 text-gray-600 transition-colors hover:bg-white/5 hover:text-gray-400">
-                    <MoreVertical size={14} />
-                </button>
             </div>
         </div>
     );

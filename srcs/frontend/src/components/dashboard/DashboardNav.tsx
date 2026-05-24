@@ -44,9 +44,6 @@ export default function DashboardNav({ activeTab, onTabChange, onPagesLoaded, on
 
                 {pages.length > 0 && (
                     <>
-                        {/* <p className="mt-4 mb-1 px-4 text-[10px] font-bold uppercase tracking-widest text-gray-600">
-                            Páginas
-                        </p> */}
                         {pages.filter((page) => page.name !== "Home").map((page) => (
                             <button
                                 key={page.id}
