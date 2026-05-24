@@ -20,7 +20,7 @@ export default function Footer() {
           leaf-2 absolute pointer-events-none select-none z-50
           w-[60%] left-[90%] top-[-5%] -translate-y-1/2 rotate-[235deg]
           sm:w-[30%] sm:right-[5%] sm:top-[35%] sm:rotate-[295deg]
-          md:w-[20%] md:right-[15%] md:top-[75%] md:rotate-[295deg]
+          md:w-[20%] md:left-[33%] md:top-[90%] md:rotate-[295deg]
           lg:w-[25%] lg:left-[90%] lg:top-[90%] lg:rotate-[315deg]
         "
       />
@@ -44,10 +44,10 @@ export default function Footer() {
         aria-hidden="true"
         className="
           leaf-3 absolute pointer-events-none select-none z-50
-          w-[38%] left-[50%] top-[92%] -translate-y-1/2 rotate-[85deg]
-          sm:w-[30%] sm:left-[78%] sm:top-[88%]
-          md:w-[20%] md:left-[82%] md:top-[105%]
-          lg:w-[20%] lg:left-[20%] lg:top-[100%]
+          w-[38%] left-[50%] top-[92%] -translate-y-1/2 rotate-[85deg] hidden
+          sm:w-[30%] sm:left-[78%] sm:top-[88%] sm:block
+          md:w-[20%] md:left-[82%] md:top-[105%] md:block
+          lg:w-[20%] lg:left-[20%] lg:top-[100%] lg:block
         "
       />
       <div className="relative z-10 grid gap-10 md:grid-cols-12 md:items-start">

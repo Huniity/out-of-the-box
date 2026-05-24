@@ -57,7 +57,7 @@ const SemanaLabia = () => {
                     </div>
 
                     {/* Right — hero image */}
-                    <div className="flex-1 relative overflow-hidden min-h-64 lg:min-h-0 -mr-8 xl:-mr-20">
+                    <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
                         <img src={heroImg} alt="Semana Lábia 2026" className="absolute inset-0 h-full w-full object-cover brightness-75" />
                         {/* Fade to black on all sides */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
