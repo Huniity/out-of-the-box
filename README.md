@@ -57,18 +57,8 @@ out-of-the-box/
 
 ## Environment Variables
 
-Copy `env.example` to `.env` (or run `make env`) and adjust values before starting:
+Run `make env` for environment variables.
 
-```env
-POSTGRES_DB=ootb_db
-POSTGRES_USER=ootb_dev
-POSTGRES_PASSWORD=ootb_2026
-DATABASE_URL=postgres://ootb_dev:ootb_2026@db:5432/ootb_db
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1,backend,*
-DJANGO_SETTINGS_MODULE=core.settings
-SECRET_KEY=django-insecure-...   # replace in production
-```
 
 For production, also set:
 ```env
