@@ -13,9 +13,3 @@ export type Concert = {
   is_active: boolean;
   created_at: string;
 };
-
-export type ToggleIsActiveButtonProps = {
-  concertId: number;
-  isActive: boolean;
-  onToggle: (updatedConcert: Concert) => void;
-};

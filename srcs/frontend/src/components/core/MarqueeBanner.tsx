@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { CalendarCheck, MapPin, Timer } from 'lucide-react'
 import '../../styles/marquee.css'
 
 const COPIES = 4 // enough to always fill any screen width
@@ -51,7 +50,6 @@ function InlineCountdown() {
 
     return (
         <span className="marquee-item">
-            {/* <Timer size={28} color="#c8ff00" style={iconStyle} /> */}
             {units.map(({ label, value }, i) => (
                 <span key={label} style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.15rem' }}>
                     <span style={{ ...textStyle, display: 'inline-block', width: '2ch', textAlign: 'right', fontVariantNumeric: 'tabular-nums', fontFamily: 'monospace' }}>
@@ -69,19 +67,16 @@ function BannerContent() {
     return (
         <>
             <span className="marquee-item">
-                {/* <CalendarCheck size={28} color="#c8ff00" style={iconStyle} /> */}
                 <span style={textStyle}>3 A 17 JULHO DE 2026</span>
             </span>
             <span className="marquee-separator">✦</span>
             <span className="marquee-item">
-                {/* <MapPin size={28} color="#c8ff00" style={iconStyle} /> */}
                 <span style={textStyle}>IPDJ, FARO</span>
             </span>
             <span className="marquee-separator">✦</span>
             <InlineCountdown />
             <span className="marquee-separator">✦</span>
             <span className="marquee-item">
-                {/* <MapPin size={28} color="#c8ff00" style={iconStyle} /> */}
                 <span style={textStyle}>ENTRADA GRATIS</span>
             </span>
             <span className="marquee-separator">✦</span>
