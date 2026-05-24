@@ -192,7 +192,7 @@ function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => v
             </div>
 
             {/* Fields */}
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2 ">
                 {page.main_white_title && <InfoRow label="Título" value={page.main_white_title} />}
                 {page.main_green_title && <InfoRow label="Título Verde" value={page.main_green_title} />}
                 {page.main_description && (
@@ -237,9 +237,9 @@ function PageCard({ page, onEdit, onNavigate }: { page: ApiPage; onEdit: () => v
 
 function InfoRow({ label, value }: { label: string; value: string }) {
     return (
-        <div className="flex items-start gap-2 text-xs">
+        <div className="flex items-start gap-2 text-xs min-w-0">
             <span className="w-20 shrink-0 text-gray-600">{label}</span>
-            <span className="text-gray-300">{value}</span>
+            <span className="min-w-0 truncate text-gray-300">{value}</span>
         </div>
     );
 }
