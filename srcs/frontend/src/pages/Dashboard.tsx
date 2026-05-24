@@ -108,8 +108,8 @@ export default function Dashboard() {
 
 // ── Page fields shown/editable in the overview modal ───────────────────────
 const PAGE_EDITABLE_FIELDS = [
-    "name", "main_title", "main_description",
-    "cta_button_text", "cta_button_link", "event_date", "is_live",
+    "name", "main_white_title", "main_green_title", "main_description",
+    "cta_button_text", "cta_button_link", "start_event_date", "end_event_date", "is_live",
 ];
 
 function Overview({
