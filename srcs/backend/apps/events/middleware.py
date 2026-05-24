@@ -10,6 +10,6 @@ class PageViewMiddleware:
         response = self.get_response(request)
 
         if response.status_code == 200:
-            Page.objects.filter(url=request.path).update(views=F('views') + 1)
+            pass  # view tracking disabled (url field removed from Page model)
 
         return response
