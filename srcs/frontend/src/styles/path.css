@@ -1,0 +1,38 @@
+.area-label {
+  position: absolute;
+  z-index: 30;
+  font-size: clamp(18px, 2vw, 34px);
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 0 14px currentColor;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.orange {
+  color: #f26a00;
+}
+
+.green {
+  color: #b7ff00;
+}
+
+.purple {
+  color: #9b4dff;
+}
+
+.blue {
+  color: #2f70ff;
+}
+
+.yellow {
+  color: #f4ff00;
+}
+
+.pink {
+  color: #ff2f7e;
+}
+
+.teal {
+  color: #00c58d;
+}
