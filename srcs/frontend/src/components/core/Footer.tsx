@@ -85,8 +85,8 @@ export default function Footer() {
             <a href="/speed-hunting" className="transition hover:text-[#c8ff00]">
               Speed Hunting
             </a>
-            <a href="/contactos" className="transition hover:text-[#c8ff00]">
-              Contactos
+            <a href="mailto:secretaria@eticalgarve.pt" className="transition hover:text-[#c8ff00]">
+              Contate-nos
             </a>
           </nav>
         </div>
