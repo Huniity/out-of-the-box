@@ -3,9 +3,9 @@ import { FaYoutube } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGlobeEurope } from "react-icons/fa";
 import EticWhite from '../../assets/Asset5.svg'
-import leafImg from '../../assets/Artboard_4.png'
-import leafImg2 from '../../assets/Artboard_13.png'
-import leafImg3 from '../../assets/Artboard_12.png'
+import leafImg from '../../assets/Artboard_4.webp'
+import leafImg2 from '../../assets/Artboard_13.webp'
+import leafImg3 from '../../assets/Artboard_12.webp'
 import '../../styles/leaves.css'
 
 

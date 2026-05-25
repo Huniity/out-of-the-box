@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, CalendarDays, MapPin, Users, Star, Eye, Zap, MoveRight, ArrowRight, ChevronDown } from 'lucide-react'
-import Fundo from '../assets/FUNDO.jpg'
+import Fundo from '../assets/FUNDO.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'

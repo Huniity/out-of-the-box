@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Zap, Camera, Film, Music2, Code2, Megaphone, Gamepad2, Tv2, X } from 'lucide-react'
-import heroImg from '../assets/FUNDO.jpg'
+import heroImg from '../assets/FUNDO.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
