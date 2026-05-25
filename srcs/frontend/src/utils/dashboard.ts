@@ -20,6 +20,77 @@ export const PAGE_SLUG_MAP: Record<string, string> = {
     "Semana Lábia":  "semana-labia",
 };
 
+type PageFallback = {
+    main_white_title?: string;
+    main_green_title?: string;
+    main_description?: string;
+    cta_button_text?: string;
+    cta_button_link?: string;
+    start_event_date?: string;
+    end_event_date?: string;
+};
+
+// Fallback content shown when the DB hasn't returned data yet (or API is unreachable)
+export const PAGE_FALLBACKS: Record<string, PageFallback> = {
+    exposicoes: {
+        main_white_title: "A Obra Ganha",
+        main_green_title: "Vida",
+        main_description: "Descobre as exposições que revelam o talento e a criatividade dos alunos das áreas de Design, Fotografia e Videojogos.",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
+    },
+    palestras: {
+        main_white_title: "As Grandes",
+        main_green_title: "Vozes",
+        main_description: "Conecta-te com os profissionais que estão a ditar o rumo da indústria. Explora as palestras, workshops e debates do Out of the Box 2026.",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
+    },
+    workshops: {
+        main_white_title: "Work",
+        main_green_title: "shops",
+        main_description: "Descobre as sessões práticas da Out of the Box Faro 2026. Explora workshops por área formativa e conhece as equipas que vão desafiar-te a aprender, criar e experimentar.",
+        cta_button_text:  "Garante o teu lugar!",
+        cta_button_link:  "https://docs.google.com/forms",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
+    },
+    projecoes: {
+        main_white_title: "ETIC",
+        main_green_title: "EM CARTAZ",
+        main_description: "Apresentação dos projetos finais das turmas de Realização, Cinema e TV da ETIC_Algarve. Sessões abertas ao público, entrada livre.",
+        cta_button_text:  "Explorar Curtas Metragens",
+        cta_button_link:  "https://www.youtube.com/watch?v=z69B4lJ-sUE",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
+    },
+    concertos: {
+        main_white_title: "Concertos",
+        main_green_title: "Live",
+        main_description: "A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.",
+        cta_button_text:  "Live In Sight",
+        cta_button_link:  "https://www.eticalgarve.com/comunidade/live-insight/",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
+    },
+    "speed-hunting": {
+        main_white_title: "Speed",
+        main_green_title: "Hunting",
+        main_description: "Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.",
+        cta_button_text:  "Saiba mais sobre a programação",
+        cta_button_link:  "/palestras",
+        start_event_date: "2026-07-09",
+        end_event_date:   "2026-07-10",
+    },
+    "semana-labia": {
+        main_white_title: "Semana Lábia",
+        main_green_title: "2026",
+        main_description: "Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.",
+        cta_button_text:  "Explora Mais",
+        cta_button_link:  "https://www.eticalgarve.com/comunidade/labia/",
+    },
+};
+
 //Fields that should be displayed first in the dashboard table
 export const dashboardFields = [
     "title", 
