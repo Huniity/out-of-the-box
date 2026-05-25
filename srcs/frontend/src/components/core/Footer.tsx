@@ -73,17 +73,17 @@ export default function Footer() {
             <a href="/" className="transition hover:text-[#c8ff00]">
               Início
             </a>
-            <a href="/programacao" className="transition hover:text-[#c8ff00]">
-              Programação
+            <a href="/palestras" className="transition hover:text-[#c8ff00]">
+              Palestras
             </a>
-            <a href="/areas" className="transition hover:text-[#c8ff00]">
-              Áreas
+            <a href="/workshops" className="transition hover:text-[#c8ff00]">
+              Workshops
             </a>
-            <a href="/sobre" className="transition hover:text-[#c8ff00]">
-              Sobre
+            <a href="/concertos" className="transition hover:text-[#c8ff00]">
+              Concertos
             </a>
-            <a href="/parceiros" className="transition hover:text-[#c8ff00]">
-              Parceiros
+            <a href="/speed-hunting" className="transition hover:text-[#c8ff00]">
+              Speed Hunting
             </a>
             <a href="/contactos" className="transition hover:text-[#c8ff00]">
               Contactos
@@ -117,7 +117,7 @@ export default function Footer() {
 
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/etic_algarve/"
               aria-label="Instagram"
               className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:border-[#c8ff00] hover:bg-[#c8ff00] hover:text-black"
             >
@@ -125,7 +125,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.linkedin.com/school/etic_algarve/posts/?feedView=all"
               aria-label="LinkedIn"
               className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:border-[#c8ff00] hover:bg-[#c8ff00] hover:text-black"
             >
@@ -133,7 +133,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.youtube.com/user/eticalgarve"
               aria-label="YouTube"
               className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:border-[#c8ff00] hover:bg-[#c8ff00] hover:text-black"
             >
@@ -141,7 +141,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.eticalgarve.com/"
               aria-label="Official Website"
               className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-sm font-black text-white transition hover:border-[#c8ff00] hover:bg-[#c8ff00] hover:text-black"
             >
