@@ -27,9 +27,9 @@ env: ## Create .env file if it doesn't exist
 	@echo "Environment variables:"
 	@cat .env
 
-start-dev: sync-dev ## Start dev workflow with strict database readiness check
+start-dev: ## Start dev workflow with strict database readiness check
 	@echo "Starting Docker containers in background..."
-	docker compose -f compose.dev.yaml up --build -d
+	docker compose -f compose.dev.yaml up --build -d 
 	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
 	@until docker compose -f compose.dev.yaml exec backend python manage.py check > /dev/null 2>&1; do \
 		echo "Backend not ready yet... checking again in 2 seconds"; \
@@ -43,12 +43,32 @@ start-dev: sync-dev ## Start dev workflow with strict database readiness check
 	@echo "Setup complete! Attaching to container logs..."
 	docker compose -f compose.dev.yaml logs -f
 
+# start-dev: sync-dev ## Start dev workflow with strict database readiness check
+# 	@echo "Starting Docker containers in background..."
+# 	docker compose -f compose.dev.yaml up --build -d
+# 	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
+# 	@until docker compose -f compose.dev.yaml exec backend python manage.py check > /dev/null 2>&1; do \
+# 		echo "Backend not ready yet... checking again in 2 seconds"; \
+# 		sleep 2; \
+# 	done
+# 	@echo "Backend is ready! Running migrations and setup..."
+# 	$(MAKE) migration-dev
+# 	$(MAKE) migrate-dev
+# 	$(MAKE) superuser-dev
+# 	$(MAKE) populate-dev
+# 	@echo "Setup complete! Attaching to container logs..."
+# 	docker compose -f compose.dev.yaml logs -f
+
 sync-dev:
 	cd srcs/frontend && npm install && cd ../../ && cd srcs/backend && uv sync && cd ../../
 
 up-dev: ## Start development environment
-	docker compose -f compose.dev.yaml up --build
+	docker compose -f compose.dev.yaml up
 	$(MAKE) migrate-dev
+
+# up-dev: ## Start development environment
+# 	docker compose -f compose.dev.yaml up --build
+# 	$(MAKE) migrate-dev
 
 up-prod: ## Start production environment
 	docker compose -f compose.prod.yaml up --build
@@ -104,3 +124,20 @@ logs-pytest-prod: ## Pytest logs in production environment
 
 populate-dev: ## Populate database with sample data in development environment
 	docker compose -f compose.dev.yaml exec backend python /scripts/seed_db.py
+
+
+convert:
+	node -e "
+	const sharp = require('sharp');
+	const fs = require('fs');
+	const path = require('path');
+
+	const dir = 'src/assets';
+	const files = fs.readdirSync(dir).filter(f => f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg'));
+
+	Promise.all(files.map(f => {
+	const input = path.join(dir, f);
+	const output = path.join(dir, f.replace(/\.(png|jpg|jpeg)$/, '.webp'));
+	return sharp(input).webp({ quality: 80 }).toFile(output).then(() => console.log(f, '→', output));
+	})).then(() => console.log('Done!'));
+	"

@@ -1,12 +1,12 @@
 // components/ProgramacaoCarousel.tsx
 'use client'
 
-import doodleBlue from '../../assets/d_blu2.png'
-import doodlePurple from '../../assets/d_pu.png'
-import doodlePink from '../../assets/d_p.png'
+import doodleBlue from '../../assets/d_blu2.webp'
+import doodlePurple from '../../assets/d_pu.webp'
+import doodlePink from '../../assets/d_p.webp'
 import { useRef, useState, useEffect } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
-import Fundo from '../../assets/FUNDO.jpg'
+import Fundo from '../../assets/FUNDO.webp'
 import { PrimaryButton } from '../buttons/MainButton'
 
 type EventCard = {

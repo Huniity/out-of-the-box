@@ -1,6 +1,6 @@
 
 import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock, Music2, Eye, Shuffle } from 'lucide-react'
-import heroImg from '../assets/FUNDO.jpg'
+import heroImg from '../assets/FUNDO.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
