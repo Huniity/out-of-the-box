@@ -238,9 +238,6 @@ const Workshops = () => {
             <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                        <div className="mb-6 flex items-center gap-3">
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Workshops 2026</span>
-                        </div>
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             APRENDE COM AS EQUIPAS.<br />
