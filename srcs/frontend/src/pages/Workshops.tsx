@@ -142,7 +142,6 @@ const Workshops = () => {
             <section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
                     <div className="flex items-center gap-3">
-                        <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                             PROGRAMA DE <span className="text-[#c8ff00]">WORKSHOPS</span>
                         </h2>
@@ -215,7 +214,6 @@ const Workshops = () => {
             {/* ── ÁREAS FORMATIVAS E EQUIPAS ── */}
             <section id="areas" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]">
                 <div className="flex items-center gap-3 mb-12">
-                    <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
                     <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                         ÁREAS FORMATIVAS <span className="text-[#c8ff00]">E EQUIPAS</span>
                     </h2>
