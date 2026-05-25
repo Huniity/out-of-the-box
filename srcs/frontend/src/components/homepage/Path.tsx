@@ -11,13 +11,13 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
 import BushImage from '../../assets/bush.png'
 
-import polaroidExposicoes   from '../../assets/polaroid_exposicoes.png'
-import polaroidPalestras    from '../../assets/polaroid_palestras.png'
-import polaroidWorkshops    from '../../assets/polaroid_workshops.png'
-import polaroidCinema       from '../../assets/polaroid_cinema.png'
-import polaroidConcertos    from '../../assets/polaroid_concertos.png'
-import polaroidSpeedHunting from '../../assets/polaroid_speedhunting.png'
-import polaroidSemanaLabia  from '../../assets/polaroid_semanalabias.png'
+import polaroidExposicoes   from '../../assets/polaroid_exposicoes.webp'
+import polaroidPalestras    from '../../assets/polaroid_palestras.webp'
+import polaroidWorkshops    from '../../assets/polaroid_workshops.webp'
+import polaroidCinema       from '../../assets/polaroid_cinema.webp'
+import polaroidConcertos    from '../../assets/polaroid_concertos.webp'
+import polaroidSpeedHunting from '../../assets/polaroid_speedhunting.webp'
+import polaroidSemanaLabia  from '../../assets/polaroid_semanalabias.webp'
 
 
 const areas = [
