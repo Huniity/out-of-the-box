@@ -5,11 +5,11 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
 
-	"runArgs": ["--privileged"],
+	// "runArgs": ["--privileged"],
 	
-	// "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
+	// // "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
 
-	"runArgs": ["--privileged"],
+	// "runArgs": ["--privileged"],
 	
 	// "postStartCommand": "sudo /usr/local/share/docker-init.sh && echo 'Docker ready'",
 

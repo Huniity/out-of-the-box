@@ -95,17 +95,29 @@ services:
         condition: service_healthy
 
   frontend:
-    image: node:25-alpine
-    working_dir: /app
+    build:
+      context: .
+      dockerfile: ops/frontend/Dockerfile.dev
     volumes:
       - ./srcs/frontend:/app
-      - /app/node_modules
+      - /app/node_modules  # keeps container's node_modules, doesn't override with host
       - frontend_logs:/app/logs
     ports:
       - "5173:5173"
-    command: sh -c "npm install && npm run dev -- --host 2>&1 | tee /app/logs/vite.log"
     depends_on:
       - backend
+  # frontend:
+  #   image: node:25-alpine
+  #   working_dir: /app
+  #   volumes:
+  #     - ./srcs/frontend:/app
+  #     - /app/node_modules
+  #     - frontend_logs:/app/logs
+  #   ports:
+  #     - "5173:5173"
+  #   command: sh -c "npm install && npm run dev -- --host 2>&1 | tee /app/logs/vite.log"
+  #   depends_on:
+  #     - backend
 
 volumes:
   postgres_data:

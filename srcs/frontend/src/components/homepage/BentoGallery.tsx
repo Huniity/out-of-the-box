@@ -4,7 +4,7 @@ import Video from '../assets/video.webp'
 import Game from '../assets/Jogos.webp'
 import Marketing from '../assets/marketing.webp'
 import Music from '../assets/somm.webp'
-import Fundo from '../../assets/FUNDO.jpg'
+import Fundo from '../../assets/FUNDO.webp'
 
 const colorMap: Record<string, string> = {
   pink:   '#f9a8d4',
