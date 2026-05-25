@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Fundo from '../../assets/FUNDO.jpg'
-import Fundo2 from '../../assets/FUNDO.jpg'
+import Fundo from '../../assets/FUNDO.webp'
+import Fundo2 from '../../assets/FUNDO.webp'
 import galleryDesign from '../../assets/Design.webp'
 import galleryFoto from '../../assets/foto.webp'
 import galleryVideo from '../../assets/video.webp'

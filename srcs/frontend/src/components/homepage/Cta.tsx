@@ -1,7 +1,7 @@
 
-import doodleGreen from '../../assets/d_g.png'
-import doodlePurple from '../../assets/d_pu.png'
-import doodleOrange from '../../assets/d_o.png'
+import doodleGreen from '../../assets/d_g.webp'
+import doodlePurple from '../../assets/d_pu.webp'
+import doodleOrange from '../../assets/d_o.webp'
 import Youtube from './YoutubeFacade'
 import { PrimaryButton } from '../buttons/MainButton'
 

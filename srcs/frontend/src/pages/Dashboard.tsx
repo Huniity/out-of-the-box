@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { LogOut, Pencil, Eye } from "lucide-react";
 
-import { Link } from "react-router-dom";
 
 import DashboardNav from "../components/dashboard/DashboardNav";
 import PageDataTable from "../components/dashboard/DashboardPagesData";
