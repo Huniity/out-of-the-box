@@ -1,23 +1,31 @@
 
+import { useEffect, useState } from 'react'
 import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock, Music2, Eye, Shuffle } from 'lucide-react'
 import heroImg from '../assets/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { concertosFeaturedEvent as featuredEvent, concertosProgramme as programme, concertosHappenings as happenings, concertosFeatures as features } from '../utils/metrics'
+import { concertosFeaturedEvent as featuredEvent, concertosHappenings as happenings, concertosFeatures as features } from '../utils/metrics'
+import { concertosApi } from '../services/api/concertos.api'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
+import type { ConcertosContract } from '../api/contracts'
 
 const Concertos = () => {
-        const {
-            main_white_title,
-            main_green_title,
-            main_description,
-            cta_button_text,
-            cta_button_link,
-            start_event_date,
-            end_event_date,
-        } = usePageData('concertos');
+    const {
+        main_white_title,
+        main_green_title,
+        main_description,
+        cta_button_text,
+        cta_button_link,
+        start_event_date,
+        end_event_date,
+    } = usePageData('concertos');
+
+    const [programme, setProgramme] = useState<ConcertosContract[]>([]);
+    useEffect(() => {
+        concertosApi.getConcertos().then(setProgramme);
+    }, []);
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -249,7 +257,7 @@ const Concertos = () => {
             {/* ── CTA BANNER ── */}
             <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
-                   <div className="flex-1">
+                    <div className="flex-1">
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             QUERES VIVER A EXPERIÊNCIA<br />

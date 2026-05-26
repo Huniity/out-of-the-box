@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { useEffect } from 'react'
 import { MoveRight, MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
 import Fundo from '../assets/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
@@ -6,7 +7,14 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import { Session, SessionType } from '../types/palestras'
-import { palestrasTypeColors as typeColors, palestrasSessions as sessions, palestrasEventDays as eventDays, palestrasAllTypes as allTypes, palestrasAllSalas as allSalas, palestrasPageSize as pageSize } from '../utils/metrics'
+import {
+  palestrasTypeColors as typeColors,
+  palestrasEventDays as eventDays,
+  palestrasAllTypes as allTypes,
+  palestrasAllSalas as allSalas,
+  palestrasPageSize as pageSize
+} from '../utils/metrics'
+import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 
 
 
@@ -19,7 +27,12 @@ const SunsetTalks = () => {
     end_event_date,
   } = usePageData('sunset-talks')
 
-  const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
+  const [sessions, setSessions] = useState<Session[]>([])
+  useEffect(() => {
+    sunsetTalksApi.getTalks().then(setSessions)
+  }, [])
+
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [selectedType, setSelectedType] = useState<string>('TODAS')
   const [selectedSala, setSelectedSala] = useState<string>('TODAS')
   const [shown, setShown] = useState(pageSize)
@@ -33,9 +46,9 @@ const SunsetTalks = () => {
   }
 
   const filtered = sessions.filter(s => {
-    const matchDay  = selectedDay  === null          || s.day  === selectedDay
-    const matchType = selectedType === 'TODAS'       || s.type === selectedType
-    const matchSala = selectedSala === 'TODAS'       || s.location === selectedSala
+    const matchDay = selectedDay === null || s.day === selectedDay
+    const matchType = selectedType === 'TODAS' || s.type === selectedType
+    const matchSala = selectedSala === 'TODAS' || s.location === selectedSala
     return matchDay && matchType && matchSala
   })
 
@@ -43,7 +56,6 @@ const SunsetTalks = () => {
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
-
       {/* ── Hero ── */}
       <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
         <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
@@ -53,7 +65,7 @@ const SunsetTalks = () => {
           {/* Left — text */}
           <div className="flex-1 flex flex-col py-8">
             <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
               {main_white_title}<br />
               <span className="text-[#c8ff00]">{main_green_title}</span>
             </h1>

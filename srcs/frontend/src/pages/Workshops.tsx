@@ -1,33 +1,38 @@
 
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Zap, Camera, Film, Music2, Code2, Megaphone, Gamepad2, Tv2, X } from 'lucide-react'
 import heroImg from '../assets/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops as workshops } from '../utils/metrics'
+import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas } from '../utils/metrics'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
-
-
+import { workshopsApi } from '../services/api/workshops.api'
+import type { WorkshopsContract } from '../api/contracts'
 
 const Workshops = () => {
-        const {
-                main_white_title,
-                main_green_title,
-                main_description,
-                cta_button_text,
-                cta_button_link,
-                start_event_date,
-                end_event_date,
-            } = usePageData('workshops');
-            
+    const {
+        main_white_title,
+        main_green_title,
+        main_description,
+        cta_button_text,
+        cta_button_link,
+        start_event_date,
+        end_event_date,
+    } = usePageData('workshops');
+
+    const [workshops, setWorkshops] = useState<WorkshopsContract[]>([])
+    useEffect(() => {
+        workshopsApi.getWorkshops().then(setWorkshops)
+    }, [])
+
     const [activeArea, setActiveArea] = useState('TODAS')
 
     const filtered = activeArea === 'TODAS'
         ? workshops
-        : workshops.filter(w => w.area === activeArea)
+        : workshops.filter((w: any) => w.area && (w.area === activeArea || w.area.startsWith(activeArea.split(' ')[0])))
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -118,11 +123,10 @@ const Workshops = () => {
                         <button
                             key={area}
                             onClick={() => setActiveArea(area)}
-                            className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
-                                activeArea === area
-                                    ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
-                                    : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
-                            }`}
+                            className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${activeArea === area
+                                ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
+                                : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
+                                }`}
                         >
                             {area}
                         </button>
@@ -153,9 +157,16 @@ const Workshops = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                    {filtered.map((w, i) => {
-                        const color = areaColor[w.area] ?? '#c8ff00'
-                        const areaObj = areas.find(a => a.name === w.area || w.area.startsWith(a.name.split(' ')[0]))
+                    {filtered.map((w: any, i) => {
+                        const wArea = w.area || 'GERAL'
+                        const color = areaColor[wArea] ?? '#c8ff00'
+                        const areaObj = areas.find(a => a.name === wArea || wArea.startsWith(a.name.split(' ')[0]))
+
+                        const date = w.start_datetime ? new Date(w.start_datetime) : null
+                        const wDay = date ? date.getDate() : '--'
+                        const wMonth = date ? date.toLocaleString('pt-PT', { month: 'short' }) : ''
+                        const wTime = date ? date.toLocaleString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : '--:--'
+
                         return (
                             <div
                                 key={i}
@@ -164,7 +175,7 @@ const Workshops = () => {
                             >
                                 {/* Number + Icon */}
                                 <div className="shrink-0 flex flex-col items-center gap-1">
-                                    <span className="text-[10px] font-black text-white/25 leading-none tabular-nums">{w.num}</span>
+                                    <span className="text-[10px] font-black text-white/25 leading-none tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                                     <div
                                         className="w-12 h-12 rounded-full flex items-center justify-center"
                                         style={{ background: `${color}15`, border: `1.5px solid ${color}50`, color }}
@@ -176,23 +187,23 @@ const Workshops = () => {
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className="text-xs text-white/40 mb-2">{w.desc}</p>
+                                    <p className="text-xs text-white/40 mb-2 truncate">{w.description || w.desc}</p>
                                     <div className="flex flex-wrap items-center gap-1.5">
                                         <span
                                             className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm"
                                             style={{ background: `${color}25`, color }}
-                                        >{w.area}</span>
-                                        <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm bg-white/10 text-white/50">{w.team}</span>
+                                        >{wArea}</span>
+                                        <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm bg-white/10 text-white/50">{w.mentor_name || w.team}</span>
                                     </div>
                                 </div>
 
                                 {/* Date + Time */}
                                 <div className="shrink-0 flex flex-col items-end gap-1.5 text-right">
                                     <span className="flex items-center gap-1 text-[11px] text-white/60">
-                                        <CalendarDays size={11} className="text-[#c8ff00]" /> {w.day} {w.month}
+                                        <CalendarDays size={11} className="text-[#c8ff00]" /> {wDay} {wMonth}
                                     </span>
                                     <span className="flex items-center gap-1 text-[11px] text-white/60">
-                                        <Clock size={11} className="text-[#c8ff00]" /> {w.time}
+                                        <Clock size={11} className="text-[#c8ff00]" /> {wTime}
                                     </span>
                                 </div>
 

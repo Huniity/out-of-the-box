@@ -1,25 +1,32 @@
 
+import { useEffect, useState } from 'react'
 import { CalendarDays, MapPin, Users, Play, Star, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
 import heroImg from '../assets/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFeatures as features } from '../utils/metrics'
+import { projecoesMetrics as metrics, projecoesFeatures as features } from '../utils/metrics'
+import { cinemaApi } from '../services/api/cinema.api'
 
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
+import type { CinemaContract } from '../api/contracts'
 
 const Cinema = () => {
-        const {
-            main_white_title,
-            main_green_title,
-            main_description,
-            cta_button_text,
-            cta_button_link,
-            start_event_date,
-            end_event_date,
-        } = usePageData('cinema');
-        
+    const {
+        main_white_title,
+        main_green_title,
+        main_description,
+        cta_button_text,
+        cta_button_link,
+        start_event_date,
+        end_event_date,
+    } = usePageData('cinema');
+
+    const [sessions, setSessions] = useState<CinemaContract[]>([]);
+    useEffect(() => {
+        cinemaApi.getSessions().then(setSessions);
+    }, []);
 
 
     return (
