@@ -77,7 +77,7 @@ function BannerContent() {
             <InlineCountdown />
             <span className="marquee-separator">✦</span>
             <span className="marquee-item">
-                <span style={textStyle}>ENTRADA GRATIS</span>
+                <span style={textStyle}>ENTRADA GRÁTIS</span>
             </span>
             <span className="marquee-separator">✦</span>
         </>

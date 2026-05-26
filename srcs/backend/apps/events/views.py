@@ -11,9 +11,9 @@ from rest_framework.response import Response
 from .models import (
     Page,
     Exposicoes,
-    Palestras,
+    SunsetTalks,
     Workshops,
-    Projecoes,
+    Cinema,
     Concertos,
     SpeedHunting,
     SemanaLabia,
@@ -22,9 +22,9 @@ from .models import (
 from .serializers import (
     PageSerializer,
     ExposicoesSerializer,
-    PalestrasSerializer,
+    SunsetTalksSerializer,
     WorkshopsSerializer,
-    ProjecoesSerializer,
+    CinemaSerializer,
     ConcertosSerializer,
     SpeedHuntingSerializer,
     SemanaLabiaSerializer,
@@ -73,9 +73,9 @@ class ExposicoesViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class PalestrasViewSet(viewsets.ModelViewSet):
-    queryset = Palestras.objects.all()
-    serializer_class = PalestrasSerializer
+class SunsetTalksViewSet(viewsets.ModelViewSet):
+    queryset = SunsetTalks.objects.all()
+    serializer_class = SunsetTalksSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
@@ -85,9 +85,9 @@ class WorkshopsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class ProjecoesViewSet(viewsets.ModelViewSet):
-    queryset = Projecoes.objects.all()
-    serializer_class = ProjecoesSerializer
+class CinemaViewSet(viewsets.ModelViewSet):
+    queryset = Cinema.objects.all()
+    serializer_class = CinemaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 

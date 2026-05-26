@@ -61,20 +61,20 @@ const EticCTA = () => {
           {/* Badge */}
           <div className="mb-3 flex items-center gap-2">
             <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Junta-te à ETIC_</span>
+            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Junta-te à ETIC_Algarve</span>
           </div>
 
           {/* Heading */}
           <h2 className="text-left font-black text-4xl xl:text-5xl uppercase leading-none tracking-tight">
-            <span className="text-white">Queres fazer parte da familia</span>
-            <span className="text-[#c8ff00]">  ETIC?</span>
+            <span className="text-white">Queres fazer parte da família</span>
+            <span className="text-[#c8ff00]">  ETIC_Algarve?</span>
           </h2>
 
           <div className="my-5 h-[2px] w-16 bg-[#c8ff00] opacity-50" />
 
           <p className="mb-8 max-w-xs text-xs leading-relaxed text-white/40">
             Descobre os nossos cursos e começa a criar o teu futuro nas áreas de
-            design, som, vídeo, fotografia e tecnologia.
+            Design, Fotografia, Som e Música, Vídeo, Animação e Videojogos, Marketing e Comunicação, Programação.
           </p>
 
           <PrimaryButton href="/cursos" className="w-[300px] justify-center">
@@ -86,7 +86,7 @@ const EticCTA = () => {
         {/* Right — video */}
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full aspect-video overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-            <Youtube videoId="yNexikt6VsM" />
+            <Youtube videoId="2A795xiuh54" />
           </div>
         </div>
 
