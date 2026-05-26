@@ -9,7 +9,7 @@ import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFe
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 
-const Projecoes = () => {
+const Cinema = () => {
         const {
             main_white_title,
             main_green_title,
@@ -18,7 +18,7 @@ const Projecoes = () => {
             cta_button_link,
             start_event_date,
             end_event_date,
-        } = usePageData('projecoes');
+        } = usePageData('cinema');
         
 
 
@@ -222,4 +222,4 @@ const Projecoes = () => {
     )
 }
 
-export default Projecoes
+export default Cinema

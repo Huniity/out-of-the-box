@@ -10,14 +10,14 @@ import { palestrasTypeColors as typeColors, palestrasSessions as sessions, pales
 
 
 
-const Palestras = () => {
+const SunsetTalks = () => {
   const {
     main_white_title,
     main_green_title,
     main_description,
     start_event_date,
     end_event_date,
-  } = usePageData('palestras')
+  } = usePageData('sunset-talks')
 
   const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
   const [selectedType, setSelectedType] = useState<string>('TODAS')
@@ -292,4 +292,4 @@ const Palestras = () => {
   )
 }
 
-export default Palestras
+export default SunsetTalks

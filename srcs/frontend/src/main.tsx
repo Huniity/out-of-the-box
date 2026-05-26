@@ -8,8 +8,8 @@ import Footer from './components/core/Footer'
 
 import Concertos from './pages/Concertos'
 import Exposicoes from './pages/Exposicoes'
-import Palestras from './pages/Palestras'
-import Projecoes from './pages/Projecoes'
+import SunsetTalks from './pages/SunsetTalks'
+import Cinema from './pages/Cinema'
 import SemanaLabia from './pages/SemanaLabia'
 import SpeedHunting from './pages/SpeedHunting'
 import Workshops from './pages/Workshops'
@@ -33,8 +33,8 @@ createRoot(rootElement).render(
         <Route path="/" element={<App />} />
         <Route path="/concertos" element={<Concertos />} />
         <Route path="/exposicoes" element={<Exposicoes />} />
-        <Route path="/palestras" element={<Palestras />} />
-        <Route path="/projecoes" element={<Projecoes />} />
+        <Route path="/sunset-talks" element={<SunsetTalks />} />
+        <Route path="/cinema" element={<Cinema />} />
         <Route path="/semana-labia" element={<SemanaLabia />} />
         <Route path="/speed-hunting" element={<SpeedHunting />} />
         <Route path="/workshops" element={<Workshops />} />

@@ -5,38 +5,30 @@ import logo_etic from '../../assets/Asset5.svg'
 import MarqueeBanner from './MarqueeBanner'
 
 const NAV_LINKS = [
-    { label: 'Início',         href: '/',               is_live: true  },
     { label: 'Exposições',     href: '/exposicoes',     is_live: true  },
-    { label: 'Palestras',      href: '/palestras',      is_live: true  },
+    { label: 'Sunset Talks',      href: '/sunset-talks',      is_live: true  },
     { label: 'Workshops',      href: '/workshops',      is_live: true  },
-    { label: 'Projeções',      href: '/projecoes',      is_live: true  },
+    { label: 'Cinema',      href: '/cinema',      is_live: true  },
     { label: 'Concertos',      href: '/concertos',      is_live: true  },
     { label: 'Speed Hunting',  href: '/speed-hunting',  is_live: true  },
-    { label: 'Semana Lábia',   href: '/semana-labia',   is_live: true  },
+    // { label: 'Semana Lábia',   href: '/semana-labia',   is_live: true  },
 ]
 
 const visibleLinks = NAV_LINKS.filter(l => l.is_live)
 
 function Navbar() {
     const [open, setOpen] = useState(false)
-    const [visible, setVisible] = useState(true)
+    const [marqueeVisible, setMarqueeVisible] = useState(true)
     const [navHeight, setNavHeight] = useState(0)
     const lastScrollY = useRef(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
-    const navHeightRef = useRef(0)
 
     useLayoutEffect(() => {
         const el = wrapperRef.current
         if (!el) return
-        const h = el.offsetHeight
-        navHeightRef.current = h
-        setNavHeight(h)
+        setNavHeight(el.offsetHeight)
         lastScrollY.current = window.scrollY
-        if (window.scrollY > h) setVisible(false)
-        const ro = new ResizeObserver(() => {
-            navHeightRef.current = el.offsetHeight
-            setNavHeight(el.offsetHeight)
-        })
+        const ro = new ResizeObserver(() => setNavHeight(el.offsetHeight))
         ro.observe(el)
         return () => ro.disconnect()
     }, [])
@@ -44,7 +36,7 @@ function Navbar() {
     useEffect(() => {
         const handleScroll = () => {
             const currentY = window.scrollY
-            setVisible(currentY < lastScrollY.current || currentY < navHeightRef.current)
+            setMarqueeVisible(currentY < lastScrollY.current || currentY === 0)
             lastScrollY.current = currentY
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
@@ -55,7 +47,7 @@ function Navbar() {
         <>
         <div
             ref={wrapperRef}
-            className={`fixed top-0 left-0 right-0 z-[300] transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}
+            className="fixed top-0 left-0 right-0 z-[300]"
         >
             <nav className="w-full flex items-center bg-black pl-4 p-4 relative">
                 {/* Logo — left */}

@@ -12,7 +12,7 @@ import { ArrowRight } from 'lucide-react'
 import BushImage from '../../assets/bush.webp'
 
 import polaroidExposicoes   from '../../assets/polaroid_exposicoes.webp'
-import polaroidPalestras    from '../../assets/polaroid_palestras.webp'
+import polaroidSunsetTalks    from '../../assets/polaroid_sunset-talks.webp'
 import polaroidWorkshops    from '../../assets/polaroid_workshops.webp'
 import polaroidCinema       from '../../assets/polaroid_cinema.webp'
 import polaroidConcertos    from '../../assets/polaroid_concertos.webp'
@@ -22,9 +22,9 @@ import polaroidSemanaLabia  from '../../assets/polaroid_semanalabias.webp'
 
 const areas = [
   { num: '01', name: 'Exposições',    desc: 'Design, Fotografia e Videógrafos',           slug: 'exposicoes',    rotate: -3,   side: 'right', polaroid: polaroidExposicoes   },
-  { num: '02', name: 'Palestras',     desc: 'Conversas com convidados e oradores',         slug: 'palestras',     rotate:  2.5, side: 'left',  polaroid: polaroidPalestras    },
+  { num: '02', name: 'Sunset Talks',  desc: 'Conversas com convidados e oradores',         slug: 'sunset-talks',     rotate:  2.5, side: 'left',  polaroid: polaroidSunsetTalks    },
   { num: '03', name: 'Workshops',     desc: 'Sessões práticas em várias áreas formativas', slug: 'workshops',     rotate: -2,   side: 'right', polaroid: polaroidWorkshops    },
-  { num: '04', name: 'Cinema',        desc: 'Projetos finais de Realização, Cinema e TV',  slug: 'projecoes',     rotate:  3.5, side: 'left',  polaroid: polaroidCinema       },
+  { num: '04', name: 'Cinema',        desc: 'Projetos finais de Realização, Cinema e TV',  slug: 'cinema',     rotate:  3.5, side: 'left',  polaroid: polaroidCinema       },
   { num: '05', name: 'Concertos',     desc: 'Live in Sight e atuações de alunos',          slug: 'concertos',     rotate: -2.5, side: 'right', polaroid: polaroidConcertos    },
   { num: '06', name: 'Speed Hunting', desc: 'Encontros entre empresas e alunos',           slug: 'speed-hunting', rotate:  2,   side: 'left',  polaroid: polaroidSpeedHunting },
   { num: '07', name: 'Semana Lábia',  desc: 'Projetos da Semana Lábia 2026',               slug: 'area-especial', rotate: -3,   side: 'right', polaroid: polaroidSemanaLabia  },
