@@ -45,7 +45,7 @@ class Exposicoes(models.Model):
     def __str__(self):
         return f"[{self.area}] {self.title}"
 
-class Palestras(models.Model):
+class SunsetTalks(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     speaker_name = models.CharField(max_length=255)
@@ -55,7 +55,7 @@ class Palestras(models.Model):
     social_link = models.URLField(blank=True, null=True, help_text="Rede social ou Site")
     registration_link = models.URLField(blank=True, null=True, help_text="Link para inscrição")
     
-    image = models.ImageField(upload_to='palestras/', blank=True, null=True)
+    image = models.ImageField(upload_to='sunset_talks/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -81,7 +81,7 @@ class Workshops(models.Model):
     def __str__(self):
         return self.title
 
-class Projecoes(models.Model):
+class Cinema(models.Model):
     title = models.CharField(max_length=255)
     director_team = models.CharField(max_length=255, help_text="Realizador/Equipa")
     synopsis = models.TextField()
@@ -89,7 +89,7 @@ class Projecoes(models.Model):
     duration = models.CharField(max_length=100)
     social_link = models.URLField(blank=True, null=True, help_text="Rede social do realizador/projeto")
     
-    image = models.ImageField(upload_to='projecoes/', blank=True, null=True)
+    image = models.ImageField(upload_to='cinema/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)

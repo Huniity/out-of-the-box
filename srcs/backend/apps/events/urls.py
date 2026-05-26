@@ -9,9 +9,9 @@ from .views import (
     SpeakerCountView,
     TotalVisitorsView,
     ExposicoesViewSet,
-    PalestrasViewSet,
+    SunsetTalksViewSet,
     WorkshopsViewSet,
-    ProjecoesViewSet,
+    CinemaViewSet,
     ConcertosViewSet,
     SpeedHuntingViewSet,
     SemanaLabiaViewSet,
@@ -22,9 +22,9 @@ from .views import (
 router = DefaultRouter()
 
 router.register(r'exposicoes', ExposicoesViewSet)
-router.register(r'palestras', PalestrasViewSet)
+router.register(r'sunset-talks', SunsetTalksViewSet)
 router.register(r'workshops', WorkshopsViewSet)
-router.register(r'projecoes', ProjecoesViewSet)
+router.register(r'cinema', CinemaViewSet)
 router.register(r'concertos', ConcertosViewSet)
 router.register(r'speed-hunting', SpeedHuntingViewSet)
 router.register(r'semana-labia', SemanaLabiaViewSet)
