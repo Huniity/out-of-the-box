@@ -88,7 +88,7 @@ function Homepage() {
                             alt="Out of the Box"
                             className="w-full h-auto select-none"
                         />
-                        <div className="flex justify-center">
+                        <div className="flex justify-center pr-4">
                             <PrimaryButton href="/sunset-talks" className="group">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
