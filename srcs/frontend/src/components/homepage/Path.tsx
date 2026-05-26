@@ -21,13 +21,13 @@ import polaroidSemanaLabia  from '../../assets/polaroid_semanalabias.webp'
 
 
 const areas = [
-  { num: '01', name: 'Exposições',    desc: 'Design, Fotografia e Videógrafos',           slug: 'exposicoes',    rotate: -3,   side: 'right', polaroid: polaroidExposicoes   },
-  { num: '02', name: 'Sunset Talks',  desc: 'Conversas com convidados e oradores',         slug: 'sunset-talks',     rotate:  2.5, side: 'left',  polaroid: polaroidSunsetTalks    },
+  { num: '01', name: 'Exposições',    desc: 'Design, Fotografia, Videojogos e Projetos Multidisciplinares',           slug: 'exposicoes',    rotate: -3,   side: 'right', polaroid: polaroidExposicoes   },
+  { num: '02', name: 'Sunset Talks',  desc: 'Conversas criativas com convidados especiais',         slug: 'sunset-talks',     rotate:  2.5, side: 'left',  polaroid: polaroidSunsetTalks    },
   { num: '03', name: 'Workshops',     desc: 'Sessões práticas em várias áreas formativas', slug: 'workshops',     rotate: -2,   side: 'right', polaroid: polaroidWorkshops    },
-  { num: '04', name: 'Cinema',        desc: 'Projetos finais de Realização, Cinema e TV',  slug: 'cinema',     rotate:  3.5, side: 'left',  polaroid: polaroidCinema       },
-  { num: '05', name: 'Concertos',     desc: 'Live in Sight e atuações de alunos',          slug: 'concertos',     rotate: -2.5, side: 'right', polaroid: polaroidConcertos    },
-  { num: '06', name: 'Speed Hunting', desc: 'Encontros entre empresas e alunos',           slug: 'speed-hunting', rotate:  2,   side: 'left',  polaroid: polaroidSpeedHunting },
-  { num: '07', name: 'Semana Lábia',  desc: 'Projetos da Semana Lábia 2026',               slug: 'area-especial', rotate: -3,   side: 'right', polaroid: polaroidSemanaLabia  },
+  { num: '04', name: 'Cinema',        desc: 'Mostra de cinema da comunidade ETIC_Algarve',  slug: 'cinema',     rotate:  3.5, side: 'left',  polaroid: polaroidCinema       },
+  { num: '05', name: 'Concertos',     desc: 'Concertos Live in Sight e comunidade ETIC_Algarve',          slug: 'concertos',     rotate: -2.5, side: 'right', polaroid: polaroidConcertos    },
+  { num: '06', name: 'Speed Hunting', desc: 'Networking entre empresas e comunidade ETIC_Algarve',           slug: 'speed-hunting', rotate:  2,   side: 'left',  polaroid: polaroidSpeedHunting },
+  // { num: '07', name: 'Semana Lábia',  desc: 'Projetos da Semana Lábia 2026',               slug: 'area-especial', rotate: -3,   side: 'right', polaroid: polaroidSemanaLabia  },
 ]
 
 function buildZigzagPath(pts: { x: number; y: number }[]): string {
@@ -282,7 +282,7 @@ export default function AreasWall() {
                     }}
                   />
                 <motion.a
-                  href={`/areas/${area.slug}`}
+                  href={`/${area.slug}`}
                   ref={el => { cardRefs.current[i] = el }}
                   className="z-20 block relative group"
                   style={{ rotate: area.rotate }}
