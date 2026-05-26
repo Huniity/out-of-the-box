@@ -21,10 +21,10 @@ from apps.events.models import (
     Page,
     Concertos,
     Exposicoes,
-    Palestras,
+    SunsetTalks,
     SemanaLabia,
     SpeedHunting,
-    Projecoes,
+    Cinema,
     Workshops,
 )
 
@@ -47,10 +47,10 @@ def clear_database():
 
     Concertos.objects.all().delete()
     Exposicoes.objects.all().delete()
-    Palestras.objects.all().delete()
+    SunsetTalks.objects.all().delete()
     SemanaLabia.objects.all().delete()
     SpeedHunting.objects.all().delete()
-    Projecoes.objects.all().delete()
+    Cinema.objects.all().delete()
     Workshops.objects.all().delete()
     Page.objects.all().delete()
 
@@ -101,7 +101,7 @@ def seed_database():
         ('Fotografia Documental',               'Ética, técnica e oportunidades na fotografia documental e reportagem.',                                                                     'Pedro Tavares',                         'Fotógrafo Documental',     11, 10,  0, 'SALA 7'),
         ('Narrativa Visual em Banda Desenhada', 'Estrutura narrativa, storyboard e composição visual na banda desenhada.',                                                                   'Sofia Matos',                           'Ilustradora & BD',         11, 14, 30, 'SALA 8'),
     ]:
-        p = Palestras.objects.create(
+        p = SunsetTalks.objects.create(
             title=title,
             description=description,
             speaker_name=speaker_name,
@@ -110,7 +110,7 @@ def seed_database():
             location=location,
             is_active=True,
         )
-        add_image(p, 'palestra.png')
+        add_image(p, 'sunset-talks.png')
 
     semana_labia = SemanaLabia.objects.create(
         title="Innovation Zone",
@@ -131,7 +131,7 @@ def seed_database():
     )
     speed_hunting.company_logo.save("speed-hunting.png", ContentFile(DUMMY_IMAGE), save=True)
 
-    projecoes = Projecoes.objects.create(
+    cinema = Cinema.objects.create(
         title="Short Film Screening",
         synopsis="A selection of short films from emerging creators.",
         duration="90 minutos",
@@ -140,7 +140,7 @@ def seed_database():
         location="Cinema Room",
         is_active=True,
     )
-    add_image(projecoes, "video-screening.png")
+    add_image(cinema, "video-screening.png")
 
     workshop = Workshops.objects.create(
         title="Intro to Creative Coding",
@@ -155,11 +155,11 @@ def seed_database():
 
     page = Page.objects.bulk_create([
         Page(name="Exposições",  is_live=True,  main_white_title="A Obra Ganha", main_green_title="Vida", main_description="Descobre as exposições que revelam o talento e a criatividade dos alunos das áreas de Design, Fotografia e Videojogos.", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
-        Page(name="Palestras", is_live=True, main_white_title="As Grandes", main_green_title="Vozes", main_description="Conecta-te com os profissionais que estão a ditar o rumo da indústria. Explora as palestras, workshops e debates do Out of the Box 2026.", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
+        Page(name="Sunset Talks", is_live=True, main_white_title="As Grandes", main_green_title="Vozes", main_description="Conecta-te com os profissionais que estão a ditar o rumo da indústria. Explora as palestras, workshops e debates do Out of the Box 2026.", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Workshops", is_live=True, main_white_title="Work", main_green_title="shops", main_description="Descobre as sessões práticas da Out of the Box Faro 2026. Explora workshops por área formativa e conhece as equipas que vão desafiar-te a aprender, criar e experimentar.", cta_button_text="Garante o teu lugar!", cta_button_link="https://docs.google.com/forms", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
-        Page(name="Projeções", is_live=True, main_white_title="ETIC", main_green_title="EM CARTAZ", main_description="Apresentação dos projetos finais das turmas de Realização, Cinema e TV da ETIC_Algarve. Sessões abertas ao público, entrada livre.", cta_button_text="Explorar Curtas Metragens", cta_button_link="https://www.youtube.com/watch?v=z69B4lJ-sUE", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
+        Page(name="Cinema", is_live=True, main_white_title="ETIC", main_green_title="EM CARTAZ", main_description="Apresentação dos projetos finais das turmas de Realização, Cinema e TV da ETIC_Algarve. Sessões abertas ao público, entrada livre.", cta_button_text="Explorar Curtas Metragens", cta_button_link="https://www.youtube.com/watch?v=z69B4lJ-sUE", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Concertos", is_live=True, main_white_title="Concertos", main_green_title="Live", main_description="A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.", cta_button_text="Live In Sight ", cta_button_link="https://www.eticalgarve.com/comunidade/live-insight/", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
-        Page(name="Speed Hunting", is_live=True, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/palestras", start_event_date=date(2026, 7, 9), end_event_date=date(2026, 7, 10)),
+        Page(name="Speed Hunting", is_live=True, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/sunset-talks", start_event_date=date(2026, 7, 9), end_event_date=date(2026, 7, 10)),
         Page(name="Semana Lábia", is_live=True, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
 ])
 

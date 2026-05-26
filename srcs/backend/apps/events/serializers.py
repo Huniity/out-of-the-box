@@ -3,9 +3,9 @@ from rest_framework import serializers
 from .models import (
     Page,
     Exposicoes,
-    Palestras,
+    SunsetTalks,
     Workshops,
-    Projecoes,
+    Cinema,
     Concertos,
     SpeedHunting,
     SemanaLabia,
@@ -24,9 +24,9 @@ class ExposicoesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PalestrasSerializer(serializers.ModelSerializer):
+class SunsetTalksSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Palestras
+        model = SunsetTalks
         fields = '__all__'
 
 
@@ -36,9 +36,9 @@ class WorkshopsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProjecoesSerializer(serializers.ModelSerializer):
+class CinemaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Projecoes
+        model = Cinema
         fields = '__all__'
 
 

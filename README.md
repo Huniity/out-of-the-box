@@ -1,6 +1,6 @@
 # Out of the Box
 
-Event management platform for the ETIC_Algarve festival. Django REST API backend, React frontend, PostgreSQL database — all containerised with Docker Compose.
+Event management platform for the ETIC_Algarve. Django REST API backend, React frontend, PostgreSQL database — all containerised with Docker Compose.
 
 ---
 
