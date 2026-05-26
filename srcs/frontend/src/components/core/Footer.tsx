@@ -54,7 +54,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-4">
           <div className="mb-5 flex items-center gap-3">
-            <img src={EticWhite} alt="ETIC Algarve Logo" className="w-60 shrink-0" />
+            <img src={EticWhite} alt="ETIC_Algarve Logo" className="w-60 shrink-0" />
           </div>
 
 
