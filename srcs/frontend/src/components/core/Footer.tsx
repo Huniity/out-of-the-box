@@ -73,8 +73,8 @@ export default function Footer() {
             <a href="/" className="transition hover:text-[#c8ff00]">
               Início
             </a>
-            <a href="/palestras" className="transition hover:text-[#c8ff00]">
-              Palestras
+            <a href="/sunset-talks" className="transition hover:text-[#c8ff00]">
+              Sunset Talks
             </a>
             <a href="/workshops" className="transition hover:text-[#c8ff00]">
               Workshops
