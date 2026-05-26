@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Fundo from '../../assets/FUNDO.webp'
+import Fundo from '../../assets/FUNDO2.webp'
 import Fundo2 from '../../assets/FUNDO.webp'
 import galleryDesign from '../../assets/Design.webp'
 import galleryFoto from '../../assets/foto.webp'

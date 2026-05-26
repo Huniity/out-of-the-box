@@ -11,6 +11,8 @@ import leafImg2 from './assets/leaf2.webp'
 import doodleOrange from './assets/d_o.webp'
 import starGreen from './assets/star_g.webp'
 import starPink from './assets/star_p.webp'
+import dateELocal from './assets/data-e-local.webp'
+import eticLogo from './assets/etic.webp'
 import './styles/leaves.css'
 import EticCTA from './components/homepage/Cta'
 
@@ -69,30 +71,41 @@ function Homepage() {
                     md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
                 "
             />
+            {/* Date & local banner — center overlap */}
+            <img
+                src={dateELocal}
+                alt="3 a 17 de julho, IPDJ"
+                className="absolute z-[100] pointer-events-none select-none hidden lg:block w-full max-w-[300px] h-auto -rotate-3"
+                style={{ left: '43%', top: '62%' }}
+            />
+
             <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                 {/* Left — logotype + CTAs */}
-                <div className="flex-1 flex flex-col items-center justify-center py-8 pb-32">
-                    <div className="flex flex-col items-center gap-6">
+                <div className="flex-1 flex flex-col items-center lg:items-end justify-center py-8 pb-32">
+                    <div className="flex flex-col gap-6 w-full max-w-[450px]">
                         <img
                             src={OOTBLogo}
                             alt="Out of the Box"
-                            className="w-full max-w-[450px] h-auto select-none"
+                            className="w-full h-auto select-none"
                         />
-                        <div className="flex flex-wrap justify-center gap-3">
-                            <PrimaryButton href="/programacao">
+                        <div className="flex justify-center">
+                            <PrimaryButton href="/sunset-talks" className="group">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                             </PrimaryButton>
-                            <SecondaryButton href="">
-                                Descobrir Festival
-                                <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </SecondaryButton>
                         </div>
+                        <img
+                            src={dateELocal}
+                            alt="3 a 17 de julho, IPDJ"
+                            className="lg:hidden w-full max-w-[300px] h-auto -rotate-3 select-none pointer-events-none mx-auto"
+                        />
                     </div>
                 </div>
 
-
-                <HeroGallery className="hidden lg:block mr-8 xl:mr-20" />
+                {/* Right — gallery + ETIC logo */}
+                <div className="hidden lg:block relative flex-1 mr-8 xl:mr-20">
+                    <HeroGallery className="h-full" />
+                </div>
             </div>
         </section>
             <AreasTrail />
