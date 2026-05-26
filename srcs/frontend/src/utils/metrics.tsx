@@ -142,7 +142,7 @@ export const concertosFeaturedEvent = {
 }
 
 export const concertosProgramme = [
-    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC',               time: '20:00', venue: 'IPDJ, Faro' },
+    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC_Algarve',               time: '20:00', venue: 'IPDJ, Faro' },
     { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
     { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
     { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },

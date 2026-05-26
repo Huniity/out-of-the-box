@@ -102,7 +102,7 @@ function Homepage() {
                     </div>
                 </div>
 
-                {/* Right — gallery + ETIC logo */}
+                {/* Right — gallery + ETIC_Algarve logo */}
                 <div className="hidden lg:block relative flex-1 mr-8 xl:mr-20">
                     <HeroGallery className="h-full" />
                 </div>
