@@ -1,8 +1,7 @@
 import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock, Camera, Film, Code2, Megaphone, Gamepad2, Tv2 } from 'lucide-react'
 import proj from '../assets/FUNDO.webp'
 import Fundo from '../assets/FUNDO.webp'
-import { Session, SessionType } from '../types/palestras'
-import { Exhibition, ExhibitionArea } from '../types/exhibitions'
+import { ConcertosContract, CinemaContract, SpeedHuntingContract, SemanaLabiaContract, SunsetTalksContract, ExposicoesContract, WorkshopsContract } from '../api/contracts';
 
 // SEMANA LABIA
 
@@ -33,8 +32,8 @@ export const semanaLabiaMetrics = [
     },
 ]
 
-export const semanaLabiaProjects = [
-    { title: 'NARRATIVAS VISUAIS', image: proj },
+export const semanaLabiaProjects: SemanaLabiaContract[] = [
+    { id: 1, title: 'NARRATIVAS VISUAIS', description: 'desc', featured_projects: 'projetos', image: null, start_datetime: '2026-07-03T10:00:00', end_datetime: '2026-07-10T18:00:00', location: 'IPDJ, Faro', is_active: true, created_at: '2024-05-26T00:00:00' },
 ]
 
 export const semanaLabiaReasons = [
@@ -99,17 +98,17 @@ export const speedHuntingMetrics = [
 
 export const speedHuntingCategories = ['TODAS', 'DESIGN', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'FOTOGRAFIA']
 
-export const speedHuntingCompanies = [
-    { initials: 'AC', name: 'ALGARVE CREATIVE', category: 'DESIGN',      color: '#f97316', desc: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
-    { initials: 'PF', name: 'PIXEL FORGE',      category: 'VÍDEO',       color: '#3b82f6', desc: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
-    { initials: 'SS', name: 'SONORA STUDIO',    category: 'SOM',         color: '#a855f7', desc: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
-    { initials: 'LT', name: 'LUMIA TECH',       category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
-    { initials: 'BH', name: 'BRAND HOUSE',      category: 'MARKETING',   color: '#ec4899', desc: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
-    { initials: 'FL', name: 'FRAME LAB',        category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
-    { initials: 'CI', name: 'CUBO INTERATIVO',  category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
-    { initials: 'NF', name: 'NORTE FILMES',     category: 'VÍDEO',       color: '#3b82f6', desc: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
-    { initials: 'VC', name: 'VOZES CRIATIVAS',  category: 'SOM',         color: '#a855f7', desc: 'Design de som, locução e produção musical para multimédia.' },
-    { initials: 'FV', name: 'FOCO VISUAL',      category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
+export const speedHuntingCompanies: SpeedHuntingContract[] = [
+    { id: 1, company_name: 'ALGARVE CREATIVE', company_logo: null, start_datetime: '2026-07-09T10:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 2, company_name: 'PIXEL FORGE',      company_logo: null, start_datetime: '2026-07-09T10:15:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 3, company_name: 'SONORA STUDIO',    company_logo: null, start_datetime: '2026-07-09T10:30:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 4, company_name: 'LUMIA TECH',       company_logo: null, start_datetime: '2026-07-09T10:45:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 5, company_name: 'BRAND HOUSE',      company_logo: null, start_datetime: '2026-07-09T11:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 6, company_name: 'FRAME LAB',        company_logo: null, start_datetime: '2026-07-09T11:15:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 7, company_name: 'CUBO INTERATIVO',  company_logo: null, start_datetime: '2026-07-09T11:30:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 8, company_name: 'NORTE FILMES',     company_logo: null, start_datetime: '2026-07-10T10:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 9, company_name: 'VOZES CRIATIVAS',  company_logo: null, start_datetime: '2026-07-10T10:15:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 10, company_name: 'FOCO VISUAL',     company_logo: null, start_datetime: '2026-07-10T10:30:00', location: 'IPDJ, Faro', is_active: true },
 ]
 
 export const speedHuntingSteps = [
@@ -141,15 +140,15 @@ export const concertosFeaturedEvent = {
     badges: ['CONCERTO', 'ENTRADA LIVRE'],
 }
 
-export const concertosProgramme = [
-    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC_Algarve',               time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '8',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'ALUNOS EM PALCO SESSÃO 1',     time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '9',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'VIBE COLLECTIVE DJ SET',       time: '21:00', venue: 'IPDJ, Faro' },
-    { day: '10', month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'ACÚSTICO E EXPERIMENTAL',      time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '11', month: 'JUL', tag: 'HAPPENING', tagColor: '#ec4899', title: 'HAPPENING MULTIDISCIPLINAR',   time: '20:00', venue: 'IPDJ, Faro' },
+export const concertosProgramme: ConcertosContract[] = [
+    { id: 1, band_name: 'BEATS BY ETIC_Algarve',      description: 'DJ SET', info_link: null, social_link: null, image: null, start_datetime: '2026-07-04T20:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 2, band_name: 'SOUND EXPERIMENTS',          description: 'CONCERTO', info_link: null, social_link: null, image: null, start_datetime: '2026-07-05T19:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 3, band_name: 'ELECTRO / VISUAL SHOWCASE',  description: 'SHOWCASE', info_link: null, social_link: null, image: null, start_datetime: '2026-07-06T20:30:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 4, band_name: 'NOISE & TEXTURES LIVE',      description: 'LIVE', info_link: null, social_link: null, image: null, start_datetime: '2026-07-07T19:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 5, band_name: 'ALUNOS EM PALCO SESSÃO 1',   description: 'CONCERTO', info_link: null, social_link: null, image: null, start_datetime: '2026-07-08T20:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 6, band_name: 'VIBE COLLECTIVE DJ SET',     description: 'DJ SET', info_link: null, social_link: null, image: null, start_datetime: '2026-07-09T21:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 7, band_name: 'ACÚSTICO E EXPERIMENTAL',    description: 'LIVE', info_link: null, social_link: null, image: null, start_datetime: '2026-07-10T20:30:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 8, band_name: 'HAPPENING MULTIDISCIPLINAR', description: 'HAPPENING', info_link: null, social_link: null, image: null, start_datetime: '2026-07-11T20:00:00', location: 'IPDJ, Faro', is_active: true },
 ]
 
 export const concertosHappenings = [
@@ -208,57 +207,12 @@ export const projecoesMetrics = [
     },
 ]
 
-export const projecoesSessions = [
-    {
-        day: '9',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'NARRATIVAS DO REAL',
-        desc: 'Curtas-metragens de ficção e documentário.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '10',
-        month: 'JUL',
-        tag: 'CINEMA',
-        tagColor: '#3b82f6',
-        title: 'OLHARES DO AMANHÃ',
-        desc: 'Histórias, personagens e novas formas de ver o mundo.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '11',
-        month: 'JUL',
-        tag: 'TV',
-        tagColor: '#22c55e',
-        title: 'DE ATRÁS DAS CÂMARAS',
-        desc: 'Projetos de reportagem, entretenimento e formatos TV.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '12',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'EXPERIMENTAR É CRIAR',
-        desc: 'Trabalhos experimentais e autorais dos alunos.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '16',
-        month: 'JUL',
-        tag: 'SESSÃO ESPECIAL',
-        tagColor: '#a855f7',
-        title: 'BEST OF OUT OF THE BOX',
-        desc: 'Seleção dos melhores projetos do festival.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
+export const projecoesSessions: CinemaContract[] = [
+    { id: 1, title: 'NARRATIVAS DO REAL',        director_team: 'REALIZAÇÃO', synopsis: 'Curtas-metragens de ficção e documentário.',        duration: '90m', social_link: null, image: null, start_datetime: '2026-07-09T19:00:00', location: 'AUDITÓRIO', is_active: true },
+    { id: 2, title: 'OLHARES DO AMANHÃ',         director_team: 'CINEMA',     synopsis: 'Histórias, personagens e novas formas de ver o mundo.', duration: '90m', social_link: null, image: null, start_datetime: '2026-07-10T19:00:00', location: 'AUDITÓRIO', is_active: true },
+    { id: 3, title: 'DE ATRÁS DAS CÂMARAS',      director_team: 'TV',         synopsis: 'Projetos de reportagem, entretenimento e formatos TV.', duration: '90m', social_link: null, image: null, start_datetime: '2026-07-11T19:00:00', location: 'AUDITÓRIO', is_active: true },
+    { id: 4, title: 'EXPERIMENTAR É CRIAR',      director_team: 'REALIZAÇÃO', synopsis: 'Trabalhos experimentais e autorais dos alunos.',        duration: '90m', social_link: null, image: null, start_datetime: '2026-07-12T19:00:00', location: 'AUDITÓRIO', is_active: true },
+    { id: 5, title: 'BEST OF OUT OF THE BOX',    director_team: 'ESPECIAL',   synopsis: 'Seleção dos melhores projetos do festival.',            duration: '90m', social_link: null, image: null, start_datetime: '2026-07-16T19:00:00', location: 'AUDITÓRIO', is_active: true },
 ]
 
 export const projecoesFeatures = [
@@ -304,15 +258,15 @@ export const workshopsAreaColor: Record<string, string> = {
     'CINEMA/TV':    '#ec4899',
 }
 
-export const workshopsWorkshops = [
-    { num: '01', area: 'DESIGN',      title: 'DESIGN QUE COMUNICA',   desc: 'Do briefing ao conceito final',         team: 'EQUIPA DESIGN',    day: '04', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '02', area: 'VÍDEO',       title: 'LUZ, CÂMARA, AÇÃO!',    desc: 'Realização de vídeo na prática',        team: 'EQUIPA VÍDEO',     day: '05', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '03', area: 'SOM',         title: 'SOM EM DETALHE',         desc: 'Gravação, edição e mixagem',           team: 'EQUIPA SOM',       day: '06', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '04', area: 'FOTOGRAFIA',  title: 'FOTOGRAFIA CRIATIVA',   desc: 'Composição e narrativa visual',         team: 'EQUIPA FOTO',      day: '08', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '05', area: 'PROGRAMAÇÃO', title: 'CÓDIGO CRIATIVO',        desc: 'Interatividade com Javascript',         team: 'EQUIPA DEV',       day: '11', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '06', area: 'MARKETING',   title: 'CONTEÚDO QUE MARCA',    desc: 'Estratégia e criação de campanhas',     team: 'EQUIPA MARKETING', day: '12', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '07', area: 'VIDEOJOGOS',  title: 'CRIAR PARA JOGAR',       desc: 'Design e prototipagem de jogos',        team: 'EQUIPA GAMES',     day: '15', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '08', area: 'CINEMA/TV',   title: 'DO GUIÃO AO ECRÃ',      desc: 'Escrita e produção para TV/Cinema',     team: 'EQUIPA CINEMA',    day: '17', month: 'JUL', time: '10:00 – 13:00' },
+export const workshopsWorkshops: WorkshopsContract[] = [
+    { id: 1, title: 'DESIGN QUE COMUNICA',   description: 'Do briefing ao conceito final',         mentor_name: 'EQUIPA DESIGN',    duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-04T10:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 2, title: 'LUZ, CÂMARA, AÇÃO!',    description: 'Realização de vídeo na prática',        mentor_name: 'EQUIPA VÍDEO',     duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-05T14:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 3, title: 'SOM EM DETALHE',         description: 'Gravação, edição e mixagem',           mentor_name: 'EQUIPA SOM',       duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-06T10:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 4, title: 'FOTOGRAFIA CRIATIVA',   description: 'Composição e narrativa visual',         mentor_name: 'EQUIPA FOTO',      duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-08T14:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 5, title: 'CÓDIGO CRIATIVO',        description: 'Interatividade com Javascript',         mentor_name: 'EQUIPA DEV',       duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-11T14:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 6, title: 'CONTEÚDO QUE MARCA',    description: 'Estratégia e criação de campanhas',     mentor_name: 'EQUIPA MARKETING', duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-12T10:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 7, title: 'CRIAR PARA JOGAR',       description: 'Design e prototipagem de jogos',        mentor_name: 'EQUIPA GAMES',     duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-15T14:00:00', location: 'IPDJ, Faro', is_active: true },
+    { id: 8, title: 'DO GUIÃO AO ECRÃ',      description: 'Escrita e produção para TV/Cinema',     mentor_name: 'EQUIPA CINEMA',    duration: '3h', max_participants: 20, mentor_social: null, registration_link: null, image: null, start_datetime: '2026-07-17T10:00:00', location: 'IPDJ, Faro', is_active: true },
 ]
 
 export const workshopsMetrics = [
@@ -336,31 +290,13 @@ export const palestrasTypeColors: Record<SessionType, string> = {
 
 
 
-export const palestrasSessions: Session[] = [
-  // ── 3 Jul ──
-  { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo },
-  { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo },
-  { id: 3,  day: 3,  time: '14:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Criar Marcas que Ficam',              speaker_name: 'Tiago Gouveia',                   speaker_activity: 'Brand Strategist',          description: 'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                       image: Fundo },
-  { id: 4,  day: 3,  time: '15:45', location: 'SALA 4', type: 'CONCERTOS', title: 'Criatividade sem Fronteiras',         speaker_name: 'Marta Nunes · João Correia · Inês Lopes', moderator: 'Pedro Fernandes', speaker_activity: 'Mesa Redonda', description: 'Uma conversa sobre processos criativos, colaboração e o impacto da educação no futuro.', image: Fundo },
-  // ── 4 Jul ──
-  { id: 5,  day: 4,  time: '10:00', location: 'SALA 2', type: 'PROJEÇÕES', title: 'Fotografia de Produto',               speaker_name: 'Ana Sofia Ferreira',              speaker_activity: 'Fotógrafa Comercial',       description: 'Técnicas e setup para fotografar produtos de forma profissional com equipamento acessível.', image: Fundo },
-  { id: 6,  day: 4,  time: '14:30', location: 'SALA 2', type: 'PALESTRA',  title: 'Do Algarve para o Mundo',             speaker_name: 'Carlos Nobre',                    speaker_activity: 'Empreendedor Digital',      description: 'Como construir uma carreira criativa internacional sem sair do Algarve.', image: Fundo },
-  // ── 5 Jul ──
-  { id: 7,  day: 5,  time: '11:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Game Design do Zero',                 speaker_name: 'Filipe Guerreiro',                speaker_activity: 'Game Designer',             description: 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.', image: Fundo },
-  { id: 8,  day: 5,  time: '15:00', location: 'SALA 4', type: 'WORKSHOP',  title: 'Som e Identidade de Marca',           speaker_name: 'Luísa Marques',                   speaker_activity: 'Sound Designer',            description: 'Como o som define marcas, emoções e experiências. Workshop prático com ferramentas básicas.', image: Fundo },
-  // ── 6 Jul ──
-  { id: 9,  day: 6,  time: '10:30', location: 'SALA 2', type: 'CONCERTOS', title: 'Ilustração e Mercado Editorial',      speaker_name: 'Beatriz Cruz',                    speaker_activity: 'Ilustradora',               description: 'Percurso na ilustração editorial e como chegar ao mercado de livros e revistas.', image: Fundo },
-  { id: 10, day: 6,  time: '14:00', location: 'SALA 2', type: 'WORKSHOP',  title: 'Edição de Vídeo Avançada',            speaker_name: 'Marco Faria',                     speaker_activity: 'Editor de Vídeo',           description: 'Fluxos de trabalho profissionais em DaVinci Resolve e After Effects.', image: Fundo },
-  // ── 7 Jul ──
-  { id: 11, day: 7,  time: '10:00', location: 'SALA 3', type: 'PALESTRA',  title: 'UX/UI no Mercado Real',               speaker_name: 'Vanessa Monteiro',                speaker_activity: 'Product Designer',          description: 'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.', image: Fundo },
-  { id: 12, day: 7,  time: '15:30', location: 'SALA 4', type: 'PROJEÇÕES', title: 'O Futuro das Profissões Criativas',   speaker_name: 'Ricardo Santos · Cláudia Leal',   moderator: 'Ana Costa', speaker_activity: 'Mesa Redonda', description: 'Debate sobre as tendências do mercado e as competências que as empresas procuram.', image: Fundo },
-  // ── 8 Jul ──
-  { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo },
-  { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo },
-  // ── 9 & 10 Jul (Speed Hunting) — sem palestras ──
-  // ── 11 Jul ──
-  { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo },
-  { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo },
+export const sunsetTalksSessions: SunsetTalksContract[] = [
+  { id: 1, type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico.', image: null, start_datetime: '2026-07-03T10:00:00', location: 'SALA 1', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
+  { id: 2, type: 'PALESTRA',  title: 'Criar Marcas que Ficam',              speaker_name: 'Tiago Gouveia',                   speaker_activity: 'Brand Strategist',          description: 'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                       image: null, start_datetime: '2026-07-03T14:00:00', location: 'SALA 3', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
+  { id: 3, type: 'PALESTRA',  title: 'Do Algarve para o Mundo',             speaker_name: 'Carlos Nobre',                    speaker_activity: 'Empreendedor Digital',      description: 'Como construir uma carreira criativa internacional sem sair do Algarve.', image: null, start_datetime: '2026-07-04T14:30:00', location: 'SALA 2', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
+  { id: 4, type: 'PALESTRA',  title: 'Game Design do Zero',                 speaker_name: 'Filipe Guerreiro',                speaker_activity: 'Game Designer',             description: 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.', image: null, start_datetime: '2026-07-05T11:00:00', location: 'SALA 3', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
+  { id: 5, type: 'PALESTRA',  title: 'UX/UI no Mercado Real',               speaker_name: 'Vanessa Monteiro',                speaker_activity: 'Product Designer',          description: 'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.', image: null, start_datetime: '2026-07-07T10:00:00', location: 'SALA 3', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
+  { id: 6, type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: null, start_datetime: '2026-07-11T10:00:00', location: 'SALA 7', is_active: true, speaker_info_link: null, social_link: null, registration_link: null },
 ]
 
 export const palestrasEventDays = [
@@ -393,12 +329,12 @@ export const exposicoesAreaLabels: Record<ExhibitionArea, string> = {
 }
 
 
-export const exposicoesDestaques: Exhibition[] = [
-  { id: 1, title: 'Identidades em Movimento', area: 'DESIGN', image: Fundo, synopsis: 'Projetos de design gráfico que exploram identidade, cultura e comunicação visual.',        artists: 'Turma de Design 2024',       opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
-  { id: 2, title: 'Olhares do Algarve',       area: 'FOTO',   image: Fundo,   synopsis: 'Fotografias que captam paisagens, pessoas e histórias que nos rodeiam.',              artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
-  { id: 3, title: 'Mundos Interativos',        area: 'GAMES',  image: Fundo,  synopsis: 'Experiências de jogo desenvolvidas pelos alunos, da ideia ao protótipo.',            artists: 'Turma de Videojogos 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
-  { id: 4, title: 'Narrativas Visuais',        area: 'FOTO',   image: Fundo,   synopsis: 'Projetos fotográficos que contam histórias através da luz e da composição.',        artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
-  { id: 5, title: 'Exposição Final OOTB',      area: 'DESIGN', image: Fundo, synopsis: 'Uma seleção dos melhores projetos do ano, reunidos numa exposição imperdível.',     artists: 'Alunos ETIC_Algarve 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+export const exposicoesDestaques: ExposicoesContract[] = [
+  { id: 1, title: 'Identidades em Movimento', area: 'DESIGN', image: null, synopsis: 'Projetos de design gráfico que exploram identidade, cultura e comunicação visual.',        artists: 'Turma de Design 2024',       opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 2, title: 'Olhares do Algarve',       area: 'FOTO',   image: null, synopsis: 'Fotografias que captam paisagens, pessoas e histórias que nos rodeiam.',              artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 3, title: 'Mundos Interativos',        area: 'GAMES',  image: null, synopsis: 'Experiências de jogo desenvolvidas pelos alunos, da ideia ao protótipo.',            artists: 'Turma de Videojogos 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 4, title: 'Narrativas Visuais',        area: 'FOTO',   image: null, synopsis: 'Projetos fotográficos que contam histórias através da luz e da composição.',        artists: 'Turma de Fotografia 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
+  { id: 5, title: 'Exposição Final OOTB',      area: 'DESIGN', image: null, synopsis: 'Uma seleção dos melhores projetos do ano, reunidos numa exposição imperdível.',     artists: 'Alunos ETIC_Algarve 2024',   opening_hours: '09:00 - 18:00', start_date: '2024-07-03', end_date: '2024-07-17', location: 'IPDJ, Faro', is_active: true },
 ]
 
 export const exposicoesGalleryImages = [Fundo, Fundo, Fundo, Fundo, Fundo, Fundo]
