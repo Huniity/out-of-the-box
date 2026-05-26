@@ -58,7 +58,7 @@ class PageDetailView(APIView):
 
 class SpeakerCountView(APIView):
     def get(self, request):
-        return Response({"count": Palestras.objects.count()})
+        return Response({"count": SunsetTalks.objects.count()})
 
 
 class TotalVisitorsView(APIView):
