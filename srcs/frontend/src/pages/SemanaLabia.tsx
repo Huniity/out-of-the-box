@@ -1,6 +1,6 @@
 
 import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye } from 'lucide-react'
-import heroImg from '../assets/FUNDO.webp'
+import heroImg from '../assets/FUNDO2.webp'
 import '../styles/leaves.css'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
