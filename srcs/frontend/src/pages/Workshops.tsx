@@ -142,7 +142,6 @@ const Workshops = () => {
             <section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
                     <div className="flex items-center gap-3">
-                        <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                             PROGRAMA DE <span className="text-[#c8ff00]">WORKSHOPS</span>
                         </h2>
@@ -215,7 +214,6 @@ const Workshops = () => {
             {/* ── ÁREAS FORMATIVAS E EQUIPAS ── */}
             <section id="areas" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]">
                 <div className="flex items-center gap-3 mb-12">
-                    <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
                     <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                         ÁREAS FORMATIVAS <span className="text-[#c8ff00]">E EQUIPAS</span>
                     </h2>
@@ -240,10 +238,6 @@ const Workshops = () => {
             <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                        <div className="mb-6 flex items-center gap-3">
-                            <span className="text-[#c8ff00] text-2xl leading-none">✳</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Workshops 2026</span>
-                        </div>
                         <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             APRENDE COM AS EQUIPAS.<br />
