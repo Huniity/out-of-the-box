@@ -1,26 +1,31 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Briefcase, Users, MessageSquare, Link2, CheckCircle2, ChevronRight } from 'lucide-react'
 import heroImg from '../assets/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies as companies, speedHuntingCategories as categories} from '../utils/metrics'
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCategories as categories } from '../utils/metrics'
 import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
-
+import { speedHuntingApi } from '../services/api/speedHunting.api'
+import type { SpeedHuntingContract } from '../api/contracts'
 
 const SpeedHunting = () => {
     const {
-            main_white_title,
-            main_green_title,
-            main_description,
-            cta_button_text,
-            cta_button_link,
-            start_event_date,
-            end_event_date,
-        } = usePageData('speed-hunting');
+        main_white_title,
+        main_green_title,
+        main_description,
+        cta_button_text,
+        cta_button_link,
+        start_event_date,
+        end_event_date,
+    } = usePageData('speed-hunting');
 
+    const [companies, setCompanies] = useState<SpeedHuntingContract[]>([])
+    useEffect(() => {
+        speedHuntingApi.getCompanies().then(setCompanies)
+    }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
 
@@ -173,11 +178,10 @@ const SpeedHunting = () => {
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
-                                activeCategory === cat
+                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${activeCategory === cat
                                     ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
                                     : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
-                            }`}
+                                }`}
                         >
                             {cat}
                         </button>
@@ -263,7 +267,7 @@ const SpeedHunting = () => {
             <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                                                <h2 className="font-black uppercase leading-none tracking-tight text-white"
+                        <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             <span className="text-[#c8ff00]">DOIS</span> DIAS. <br />
                             <span className="text-[#c8ff00]">DEZENAS</span> PROJETOS.<br />

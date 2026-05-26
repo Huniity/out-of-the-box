@@ -36,7 +36,7 @@ const MainLayout = () => {
         })
         setSlugToName(map)
       })
-      .catch(() => {})
+      .catch(() => { })
   }, [])
 
   useEffect(() => {
@@ -55,7 +55,12 @@ const MainLayout = () => {
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
 
-createRoot(rootElement).render(
+let root = (window as any).__reactRoot;
+if (!root) {
+  root = createRoot(rootElement);
+  (window as any).__reactRoot = root;
+}
+root.render(
   <BrowserRouter>
     <Routes>
       <Route element={<MainLayout />}>

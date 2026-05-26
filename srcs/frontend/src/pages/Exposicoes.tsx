@@ -7,13 +7,13 @@ import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import type { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
-import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques as destaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
-
+import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
+import { exposicoesApi } from '../services/api/exposicoes.api'
 
 const parseDateBadge = (dateStr: string) => {
   const d = new Date(dateStr)
   return {
-    day:   d.getUTCDate(),
+    day: d.getUTCDate(),
     month: d.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', ''),
   }
 }
@@ -27,18 +27,23 @@ const Exposicoes = () => {
     end_event_date,
   } = usePageData('exposicoes')
 
-  const [destOffset, setDestOffset] = useState(0)
-  const [destIndex,  setDestIndex]  = useState(0)
-  const [galOffset,  setGalOffset]  = useState(0)
-  const [galIndex,   setGalIndex]   = useState(0)
-  const [destMax,    setDestMax]    = useState(0)
-  const [galMax,     setGalMax]     = useState(0)
+  const [destaques, setDestaques] = useState<Exhibition[]>([])
+  useEffect(() => {
+    exposicoesApi.getExposicoes().then(setDestaques)
+  }, [])
 
-  const destTrack    = useRef<HTMLDivElement>(null)
-  const destBox      = useRef<HTMLDivElement>(null)
-  const galTrack     = useRef<HTMLDivElement>(null)
-  const galBox       = useRef<HTMLDivElement>(null)
-  const touchStartX    = useRef(0)
+  const [destOffset, setDestOffset] = useState(0)
+  const [destIndex, setDestIndex] = useState(0)
+  const [galOffset, setGalOffset] = useState(0)
+  const [galIndex, setGalIndex] = useState(0)
+  const [destMax, setDestMax] = useState(0)
+  const [galMax, setGalMax] = useState(0)
+
+  const destTrack = useRef<HTMLDivElement>(null)
+  const destBox = useRef<HTMLDivElement>(null)
+  const galTrack = useRef<HTMLDivElement>(null)
+  const galBox = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef(0)
   const galTouchStartX = useRef(0)
 
   useEffect(() => {
@@ -101,7 +106,7 @@ const Exposicoes = () => {
           {/* Left — text */}
           <div className="flex-1 flex flex-col py-8">
             <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
               {main_white_title}{' '}
               <span className="text-[#c8ff00]">{main_green_title}</span>
             </h1>
@@ -149,7 +154,7 @@ const Exposicoes = () => {
           </div>
         </div>
       </section>
-            {/* ── Criatividade section ── */}
+      {/* ── Criatividade section ── */}
       <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-24 ml-12 mr-12">
           {criatividade.map((f, i) => (
@@ -179,7 +184,7 @@ const Exposicoes = () => {
                 className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-200 disabled:opacity-25"
                 style={{
                   borderColor: dir === -1
-                    ? (destIndex <= 0            ? 'rgba(198,220,128,0.2)' : 'rgba(198,220,128,0.5)')
+                    ? (destIndex <= 0 ? 'rgba(198,220,128,0.2)' : 'rgba(198,220,128,0.5)')
                     : (destIndex >= pageCount - 1 ? 'rgba(198,220,128,0.2)' : 'rgba(198,220,128,0.5)'),
                   backgroundColor: 'transparent',
                 }}
@@ -210,9 +215,9 @@ const Exposicoes = () => {
             }}
           >
             {destaques.filter(d => d.is_active).map(d => {
-              const accent  = areaColors[d.area]
-              const start   = parseDateBadge(d.start_date)
-              const end     = parseDateBadge(d.end_date)
+              const accent = areaColors[d.area]
+              const start = parseDateBadge(d.start_date)
+              const end = parseDateBadge(d.end_date)
               return (
                 <div key={d.id} className="flex-none w-[200px] group cursor-pointer flex flex-col">
                   <div className="relative overflow-hidden rounded-sm h-[300px]">
@@ -376,16 +381,16 @@ const Exposicoes = () => {
       {/* ── Footer CTA ── */}
       <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
         <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
-            <div className="flex-1">
-                <h2 className="font-black uppercase leading-none tracking-tight text-white"
-                    style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                    Visita as <span className="text-[#c8ff00]">exposições.</span><br />
-                    Vem ver o talento ao <span className="text-[#c8ff00]">vivo.</span> <br />
-                </h2>
-                <p className="mt-4 text-xs text-white/40">Inspira-te e apoia os criadores do futuro.</p>
-            </div>
+          <div className="flex-1">
+            <h2 className="font-black uppercase leading-none tracking-tight text-white"
+              style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
+              Visita as <span className="text-[#c8ff00]">exposições.</span><br />
+              Vem ver o talento ao <span className="text-[#c8ff00]">vivo.</span> <br />
+            </h2>
+            <p className="mt-4 text-xs text-white/40">Inspira-te e apoia os criadores do futuro.</p>
+          </div>
         </div>
-    </section>
+      </section>
     </main>
   )
 }
