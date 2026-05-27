@@ -348,7 +348,7 @@ export default function AreasWall() {
                     />
 
                     {/* Description + link below the polaroid */}
-                    <div className="mt-2 px-2 flex flex-col gap-0.5">
+                    <div className="mt-2 px-3 py-2 flex flex-col gap-0.5 bg-black rounded-sm md:bg-transparent md:rounded-none md:px-2 md:py-0">
                       <p className="text-white/45 text-[14px] leading-snug text-center">{area.desc}</p>
                       <span className="flex items-center justify-center gap-1 text-[14px] font-black uppercase tracking-widest text-[#c8ff00]/60 group-hover:text-[#c8ff00] transition-colors duration-200">
                         Ver a Área <ArrowRight size={9} strokeWidth={3} />
