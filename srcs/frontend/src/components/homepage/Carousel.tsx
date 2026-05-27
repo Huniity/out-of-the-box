@@ -131,9 +131,10 @@ const Carousel = () => {
       </div>
 
       {/* Carousel track */}
+      <div className="flex justify-center w-3/4 mx-auto">
       <div
-        className="overflow-hidden px-8 xl:px-20"
         ref={containerRef}
+        className=" overflow-hidden"
         onTouchStart={e => { touchStartX.current = e.touches[0].clientX }}
         onTouchEnd={e => {
           const dx = touchStartX.current - e.changedTouches[0].clientX
@@ -141,8 +142,8 @@ const Carousel = () => {
         }}
       >
         <div
-          className="flex gap-3 transition-transform duration-[420ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-          style={{ transform: `translateX(-${page * containerWidth}px)` }}
+          className="flex gap-2.5 transition-transform duration-[420ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+          style={{ transform: `translateX(-${page * containerWidth }px)` }}
         >
           {events.map((ev, i) => (
             <div
@@ -208,6 +209,7 @@ const Carousel = () => {
             </div>
           ))}
         </div>
+      </div>
       </div>
 
       {/* Page dots */}
