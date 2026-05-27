@@ -9,6 +9,7 @@ import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
 import polaroid_palestras from '../assets/polaroid_palestras.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
+import leaf from '../assets/leaf3.webp'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
 
@@ -359,6 +360,18 @@ const Programacao = () => {
         <main className="min-h-screen bg-black text-white overflow-x-hidden">
             {/* ── Hero ── */}
             <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
+                        <img
+              src={leaf}
+              alt=""
+              aria-hidden="true"
+              className="
+                  leaf-2 absolute pointer-events-none select-none z-[200]
+                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
+                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
+                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
+                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
+              "
+          />
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
                 <PageStars />
