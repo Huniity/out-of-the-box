@@ -8,6 +8,9 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies as companies, speedHuntingCategories as categories} from '../utils/metrics'
 import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
+import PageStars from '../components/core/PageStars'
+import polaroid_speedhunting from '../assets/polaroid_speedhunting.webp'
+import HeroPolaroid from '../components/core/HeroPolaroid'
 
 
 const SpeedHunting = () => {
@@ -35,6 +38,8 @@ const SpeedHunting = () => {
             <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+                <PageStars />
+                <HeroPolaroid src={polaroid_speedhunting} />
 
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}
@@ -204,7 +209,7 @@ const SpeedHunting = () => {
                                 </span>
                                 <p className="text-[11px] text-white/40 leading-relaxed mt-1">{c.desc}</p>
                                 <p className="text-[10px] text-white/25 mt-1 flex items-center gap-1">
-                                    <MapPin size={10} className="text-[#c8ff00]/50" /> Presente nos dias 9 e 10 Julho
+                                    <MapPin size={10} className="text-[#c8ff00]/50" /> Presente nos dias 9 e 10 julho
                                 </p>
                             </div>
                         </div>

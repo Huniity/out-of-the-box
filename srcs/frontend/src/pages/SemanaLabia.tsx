@@ -7,6 +7,9 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 
 import { semanaLabiaMetrics as metrics, semanaLabiaProjects as projects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
+import PageStars from '../components/core/PageStars'
+import polaroid_semanalabias from '../assets/polaroid_semanalabias.webp'
+import HeroPolaroid from '../components/core/HeroPolaroid'
 
 
 const SemanaLabia = () => {
@@ -27,6 +30,8 @@ const SemanaLabia = () => {
                 {/* Glow blobs */}
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+                <PageStars />
+                <HeroPolaroid src={polaroid_semanalabias} />
 
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}

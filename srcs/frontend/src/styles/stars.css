@@ -1,0 +1,25 @@
+@keyframes star-sway-1 {
+    0%   { transform: translateY(-50%) rotate(0deg); }
+    25%  { transform: translateY(-52%) rotate(6deg); }
+    50%  { transform: translateY(-50%) rotate(-10.5deg); }
+    75%  { transform: translateY(-48%) rotate(20deg); }
+    100% { transform: translateY(-50%) rotate(0deg); }
+}
+
+.star-1 {
+    transform-origin: bottom center;
+    animation: star-sway-1 10s ease-in-out infinite;
+}
+
+@keyframes star-sway-2 {
+    0%   { transform: translateY(-50%) rotate(-10deg); }
+    25%  { transform: translateY(-52%) rotate(12deg); }
+    50%  { transform: translateY(-50%) rotate(2.5deg); }
+    75%  { transform: translateY(-48%) rotate(-8deg); }
+    100% { transform: translateY(-50%) rotate(-10deg); }
+}
+
+.star-2 {
+    transform-origin: bottom center;
+    animation: star-sway-2 10s ease-in-out infinite;
+}
