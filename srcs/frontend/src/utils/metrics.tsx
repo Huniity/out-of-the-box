@@ -75,7 +75,7 @@ export const speedHuntingMetrics = [
         icon: <CalendarDays size={38} strokeWidth={1.8} />,
         value: '2',
         label: 'DIAS',
-        desc: '9 e 10 de Julho de 2026 — dois dias de encontros.',
+        desc: '9 e 10 de julho de 2026 — dois dias de encontros.',
     },
     {
         icon: <MapPin size={38} strokeWidth={1.8} />,

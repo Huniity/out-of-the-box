@@ -1,19 +1,17 @@
 
 
 import AreasTrail from './components/homepage/Path'
-import { ArrowRight, ChevronDown } from 'lucide-react'
-import { PrimaryButton, SecondaryButton } from './components/buttons/MainButton'
+import { ArrowRight } from 'lucide-react'
+import { PrimaryButton } from './components/buttons/MainButton'
 import Carousel from './components/homepage/Carousel'
 import HeroGallery from './components/homepage/HeroGallery'
 import OOTBLogo from './assets/ootb_w26.webp'
 import leafImg from './assets/leaf1.webp'
 import leafImg2 from './assets/leaf2.webp'
 import doodleOrange from './assets/d_o.webp'
-import starGreen from './assets/star_g.webp'
-import starPink from './assets/star_p.webp'
 import dateELocal from './assets/data-e-local.webp'
-import eticLogo from './assets/etic.webp'
 import './styles/leaves.css'
+import PageStars from './components/core/PageStars'
 import EticCTA from './components/homepage/Cta'
 
 
@@ -26,20 +24,7 @@ function Homepage() {
             
 
             {/* Stars */}
-            <img
-                src={starPink}
-                alt=""
-                aria-hidden="true"
-                className="leaf-2 absolute pointer-events-none select-none z-[2]"
-                style={{ width: '6%', top: '7%', left: '40%', rotate: '-20deg' }}
-            />
-            <img
-                src={starGreen}
-                alt=""
-                aria-hidden="true"
-                className="leaf-1 absolute pointer-events-none select-none z-[2]"
-                style={{ width: '4%', bottom: '18%', left: '46%', rotate: '-70deg' }}
-            />
+            <PageStars />
             <img
                 src={doodleOrange}
                 alt=""
@@ -89,7 +74,7 @@ function Homepage() {
                             className="w-full h-auto select-none"
                         />
                         <div className="flex justify-center pr-4">
-                            <PrimaryButton href="/sunset-talks" className="group">
+                            <PrimaryButton href="/programacao" className="group">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                             </PrimaryButton>
