@@ -8,6 +8,9 @@ import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFe
 
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
+import PageStars from '../components/core/PageStars'
+import polaroid_cinema from '../assets/polaroid_cinema.webp'
+import HeroPolaroid from '../components/core/HeroPolaroid'
 
 const Cinema = () => {
         const {
@@ -29,6 +32,8 @@ const Cinema = () => {
             <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
                 <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+                <PageStars />
+                <HeroPolaroid src={polaroid_cinema} />
 
                 <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                     {/* Left — text */}

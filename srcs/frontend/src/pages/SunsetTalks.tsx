@@ -7,6 +7,9 @@ import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import { Session, SessionType } from '../types/palestras'
 import { palestrasTypeColors as typeColors, palestrasSessions as sessions, palestrasEventDays as eventDays, palestrasAllTypes as allTypes, palestrasAllSalas as allSalas, palestrasPageSize as pageSize } from '../utils/metrics'
+import PageStars from '../components/core/PageStars'
+import polaroid_sunset_talks from '../assets/polaroid_sunset-talks.webp'
+import HeroPolaroid from '../components/core/HeroPolaroid'
 
 
 
@@ -48,6 +51,8 @@ const SunsetTalks = () => {
       <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
         <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
         <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+        <PageStars />
+                <HeroPolaroid src={polaroid_sunset_talks} />
 
         <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
           {/* Left — text */}
