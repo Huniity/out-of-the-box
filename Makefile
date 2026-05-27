@@ -77,6 +77,8 @@ clean: ## Stop and remove all containers, volumes, and orphans
 	docker compose -f compose.dev.yaml down -v --remove-orphans
 	docker compose -f compose.prod.yaml down -v --remove-orphans
 
+
+
 migrate-dev: ## Run database migrations in development environment
 	docker compose -f compose.dev.yaml exec backend python manage.py migrate
 

@@ -21,6 +21,7 @@ export default function Footer() {
           sm:w-[30%] sm:right-[5%] sm:top-[35%] sm:rotate-[225deg]
           md:w-[20%] md:left-[33%] md:top-[90%] md:rotate-[295deg]
           lg:w-[20%] lg:left-[27%] lg:top-[105%] lg:rotate-[315deg]
+          xl:w-[20%] xl:left-[15%] xl:top-[120%] xl:rotate-[335deg]
         "
       />
 
@@ -34,6 +35,7 @@ export default function Footer() {
           sm:w-[30%] sm:right-[-5%] sm:top-[100%]
           md:w-[20%] md:left-[70%] md:top-[120%]
           lg:w-[20%] lg:left-[10%] lg:top-[135%]
+          xl:w-[20%] xl:left-[5%] xl:top-[130%] xl:rotate-[235deg]
         "
       />
 
@@ -72,20 +74,26 @@ export default function Footer() {
             <a href="/" className="transition hover:text-[#c8ff00]">
               Início
             </a>
+            <a href="/programacao" className="transition hover:text-[#c8ff00]">
+              Programação OOTB
+            </a>
             <a href="/sunset-talks" className="transition hover:text-[#c8ff00]">
               Sunset Talks
             </a>
+            <a href="/exposicoes" className="transition hover:text-[#c8ff00]">
+              Exposições
+            </a>
             <a href="/workshops" className="transition hover:text-[#c8ff00]">
               Workshops
+            </a>
+            <a href="/cinema" className="transition hover:text-[#c8ff00]">
+              Cinema
             </a>
             <a href="/concertos" className="transition hover:text-[#c8ff00]">
               Concertos
             </a>
             <a href="/speed-hunting" className="transition hover:text-[#c8ff00]">
               Speed Hunting
-            </a>
-            <a href="mailto:secretaria@eticalgarve.pt" className="transition hover:text-[#c8ff00]">
-              Contate-nos
             </a>
           </nav>
         </div>
@@ -99,7 +107,7 @@ export default function Footer() {
           <div className="space-y-3 text-sm text-white/65">
             <p className="flex items-center gap-2">
               <CalendarDays size={14} className="shrink-0 text-[#c8ff00]" />
-              3 a 17 de Julho de 2026
+              3 a 17 de julho de 2026
             </p>
             <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd0552dcd3e61689:0x2e5fb82fa85b7d34?sa=X&ved=1t:8290&ictx=111" className="flex items-center gap-2 transition hover:text-[#c8ff00]">
               <MapPin size={14} className="shrink-0 text-[#c8ff00]" />
@@ -111,7 +119,7 @@ export default function Footer() {
             </p>
             <a href="mailto:secretaria@eticalgarve.pt" className="flex items-center gap-2 transition hover:text-[#c8ff00]">
               <Mail size={14} className="shrink-0 text-[#c8ff00]" />
-              secretaria@eticalgarve.pt
+              secretaria@eticalgarve.com
             </a>
           </div>
         </div>

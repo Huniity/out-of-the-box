@@ -31,7 +31,7 @@ import IconGallery from '../core/IconGallery'
 
 
 const areas = [
-  { num: '01', name: 'Exposições', desc: 'Design, Fotografia, Videojogos e Projetos Multidisciplinares', slug: 'exposicoes', rotate: -3, side: 'right', polaroid: polaroidExposicoes, icons: ['design_rosa', 'foto_verde', 'video_rosa', 'design_verde', 'foto_rosa', 'video_verde'] },
+  { num: '01', name: 'Exposições', desc: 'Design, Fotografia, Videojogos e Projetos Multidisciplinares', slug: 'exposicoes', rotate: -3, side: 'right', polaroid: polaroidExposicoes, icons: ['design_rosa', 'foto_verde', 'video_jogos_rosa', 'design_verde', 'foto_rosa', 'video_jogos_verde'] },
   { num: '02', name: 'Sunset Talks', desc: 'Conversas criativas com convidados especiais', slug: 'sunset-talks', rotate: 2.5, side: 'left', polaroid: polaroidSunsetTalks, icons: ['video_jogos_verde', 'video_rosa', 'foto_verde', 'design_rosa', 'pw_verde', 'som_rosa', 'marketing_verde', 'video_jogos_rosa', 'video_verde', 'foto_rosa', 'design_verde', 'pw_rosa', 'som_verde', 'marketing_rosa'] },
   { num: '03', name: 'Workshops', desc: 'Sessões práticas em várias áreas formativas', slug: 'workshops', rotate: -2, side: 'right', polaroid: polaroidWorkshops, icons: ['video_rosa', 'foto_verde', 'design_rosa', 'pw_verde', 'som_rosa', 'marketing_verde', 'video_jogos_rosa', 'video_verde', 'foto_rosa', 'design_verde', 'pw_rosa', 'som_verde', 'marketing_rosa', 'video_jogos_verde'] },
   { num: '04', name: 'Cinema', desc: 'Mostra de cinema da comunidade ETIC_Algarve', slug: 'cinema', rotate: 3.5, side: 'left', polaroid: polaroidCinema, icons: ['video_verde', 'video_rosa'] },
@@ -109,8 +109,6 @@ export default function AreasWall() {
 
   return (
     <section ref={sectionRef} className="px-8 xl:px-20 py-16 overflow-hidden relative bg-white/5">
-      {/* Top fade — transparent → black */}
-      {/* <div className="absolute inset-x-0 top-0 h-32 pointer-events-none z-50" style={{ background: 'linear-gradient(to bottom, black, transparent)' }} /> */}
       <img
         src={dBlue}
         alt=""
@@ -133,7 +131,7 @@ export default function AreasWall() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: '5%',
+          top: '10%',
           left: '70%',
           width: '60%',
           pointerEvents: 'none',
@@ -165,8 +163,8 @@ export default function AreasWall() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          bottom: '0%',
-          right: '65%',
+          bottom: '10%',
+          right: '70%',
           width: '70%',
           pointerEvents: 'none',
           zIndex: 0,
@@ -175,21 +173,6 @@ export default function AreasWall() {
           transform: 'rotate(55deg)',
         }}
       />
-      {/* <img
-        src={doodleBlue}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '25%',
-          right: '45%',
-          width: '15%',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.75,
-          userSelect: 'none',
-        }}
-      /> */}
       <img
         src={doodlePurple}
         alt=""
@@ -220,21 +203,6 @@ export default function AreasWall() {
           transform: 'rotate(270deg)',
         }}
       />
-      {/* <img
-        src={doodleGreen}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '86%',
-          left: '35%',
-          width: '15%',
-          pointerEvents: 'none',
-          zIndex: 0,
-          userSelect: 'none',
-          transform: 'rotate(120deg)',
-        }}
-      /> */}
       <img
         src={doodleBlack}
         alt=""
