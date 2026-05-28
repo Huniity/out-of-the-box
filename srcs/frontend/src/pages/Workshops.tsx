@@ -135,12 +135,12 @@ const Workshops = () => {
             {/* ── FILTER BAR ── */}
             <section className="px-8 xl:px-20 py-8">
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
-                    <div className="flex flex-wrap gap-2 justify-center items-center">
+                    <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2">
                         {filterAreas.map(area => (
                             <button
                                 key={area}
                                 onClick={() => setActiveArea(area)}
-                                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
+                                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${area === 'TODAS' ? 'col-span-2 sm:col-auto' : ''} ${
                                     activeArea === area
                                         ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
                                         : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
@@ -149,9 +149,11 @@ const Workshops = () => {
                                 {area === 'TODAS' ? 'TODAS' : (areaLabel[area] ?? area)}
                             </button>
                         ))}
+                    </div>
+                    <div className="flex justify-center mt-3">
                         <button
                             onClick={() => setActiveArea('TODAS')}
-                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity ml-2"
+                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity"
                         >
                             <RefreshCw size={13} /> Limpar Filtros
                         </button>
@@ -189,43 +191,48 @@ const Workshops = () => {
                         return (
                             <div
                                 key={i}
-                                className="group flex items-center gap-4 p-5 rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer h-[200px]"
+                                className="group flex flex-col lg:flex-row lg:items-center gap-4 p-5 pr-6 lg:pr-5 lg:h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer min-h-[290px] lg:min-h-0"
                                 style={{ borderColor: `${color}30` }}
                             >
-                                {/* Area icon + badge */}
-                                <div className="shrink-0 flex flex-col items-center gap-1.5 w-24">
-                                    <div className="w-20 h-20 flex items-center justify-center">
-                                        {areaObj?.icon}
+                                {/* Mobile: top row (icon+badge left, date/time right).
+                                    Desktop: lg:contents dissolves this wrapper so children
+                                    participate directly in the flex-row and can be reordered. */}
+                                <div className="flex items-start justify-between gap-3 lg:contents">
+                                    {/* Area icon + badge — desktop order 1 */}
+                                    <div className="shrink-0 flex flex-col items-center gap-1.5 w-20 lg:w-24 lg:order-1">
+                                        <div className="w-14 h-14 lg:w-20 lg:h-20 flex items-center justify-center">
+                                            {areaObj?.icon}
+                                        </div>
+                                        {cat && (
+                                            <span
+                                                className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm text-center w-full truncate"
+                                                style={{ backgroundColor: color }}
+                                            >{areaLabel[cat] ?? cat}</span>
+                                        )}
                                     </div>
-                                    {cat && (
-                                        <span
-                                            className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm text-center w-full truncate"
-                                            style={{ backgroundColor: color }}
-                                        >{areaLabel[cat] ?? cat}</span>
-                                    )}
+
+                                    {/* Date + Time + Sala — desktop order 3 */}
+                                    <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3">
+                                        <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
+                                            <CalendarDays size={14} className="text-[#c8ff00]" /> {day} JUL
+                                        </span>
+                                        <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
+                                            <Clock size={14} className="text-[#c8ff00]" /> {time}
+                                        </span>
+                                        <span className="flex items-center gap-1 text-xs text-white/40 leading-snug">
+                                            <MapPin size={12} className="text-[#c8ff00] shrink-0" /> <span className="text-right">{w.location}</span>
+                                        </span>
+                                    </div>
                                 </div>
 
-                                {/* Info */}
-                                <div className="flex-1 min-w-0">
+                                {/* Info — desktop order 2 */}
+                                <div className="flex-1 min-w-0 lg:order-2">
                                     <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className="text-xs text-white/40 line-clamp-5">{w.description}</p>
+                                    <p className="text-xs text-white/40 line-clamp-4 lg:line-clamp-5">{w.description}</p>
                                 </div>
 
-                                {/* Date + Time + Sala */}
-                                <div className="shrink-0 flex flex-col items-end gap-2 text-right">
-                                    <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                        <CalendarDays size={14} className="text-[#c8ff00]" /> {day} JUL
-                                    </span>
-                                    <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                        <Clock size={14} className="text-[#c8ff00]" /> {time}
-                                    </span>
-                                    <span className="flex items-center gap-1.5 text-xs text-white/40">
-                                        <MapPin size={12} className="text-[#c8ff00]" /> {w.location}
-                                    </span>
-                                </div>
-
-                                {/* Arrow */}
-                                <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300">
+                                {/* Arrow — desktop order 4 */}
+                                <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4">
                                     <ArrowRight size={12} />
                                 </div>
                             </div>

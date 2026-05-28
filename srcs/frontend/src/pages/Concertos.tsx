@@ -28,6 +28,7 @@ const Concertos = () => {
 
     const [programme, setProgramme] = useState<ConcertosContract[]>(concertosProgramme as any)
     useEffect(() => { concertosApi.getConcertos().then(setProgramme as any) }, [])
+    const [activeCard, setActiveCard] = useState<number | null>(null)
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -270,8 +271,9 @@ const Concertos = () => {
                         const day = dt.getDate()
                         const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
 
+                        const isActive = activeCard === p.id
                         return (
-                            <div key={i} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
+                            <div key={i} onClick={() => setActiveCard(isActive ? null : p.id)} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
                                 {/* Image */}
                                 <div className="relative overflow-hidden aspect-video shrink-0">
                                     <img
@@ -299,7 +301,7 @@ const Concertos = () => {
                                 </div>
 
                                 {/* Hover info panel — slides up from bottom */}
-                                <div className="absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                                <div className={`absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 transition-transform duration-300 ease-out ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
                                     <div className="flex items-start justify-between gap-2 mb-3">
                                         <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{p.band_name}</h3>
                                         <span className="text-[#c8ff00] text-lg leading-none shrink-0">✳</span>
