@@ -7,7 +7,8 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 
 import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
-import { formatEventDateRange } from '../utils/dashboard'
+import type { SpeedHuntingContract } from '../api/contracts'
+import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 import PageStars from '../components/core/PageStars'
 import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
@@ -26,7 +27,7 @@ const SpeedHunting = () => {
             end_event_date,
         } = usePageData('speed-hunting');
 
-    const [companies, setCompanies] = useState(speedHuntingCompanies)
+    const [companies, setCompanies] = useState<SpeedHuntingContract[]>(speedHuntingCompanies as any)
     useEffect(() => { speedHuntingApi.getCompanies().then(setCompanies as any) }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
@@ -219,14 +220,15 @@ const SpeedHunting = () => {
                         const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
                         const initials = (c.company_name ?? '')
                             .split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+                        const logoSrc = c.company_logo ? resolveMediaUrl(c.company_logo) : null
 
                         return (
                             <div key={i} className="flex overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
                                 {/* Left — logo + badge */}
                                 <div className="flex-none w-[140px] flex flex-col justify-center items-center gap-4 py-6 border-r border-white/10">
-                                    {c.company_logo ? (
+                                    {logoSrc ? (
                                         <img
-                                            src={c.company_logo}
+                                            src={logoSrc}
                                             alt={c.company_name}
                                             className="w-20 h-20 object-contain rounded-sm"
                                         />

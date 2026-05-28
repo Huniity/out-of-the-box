@@ -179,7 +179,7 @@ const Workshops = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {filtered.map((w, i) => {
                         const color = areaColor[w.area] ?? '#c8ff00'
-                        const areaObj = areas.find(a => a.name === w.area || w.area.startsWith(a.name.split(' ')[0]))
+                        const areaObj = areas.find(a => a.name === w.area || w.area?.startsWith(a.name.split(' ')[0]))
                         return (
                             <div
                                 key={i}
