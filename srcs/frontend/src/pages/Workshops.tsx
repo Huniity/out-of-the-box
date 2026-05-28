@@ -6,8 +6,9 @@ import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops } from '../utils/metrics'
+import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops } from '../utils/metrics'
 import { workshopsApi } from '../services/api/workshops.api'
+import type { WorkshopsContract } from '../api/contracts'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
@@ -27,14 +28,14 @@ const Workshops = () => {
                 end_event_date,
             } = usePageData('workshops');
 
-    const [workshops, setWorkshops] = useState(workshopsWorkshops)
+    const [workshops, setWorkshops] = useState<WorkshopsContract[]>(workshopsWorkshops as any)
     useEffect(() => { workshopsApi.getWorkshops().then(setWorkshops as any) }, [])
 
     const [activeArea, setActiveArea] = useState('TODAS')
 
     const filtered = activeArea === 'TODAS'
         ? workshops
-        : workshops.filter(w => w.area === activeArea)
+        : workshops.filter(w => w.category === activeArea)
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -145,7 +146,7 @@ const Workshops = () => {
                                         : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
                                 }`}
                             >
-                                {area}
+                                {area === 'TODAS' ? 'TODAS' : (areaLabel[area] ?? area)}
                             </button>
                         ))}
                         <button
@@ -178,42 +179,48 @@ const Workshops = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {filtered.map((w, i) => {
-                        const color = areaColor[w.area] ?? '#c8ff00'
-                        const areaObj = areas.find(a => a.name === w.area || w.area?.startsWith(a.name.split(' ')[0]))
+                        const cat = w.category ?? ''
+                        const color = areaColor[cat] ?? '#c8ff00'
+                        const areaObj = areas.find(a => a.code === cat)
+                        const dt = new Date(w.start_datetime)
+                        const day = dt.getDate()
+                        const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+
                         return (
                             <div
                                 key={i}
-                                className="group flex items-center gap-4 p-5 rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer"
+                                className="group flex items-center gap-4 p-5 rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer h-[200px]"
                                 style={{ borderColor: `${color}30` }}
                             >
-                                {/* Number + Icon */}
-                                <div className="shrink-0">
-                                    <div
-                                        className="w-20 h-20 rounded-sm flex items-center justify-center"
-                                    >
+                                {/* Area icon + badge */}
+                                <div className="shrink-0 flex flex-col items-center gap-1.5 w-24">
+                                    <div className="w-20 h-20 flex items-center justify-center">
                                         {areaObj?.icon}
                                     </div>
+                                    {cat && (
+                                        <span
+                                            className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm text-center w-full truncate"
+                                            style={{ backgroundColor: color }}
+                                        >{areaLabel[cat] ?? cat}</span>
+                                    )}
                                 </div>
 
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className="text-xs text-white/40 mb-2">{w.desc}</p>
-                                    <div className="flex flex-wrap items-center gap-1.5">
-                                        <span
-                                            className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
-                                            style={{ backgroundColor: color }}
-                                        >{w.area}</span>
-                                    </div>
+                                    <p className="text-xs text-white/40 line-clamp-5">{w.description}</p>
                                 </div>
 
-                                {/* Date + Time */}
+                                {/* Date + Time + Sala */}
                                 <div className="shrink-0 flex flex-col items-end gap-2 text-right">
                                     <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                        <CalendarDays size={14} className="text-[#c8ff00]" /> {w.day} {w.month}
+                                        <CalendarDays size={14} className="text-[#c8ff00]" /> {day} JUL
                                     </span>
                                     <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                        <Clock size={14} className="text-[#c8ff00]" /> {w.time}
+                                        <Clock size={14} className="text-[#c8ff00]" /> {time}
+                                    </span>
+                                    <span className="flex items-center gap-1.5 text-xs text-white/40">
+                                        <MapPin size={12} className="text-[#c8ff00]" /> {w.location}
                                     </span>
                                 </div>
 

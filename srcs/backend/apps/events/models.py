@@ -8,6 +8,7 @@ CATEGORY_CHOICES = [
     ('SOM', 'Som'),
     ('VIDEO', 'Vídeo'),
     ('JOGOS', 'Videojogos'),
+    ('CINEMA', 'Cinema / TV'),
     ('OUTROS', 'Outros')
 ]
 
@@ -83,7 +84,7 @@ class Workshops(models.Model):
     max_participants = models.IntegerField()
     registration_link = models.URLField(blank=True, null=True)
     
-    image = models.ImageField(upload_to='workshops/', blank=True, null=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)

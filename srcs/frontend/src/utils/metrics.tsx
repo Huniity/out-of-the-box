@@ -271,36 +271,47 @@ export const projecoesFeatures = [
 // Workshops
 
 export const workshopsAreas = [
-    { icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
-    { icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
-    { icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
-    { icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
-    { icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
-    { icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
-    { icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
-    { icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
+    { code: 'DESIGN',    icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
+    { code: 'FOTO',      icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
+    { code: 'VIDEO',     icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
+    { code: 'SOM',       icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
+    { code: 'PW',        icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
+    { code: 'MARKETING', icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
+    { code: 'JOGOS',     icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
+    { code: 'CINEMA',    icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
 ]
 
 export const workshopsAreaColor: Record<string, string> = {
-    'DESIGN':       '#d0ea73',
-    'FOTOGRAFIA':   '#f8ad2c',
-    'VÍDEO':        '#d35f99',
-    'SOM':          '#918fc0',
-    'PROGRAMAÇÃO':  '#69ffa0',
-    'MARKETING':    '#f97316',
-    'VIDEOJOGOS':   '#3b82f6',
-    'CINEMA/TV':    '#ffa8d3',
+    'DESIGN':    '#d0ea73',
+    'FOTO':      '#f8ad2c',
+    'VIDEO':     '#d35f99',
+    'SOM':       '#918fc0',
+    'PW':        '#69ffa0',
+    'MARKETING': '#f97316',
+    'JOGOS':     '#3b82f6',
+    'CINEMA':    '#ffa8d3',
+}
+
+export const workshopsAreaLabel: Record<string, string> = {
+    'DESIGN':    'Design',
+    'FOTO':      'Fotografia',
+    'VIDEO':     'Vídeo',
+    'SOM':       'Som',
+    'PW':        'Programação',
+    'MARKETING': 'Marketing',
+    'JOGOS':     'Videojogos',
+    'CINEMA':    'Cinema / TV',
 }
 
 export const workshopsWorkshops = [
-    { num: '01', area: 'DESIGN',      title: 'DESIGN QUE COMUNICA',   desc: 'Do briefing ao conceito final',         team: 'EQUIPA DESIGN',    day: '04', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '02', area: 'VÍDEO',       title: 'LUZ, CÂMARA, AÇÃO!',    desc: 'Realização de vídeo na prática',        team: 'EQUIPA VÍDEO',     day: '05', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '03', area: 'SOM',         title: 'SOM EM DETALHE',         desc: 'Gravação, edição e mixagem',           team: 'EQUIPA SOM',       day: '06', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '04', area: 'FOTOGRAFIA',  title: 'FOTOGRAFIA CRIATIVA',   desc: 'Composição e narrativa visual',         team: 'EQUIPA FOTO',      day: '08', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '05', area: 'PROGRAMAÇÃO', title: 'CÓDIGO CRIATIVO',        desc: 'Interatividade com Javascript',         team: 'EQUIPA DEV',       day: '11', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '06', area: 'MARKETING',   title: 'CONTEÚDO QUE MARCA',    desc: 'Estratégia e criação de campanhas',     team: 'EQUIPA MARKETING', day: '12', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '07', area: 'VIDEOJOGOS',  title: 'CRIAR PARA JOGAR',       desc: 'Design e prototipagem de jogos',        team: 'EQUIPA GAMES',     day: '15', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '08', area: 'CINEMA/TV',   title: 'DO GUIÃO AO ECRÃ',      desc: 'Escrita e produção para TV/Cinema',     team: 'EQUIPA CINEMA',    day: '17', month: 'JUL', time: '10:00 – 13:00' },
+    { id: 1, title: 'DESIGN QUE COMUNICA',  description: 'Do briefing ao conceito final — um processo criativo completo.',     mentor_name: 'Equipa Design',    mentor_social: null, category: 'DESIGN',    duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-04T10:00:00', location: 'Sala Design',    is_active: true },
+    { id: 2, title: 'LUZ, CÂMARA, AÇÃO!',   description: 'Realização de vídeo na prática, do storyboard ao corte final.',     mentor_name: 'Equipa Vídeo',     mentor_social: null, category: 'VIDEO',     duration: '3h', max_participants: 15, registration_link: null, start_datetime: '2026-07-05T14:00:00', location: 'Estúdio Vídeo', is_active: true },
+    { id: 3, title: 'SOM EM DETALHE',        description: 'Gravação, edição e mixagem — da captação à master final.',         mentor_name: 'Equipa Som',       mentor_social: null, category: 'SOM',       duration: '3h', max_participants: 12, registration_link: null, start_datetime: '2026-07-06T10:00:00', location: 'Estúdio Som',   is_active: true },
+    { id: 4, title: 'FOTOGRAFIA CRIATIVA',  description: 'Composição e narrativa visual através da câmara.',                 mentor_name: 'Equipa Fotografia', mentor_social: null, category: 'FOTO',      duration: '3h', max_participants: 18, registration_link: null, start_datetime: '2026-07-08T14:00:00', location: 'Sala Foto',     is_active: true },
+    { id: 5, title: 'CÓDIGO CRIATIVO',       description: 'Interatividade e animação com JavaScript no browser.',             mentor_name: 'Equipa Dev',       mentor_social: null, category: 'PW',        duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-11T14:00:00', location: 'Lab Digital',   is_active: true },
+    { id: 6, title: 'CONTEÚDO QUE MARCA',   description: 'Estratégia e criação de campanhas com impacto real.',              mentor_name: 'Equipa Marketing', mentor_social: null, category: 'MARKETING', duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-12T10:00:00', location: 'Sala Marketing', is_active: true },
+    { id: 7, title: 'CRIAR PARA JOGAR',      description: 'Design e prototipagem de jogos, do conceito ao protótipo.',       mentor_name: 'Equipa Games',     mentor_social: null, category: 'JOGOS',     duration: '3h', max_participants: 16, registration_link: null, start_datetime: '2026-07-15T14:00:00', location: 'Lab Jogos',     is_active: true },
+    { id: 8, title: 'DO GUIÃO AO ECRÃ',     description: 'Escrita e produção para TV e Cinema — da ideia ao argumento.',    mentor_name: 'Equipa Cinema',    mentor_social: null, category: 'CINEMA',    duration: '3h', max_participants: 15, registration_link: null, start_datetime: '2026-07-17T10:00:00', location: 'Sala Cinema',   is_active: true },
 ]
 
 export const workshopsMetrics = [
@@ -310,7 +321,7 @@ export const workshopsMetrics = [
     { icon: <Ticket       size={38} strokeWidth={1.8} />, value: '',   label: 'ENTRADA GRÁTIS', desc: 'Participação gratuita mediante disponibilidade e inscrição prévia.' },
 ]
 
-export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
+export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'VIDEO', 'SOM', 'PW', 'MARKETING', 'JOGOS', 'CINEMA']
 
 
 // Sunset Talks

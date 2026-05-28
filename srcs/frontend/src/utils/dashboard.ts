@@ -17,6 +17,7 @@ export const choiceFields: Record<string, { value: string; label: string }[]> = 
         { value: 'SOM',       label: 'Som' },
         { value: 'VIDEO',     label: 'Vídeo' },
         { value: 'JOGOS',     label: 'Videojogos' },
+        { value: 'CINEMA',    label: 'Cinema / TV' },
         { value: 'OUTROS',    label: 'Outros' },
     ],
 };

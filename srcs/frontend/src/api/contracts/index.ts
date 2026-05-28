@@ -47,10 +47,10 @@ export interface WorkshopsContract {
     description: string;
     mentor_name: string;
     mentor_social: string | null;
+    category: string | null;
     duration: string;
     max_participants: number;
     registration_link: string | null;
-    image: string | null;
     start_datetime: string;
     location: string;
     is_active: boolean;
