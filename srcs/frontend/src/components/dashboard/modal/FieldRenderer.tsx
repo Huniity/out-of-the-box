@@ -1,4 +1,4 @@
-import { getFieldLabel, imageFields } from "../../../utils/dashboard";
+import { getFieldLabel, imageFields, choiceFields, resolveMediaUrl } from "../../../utils/dashboard";
 
 type FieldRendererProps = {
     field: string;
@@ -18,9 +18,7 @@ const FieldRenderer = ({
     // Image / file upload fields
     if (imageFields.has(field)) {
         const existingUrl = typeof initialValue === "string" && initialValue
-            ? (initialValue.startsWith("http") || initialValue.startsWith("/")
-                ? initialValue
-                : `/media/${initialValue}`)
+            ? resolveMediaUrl(initialValue)
             : null;
         const previewUrl = value instanceof File
             ? URL.createObjectURL(value as File)
@@ -133,6 +131,25 @@ const FieldRenderer = ({
                     onChange={(e) => onChange(field, e.target.checked)}
                     className="h-4 w-4 rounded border border-white/20 bg-black"
                 />
+            </label>
+        );
+    }
+
+    // Choice / select fields
+    if (choiceFields[field]) {
+        return (
+            <label className="block text-sm">
+                <span className="mb-1 block text-gray-300">{label}</span>
+                <select
+                    value={String(value ?? "")}
+                    onChange={(e) => onChange(field, e.target.value)}
+                    className="w-full rounded-lg border border-white/10 bg-black px-3 py-2 text-white outline-none focus:border-white/30"
+                >
+                    <option value="">— Selecionar —</option>
+                    {choiceFields[field].map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                </select>
             </label>
         );
     }

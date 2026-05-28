@@ -181,6 +181,7 @@ const Programacao = () => {
     const [selectedType, setSelectedType] = useState<string>('TODAS')
     const [selectedSala, setSelectedSala] = useState<string>('TODAS')
     const [shown, setShown] = useState(pageSize)
+    const [activeCard, setActiveCard] = useState<string | null>(null)
 
     useEffect(() => {
         let cancelled = false
@@ -252,7 +253,8 @@ const Programacao = () => {
                     ...expos
                         .filter(item => item.is_active)
                         .map((item): ProgramEvent => {
-                            const date = normalizeFromDateTime(`${item.start_date}T00:00:00`, item.opening_hours)
+                            const openTime = item.opening_hours?.split(/[\s–-]/)[0].trim()
+                            const date = normalizeFromDateTime(`${item.start_date}T00:00:00`, openTime)
                             return {
                                 id: `expo-${item.id}`,
                                 ...date,
@@ -569,50 +571,88 @@ const Programacao = () => {
                 {!loading &&
                     visible.map(event => {
                         const typeColor = typeColors[event.type]
+                        const isActive  = activeCard === event.id
 
                         return (
                             <div
                                 key={event.id}
-                                className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group"
+                                className="overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group"
                             >
-                                <div className="flex-none sm:w-44 flex flex-row sm:flex-col justify-start sm:justify-center gap-3 sm:gap-2 px-4 pt-4 sm:pt-0 sm:border-r border-white/10 sm:items-center">
-                                    <p className="font-black text-lg sm:text-xl leading-none whitespace-nowrap" style={{ color: typeColor }}>
-                                        {event.time}
-                                    </p>
-                                    <div className="flex flex-col gap-1.5 sm:w-full items-center">
-                                        <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest text-center">{'Sala: '}{event.location}</p>
+                                {/* Always-visible row */}
+                                <div className="flex flex-row">
+                                    {/* LEFT — date · time · location · badge */}
+                                    <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
+                                        <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: typeColor }}>
+                                            {event.day} {event.monthShort}
+                                        </p>
+                                        <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
+                                            {event.time}
+                                        </p>
+                                        <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest leading-snug">
+                                            {event.location}
+                                        </p>
                                         <span
-                                            className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[130px]"
+                                            className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center truncate"
                                             style={{ backgroundColor: typeColor }}
                                         >
                                             {event.type}
                                         </span>
                                     </div>
+
+                                    {/* Image — desktop only */}
+                                    <div className="hidden md:block flex-none w-44 shrink-0 overflow-hidden">
+                                        <img
+                                            src={event.image}
+                                            alt={event.title}
+                                            className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
+                                        />
+                                    </div>
+
+                                    {/* Content — desktop always, mobile: title + chevron toggle */}
+                                    <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                        {/* Desktop full content */}
+                                        <div className="hidden md:flex flex-col gap-1 px-5 py-4">
+                                            <div className="flex items-center gap-2">
+                                                <h3 className="font-black text-base uppercase leading-tight tracking-tight text-white">{event.title}</h3>
+                                                <span className="shrink-0 text-lg leading-none" style={{ color: typeColor }}>✳</span>
+                                            </div>
+                                            <p className="text-xs font-black uppercase tracking-wide" style={{ color: typeColor }}>{event.speaker_name}</p>
+                                            <p className="text-xs text-white/40 mt-0.5">{event.speaker_activity}</p>
+                                            <p className="text-xs text-white/35 leading-relaxed mt-1 line-clamp-3">{event.description}</p>
+                                        </div>
+
+                                        {/* Mobile tap-to-expand header */}
+                                        <button
+                                            className="md:hidden flex items-center gap-2 px-4 py-4 w-full text-left"
+                                            onClick={() => setActiveCard(isActive ? null : event.id)}
+                                        >
+                                            <h3 className="flex-1 font-black text-sm uppercase leading-tight tracking-tight text-white line-clamp-2">{event.title}</h3>
+                                            <ChevronDown
+                                                size={16}
+                                                className="shrink-0 text-white/40 transition-transform duration-200"
+                                                style={{ transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div className="flex-none sm:w-52 h-36 sm:h-auto overflow-hidden">
-                                    <img
-                                        src={event.image}
-                                        alt={event.title}
-                                        className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
-                                    />
-                                </div>
-
-                                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1 min-w-0">
-                                    <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">{event.title}</h3>
-                                    <p className="text-xs font-black uppercase tracking-wide" style={{ color: typeColor }}>
-                                        {event.speaker_name}
-                                    </p>
-                                    <p className="text-[11px] text-white/30 uppercase tracking-wide">Categoria: {event.category}</p>
-                                    <p className="text-xs text-white/40 mt-0.5">{event.speaker_activity}</p>
-                                    <p className="text-xs text-white/35 leading-relaxed mt-1 line-clamp-2">{event.description}</p>
-                                </div>
-
-                                <div className="flex-none flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 px-4 pb-4 sm:pb-0 sm:pr-5">
-                                    <span className="text-2xl" style={{ color: typeColor }}>
-                                        ✳
-                                    </span>
-                                </div>
+                                {/* Mobile expanded content */}
+                                {isActive && (
+                                    <div className="md:hidden border-t border-white/10 flex overflow-hidden">
+                                        <div className="flex-none w-28 shrink-0 overflow-hidden">
+                                            <img
+                                                src={event.image}
+                                                alt={event.title}
+                                                className="w-full h-full object-cover brightness-60"
+                                            />
+                                        </div>
+                                        <div className="flex-1 px-4 py-3 flex flex-col gap-1 min-w-0">
+                                            <p className="text-xs font-black uppercase tracking-wide" style={{ color: typeColor }}>{event.speaker_name}</p>
+                                            <p className="text-xs text-white/40">{event.speaker_activity}</p>
+                                            <p className="text-xs text-white/35 leading-relaxed line-clamp-4">{event.description}</p>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )
                     })}

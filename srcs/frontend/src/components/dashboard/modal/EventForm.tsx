@@ -65,7 +65,11 @@ const EventForm = ({
         setSaving(true);
 
         try {
-            await onSave(formData);
+            // Exclude null image fields — null means "no new file chosen", not "clear the image"
+            const dataToSend = Object.fromEntries(
+                Object.entries(formData).filter(([k, v]) => !(imageFields.has(k) && v === null))
+            );
+            await onSave(dataToSend);
             onClose();
         } finally {
             setSaving(false);
@@ -116,15 +120,18 @@ const EventForm = ({
                     </div>
                 ) : (
                     <div className="max-h-[55vh] space-y-3 overflow-y-auto pr-1">
-                        {formFields.map((field) => (
-                            <FieldRenderer
-                                key={field}
-                                field={field}
-                                value={formData[field]}
-                                initialValue={initial?.[field]}
-                                onChange={updateField}
-                            />
-                        ))}
+                        {formFields.map((field) => {
+                            if (field === 'category_other' && formData['category'] !== 'OUTROS') return null;
+                            return (
+                                <FieldRenderer
+                                    key={field}
+                                    field={field}
+                                    value={formData[field]}
+                                    initialValue={initial?.[field]}
+                                    onChange={updateField}
+                                />
+                            );
+                        })}
                     </div>
                 )}
 
