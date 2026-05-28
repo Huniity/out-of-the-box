@@ -196,9 +196,10 @@ const Exposicoes = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((d, i) => {
-            const accent = areaColors[d.area]
-            const start  = parseDateBadge(d.start_date)
-            const imgSrc = d.image ? resolveMediaUrl(d.image as string) : Fundo
+            const accent    = areaColors[d.area]
+            const start     = parseDateBadge(d.start_date)
+            const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
+            const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
 
             return (
               <div key={d.id ?? i} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
@@ -226,8 +227,9 @@ const Exposicoes = () => {
                   <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{d.title}</h3>
                   <p className="text-[11px] text-white/50 leading-relaxed">{d.artists}</p>
                   <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-                    <span className="flex items-center gap-1"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>
-                    <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {d.opening_hours}</span>
+                    <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>
+                    <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {openTime}</span>
+                    <span className="flex items-center gap-1 truncate"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>
                   </div>
                 </div>
 
@@ -240,8 +242,9 @@ const Exposicoes = () => {
                   <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: accent }}>{d.artists}</p>
                   <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{d.synopsis}</p>
                   <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-1 text-[10px] text-white/35">
+                    <span className="flex items-center gap-1"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>
+                    <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {openTime}</span>
                     <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>
-                    <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {d.opening_hours}</span>
                   </div>
                 </div>
               </div>
