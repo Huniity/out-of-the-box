@@ -1,17 +1,24 @@
 import { useState, useRef, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, CalendarDays, MapPin, Users, Star, Eye, Zap, MoveRight, ArrowRight, ChevronDown } from 'lucide-react'
-import Fundo from '../assets/FUNDO2.webp'
+import { ChevronLeft, ChevronRight, CalendarDays, MapPin, Users, MoveRight, ArrowRight, ChevronDown, RefreshCw } from 'lucide-react'
+import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
-import type { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
 import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques as destaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
+
+const AREA_OPTIONS = [
+  { value: 'TODAS',  label: 'TODAS' },
+  { value: 'DESIGN', label: 'DESIGN' },
+  { value: 'FOTO',   label: 'FOTOGRAFIA' },
+  { value: 'GAMES',  label: 'VIDEOJOGOS' },
+  { value: 'LABIA',  label: 'ESPAÇO LÁBIA' },
+]
 import PageStars from '../components/core/PageStars'
-import polaroid_exposicoes from '../assets/polaroid_exposicoes.webp'
+import polaroid_exposicoes from '../assets/polaroids/polaroid_exposicoes.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 
 const parseDateBadge = (dateStr: string) => {
@@ -30,6 +37,8 @@ const Exposicoes = () => {
     start_event_date,
     end_event_date,
   } = usePageData('exposicoes')
+
+  const [activeArea, setActiveArea] = useState('TODAS')
 
   const [destOffset, setDestOffset] = useState(0)
   const [destIndex,  setDestIndex]  = useState(0)
@@ -181,6 +190,33 @@ const Exposicoes = () => {
         </div>
       </section>
 
+      {/* ── Filter box ── */}
+      <section id="filtros" className="px-8 xl:px-20 pb-8 pt-12">
+        <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
+          <div className="flex flex-wrap items-end gap-4 justify-center">
+            <div className="flex flex-col gap-1.5 min-w-[160px]">
+              <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Área</label>
+              <div className="relative">
+                <select
+                  value={activeArea}
+                  onChange={e => { setActiveArea(e.target.value); setDestIndex(0); setDestOffset(0) }}
+                  className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
+                >
+                  {AREA_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
+              </div>
+            </div>
+            <button
+              onClick={() => { setActiveArea('TODAS'); setDestIndex(0); setDestOffset(0) }}
+              className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity pb-2.5"
+            >
+              <RefreshCw size={13} /> Limpar Filtros
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* ── Destaques carousel ── */}
       <section id="destaques" className="border-t border-white/10 px-8 xl:px-20 py-14">
         <div className="flex items-center justify-between mb-8 max-w-[1100px] mx-auto">
@@ -226,7 +262,7 @@ const Exposicoes = () => {
               if (Math.abs(dx) > 40) shiftDest(dx > 0 ? 1 : -1)
             }}
           >
-            {destaques.filter(d => d.is_active).map(d => {
+            {destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.area === activeArea)).map(d => {
               const accent  = areaColors[d.area]
               const start   = parseDateBadge(d.start_date)
               const end     = parseDateBadge(d.end_date)

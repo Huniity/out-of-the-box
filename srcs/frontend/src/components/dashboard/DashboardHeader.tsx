@@ -1,8 +1,7 @@
 
 
-import React from "react";
 
-import logo_etic from "../../assets/Asset5.svg";
+import logo_etic from "../../assets/etic_algarve/etic_algarve.svg";
 
 interface User {
   firstName: string;

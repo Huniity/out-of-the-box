@@ -1,10 +1,4 @@
-import Design from '../assets/Design.webp'
-import Photo from '../assets/foto.webp'
-import Video from '../assets/video.webp'
-import Game from '../assets/Jogos.webp'
-import Marketing from '../assets/marketing.webp'
-import Music from '../assets/somm.webp'
-import Fundo from '../../assets/FUNDO.webp'
+import Fundo from '../../assets/etic_algarve/FUNDO.webp'
 
 const colorMap: Record<string, string> = {
   pink:   '#f9a8d4',

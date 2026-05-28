@@ -1,8 +1,8 @@
 
-import { useState, useLayoutEffect, useEffect, useRef } from 'react'
+import { useState, useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import logo_etic from '../../assets/Asset5.svg'
+import logo_etic from '../../assets/etic_algarve/etic_algarve.svg'
 import MarqueeBanner from './MarqueeBanner'
 
 const NAV_LINKS = [
@@ -20,30 +20,18 @@ const visibleLinks = NAV_LINKS.filter(l => l.is_live)
 function Navbar() {
     const { pathname } = useLocation()
     const [open, setOpen] = useState(false)
-    const [marqueeVisible, setMarqueeVisible] = useState(true)
     const [navHeight, setNavHeight] = useState(0)
-    const lastScrollY = useRef(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
 
     useLayoutEffect(() => {
         const el = wrapperRef.current
         if (!el) return
         setNavHeight(el.offsetHeight)
-        lastScrollY.current = window.scrollY
         const ro = new ResizeObserver(() => setNavHeight(el.offsetHeight))
         ro.observe(el)
         return () => ro.disconnect()
     }, [])
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentY = window.scrollY
-            setMarqueeVisible(currentY < lastScrollY.current || currentY === 0)
-            lastScrollY.current = currentY
-        }
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
 
     return (
         <>
@@ -100,7 +88,7 @@ function Navbar() {
                                     <li key={link.href}>
                                         <a
                                             href={link.href}
-                                            className={`block px-6 py-3 border-b border-white/5 transition-colors ${isActive ? 'text-[#c8ff00] pointer-events-none' : 'hover:text-[#c8ff00]'}`}
+                                            className={`block px-6 py-3 border-b border-white/5 transition-colors ${isActive ? 'text-[#c8ff00]' : 'hover:text-[#c8ff00]'}`}
                                             onClick={() => setOpen(false)}
                                         >
                                             {link.label.toUpperCase()}

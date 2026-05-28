@@ -1,15 +1,15 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
-import Fundo from '../assets/FUNDO2.webp'
+import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_palestras from '../assets/polaroid_palestras.webp'
+import polaroid_palestras from '../assets/polaroids/polaroid_palestras.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
 
@@ -439,9 +439,9 @@ const Programacao = () => {
             {/* ── Filter box ── */}
             <section id="filtros" className="px-8 xl:px-20 pb-8">
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
-                    <div className="flex flex-wrap items-end gap-4 justify-center">
-                        <div className="flex flex-col gap-1.5 min-w-[140px]">
-                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Categoria</label>
+                    <div className="flex flex-wrap items-end gap-4 justify-center ">
+                        <div className="flex flex-col gap-1.5 min-w-[140px] ">
+                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest ">Categoria</label>
                             <div className="relative">
                                 <select
                                     value={selectedType}
