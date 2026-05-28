@@ -7,8 +7,6 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_palestras from '../assets/polaroids/polaroid_palestras.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/doodles/leaf3.webp'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
