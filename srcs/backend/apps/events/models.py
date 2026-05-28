@@ -1,5 +1,15 @@
 from django.db import models
 
+CATEGORY_CHOICES = [
+    ('DESIGN', 'Design'),
+    ('FOTO', 'Fotografia'),
+    ('MARKETING', 'Marketing'),
+    ('PW', 'Programação'),
+    ('SOM', 'Som'),
+    ('VIDEO', 'Vídeo'),
+    ('JOGOS', 'Videojogos'),
+    ('OUTROS', 'Outros')
+]
 
 
 class Page(models.Model):
@@ -114,7 +124,8 @@ class Concertos(models.Model):
 class SpeedHunting(models.Model):
     company_name = models.CharField(max_length=255)
     company_logo = models.ImageField(upload_to='speed_hunting/logos/', blank=True, null=True)
-    
+    company_description = models.TextField(max_length=500, blank=True, null=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
