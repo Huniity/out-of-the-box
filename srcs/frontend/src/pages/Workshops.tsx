@@ -1,7 +1,7 @@
 
 
 import { useState } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, X } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Zap, Camera, Film, Music2, Code2, Megaphone, Gamepad2, Tv2, X } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
@@ -12,7 +12,7 @@ import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
 import polaroid_workshops from '../assets/polaroids/polaroid_workshops.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 
 const Workshops = () => {

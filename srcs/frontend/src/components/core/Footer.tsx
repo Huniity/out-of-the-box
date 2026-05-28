@@ -2,9 +2,9 @@ import { FaInstagram, FaYoutube, FaLinkedin, FaGlobeEurope } from "react-icons/f
 import { FaTiktok, FaFacebook, FaThreads, FaBandcamp } from "react-icons/fa6";
 import { CalendarDays, MapPin, Ticket, Mail } from "lucide-react";
 import EticWhite from '../../assets/etic_algarve/etic_algarve.svg'
-import leafImg from '../../assets/Artboard_4.webp'
-import leafImg2 from '../../assets/Artboard_13.webp'
-import leafImg3 from '../../assets/Artboard_12.webp'
+import leafImg from '../../assets/doodles/Artboard_4.webp'
+import leafImg2 from '../../assets/doodles/Artboard_13.webp'
+import leafImg3 from '../../assets/doodles/Artboard_12.webp'
 import '../../styles/leaves.css'
 
 

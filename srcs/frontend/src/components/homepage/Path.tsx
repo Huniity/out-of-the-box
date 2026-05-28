@@ -1,8 +1,8 @@
 'use client'
 
-import doodlePink from '../../assets/d_p.webp'
-import doodlePurple from '../../assets/d_pu.webp'
-import doodleBlack from '../../assets/d_b.webp'
+import doodlePink from '../../assets/doodles/d_p.webp'
+import doodlePurple from '../../assets/doodles/d_pu.webp'
+import doodleBlack from '../../assets/doodles/d_b.webp'
 
 import dBlue from '../../assets/doodles/doodle_blue.webp'
 import dLime from '../../assets/doodles/doodle_lime.webp'
@@ -12,7 +12,7 @@ import dSalmon from '../../assets/doodles/doodle_salmon.webp'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
-import BushImage from '../../assets/bush.webp'
+import BushImage from '../../assets/doodles/bush.webp'
 
 import polaroidExposicoes from '../../assets/polaroids/polaroid_exposicoes.webp'
 import polaroidSunsetTalks from '../../assets/polaroids/polaroid_sunset-talks.webp'

@@ -1,9 +1,9 @@
 // components/ProgramacaoCarousel.tsx
 'use client'
 
-import doodleBlue from '../../assets/d_blu2.webp'
-import doodlePurple from '../../assets/d_pu.webp'
-import doodlePink from '../../assets/d_p.webp'
+import doodleBlue from '../../assets/doodles/d_blu2.webp'
+import doodlePurple from '../../assets/doodles/d_pu.webp'
+import doodlePink from '../../assets/doodles/d_p.webp'
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
 import Fundo from '../../assets/etic_algarve/FUNDO.webp'

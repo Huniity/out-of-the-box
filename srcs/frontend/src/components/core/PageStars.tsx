@@ -1,5 +1,5 @@
-import starGreen from '../../assets/star_g.webp'
-import starPink from '../../assets/star_p.webp'
+import starGreen from '../../assets/doodles/star_g.webp'
+import starPink from '../../assets/doodles/star_p.webp'
 import '../../styles/stars.css'
 
 type Props = {
