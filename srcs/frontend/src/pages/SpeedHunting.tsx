@@ -7,7 +7,8 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 
 import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
-import { formatEventDateRange } from '../utils/dashboard'
+import type { SpeedHuntingContract } from '../api/contracts'
+import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 import PageStars from '../components/core/PageStars'
 import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
@@ -26,7 +27,7 @@ const SpeedHunting = () => {
             end_event_date,
         } = usePageData('speed-hunting');
 
-    const [companies, setCompanies] = useState(speedHuntingCompanies)
+    const [companies, setCompanies] = useState<SpeedHuntingContract[]>(speedHuntingCompanies as any)
     useEffect(() => { speedHuntingApi.getCompanies().then(setCompanies as any) }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
@@ -190,7 +191,7 @@ const SpeedHunting = () => {
 
                 {/* Category filters */}
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5 mb-12">
-                    <div className="flex flex-wrap gap-2 justify-center items-center">
+                    <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2">
                         {categories.map(cat => (
                             <button
                                 key={cat}
@@ -204,9 +205,11 @@ const SpeedHunting = () => {
                                 {cat === 'TODAS' ? 'TODAS' : (speedHuntingCategoryLabel[cat] ?? cat)}
                             </button>
                         ))}
+                    </div>
+                    <div className="flex justify-center mt-3">
                         <button
                             onClick={() => setActiveCategory('TODAS')}
-                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity ml-2"
+                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity"
                         >
                             <RefreshCw size={13} /> Limpar Filtros
                         </button>
@@ -219,27 +222,28 @@ const SpeedHunting = () => {
                         const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
                         const initials = (c.company_name ?? '')
                             .split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+                        const logoSrc = c.company_logo ? resolveMediaUrl(c.company_logo) : null
 
                         return (
-                            <div key={i} className="flex overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
-                                {/* Left — logo + badge */}
-                                <div className="flex-none w-[140px] flex flex-col justify-center items-center gap-4 py-6 border-r border-white/10">
-                                    {c.company_logo ? (
+                            <div key={i} className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
+                                {/* Top (mobile) / Left (desktop) — logo + badge */}
+                                <div className="flex-none sm:w-[140px] flex flex-row sm:flex-col justify-start sm:justify-center items-center gap-4 px-4 sm:px-0 py-4 sm:py-6 border-b sm:border-b-0 sm:border-r border-white/10">
+                                    {logoSrc ? (
                                         <img
-                                            src={c.company_logo}
+                                            src={logoSrc}
                                             alt={c.company_name}
-                                            className="w-20 h-20 object-contain rounded-sm"
+                                            className="w-14 h-14 sm:w-20 sm:h-20 object-contain rounded-sm shrink-0"
                                         />
                                     ) : (
                                         <div
-                                            className="w-20 h-20 flex items-center justify-center text-base font-black rounded-sm"
+                                            className="w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center text-base font-black rounded-sm shrink-0"
                                             style={{ background: `${catColor}15`, border: `1.5px solid ${catColor}50`, color: catColor }}
                                         >
                                             {initials}
                                         </div>
                                     )}
                                     <span
-                                        className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[104px] leading-tight"
+                                        className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center sm:w-[104px] leading-tight"
                                         style={{ backgroundColor: catColor }}
                                     >
                                         {catLabel}
@@ -248,15 +252,18 @@ const SpeedHunting = () => {
 
                                 {/* Content */}
                                 <div className="flex-1 px-4 py-4 flex flex-col justify-center gap-1 min-w-0">
-                                    <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.company_name}</h3>
+                                    <div className="flex items-start justify-between gap-2">
+                                        <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.company_name}</h3>
+                                        <span className="text-lg sm:hidden shrink-0 mt-0.5" style={{ color: catColor }}>✳</span>
+                                    </div>
                                     <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.company_description}</p>
                                     <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
                                         <MapPin size={10} className="text-[#c8ff00]/50" /> Dias 9 e 10 Jul
                                     </p>
                                 </div>
 
-                                {/* Right — decoration */}
-                                <div className="flex-none flex items-center px-3">
+                                {/* Right — decoration (desktop only) */}
+                                <div className="hidden sm:flex flex-none items-center px-3">
                                     <span className="text-xl" style={{ color: catColor }}>✳</span>
                                 </div>
                             </div>

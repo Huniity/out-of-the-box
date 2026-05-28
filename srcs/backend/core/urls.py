@@ -26,7 +26,7 @@ urlpatterns = [
     path('api/', include('apps.events.urls')),
 
     # Não colocar nada depois deste comment
-    re_path(r'^(?!admin|api).*$', TemplateView.as_view(template_name='index.html')),
+    re_path(r'^(?!admin|api|media|static).*$', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

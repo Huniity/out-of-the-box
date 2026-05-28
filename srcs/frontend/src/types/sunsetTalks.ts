@@ -13,5 +13,10 @@ export type Session = {
   moderator?: string
   speaker_activity: string
   description: string
-  image: string
+  image?: string | null
+  category?: string | null
+  category_other?: string | null
+  speaker_info_link?: string | null
+  social_link?: string | null
+  registration_link?: string | null
 }

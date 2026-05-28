@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
-import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
+import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
-import { formatEventDateRange } from '../utils/dashboard'
-import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize } from '../utils/metrics'
+import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 import PageStars from '../components/core/PageStars'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
@@ -233,63 +233,120 @@ const SunsetTalks = () => {
           </div>
         )}
 
-        {visible.map((s, idx) => {
+        {visible.map((s) => {
           const typeColor = typeColors[s.type]
+          const cat = s.category ?? ''
+          const catColor = cat && cat !== 'OUTROS' ? (areaColor[cat] ?? '#ffffff') : '#ffffff'
+
+          // Support both mock data (day + time) and real API data (start_datetime)
+          const startDt = (s as any).start_datetime ? new Date((s as any).start_datetime) : null
+          const dayNum  = startDt ? startDt.getDate() : s.day
+          const timeStr = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : s.time
+
+          const imgSrc          = s.image ? resolveMediaUrl(s.image as string) : Fundo
+          const infoLink        = s.speaker_info_link   ?? (s as any).speaker_info_link   ?? null
+          const socialLink      = s.social_link         ?? (s as any).social_link         ?? null
+          const registrationLink = s.registration_link  ?? (s as any).registration_link   ?? null
 
           return (
             <div
               key={s.id}
-              className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group"
+              className="flex flex-row overflow-hidden rounded-sm border bg-[#0d0d0d] transition-all duration-200 group"
+              style={{ borderColor: `${catColor}50` }}
             >
-              {/* Left — time + sala + type */}
-              <div className="flex-none sm:w-28 flex flex-row sm:flex-col justify-start sm:justify-center gap-3 sm:gap-2 px-4 pt-4 sm:pt-0 sm:border-r border-white/10 sm:items-start">
-                <p
-                  className="font-black text-2xl sm:text-3xl leading-none"
-                  style={{ color: typeColor }}
-                >
-                  {s.time}
+              {/* LEFT — date · time · location · badge */}
+              <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
+                <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
+                  {dayNum} JUL
                 </p>
-                <div className="flex flex-col gap-1.5">
-                  <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest">{'Sala: '}{s.location}</p>
+                <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
+                  {timeStr}
+                </p>
+                <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest leading-snug">
+                  {s.location}
+                </p>
+                {cat && (
                   <span
-                    className="inline-block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-fit"
-                    style={{ backgroundColor: typeColor }}
+                    className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center truncate"
+                    style={{ backgroundColor: catColor }}
                   >
-                    {s.type}
+                    {cat === 'OUTROS' ? (s.category_other ?? 'Outros') : (areaLabel[cat] ?? cat)}
                   </span>
+                )}
+                <span
+                  className="block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center"
+                  style={{ backgroundColor: typeColor }}
+                >
+                  {s.type}
+                </span>
+              </div>
+
+              {/* MIDDLE — image + content */}
+              <div className="flex flex-1 overflow-hidden">
+                <div className="flex-none w-44 h-auto shrink-0 overflow-hidden">
+                  <img
+                    src={imgSrc}
+                    alt={s.title}
+                    className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
+                  />
+                </div>
+                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">
+                      {s.title}
+                    </h3>
+                    <span className="shrink-0 text-lg leading-none" style={{ color: catColor }}>✳</span>
+                  </div>
+                  <p className="text-xs font-black uppercase tracking-wide" style={{ color: catColor }}>
+                    {s.speaker_name}
+                  </p>
+                  {s.moderator && (
+                    <p className="text-[11px] text-white/30">Moderador: {s.moderator}</p>
+                  )}
+                  <p className="text-xs text-white/40 mt-0.5">{s.speaker_activity}</p>
+                  <p className="text-xs text-white/35 leading-relaxed mt-1 line-clamp-3">{s.description}</p>
                 </div>
               </div>
 
-              {/* Image */}
-              <div className="flex-none sm:w-52 h-36 sm:h-auto overflow-hidden">
-                <img
-                  src={s.image}
-                  alt={s.title}
-                  className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1 min-w-0">
-                <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">
-                  {s.title}
-                </h3>
-                <p
-                  className="text-xs font-black uppercase tracking-wide"
-                  style={{ color: typeColor }}
-                >
-                  {s.speaker_name}
-                </p>
-                {s.moderator && (
-                  <p className="text-[11px] text-white/30">Moderador: {s.moderator}</p>
+              {/* RIGHT — info link · social · chevron */}
+              <div className="flex-none flex flex-col items-center justify-center gap-3 px-4 pr-5">
+                {infoLink && (
+                  <a
+                    href={infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/40 hover:text-white transition-colors"
+                    title="Mais informação"
+                  >
+                    <ExternalLink size={14} />
+                  </a>
                 )}
-                <p className="text-xs text-white/40 mt-0.5">{s.speaker_activity}</p>
-                <p className="text-xs text-white/35 leading-relaxed mt-1 line-clamp-2">{s.description}</p>
-              </div>
-
-              {/* Right — star + button */}
-              <div className="flex-none flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 px-4 pb-4 sm:pb-0 sm:pr-5">
-                <span className="text-2xl" style={{ color: typeColor }}>✳</span>
+                {socialLink && (
+                  <a
+                    href={socialLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/40 hover:text-white transition-colors"
+                    title="Rede social"
+                  >
+                    <Share2 size={14} />
+                  </a>
+                )}
+                {registrationLink ? (
+                  <a
+                    href={registrationLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-all duration-300"
+                    title="Inscrição"
+                  >
+                    <ArrowRight size={12} />
+                  </a>
+                ) : (
+                  <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300">
+                    <ArrowRight size={12} />
+                  </div>
+                )}
               </div>
             </div>
           )

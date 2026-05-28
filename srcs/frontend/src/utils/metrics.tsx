@@ -241,56 +241,12 @@ export const projecoesMetrics = [
 ]
 
 export const projecoesSessions = [
-    {
-        day: '9',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'NARRATIVAS DO REAL',
-        desc: 'Curtas-metragens de ficção e documentário.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '10',
-        month: 'JUL',
-        tag: 'CINEMA',
-        tagColor: '#3b82f6',
-        title: 'OLHARES DO AMANHÃ',
-        desc: 'Histórias, personagens e novas formas de ver o mundo.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '11',
-        month: 'JUL',
-        tag: 'TV',
-        tagColor: '#22c55e',
-        title: 'DE ATRÁS DAS CÂMARAS',
-        desc: 'Projetos de reportagem, entretenimento e formatos TV.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '12',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'EXPERIMENTAR É CRIAR',
-        desc: 'Trabalhos experimentais e autorais dos alunos.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '16',
-        month: 'JUL',
-        tag: 'SESSÃO ESPECIAL',
-        tagColor: '#a855f7',
-        title: 'BEST OF OUT OF THE BOX',
-        desc: 'Seleção dos melhores projetos do festival.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
+    { id: 1, title: 'NARRATIVAS DO REAL',      director_team: 'Turma Realização A', synopsis: 'Curtas-metragens de ficção e documentário que exploram histórias do quotidiano com um olhar autoral e contemporâneo.', duration: '90', social_link: null, image: null, start_datetime: '2026-07-09T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 2, title: 'OLHARES DO AMANHÃ',        director_team: 'Turma Cinema B',     synopsis: 'Histórias, personagens e novas formas de ver o mundo através da linguagem cinematográfica dos alunos finalistas.', duration: '85', social_link: null, image: null, start_datetime: '2026-07-10T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 3, title: 'DE ATRÁS DAS CÂMARAS',     director_team: 'Turma TV',           synopsis: 'Projetos de reportagem, entretenimento e formatos TV produzidos e realizados pelos alunos da área de Televisão.', duration: '80', social_link: null, image: null, start_datetime: '2026-07-11T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 4, title: 'EXPERIMENTAR É CRIAR',     director_team: 'Turma Realização B', synopsis: 'Trabalhos experimentais e autorais que desafiam os limites da narrativa visual e sonora.', duration: '75', social_link: null, image: null, start_datetime: '2026-07-12T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 5, title: 'BEST OF OUT OF THE BOX',   director_team: 'Seleção Festival',   synopsis: 'Seleção dos melhores projetos do festival — uma celebração do talento dos alunos da ETIC_Algarve.', duration: '120', social_link: null, image: null, start_datetime: '2026-07-16T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 6, title: 'SESSÃO DE ENCERRAMENTO',   director_team: 'Vários',             synopsis: 'Sessão final do festival com premiação e exibição dos projetos mais votados pelo público e pelo júri.', duration: '100', social_link: null, image: null, start_datetime: '2026-07-17T19:00:00', location: 'Auditório ETIC', is_active: true },
 ]
 
 export const projecoesFeatures = [
@@ -315,36 +271,47 @@ export const projecoesFeatures = [
 // Workshops
 
 export const workshopsAreas = [
-    { icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
-    { icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
-    { icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
-    { icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
-    { icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
-    { icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
-    { icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
-    { icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
+    { code: 'DESIGN',    icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
+    { code: 'FOTO',      icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
+    { code: 'VIDEO',     icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
+    { code: 'SOM',       icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
+    { code: 'PW',        icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
+    { code: 'MARKETING', icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
+    { code: 'JOGOS',     icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
+    { code: 'CINEMA',    icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
 ]
 
 export const workshopsAreaColor: Record<string, string> = {
-    'DESIGN':       '#d0ea73',
-    'FOTOGRAFIA':   '#f8ad2c',
-    'VÍDEO':        '#d35f99',
-    'SOM':          '#918fc0',
-    'PROGRAMAÇÃO':  '#69ffa0',
-    'MARKETING':    '#f97316',
-    'VIDEOJOGOS':   '#3b82f6',
-    'CINEMA/TV':    '#ffa8d3',
+    'DESIGN':    '#d0ea73',
+    'FOTO':      '#f8ad2c',
+    'VIDEO':     '#d35f99',
+    'SOM':       '#918fc0',
+    'PW':        '#69ffa0',
+    'MARKETING': '#f97316',
+    'JOGOS':     '#3b82f6',
+    'CINEMA':    '#ffa8d3',
+}
+
+export const workshopsAreaLabel: Record<string, string> = {
+    'DESIGN':    'Design',
+    'FOTO':      'Fotografia',
+    'VIDEO':     'Vídeo',
+    'SOM':       'Som',
+    'PW':        'Programação',
+    'MARKETING': 'Marketing',
+    'JOGOS':     'Videojogos',
+    'CINEMA':    'Cinema / TV',
 }
 
 export const workshopsWorkshops = [
-    { num: '01', area: 'DESIGN',      title: 'DESIGN QUE COMUNICA',   desc: 'Do briefing ao conceito final',         team: 'EQUIPA DESIGN',    day: '04', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '02', area: 'VÍDEO',       title: 'LUZ, CÂMARA, AÇÃO!',    desc: 'Realização de vídeo na prática',        team: 'EQUIPA VÍDEO',     day: '05', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '03', area: 'SOM',         title: 'SOM EM DETALHE',         desc: 'Gravação, edição e mixagem',           team: 'EQUIPA SOM',       day: '06', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '04', area: 'FOTOGRAFIA',  title: 'FOTOGRAFIA CRIATIVA',   desc: 'Composição e narrativa visual',         team: 'EQUIPA FOTO',      day: '08', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '05', area: 'PROGRAMAÇÃO', title: 'CÓDIGO CRIATIVO',        desc: 'Interatividade com Javascript',         team: 'EQUIPA DEV',       day: '11', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '06', area: 'MARKETING',   title: 'CONTEÚDO QUE MARCA',    desc: 'Estratégia e criação de campanhas',     team: 'EQUIPA MARKETING', day: '12', month: 'JUL', time: '10:00 – 13:00' },
-    { num: '07', area: 'VIDEOJOGOS',  title: 'CRIAR PARA JOGAR',       desc: 'Design e prototipagem de jogos',        team: 'EQUIPA GAMES',     day: '15', month: 'JUL', time: '14:00 – 17:00' },
-    { num: '08', area: 'CINEMA/TV',   title: 'DO GUIÃO AO ECRÃ',      desc: 'Escrita e produção para TV/Cinema',     team: 'EQUIPA CINEMA',    day: '17', month: 'JUL', time: '10:00 – 13:00' },
+    { id: 1, title: 'DESIGN QUE COMUNICA',  description: 'Do briefing ao conceito final — um processo criativo completo.',     mentor_name: 'Equipa Design',    mentor_social: null, category: 'DESIGN',    duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-04T10:00:00', location: 'Sala Design',    is_active: true },
+    { id: 2, title: 'LUZ, CÂMARA, AÇÃO!',   description: 'Realização de vídeo na prática, do storyboard ao corte final.',     mentor_name: 'Equipa Vídeo',     mentor_social: null, category: 'VIDEO',     duration: '3h', max_participants: 15, registration_link: null, start_datetime: '2026-07-05T14:00:00', location: 'Estúdio Vídeo', is_active: true },
+    { id: 3, title: 'SOM EM DETALHE',        description: 'Gravação, edição e mixagem — da captação à master final.',         mentor_name: 'Equipa Som',       mentor_social: null, category: 'SOM',       duration: '3h', max_participants: 12, registration_link: null, start_datetime: '2026-07-06T10:00:00', location: 'Estúdio Som',   is_active: true },
+    { id: 4, title: 'FOTOGRAFIA CRIATIVA',  description: 'Composição e narrativa visual através da câmara.',                 mentor_name: 'Equipa Fotografia', mentor_social: null, category: 'FOTO',      duration: '3h', max_participants: 18, registration_link: null, start_datetime: '2026-07-08T14:00:00', location: 'Sala Foto',     is_active: true },
+    { id: 5, title: 'CÓDIGO CRIATIVO',       description: 'Interatividade e animação com JavaScript no browser.',             mentor_name: 'Equipa Dev',       mentor_social: null, category: 'PW',        duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-11T14:00:00', location: 'Lab Digital',   is_active: true },
+    { id: 6, title: 'CONTEÚDO QUE MARCA',   description: 'Estratégia e criação de campanhas com impacto real.',              mentor_name: 'Equipa Marketing', mentor_social: null, category: 'MARKETING', duration: '3h', max_participants: 20, registration_link: null, start_datetime: '2026-07-12T10:00:00', location: 'Sala Marketing', is_active: true },
+    { id: 7, title: 'CRIAR PARA JOGAR',      description: 'Design e prototipagem de jogos, do conceito ao protótipo.',       mentor_name: 'Equipa Games',     mentor_social: null, category: 'JOGOS',     duration: '3h', max_participants: 16, registration_link: null, start_datetime: '2026-07-15T14:00:00', location: 'Lab Jogos',     is_active: true },
+    { id: 8, title: 'DO GUIÃO AO ECRÃ',     description: 'Escrita e produção para TV e Cinema — da ideia ao argumento.',    mentor_name: 'Equipa Cinema',    mentor_social: null, category: 'CINEMA',    duration: '3h', max_participants: 15, registration_link: null, start_datetime: '2026-07-17T10:00:00', location: 'Sala Cinema',   is_active: true },
 ]
 
 export const workshopsMetrics = [
@@ -354,7 +321,7 @@ export const workshopsMetrics = [
     { icon: <Ticket       size={38} strokeWidth={1.8} />, value: '',   label: 'ENTRADA GRÁTIS', desc: 'Participação gratuita mediante disponibilidade e inscrição prévia.' },
 ]
 
-export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
+export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'VIDEO', 'SOM', 'PW', 'MARKETING', 'JOGOS', 'CINEMA']
 
 
 // Sunset Talks
@@ -370,29 +337,29 @@ export const sunsetTalksTypeColors: Record<SessionType, string> = {
 
 export const sunsetTalksSessions: Session[] = [
   // ── 3 Jul ──
-  { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo },
-  { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo },
-  { id: 3,  day: 3,  time: '14:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Criar Marcas que Ficam',              speaker_name: 'Tiago Gouveia',                   speaker_activity: 'Brand Strategist',          description: 'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                       image: Fundo },
-  { id: 4,  day: 3,  time: '15:45', location: 'SALA 4', type: 'CONCERTOS', title: 'Criatividade sem Fronteiras',         speaker_name: 'Marta Nunes · João Correia · Inês Lopes', moderator: 'Pedro Fernandes', speaker_activity: 'Mesa Redonda', description: 'Uma conversa sobre processos criativos, colaboração e o impacto da educação no futuro.', image: Fundo },
+  { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo, category: 'DESIGN' },
+  { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo, category: 'VIDEO' },
+  { id: 3,  day: 3,  time: '14:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Criar Marcas que Ficam',              speaker_name: 'Tiago Gouveia',                   speaker_activity: 'Brand Strategist',          description: 'Como construir identidades visuais com significado e fazer marcas que deixam marca.',                                                       image: Fundo, category: 'MARKETING' },
+  { id: 4,  day: 3,  time: '15:45', location: 'SALA 4', type: 'CONCERTOS', title: 'Criatividade sem Fronteiras',         speaker_name: 'Marta Nunes · João Correia · Inês Lopes', moderator: 'Pedro Fernandes', speaker_activity: 'Mesa Redonda', description: 'Uma conversa sobre processos criativos, colaboração e o impacto da educação no futuro.', image: Fundo, category: 'OUTROS' },
   // ── 4 Jul ──
-  { id: 5,  day: 4,  time: '10:00', location: 'SALA 2', type: 'PROJEÇÕES', title: 'Fotografia de Produto',               speaker_name: 'Ana Sofia Ferreira',              speaker_activity: 'Fotógrafa Comercial',       description: 'Técnicas e setup para fotografar produtos de forma profissional com equipamento acessível.', image: Fundo },
-  { id: 6,  day: 4,  time: '14:30', location: 'SALA 2', type: 'PALESTRA',  title: 'Do Algarve para o Mundo',             speaker_name: 'Carlos Nobre',                    speaker_activity: 'Empreendedor Digital',      description: 'Como construir uma carreira criativa internacional sem sair do Algarve.', image: Fundo },
+  { id: 5,  day: 4,  time: '10:00', location: 'SALA 2', type: 'PROJEÇÕES', title: 'Fotografia de Produto',               speaker_name: 'Ana Sofia Ferreira',              speaker_activity: 'Fotógrafa Comercial',       description: 'Técnicas e setup para fotografar produtos de forma profissional com equipamento acessível.', image: Fundo, category: 'FOTO' },
+  { id: 6,  day: 4,  time: '14:30', location: 'SALA 2', type: 'PALESTRA',  title: 'Do Algarve para o Mundo',             speaker_name: 'Carlos Nobre',                    speaker_activity: 'Empreendedor Digital',      description: 'Como construir uma carreira criativa internacional sem sair do Algarve.', image: Fundo, category: 'MARKETING' },
   // ── 5 Jul ──
-  { id: 7,  day: 5,  time: '11:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Game Design do Zero',                 speaker_name: 'Filipe Guerreiro',                speaker_activity: 'Game Designer',             description: 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.', image: Fundo },
-  { id: 8,  day: 5,  time: '15:00', location: 'SALA 4', type: 'WORKSHOP',  title: 'Som e Identidade de Marca',           speaker_name: 'Luísa Marques',                   speaker_activity: 'Sound Designer',            description: 'Como o som define marcas, emoções e experiências. Workshop prático com ferramentas básicas.', image: Fundo },
+  { id: 7,  day: 5,  time: '11:00', location: 'SALA 3', type: 'PALESTRA',  title: 'Game Design do Zero',                 speaker_name: 'Filipe Guerreiro',                speaker_activity: 'Game Designer',             description: 'O processo de criação de um videojogo, desde o conceito inicial até ao lançamento.', image: Fundo, category: 'JOGOS' },
+  { id: 8,  day: 5,  time: '15:00', location: 'SALA 4', type: 'WORKSHOP',  title: 'Som e Identidade de Marca',           speaker_name: 'Luísa Marques',                   speaker_activity: 'Sound Designer',            description: 'Como o som define marcas, emoções e experiências. Workshop prático com ferramentas básicas.', image: Fundo, category: 'SOM' },
   // ── 6 Jul ──
-  { id: 9,  day: 6,  time: '10:30', location: 'SALA 2', type: 'CONCERTOS', title: 'Ilustração e Mercado Editorial',      speaker_name: 'Beatriz Cruz',                    speaker_activity: 'Ilustradora',               description: 'Percurso na ilustração editorial e como chegar ao mercado de livros e revistas.', image: Fundo },
-  { id: 10, day: 6,  time: '14:00', location: 'SALA 2', type: 'WORKSHOP',  title: 'Edição de Vídeo Avançada',            speaker_name: 'Marco Faria',                     speaker_activity: 'Editor de Vídeo',           description: 'Fluxos de trabalho profissionais em DaVinci Resolve e After Effects.', image: Fundo },
+  { id: 9,  day: 6,  time: '10:30', location: 'SALA 2', type: 'CONCERTOS', title: 'Ilustração e Mercado Editorial',      speaker_name: 'Beatriz Cruz',                    speaker_activity: 'Ilustradora',               description: 'Percurso na ilustração editorial e como chegar ao mercado de livros e revistas.', image: Fundo, category: 'DESIGN' },
+  { id: 10, day: 6,  time: '14:00', location: 'SALA 2', type: 'WORKSHOP',  title: 'Edição de Vídeo Avançada',            speaker_name: 'Marco Faria',                     speaker_activity: 'Editor de Vídeo',           description: 'Fluxos de trabalho profissionais em DaVinci Resolve e After Effects.', image: Fundo, category: 'VIDEO' },
   // ── 7 Jul ──
-  { id: 11, day: 7,  time: '10:00', location: 'SALA 3', type: 'PALESTRA',  title: 'UX/UI no Mercado Real',               speaker_name: 'Vanessa Monteiro',                speaker_activity: 'Product Designer',          description: 'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.', image: Fundo },
-  { id: 12, day: 7,  time: '15:30', location: 'SALA 4', type: 'PROJEÇÕES', title: 'O Futuro das Profissões Criativas',   speaker_name: 'Ricardo Santos · Cláudia Leal',   moderator: 'Ana Costa', speaker_activity: 'Mesa Redonda', description: 'Debate sobre as tendências do mercado e as competências que as empresas procuram.', image: Fundo },
+  { id: 11, day: 7,  time: '10:00', location: 'SALA 3', type: 'PALESTRA',  title: 'UX/UI no Mercado Real',               speaker_name: 'Vanessa Monteiro',                speaker_activity: 'Product Designer',          description: 'Da teoria ao projeto: como funciona o processo de design de produto em empresas tech.', image: Fundo, category: 'DESIGN' },
+  { id: 12, day: 7,  time: '15:30', location: 'SALA 4', type: 'PROJEÇÕES', title: 'O Futuro das Profissões Criativas',   speaker_name: 'Ricardo Santos · Cláudia Leal',   moderator: 'Ana Costa', speaker_activity: 'Mesa Redonda', description: 'Debate sobre as tendências do mercado e as competências que as empresas procuram.', image: Fundo, category: 'OUTROS' },
   // ── 8 Jul ──
-  { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo },
-  { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo },
+  { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo, category: 'SOM' },
+  { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo, category: 'MARKETING' },
   // ── 9 & 10 Jul (Speed Hunting) — sem sunset talks ──
   // ── 11 Jul ──
-  { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo },
-  { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo },
+  { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo, category: 'FOTO' },
+  { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo, category: 'DESIGN' },
 ]
 
 export const sunsetTalksEventDays = [
