@@ -85,6 +85,8 @@ export interface SpeedHuntingContract {
     id: number;
     company_name: string;
     company_logo: string | null;
+    company_description: string | null;
+    category: string | null;
     start_datetime: string;
     location: string;
     is_active: boolean;

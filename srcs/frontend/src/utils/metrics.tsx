@@ -106,19 +106,42 @@ export const speedHuntingMetrics = [
     },
 ]
 
-export const speedHuntingCategories = ['TODAS', 'DESIGN', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'FOTOGRAFIA']
+// Colors for SpeedHunting category badges — keyed by backend CATEGORY_CHOICES codes
+export const speedHuntingCategoryColor: Record<string, string> = {
+    'DESIGN':    '#d0ea73',
+    'FOTO':      '#f8ad2c',
+    'MARKETING': '#f97316',
+    'PW':        '#69ffa0',
+    'SOM':       '#918fc0',
+    'VIDEO':     '#d35f99',
+    'JOGOS':     '#3b82f6',
+    'OUTROS':    '#a1a1aa',
+}
+
+export const speedHuntingCategoryLabel: Record<string, string> = {
+    'DESIGN':    'Design',
+    'FOTO':      'Fotografia',
+    'MARKETING': 'Marketing',
+    'PW':        'Programação',
+    'SOM':       'Som',
+    'VIDEO':     'Vídeo',
+    'JOGOS':     'Videojogos',
+    'OUTROS':    'Outros',
+}
+
+export const speedHuntingCategories = ['TODAS', 'DESIGN', 'FOTO', 'MARKETING', 'PW', 'SOM', 'VIDEO', 'JOGOS']
 
 export const speedHuntingCompanies = [
-    { initials: 'AC', name: 'ALGARVE CREATIVE', category: 'DESIGN',      color: '#f97316', desc: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
-    { initials: 'PF', name: 'PIXEL FORGE',      category: 'VÍDEO',       color: '#3b82f6', desc: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
-    { initials: 'SS', name: 'SONORA STUDIO',    category: 'SOM',         color: '#a855f7', desc: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
-    { initials: 'LT', name: 'LUMIA TECH',       category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
-    { initials: 'BH', name: 'BRAND HOUSE',      category: 'MARKETING',   color: '#ec4899', desc: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
-    { initials: 'FL', name: 'FRAME LAB',        category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
-    { initials: 'CI', name: 'CUBO INTERATIVO',  category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
-    { initials: 'NF', name: 'NORTE FILMES',     category: 'VÍDEO',       color: '#3b82f6', desc: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
-    { initials: 'VC', name: 'VOZES CRIATIVAS',  category: 'SOM',         color: '#a855f7', desc: 'Design de som, locução e produção musical para multimédia.' },
-    { initials: 'FV', name: 'FOCO VISUAL',      category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
+    { company_name: 'ALGARVE CREATIVE', category: 'DESIGN',    company_logo: null, company_description: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
+    { company_name: 'PIXEL FORGE',      category: 'VIDEO',     company_logo: null, company_description: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
+    { company_name: 'SONORA STUDIO',    category: 'SOM',       company_logo: null, company_description: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
+    { company_name: 'LUMIA TECH',       category: 'PW',        company_logo: null, company_description: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
+    { company_name: 'BRAND HOUSE',      category: 'MARKETING', company_logo: null, company_description: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
+    { company_name: 'FRAME LAB',        category: 'FOTO',      company_logo: null, company_description: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
+    { company_name: 'CUBO INTERATIVO',  category: 'PW',        company_logo: null, company_description: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
+    { company_name: 'NORTE FILMES',     category: 'VIDEO',     company_logo: null, company_description: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
+    { company_name: 'VOZES CRIATIVAS',  category: 'SOM',       company_logo: null, company_description: 'Design de som, locução e produção musical para multimédia.' },
+    { company_name: 'FOCO VISUAL',      category: 'FOTO',      company_logo: null, company_description: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
 ]
 
 export const speedHuntingSteps = [
