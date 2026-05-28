@@ -301,24 +301,32 @@ def seed_database():
     SpeedHunting.objects.bulk_create([
         SpeedHunting(
             company_name="Pixels & Co.",
+            company_description="Estúdio criativo especializado em design gráfico, branding e comunicação visual. Procura designers gráficos e motion designers para integrar a equipa de projetos digitais e de impressão.",
+            category="DESIGN",
             start_datetime=dt(9, 10, 0),
             location="Área de Networking — IPDJ, Faro",
             is_active=True,
         ),
         SpeedHunting(
             company_name="Bloom Digital Agency",
+            company_description="Agência de marketing digital com foco em redes sociais, SEO e campanhas pagas. À procura de talentos em marketing digital, produção de conteúdo e gestão de comunidades online.",
+            category="MARKETING",
             start_datetime=dt(9, 11, 0),
             location="Área de Networking — IPDJ, Faro",
             is_active=True,
         ),
         SpeedHunting(
             company_name="SoundLab Studios",
+            company_description="Estúdio de produção musical e sound design para publicidade, jogos e cinema. Recrutamos produtores musicais, sound designers e técnicos de som com experiência em DAWs profissionais.",
+            category="SOM",
             start_datetime=dt(10, 10, 0),
             location="Área de Networking — IPDJ, Faro",
             is_active=True,
         ),
         SpeedHunting(
             company_name="Frame & Motion",
+            company_description="Produtora de vídeo e motion graphics para marcas, eventos e plataformas digitais. Procuramos realizadores, editores de vídeo e animadores 2D/3D para projetos de curta e longa duração.",
+            category="VIDEO",
             start_datetime=dt(10, 11, 0),
             location="Área de Networking — IPDJ, Faro",
             is_active=True,
