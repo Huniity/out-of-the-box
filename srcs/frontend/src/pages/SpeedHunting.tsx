@@ -5,7 +5,7 @@ import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories} from '../utils/metrics'
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
 import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
@@ -201,7 +201,7 @@ const SpeedHunting = () => {
                                         : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
                                 }`}
                             >
-                                {cat}
+                                {cat === 'TODAS' ? 'TODAS' : (speedHuntingCategoryLabel[cat] ?? cat)}
                             </button>
                         ))}
                         <button
@@ -214,39 +214,54 @@ const SpeedHunting = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filtered.map((c, i) => (
-                        <div key={i} className="flex overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
-                            {/* Left — square logo + badge */}
-                            <div className="flex-none w-[168px] flex flex-col justify-center items-center gap-4 py-6 border-r border-white/10">
-                                <div
-                                    className="w-24 h-24 flex items-center justify-center text-sm font-black rounded-sm"
-                                    style={{ background: `${c.color}15`, border: `1.5px solid ${c.color}50`, color: c.color }}
-                                >
-                                    {c.initials}
+                    {filtered.map((c, i) => {
+                        const catColor = speedHuntingCategoryColor[c.category ?? ''] ?? '#ffffff'
+                        const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
+                        const initials = (c.company_name ?? '')
+                            .split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+
+                        return (
+                            <div key={i} className="flex overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
+                                {/* Left — logo + badge */}
+                                <div className="flex-none w-[140px] flex flex-col justify-center items-center gap-4 py-6 border-r border-white/10">
+                                    {c.company_logo ? (
+                                        <img
+                                            src={c.company_logo}
+                                            alt={c.company_name}
+                                            className="w-20 h-20 object-contain rounded-sm"
+                                        />
+                                    ) : (
+                                        <div
+                                            className="w-20 h-20 flex items-center justify-center text-base font-black rounded-sm"
+                                            style={{ background: `${catColor}15`, border: `1.5px solid ${catColor}50`, color: catColor }}
+                                        >
+                                            {initials}
+                                        </div>
+                                    )}
+                                    <span
+                                        className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[104px] leading-tight"
+                                        style={{ backgroundColor: catColor }}
+                                    >
+                                        {catLabel}
+                                    </span>
                                 </div>
-                                <span
-                                    className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[112px] leading-tight"
-                                    style={{ backgroundColor: c.color }}
-                                >
-                                    {c.category}
-                                </span>
-                            </div>
 
-                            {/* Content */}
-                            <div className="flex-1 px-4 py-4 flex flex-col justify-center gap-1 min-w-0">
-                                <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.name}</h3>
-                                <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.desc}</p>
-                                <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
-                                    <MapPin size={10} className="text-[#c8ff00]/50" /> Dias 9 e 10 Jul
-                                </p>
-                            </div>
+                                {/* Content */}
+                                <div className="flex-1 px-4 py-4 flex flex-col justify-center gap-1 min-w-0">
+                                    <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.company_name}</h3>
+                                    <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.company_description}</p>
+                                    <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
+                                        <MapPin size={10} className="text-[#c8ff00]/50" /> Dias 9 e 10 Jul
+                                    </p>
+                                </div>
 
-                            {/* Right — decoration */}
-                            <div className="flex-none flex items-center px-3">
-                                <span className="text-xl" style={{ color: c.color }}>✳</span>
+                                {/* Right — decoration */}
+                                <div className="flex-none flex items-center px-3">
+                                    <span className="text-xl" style={{ color: catColor }}>✳</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
             </section>
 
