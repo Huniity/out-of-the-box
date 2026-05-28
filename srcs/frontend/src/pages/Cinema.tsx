@@ -164,7 +164,8 @@ const Cinema = () => {
                                 <div className="p-4 flex flex-col gap-2 flex-1">
                                     <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{s.title}</h3>
                                     <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-                                        <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
+                                        <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} JUL</span>
+                                        <span className="flex items-center gap-1 shrink-0"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
                                         <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{s.location}</span></span>
                                     </div>
                                 </div>
@@ -181,7 +182,8 @@ const Cinema = () => {
                                     <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{s.synopsis}</p>
                                     <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2">
                                         <div className="flex items-center gap-3 text-[10px] text-white/35">
-                                            <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
+                                            <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} JUL</span>
+                                            <span className="flex items-center gap-1 shrink-0"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
                                             <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{s.location}</span></span>
                                         </div>
                                         {s.social_link && (
