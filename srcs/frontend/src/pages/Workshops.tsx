@@ -1,12 +1,13 @@
 
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops as workshops } from '../utils/metrics'
+import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops } from '../utils/metrics'
+import { workshopsApi } from '../services/api/workshops.api'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
@@ -25,7 +26,10 @@ const Workshops = () => {
                 start_event_date,
                 end_event_date,
             } = usePageData('workshops');
-            
+
+    const [workshops, setWorkshops] = useState(workshopsWorkshops)
+    useEffect(() => { workshopsApi.getWorkshops().then(setWorkshops as any) }, [])
+
     const [activeArea, setActiveArea] = useState('TODAS')
 
     const filtered = activeArea === 'TODAS'

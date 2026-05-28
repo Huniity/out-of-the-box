@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from 'react'
 import { ChevronRight, ChevronDown, ArrowRight } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import '../styles/leaves.css'
@@ -6,7 +7,8 @@ import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 
-import { semanaLabiaMetrics as metrics, semanaLabiaProjects as projects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
+import { semanaLabiaMetrics as metrics, semanaLabiaProjects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
+import { semanaLabiaApi } from '../services/api/semanaLabia.api'
 import PageStars from '../components/core/PageStars'
 import polaroid_semanalabias from '../assets/polaroids/polaroid_semanalabias.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
@@ -20,6 +22,9 @@ const SemanaLabia = () => {
         cta_button_text,
         cta_button_link,
     } = usePageData('semana-labia');
+
+    const [projects, setProjects] = useState(semanaLabiaProjects)
+    useEffect(() => { semanaLabiaApi.getProjects().then(setProjects as any) }, [])
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">

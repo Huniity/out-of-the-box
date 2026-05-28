@@ -1,11 +1,12 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies as companies, speedHuntingCategories as categories} from '../utils/metrics'
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories} from '../utils/metrics'
+import { speedHuntingApi } from '../services/api/speedHunting.api'
 import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 import PageStars from '../components/core/PageStars'
@@ -25,6 +26,8 @@ const SpeedHunting = () => {
             end_event_date,
         } = usePageData('speed-hunting');
 
+    const [companies, setCompanies] = useState(speedHuntingCompanies)
+    useEffect(() => { speedHuntingApi.getCompanies().then(setCompanies as any) }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
 
