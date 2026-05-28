@@ -1,6 +1,6 @@
-import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock, Camera, Film, Code2, Megaphone, Gamepad2, Tv2 } from 'lucide-react'
-import proj from '../assets/FUNDO.webp'
-import Fundo from '../assets/FUNDO.webp'
+import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock, Camera, Film, Code2, Megaphone, Gamepad2, Tv2 } from 'lucide-react'
+import proj from '../assets/etic_algarve/FUNDO.webp'
+import Fundo from '../assets/etic_algarve/FUNDO.webp'
 import { Session, SessionType } from '../types/palestras'
 import { Exhibition, ExhibitionArea } from '../types/exhibitions'
 

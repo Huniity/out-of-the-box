@@ -1,31 +1,25 @@
 'use client'
 
-import doodlePink from '../../assets/d_p.webp'
-import doodlePurple from '../../assets/d_pu.webp'
-import doodleBlue from '../../assets/d_blu.webp'
-import doodleGreen from '../../assets/d_g.webp'
-import doodleBlack from '../../assets/d_b.webp'
+import doodlePink from '../../assets/doodles/d_p.webp'
+import doodlePurple from '../../assets/doodles/d_pu.webp'
+import doodleBlack from '../../assets/doodles/d_b.webp'
 
 import dBlue from '../../assets/doodles/doodle_blue.webp'
 import dLime from '../../assets/doodles/doodle_lime.webp'
-import dGreen from '../../assets/doodles/doodle_green.webp'
-import dPink from '../../assets/doodles/branch_1.webp' 
-import dPurple from '../../assets/doodles/branch_1.webp'
 import dOrange from '../../assets/doodles/doodle_orange.webp'
 import dSalmon from '../../assets/doodles/doodle_salmon.webp'
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { ArrowRight, Icon } from 'lucide-react'
-import BushImage from '../../assets/bush.webp'
+import { ArrowRight } from 'lucide-react'
+import BushImage from '../../assets/doodles/bush.webp'
 
-import polaroidExposicoes from '../../assets/polaroid_exposicoes.webp'
-import polaroidSunsetTalks from '../../assets/polaroid_sunset-talks.webp'
-import polaroidWorkshops from '../../assets/polaroid_workshops.webp'
-import polaroidCinema from '../../assets/polaroid_cinema.webp'
-import polaroidConcertos from '../../assets/polaroid_concertos.webp'
-import polaroidSpeedHunting from '../../assets/polaroid_speedhunting.webp'
-import polaroidSemanaLabia from '../../assets/polaroid_semanalabias.webp'
+import polaroidExposicoes from '../../assets/polaroids/polaroid_exposicoes.webp'
+import polaroidSunsetTalks from '../../assets/polaroids/polaroid_sunset-talks.webp'
+import polaroidWorkshops from '../../assets/polaroids/polaroid_workshops.webp'
+import polaroidCinema from '../../assets/polaroids/polaroid_cinema.webp'
+import polaroidConcertos from '../../assets/polaroids/polaroid_concertos.webp'
+import polaroidSpeedHunting from '../../assets/polaroids/polaroid_speedhunting.webp'
 
 import IconGallery from '../core/IconGallery'
 
@@ -348,7 +342,7 @@ export default function AreasWall() {
                     />
 
                     {/* Description + link below the polaroid */}
-                    <div className="mt-2 px-3 py-2 flex flex-col gap-0.5 bg-black rounded-sm md:bg-transparent md:rounded-none md:px-2 md:py-0">
+                    <div className="mt-2 px-2 flex flex-col gap-0.5 relative z-20">
                       <p className="text-white/45 text-[14px] leading-snug text-center">{area.desc}</p>
                       <span className="flex items-center justify-center gap-1 text-[14px] font-black uppercase tracking-widest text-[#c8ff00]/60 group-hover:text-[#c8ff00] transition-colors duration-200">
                         Ver a Área <ArrowRight size={9} strokeWidth={3} />

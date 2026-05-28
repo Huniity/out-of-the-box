@@ -1,6 +1,6 @@
 
-import { CalendarDays, MapPin, Users, Play, Star, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { CalendarDays, MapPin, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -9,9 +9,9 @@ import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFe
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_cinema from '../assets/polaroid_cinema.webp'
+import polaroid_cinema from '../assets/polaroids/polaroid_cinema.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 const Cinema = () => {
         const {
@@ -135,37 +135,38 @@ const Cinema = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                     {sessions.map((s, i) => (
-                        <div key={i} className="group flex flex-col p-5 rounded-sm border border-white/10 bg-black hover:border-white/20 transition-colors duration-300 cursor-pointer">
-                            {/* Date badge */}
-                            <div className="flex items-start justify-between mb-3">
-                                <div className="bg-[#c8ff00] text-black px-2 py-1 text-center min-w-[48px]">
-                                    <span className="block text-xl font-black leading-none">{s.day}</span>
-                                    <span className="block text-[9px] font-black uppercase tracking-widest">{s.month}</span>
-                                </div>
-                                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-sm"
-                                    style={{ backgroundColor: s.tagColor + '22', color: s.tagColor }}>
-                                    {s.tag}
-                                </span>
-                            </div>
-
-                            {/* Image placeholder */}
-                            <div className="relative overflow-hidden rounded-sm aspect-video mb-4 bg-white/5">
+                        <div key={i} className="group flex flex-col rounded-sm border border-white/10 bg-black hover:border-white/20 transition-colors duration-300 overflow-hidden cursor-pointer">
+                            {/* Image */}
+                            <div className="relative overflow-hidden aspect-video">
                                 <img src={heroImg} alt={s.title}
                                     className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.65] group-hover:scale-105" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                {/* Date overlay */}
+                                <div className="absolute top-3 left-3">
+                                    <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
+                                        <span className="block text-base font-black leading-none">{s.day}</span>
+                                        <span className="block text-[8px] font-black uppercase tracking-widest">{s.month}</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white mb-2">
-                                {s.title}
-                            </h3>
-                            <p className="text-xs text-white/40 leading-relaxed mb-4 flex-1">{s.desc}</p>
-
-                            <div className="flex items-center gap-3 text-[10px] text-white/30 border-t border-white/10 pt-3">
-                                <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {s.time}</span>
-                                <span className="text-white/20">•</span>
-                                <span>{s.venue}</span>
+                            {/* Info */}
+                            <div className="p-4 flex flex-col gap-2 flex-1">
+                                <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">
+                                    {s.title}
+                                </h3>
+                                <p className="text-xs text-white/40 leading-relaxed flex-1">{s.desc}</p>
+                                <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
+                                    <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {s.time}</span>
+                                    <span className="text-white/20">•</span>
+                                    <span className="flex items-center gap-1"><MapPin size={10} className="text-[#c8ff00]" /> {s.venue}</span>
+                                    <span className="ml-auto block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
+                                        style={{ backgroundColor: s.tagColor }}>
+                                        {s.tag}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     ))}

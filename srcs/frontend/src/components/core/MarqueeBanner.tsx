@@ -3,11 +3,6 @@ import '../../styles/marquee.css'
 
 const COPIES = 4 // enough to always fill any screen width
 
-const iconStyle: React.CSSProperties = {
-    filter: 'drop-shadow(0 0 1px black) drop-shadow(0 0 2px black)',
-    flexShrink: 0,
-}
-
 const textStyle: React.CSSProperties = {
     color: '#c8ff00',
     WebkitTextStroke: '2px black',

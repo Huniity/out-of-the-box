@@ -247,11 +247,3 @@ function InfoRow({ label, value }: { label: string; value: string }) {
     );
 }
 
-function StatCard({ label, value }: { label: string; value: React.ReactNode }) {
-    return (
-        <div className="rounded-xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-xl">
-            <p className="text-xs font-bold text-gray-500">{label}</p>
-            <p className="mt-2 text-3xl font-black">{value}</p>
-        </div>
-    );
-}

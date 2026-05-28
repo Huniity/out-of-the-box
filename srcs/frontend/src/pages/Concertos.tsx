@@ -1,6 +1,6 @@
 
-import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock, Music2, Eye, Shuffle } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -8,9 +8,9 @@ import { concertosFeaturedEvent as featuredEvent, concertosProgramme as programm
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_concertos from '../assets/polaroid_concertos.webp'
+import polaroid_concertos from '../assets/polaroids/polaroid_concertos.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 const Concertos = () => {
         const {
@@ -139,7 +139,9 @@ const Concertos = () => {
                         </p>
                         <div className="flex flex-wrap gap-2">
                             {featuredEvent.badges.map((b, i) => (
-                                <span key={i} className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border ${i === 0 ? 'bg-[#c8ff00]/10 border-[#c8ff00]/40 text-[#c8ff00]' : 'bg-white/5 border-white/20 text-white/60'}`}>
+                                <span key={i}
+                                    className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
+                                    style={{ backgroundColor: i === 0 ? '#c8ff00' : 'rgba(255,255,255,0.65)' }}>
                                     {b}
                                 </span>
                             ))}
@@ -181,12 +183,6 @@ const Concertos = () => {
                                         <span className="block text-[8px] font-black uppercase tracking-widest">{p.month}</span>
                                     </div>
                                 </div>
-                                <div className="absolute top-3 right-3">
-                                    <span className="text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-sm"
-                                        style={{ backgroundColor: p.tagColor + '33', color: p.tagColor, border: `1px solid ${p.tagColor}55` }}>
-                                        {p.tag}
-                                    </span>
-                                </div>
                             </div>
 
                             {/* Info */}
@@ -198,6 +194,10 @@ const Concertos = () => {
                                     <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {p.time}</span>
                                     <span className="text-white/20">•</span>
                                     <span className="flex items-center gap-1"><MapPin size={10} className="text-[#c8ff00]" /> {p.venue}</span>
+                                    <span className="ml-auto block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
+                                        style={{ backgroundColor: p.tagColor }}>
+                                        {p.tag}
+                                    </span>
                                 </div>
                             </div>
                         </div>
