@@ -157,6 +157,7 @@ export const fieldLabels: Record<string, string> = {
     recruiter_name: "Recrutador",
     max_candidates: "Máx. Candidatos",
     featured_projects: "Projeto em Destaque",
+    category_other: "Categoria (personalizada)",
 };
 
 /**
