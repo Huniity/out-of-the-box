@@ -1,6 +1,15 @@
-import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock, Camera, Film, Code2, Megaphone, Gamepad2, Tv2 } from 'lucide-react'
+import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, Eye, MapPin, Ticket, Briefcase, MessageSquare, Link2, Shuffle, Music2, Play, Clock } from 'lucide-react'
 import proj from '../assets/etic_algarve/FUNDO.webp'
 import Fundo from '../assets/etic_algarve/FUNDO.webp'
+
+import wsIconDesign     from '../assets/icons/areas/design_lime.png'
+import wsIconFoto       from '../assets/icons/areas/foto_yellow.png'
+import wsIconVideo      from '../assets/icons/areas/video_pink.png'
+import wsIconSom        from '../assets/icons/areas/som_purple.png'
+import wsIconPw         from '../assets/icons/areas/pw_green.png'
+import wsIconMarketing  from '../assets/icons/areas/marketing_orange.png'
+import wsIconJogos      from '../assets/icons/areas/jogos_blue.png'
+import wsIconCinema     from '../assets/icons/areas/cinema_pale_pink.png'
 import { Session, SessionType } from '../types/palestras'
 import { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
@@ -278,30 +287,30 @@ export const projecoesFeatures = [
         desc: 'Ficção, documentário, experimental, reportagem e muito mais.',
     },
 ]
-
+    
 
 // Workshops
 
 export const workshopsAreas = [
-    { icon: <Zap      size={26} strokeWidth={1.5} />, name: 'DESIGN',       color: '#c8ff00', desc: 'Comunicação visual, branding e design de experiências.' },
-    { icon: <Camera   size={26} strokeWidth={1.5} />, name: 'FOTOGRAFIA',   color: '#f97316', desc: 'Imagem, luz e composição para contar histórias.' },
-    { icon: <Film     size={26} strokeWidth={1.5} />, name: 'VÍDEO',        color: '#ec4899', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
-    { icon: <Music2   size={26} strokeWidth={1.5} />, name: 'SOM',          color: '#a855f7', desc: 'Captação, edição e produção de som profissional.' },
-    { icon: <Code2    size={26} strokeWidth={1.5} />, name: 'PROGRAMAÇÃO',  color: '#22c55e', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
-    { icon: <Megaphone size={26} strokeWidth={1.5} />, name: 'MARKETING',   color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
-    { icon: <Gamepad2 size={26} strokeWidth={1.5} />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
-    { icon: <Tv2      size={26} strokeWidth={1.5} />, name: 'CINEMA / TV',  color: '#ec4899', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
+    { icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
+    { icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
+    { icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
+    { icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
+    { icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
+    { icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
+    { icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
+    { icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
 ]
 
 export const workshopsAreaColor: Record<string, string> = {
-    'DESIGN':       '#c8ff00',
-    'FOTOGRAFIA':   '#f97316',
-    'VÍDEO':        '#ec4899',
-    'SOM':          '#a855f7',
-    'PROGRAMAÇÃO':  '#22c55e',
+    'DESIGN':       '#d0ea73',
+    'FOTOGRAFIA':   '#f8ad2c',
+    'VÍDEO':        '#d35f99',
+    'SOM':          '#918fc0',
+    'PROGRAMAÇÃO':  '#69ffa0',
     'MARKETING':    '#f97316',
     'VIDEOJOGOS':   '#3b82f6',
-    'CINEMA/TV':    '#ec4899',
+    'CINEMA/TV':    '#ffa8d3',
 }
 
 export const workshopsWorkshops = [

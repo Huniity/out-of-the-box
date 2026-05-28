@@ -9,6 +9,39 @@ import dLime from '../../assets/doodles/doodle_lime.webp'
 import dOrange from '../../assets/doodles/doodle_orange.webp'
 import dSalmon from '../../assets/doodles/doodle_salmon.webp'
 
+// Area-specific icons
+import icnExpoDesign    from '../../assets/icons/EXPOSICOES/exposicoes-design.webp'
+import icnExpoFoto      from '../../assets/icons/EXPOSICOES/exposicoes-fotografia.webp'
+import icnExpoJogos     from '../../assets/icons/EXPOSICOES/exposicoes-videojogos.webp'
+
+import icnTalksDesign   from '../../assets/icons/SUNSET_TALKS/sunset-talks-design.webp'
+import icnTalksFoto     from '../../assets/icons/SUNSET_TALKS/sunset-talks-fotografia.webp'
+import icnTalksMkt      from '../../assets/icons/SUNSET_TALKS/sunset-talks-marketing.webp'
+import icnTalksPw       from '../../assets/icons/SUNSET_TALKS/sunset-talks-programacoo.webp'
+import icnTalksSom      from '../../assets/icons/SUNSET_TALKS/sunset-talks-som.webp'
+import icnTalksVideo    from '../../assets/icons/SUNSET_TALKS/sunset-talks-video.webp'
+import icnTalksJogos    from '../../assets/icons/SUNSET_TALKS/sunset-talks-videojogos.webp'
+
+import icnWsDesign      from '../../assets/icons/WORKSHOPS/workshops-design.webp'
+import icnWsFoto        from '../../assets/icons/WORKSHOPS/workshops-fotografia.webp'
+import icnWsMkt         from '../../assets/icons/WORKSHOPS/workshops-marketing.webp'
+import icnWsPw          from '../../assets/icons/WORKSHOPS/workshops-programacao.webp'
+import icnWsSom         from '../../assets/icons/WORKSHOPS/workshops-som.webp'
+import icnWsVideo       from '../../assets/icons/WORKSHOPS/workshops-video.webp'
+import icnWsJogos       from '../../assets/icons/WORKSHOPS/workshops-videojogos.webp'
+
+import icnCinemaVideo   from '../../assets/icons/CINEMA/cinema-video.webp'
+
+import icnConcSom       from '../../assets/icons/CONCERTOS/concertos-som.webp'
+
+import icnShDesign      from '../../assets/icons/SPEEDHUNTING/speedhunting-design.webp'
+import icnShFoto        from '../../assets/icons/SPEEDHUNTING/speedhunting-fotografia.webp'
+import icnShMkt         from '../../assets/icons/SPEEDHUNTING/speedhunting-marketing.webp'
+import icnShPw          from '../../assets/icons/SPEEDHUNTING/speedhunting-programacao.webp'
+import icnShSom         from '../../assets/icons/SPEEDHUNTING/speedhunting-som.webp'
+import icnShVideo       from '../../assets/icons/SPEEDHUNTING/speedhunting-video.webp'
+import icnShJogos       from '../../assets/icons/SPEEDHUNTING/speedhunting-videojogos.webp'
+
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ArrowRight } from 'lucide-react'
@@ -25,13 +58,12 @@ import IconGallery from '../core/IconGallery'
 
 
 const areas = [
-  { num: '01', name: 'Exposições', desc: 'Design, Fotografia, Videojogos e Projetos Multidisciplinares', slug: 'exposicoes', rotate: -3, side: 'right', polaroid: polaroidExposicoes, icons: ['design_rosa', 'foto_verde', 'video_jogos_rosa', 'design_verde', 'foto_rosa', 'video_jogos_verde'] },
-  { num: '02', name: 'Sunset Talks', desc: 'Conversas criativas com convidados especiais', slug: 'sunset-talks', rotate: 2.5, side: 'left', polaroid: polaroidSunsetTalks, icons: ['video_jogos_verde', 'video_rosa', 'foto_verde', 'design_rosa', 'pw_verde', 'som_rosa', 'marketing_verde', 'video_jogos_rosa', 'video_verde', 'foto_rosa', 'design_verde', 'pw_rosa', 'som_verde', 'marketing_rosa'] },
-  { num: '03', name: 'Workshops', desc: 'Sessões práticas em várias áreas formativas', slug: 'workshops', rotate: -2, side: 'right', polaroid: polaroidWorkshops, icons: ['video_rosa', 'foto_verde', 'design_rosa', 'pw_verde', 'som_rosa', 'marketing_verde', 'video_jogos_rosa', 'video_verde', 'foto_rosa', 'design_verde', 'pw_rosa', 'som_verde', 'marketing_rosa', 'video_jogos_verde'] },
-  { num: '04', name: 'Cinema', desc: 'Mostra de cinema da comunidade ETIC_Algarve', slug: 'cinema', rotate: 3.5, side: 'left', polaroid: polaroidCinema, icons: ['video_verde', 'video_rosa'] },
-  { num: '05', name: 'Concertos', desc: 'Concertos Live in Sight e comunidade ETIC_Algarve', slug: 'concertos', rotate: -2.5, side: 'right', polaroid: polaroidConcertos, icons: ['som_rosa', 'som_verde'] },
-  { num: '06', name: 'Speed Hunting', desc: 'Networking entre empresas e comunidade ETIC_Algarve', slug: 'speed-hunting', rotate: 2, side: 'left', polaroid: polaroidSpeedHunting, icons: ['video_jogos_verde', 'video_rosa', 'foto_verde', 'design_rosa', 'pw_verde', 'som_rosa', 'marketing_verde', 'video_jogos_rosa', 'video_verde', 'foto_rosa', 'design_verde', 'pw_rosa', 'som_verde', 'marketing_rosa'] },
-  // { num: '07', name: 'Semana Lábia',  desc: 'Projetos da Semana Lábia 2026',               slug: 'area-especial', rotate: -3,   side: 'right', polaroid: polaroidSemanaLabia,  icons: ['foto_rosa', 'foto_verde']        },
+  { num: '01', name: 'Exposições',   desc: 'Design, Fotografia, Videojogos e Projetos Multidisciplinares', slug: 'exposicoes',    rotate: -3,   side: 'right', polaroid: polaroidExposicoes,   icons: [icnExpoDesign, icnExpoFoto, icnExpoJogos] },
+  { num: '02', name: 'Sunset Talks', desc: 'Conversas criativas com convidados especiais',                 slug: 'sunset-talks',  rotate: 2.5,  side: 'left',  polaroid: polaroidSunsetTalks,  icons: [icnTalksDesign, icnTalksFoto, icnTalksMkt, icnTalksPw, icnTalksSom, icnTalksVideo, icnTalksJogos] },
+  { num: '03', name: 'Workshops',    desc: 'Sessões práticas em várias áreas formativas',                  slug: 'workshops',     rotate: -2,   side: 'right', polaroid: polaroidWorkshops,    icons: [icnWsDesign, icnWsFoto, icnWsMkt, icnWsPw, icnWsSom, icnWsVideo, icnWsJogos] },
+  { num: '04', name: 'Cinema',       desc: 'Mostra de cinema da comunidade ETIC_Algarve',                  slug: 'cinema',        rotate: 3.5,  side: 'left',  polaroid: polaroidCinema,       icons: [icnCinemaVideo] },
+  { num: '05', name: 'Concertos',    desc: 'Concertos Live in Sight e comunidade ETIC_Algarve',            slug: 'concertos',     rotate: -2.5, side: 'right', polaroid: polaroidConcertos,    icons: [icnConcSom] },
+  { num: '06', name: 'Speed Hunting',desc: 'Networking entre empresas e comunidade ETIC_Algarve',          slug: 'speed-hunting', rotate: 2,    side: 'left',  polaroid: polaroidSpeedHunting, icons: [icnShDesign, icnShFoto, icnShMkt, icnShPw, icnShSom, icnShVideo, icnShJogos] },
 ]
 
 function buildZigzagPath(pts: { x: number; y: number }[]): string {
