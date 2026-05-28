@@ -9,7 +9,7 @@ export const sunsetTalksApi = {
             return mapSunsetTalks(Array.isArray(data) ? data : data.results || []);
         } catch (error) {
             console.warn("API offline - fallback Sunset Talks:", error);
-            return mapSunsetTalks(sunsetTalksSessions);
+            return mapSunsetTalks(sunsetTalksSessions as any);
         }
     }
 };

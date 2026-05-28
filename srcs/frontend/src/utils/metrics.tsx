@@ -171,17 +171,17 @@ export const concertosFeaturedEvent = {
     subtitle: 'Live de Abertura do Out of the Box – Faro 2026',
     desc: 'Um concerto especial que marca o arranque do festival. Música, audiovisual e energia coletiva para abrir 15 dias de criatividade sem limites.',
     badges: ['CONCERTO', 'ENTRADA LIVRE'],
+    info_link: 'https://www.eticalgarve.com/comunidade/live-insight/',
+    social_link: 'https://www.instagram.com/liveinsight.etic',
 }
 
 export const concertosProgramme = [
-    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC_Algarve',               time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '8',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'ALUNOS EM PALCO SESSÃO 1',     time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '9',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'VIBE COLLECTIVE DJ SET',       time: '21:00', venue: 'IPDJ, Faro' },
-    { day: '10', month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'ACÚSTICO E EXPERIMENTAL',      time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '11', month: 'JUL', tag: 'HAPPENING', tagColor: '#ec4899', title: 'HAPPENING MULTIDISCIPLINAR',   time: '20:00', venue: 'IPDJ, Faro' },
+    { id: 1, band_name: 'LIVE IN SIGHT',              description: 'O concerto de abertura do Out of the Box 2026. Uma noite de estreias ao vivo com os alunos de Som e Áudio da ETIC_Algarve — música, energia e criatividade para arrancar o festival.',        info_link: 'https://www.eticalgarve.com/comunidade/live-insight/', social_link: 'https://www.instagram.com/liveinsight.etic',        image: null, start_datetime: '2026-07-03T21:00:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
+    { id: 2, band_name: 'THE ALGARVE COLLECTIVE',     description: 'Projeto de fusão entre jazz, funk e eletrónica criado por músicos do sul de Portugal. Uma performance ao vivo que combina instrumentação acústica com produção digital em tempo real.',         info_link: 'https://www.thealgarvecollective.com',                 social_link: 'https://www.instagram.com/thealgarvecollective',    image: null, start_datetime: '2026-07-07T20:30:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
+    { id: 3, band_name: 'NOITE EM BRANCO',            description: 'Duo de música eletrónica e voz formado por ex-alunos da ETIC_Algarve. Composições ambientais e letras em português que falam de identidade e território.',                                    info_link: 'https://www.noiteembranco.pt',                         social_link: 'https://www.instagram.com/noiteembranco.music',     image: null, start_datetime: '2026-07-12T21:30:00', location: 'Palco Exterior — IPDJ, Faro',  is_active: true },
+    { id: 4, band_name: 'BEATS BY ETIC',              description: 'DJ set coletivo dos alunos de Produção Musical. Uma noite de sets eletrónicos que explora diferentes géneros — de house a drum & bass — com visuais criados pelas turmas de Motion Design.',   info_link: null,                                                  social_link: 'https://www.instagram.com/eticalgarve',             image: null, start_datetime: '2026-07-05T20:00:00', location: 'Palco Interior — IPDJ, Faro',  is_active: true },
+    { id: 5, band_name: 'SOUND EXPERIMENTS',          description: 'Concerto experimental dos alunos de Som, explorando soundscapes, noise e texturas sonoras. Uma viagem imersiva pelos limites do som.',                                                        info_link: null,                                                  social_link: null,                                                image: null, start_datetime: '2026-07-08T19:00:00', location: 'Sala Experimental — IPDJ, Faro', is_active: true },
+    { id: 6, band_name: 'HAPPENING MULTIDISCIPLINAR', description: 'Performance coletiva que junta alunos de Som, Vídeo, Design e Dança. Um happening único que celebra a criatividade cruzada e encerra a semana do festival em grande.',                         info_link: null,                                                  social_link: 'https://www.instagram.com/eticalgarve',             image: null, start_datetime: '2026-07-17T20:00:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
 ]
 
 export const concertosHappenings = [
