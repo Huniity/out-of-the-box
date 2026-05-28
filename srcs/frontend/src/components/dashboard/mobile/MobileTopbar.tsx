@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Menu, X, ArrowLeft } from "lucide-react";
-import React from "react";
 
 interface MobileTopbarProps {
   sidebarOpen: boolean;

@@ -1,6 +1,6 @@
 
-import { CalendarDays, FolderOpen, Users, Star, Zap, Users2, Puzzle, Rocket, ChevronRight, ChevronDown, ArrowRight, Eye } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { ChevronRight, ChevronDown, ArrowRight } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import '../styles/leaves.css'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
@@ -8,7 +8,7 @@ import { usePageData } from '../hooks/usePageData'
 
 import { semanaLabiaMetrics as metrics, semanaLabiaProjects as projects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
 import PageStars from '../components/core/PageStars'
-import polaroid_semanalabias from '../assets/polaroid_semanalabias.webp'
+import polaroid_semanalabias from '../assets/polaroids/polaroid_semanalabias.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
 
 
@@ -19,8 +19,6 @@ const SemanaLabia = () => {
         main_description,
         cta_button_text,
         cta_button_link,
-        start_event_date,
-        end_event_date,
     } = usePageData('semana-labia');
 
     return (

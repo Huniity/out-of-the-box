@@ -6,7 +6,7 @@ import doodlePurple from '../../assets/d_pu.webp'
 import doodlePink from '../../assets/d_p.webp'
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
-import Fundo from '../../assets/FUNDO.webp'
+import Fundo from '../../assets/etic_algarve/FUNDO.webp'
 import { PrimaryButton } from '../buttons/MainButton'
 
 type EventCard = {

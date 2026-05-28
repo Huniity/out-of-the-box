@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
-import Fundo from '../../assets/FUNDO2.webp'
-import Fundo2 from '../../assets/FUNDO.webp'
-import galleryDesign from '../../assets/Design.webp'
-import galleryFoto from '../../assets/foto.webp'
-import galleryVideo from '../../assets/video.webp'
-import gallerySom from '../../assets/somm.webp'
-import galleryMarketing from '../../assets/marketing.webp'
-import galleryPrograma from '../../assets/programa.webp'
-import galleryJogos from '../../assets/Jogos.webp'
+import Fundo from '../../assets/etic_algarve/FUNDO2.webp'
 
 const images = [
     { src: Fundo,            alt: 'Out of the Box 2026' },
