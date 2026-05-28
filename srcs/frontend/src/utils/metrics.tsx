@@ -241,56 +241,12 @@ export const projecoesMetrics = [
 ]
 
 export const projecoesSessions = [
-    {
-        day: '9',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'NARRATIVAS DO REAL',
-        desc: 'Curtas-metragens de ficção e documentário.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '10',
-        month: 'JUL',
-        tag: 'CINEMA',
-        tagColor: '#3b82f6',
-        title: 'OLHARES DO AMANHÃ',
-        desc: 'Histórias, personagens e novas formas de ver o mundo.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '11',
-        month: 'JUL',
-        tag: 'TV',
-        tagColor: '#22c55e',
-        title: 'DE ATRÁS DAS CÂMARAS',
-        desc: 'Projetos de reportagem, entretenimento e formatos TV.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '12',
-        month: 'JUL',
-        tag: 'REALIZAÇÃO',
-        tagColor: '#ec4899',
-        title: 'EXPERIMENTAR É CRIAR',
-        desc: 'Trabalhos experimentais e autorais dos alunos.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
-    {
-        day: '16',
-        month: 'JUL',
-        tag: 'SESSÃO ESPECIAL',
-        tagColor: '#a855f7',
-        title: 'BEST OF OUT OF THE BOX',
-        desc: 'Seleção dos melhores projetos do festival.',
-        time: '19:00',
-        venue: 'AUDITÓRIO',
-    },
+    { id: 1, title: 'NARRATIVAS DO REAL',      director_team: 'Turma Realização A', synopsis: 'Curtas-metragens de ficção e documentário que exploram histórias do quotidiano com um olhar autoral e contemporâneo.', duration: '90', social_link: null, image: null, start_datetime: '2026-07-09T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 2, title: 'OLHARES DO AMANHÃ',        director_team: 'Turma Cinema B',     synopsis: 'Histórias, personagens e novas formas de ver o mundo através da linguagem cinematográfica dos alunos finalistas.', duration: '85', social_link: null, image: null, start_datetime: '2026-07-10T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 3, title: 'DE ATRÁS DAS CÂMARAS',     director_team: 'Turma TV',           synopsis: 'Projetos de reportagem, entretenimento e formatos TV produzidos e realizados pelos alunos da área de Televisão.', duration: '80', social_link: null, image: null, start_datetime: '2026-07-11T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 4, title: 'EXPERIMENTAR É CRIAR',     director_team: 'Turma Realização B', synopsis: 'Trabalhos experimentais e autorais que desafiam os limites da narrativa visual e sonora.', duration: '75', social_link: null, image: null, start_datetime: '2026-07-12T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 5, title: 'BEST OF OUT OF THE BOX',   director_team: 'Seleção Festival',   synopsis: 'Seleção dos melhores projetos do festival — uma celebração do talento dos alunos da ETIC_Algarve.', duration: '120', social_link: null, image: null, start_datetime: '2026-07-16T19:00:00', location: 'Auditório ETIC', is_active: true },
+    { id: 6, title: 'SESSÃO DE ENCERRAMENTO',   director_team: 'Vários',             synopsis: 'Sessão final do festival com premiação e exibição dos projetos mais votados pelo público e pelo júri.', duration: '100', social_link: null, image: null, start_datetime: '2026-07-17T19:00:00', location: 'Auditório ETIC', is_active: true },
 ]
 
 export const projecoesFeatures = [
