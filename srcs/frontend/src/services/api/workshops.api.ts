@@ -9,7 +9,7 @@ export const workshopsApi = {
             return mapWorkshops(Array.isArray(data) ? data : data.results || []);
         } catch (error) {
             console.warn("API offline - fallback Workshops:", error);
-            return mapWorkshops(workshopsWorkshops);
+            return mapWorkshops(workshopsWorkshops as any);
         }
     }
 };

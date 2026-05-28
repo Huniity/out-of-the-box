@@ -9,7 +9,7 @@ export const speedHuntingApi = {
             return mapSpeedHunting(Array.isArray(data) ? data : data.results || []);
         } catch (error) {
             console.warn("API offline - fallback Speed Hunting:", error);
-            return mapSpeedHunting(speedHuntingCompanies);
+            return mapSpeedHunting(speedHuntingCompanies as any);
         }
     }
 };
