@@ -10,7 +10,7 @@ import wsIconPw         from '../assets/icons/AREAS/pw_green.webp'
 import wsIconMarketing  from '../assets/icons/AREAS/marketing_orange.webp'
 import wsIconJogos      from '../assets/icons/AREAS/jogos_blue.webp'
 import wsIconCinema     from '../assets/icons/AREAS/cinema_pale_pink.webp'
-import { Session, SessionType } from '../types/palestras'
+import { Session, SessionType } from '../types/sunsetTalks'
 import { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
 // SEMANA LABIA
@@ -334,9 +334,9 @@ export const workshopsMetrics = [
 export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
 
 
-// Palestras
+// Sunset Talks
 
-export const palestrasTypeColors: Record<SessionType, string> = {
+export const sunsetTalksTypeColors: Record<SessionType, string> = {
   'PALESTRA':     '#c8ff00',
   'WORKSHOP':     '#60a5fa',
   'CONCERTOS': '#fb923c',
@@ -345,7 +345,7 @@ export const palestrasTypeColors: Record<SessionType, string> = {
 
 
 
-export const palestrasSessions: Session[] = [
+export const sunsetTalksSessions: Session[] = [
   // ── 3 Jul ──
   { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo },
   { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo },
@@ -366,13 +366,13 @@ export const palestrasSessions: Session[] = [
   // ── 8 Jul ──
   { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo },
   { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo },
-  // ── 9 & 10 Jul (Speed Hunting) — sem palestras ──
+  // ── 9 & 10 Jul (Speed Hunting) — sem sunset talks ──
   // ── 11 Jul ──
   { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo },
   { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo },
 ]
 
-export const palestrasEventDays = [
+export const sunsetTalksEventDays = [
   { day: 3,  weekday: 'SEX' }, { day: 4,  weekday: 'SÁB' }, { day: 5,  weekday: 'DOM' },
   { day: 6,  weekday: 'SEG' }, { day: 7,  weekday: 'TER' }, { day: 8,  weekday: 'QUA' },
   { day: 9,  weekday: 'QUI' }, { day: 10, weekday: 'SEX' }, { day: 11, weekday: 'SÁB' },
@@ -380,9 +380,9 @@ export const palestrasEventDays = [
   { day: 15, weekday: 'QUA' }, { day: 16, weekday: 'QUI' }, { day: 17, weekday: 'SEX' },
 ]
 
-export const palestrasAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
-export const palestrasAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
-export const palestrasPageSize = 4
+export const sunsetTalksAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
+export const sunsetTalksAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
+export const sunsetTalksPageSize = 4
 
 
 // Exposições
