@@ -1,15 +1,16 @@
 import { useState, useRef } from 'react'
-import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
+import { MoveRight, MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
+import { Session, SessionType } from '../types/palestras'
 import { palestrasTypeColors as typeColors, palestrasSessions as sessions, palestrasEventDays as eventDays, palestrasAllTypes as allTypes, palestrasAllSalas as allSalas, palestrasPageSize as pageSize } from '../utils/metrics'
 import PageStars from '../components/core/PageStars'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 
 const SunsetTalks = () => {

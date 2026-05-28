@@ -1,16 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, CalendarDays, MapPin, Users, MoveRight, ArrowRight, ChevronDown } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays, MapPin, Users, Star, Eye, Zap, MoveRight, ArrowRight, ChevronDown } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
+import type { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
 import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques as destaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
 import PageStars from '../components/core/PageStars'
 import polaroid_exposicoes from '../assets/polaroids/polaroid_exposicoes.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/leaf3.webp'
+import leaf from '../assets/doodles/leaf3.webp'
 
 
 const parseDateBadge = (dateStr: string) => {
