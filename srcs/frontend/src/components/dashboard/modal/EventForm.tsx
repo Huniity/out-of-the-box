@@ -65,7 +65,11 @@ const EventForm = ({
         setSaving(true);
 
         try {
-            await onSave(formData);
+            // Exclude null image fields — null means "no new file chosen", not "clear the image"
+            const dataToSend = Object.fromEntries(
+                Object.entries(formData).filter(([k, v]) => !(imageFields.has(k) && v === null))
+            );
+            await onSave(dataToSend);
             onClose();
         } finally {
             setSaving(false);

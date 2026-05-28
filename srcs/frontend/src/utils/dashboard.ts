@@ -8,6 +8,19 @@ export const hiddenFields = new Set([
 
 export const imageFields = new Set(["image", "company_logo"]);
 
+export const choiceFields: Record<string, { value: string; label: string }[]> = {
+    category: [
+        { value: 'DESIGN',    label: 'Design' },
+        { value: 'FOTO',      label: 'Fotografia' },
+        { value: 'MARKETING', label: 'Marketing' },
+        { value: 'PW',        label: 'Programação' },
+        { value: 'SOM',       label: 'Som' },
+        { value: 'VIDEO',     label: 'Vídeo' },
+        { value: 'JOGOS',     label: 'Videojogos' },
+        { value: 'OUTROS',    label: 'Outros' },
+    ],
+};
+
 // Maps Page.name → URL slug (used for navigation and API endpoints)
 export const PAGE_SLUG_MAP: Record<string, string> = {
     "Home":          "",
@@ -170,6 +183,17 @@ const formatFieldName = (field: string): string => {
 export const getFieldLabel = (field: string): string => {
     return fieldLabels[field] ?? formatFieldName(field);
 };
+
+// Resolves a media URL — handles Docker-internal absolute URLs (http://backend:8000/media/...)
+// by extracting just the pathname, which Vite proxies back to the backend.
+export function resolveMediaUrl(raw: string): string {
+    try {
+        const url = new URL(raw);
+        return url.pathname; // e.g. /media/speed_hunting/logos/dengun.png
+    } catch {
+        return raw.startsWith('/') ? raw : `/media/${raw}`;
+    }
+}
 
 //Formats values that display in the table
 export const formatValue = (val: unknown): string => {
