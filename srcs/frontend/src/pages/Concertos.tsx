@@ -1,10 +1,12 @@
 
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { concertosFeaturedEvent as featuredEvent, concertosProgramme as programme, concertosHappenings as happenings, concertosFeatures as features } from '../utils/metrics'
+import { concertosFeaturedEvent as featuredEvent, concertosProgramme, concertosHappenings as happenings, concertosFeatures as features } from '../utils/metrics'
+import { concertosApi } from '../services/api/concertos.api'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
@@ -22,6 +24,9 @@ const Concertos = () => {
             start_event_date,
             end_event_date,
         } = usePageData('concertos');
+
+    const [programme, setProgramme] = useState(concertosProgramme)
+    useEffect(() => { concertosApi.getConcertos().then(setProgramme as any) }, [])
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
