@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Briefcase, Users, MessageSquare, Link2, CheckCircle2, ChevronRight } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -9,7 +9,7 @@ import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntin
 import { formatEventDateRange } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 import PageStars from '../components/core/PageStars'
-import polaroid_speedhunting from '../assets/polaroid_speedhunting.webp'
+import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/leaf3.webp'
 

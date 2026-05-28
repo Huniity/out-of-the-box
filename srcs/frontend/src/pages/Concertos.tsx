@@ -1,6 +1,6 @@
 
-import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock, Music2, Eye, Shuffle } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { CalendarDays, MapPin, Music, ChevronDown, ArrowRight, Clock } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -8,7 +8,7 @@ import { concertosFeaturedEvent as featuredEvent, concertosProgramme as programm
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_concertos from '../assets/polaroid_concertos.webp'
+import polaroid_concertos from '../assets/polaroids/polaroid_concertos.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/leaf3.webp'
 

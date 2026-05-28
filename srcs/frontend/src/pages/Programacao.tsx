@@ -1,14 +1,12 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
-import Fundo from '../assets/FUNDO2.webp'
+import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_palestras from '../assets/polaroid_palestras.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/leaf3.webp'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'

@@ -1,5 +1,5 @@
 
-import { Clock, Eye, MapPin, MoreVertical, Pencil, Tag, Trash } from "lucide-react";
+import { Clock, Eye, MapPin, Pencil, Tag, Trash } from "lucide-react";
 
 type Props = {
     rows: Record<string, unknown>[];

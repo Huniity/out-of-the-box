@@ -1,6 +1,6 @@
 
-import { CalendarDays, MapPin, Users, Play, Star, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
-import heroImg from '../assets/FUNDO2.webp'
+import { CalendarDays, MapPin, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
+import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -9,7 +9,7 @@ import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFe
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
-import polaroid_cinema from '../assets/polaroid_cinema.webp'
+import polaroid_cinema from '../assets/polaroids/polaroid_cinema.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/leaf3.webp'
 
