@@ -5,7 +5,7 @@ import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
-import { palestrasTypeColors as typeColors, palestrasSessions, palestrasEventDays as eventDays, palestrasAllTypes as allTypes, palestrasAllSalas as allSalas, palestrasPageSize as pageSize } from '../utils/metrics'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 import PageStars from '../components/core/PageStars'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
@@ -22,7 +22,7 @@ const SunsetTalks = () => {
     end_event_date,
   } = usePageData('sunset-talks')
 
-  const [sessions, setSessions] = useState(palestrasSessions)
+  const [sessions, setSessions] = useState(sunsetTalksSessions)
   useEffect(() => { sunsetTalksApi.getTalks().then(setSessions as any) }, [])
 
   const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
@@ -102,7 +102,7 @@ const SunsetTalks = () => {
 
           {/* Right — hero image */}
           <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-            <img src={Fundo} alt="Palestras" className="absolute inset-0 h-full w-full object-cover brightness-75" />
+            <img src={Fundo} alt="Sunset Talks" className="absolute inset-0 h-full w-full object-cover brightness-75" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
             <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
             <StaticZigzagPath
