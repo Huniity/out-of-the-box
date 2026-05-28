@@ -10,7 +10,7 @@ import wsIconPw         from '../assets/icons/AREAS/pw_green.webp'
 import wsIconMarketing  from '../assets/icons/AREAS/marketing_orange.webp'
 import wsIconJogos      from '../assets/icons/AREAS/jogos_blue.webp'
 import wsIconCinema     from '../assets/icons/AREAS/cinema_pale_pink.webp'
-import { Session, SessionType } from '../types/palestras'
+import { Session, SessionType } from '../types/sunsetTalks'
 import { Exhibition, ExhibitionArea } from '../types/exhibitions'
 
 // SEMANA LABIA
@@ -106,19 +106,42 @@ export const speedHuntingMetrics = [
     },
 ]
 
-export const speedHuntingCategories = ['TODAS', 'DESIGN', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'FOTOGRAFIA']
+// Colors for SpeedHunting category badges — keyed by backend CATEGORY_CHOICES codes
+export const speedHuntingCategoryColor: Record<string, string> = {
+    'DESIGN':    '#d0ea73',
+    'FOTO':      '#f8ad2c',
+    'MARKETING': '#f97316',
+    'PW':        '#69ffa0',
+    'SOM':       '#918fc0',
+    'VIDEO':     '#d35f99',
+    'JOGOS':     '#3b82f6',
+    'OUTROS':    '#a1a1aa',
+}
+
+export const speedHuntingCategoryLabel: Record<string, string> = {
+    'DESIGN':    'Design',
+    'FOTO':      'Fotografia',
+    'MARKETING': 'Marketing',
+    'PW':        'Programação',
+    'SOM':       'Som',
+    'VIDEO':     'Vídeo',
+    'JOGOS':     'Videojogos',
+    'OUTROS':    'Outros',
+}
+
+export const speedHuntingCategories = ['TODAS', 'DESIGN', 'FOTO', 'MARKETING', 'PW', 'SOM', 'VIDEO', 'JOGOS']
 
 export const speedHuntingCompanies = [
-    { initials: 'AC', name: 'ALGARVE CREATIVE', category: 'DESIGN',      color: '#f97316', desc: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
-    { initials: 'PF', name: 'PIXEL FORGE',      category: 'VÍDEO',       color: '#3b82f6', desc: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
-    { initials: 'SS', name: 'SONORA STUDIO',    category: 'SOM',         color: '#a855f7', desc: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
-    { initials: 'LT', name: 'LUMIA TECH',       category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
-    { initials: 'BH', name: 'BRAND HOUSE',      category: 'MARKETING',   color: '#ec4899', desc: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
-    { initials: 'FL', name: 'FRAME LAB',        category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
-    { initials: 'CI', name: 'CUBO INTERATIVO',  category: 'PROGRAMAÇÃO', color: '#22c55e', desc: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
-    { initials: 'NF', name: 'NORTE FILMES',     category: 'VÍDEO',       color: '#3b82f6', desc: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
-    { initials: 'VC', name: 'VOZES CRIATIVAS',  category: 'SOM',         color: '#a855f7', desc: 'Design de som, locução e produção musical para multimédia.' },
-    { initials: 'FV', name: 'FOCO VISUAL',      category: 'FOTOGRAFIA',  color: '#f97316', desc: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
+    { company_name: 'ALGARVE CREATIVE', category: 'DESIGN',    company_logo: null, company_description: 'Agência criativa com foco em branding, design e estratégia para marcas autênticas.' },
+    { company_name: 'PIXEL FORGE',      category: 'VIDEO',     company_logo: null, company_description: 'Produção de vídeo e motion graphics com projetos nacionais e internacionais.' },
+    { company_name: 'SONORA STUDIO',    category: 'SOM',       company_logo: null, company_description: 'Estúdio de som e música para publicidade, cinema, jogos e conteúdos digitais.' },
+    { company_name: 'LUMIA TECH',       category: 'PW',        company_logo: null, company_description: 'Soluções tecnológicas e desenvolvimento de software à medida.' },
+    { company_name: 'BRAND HOUSE',      category: 'MARKETING', company_logo: null, company_description: 'Estratégia de marca, comunicação digital e campanhas que geram resultados.' },
+    { company_name: 'FRAME LAB',        category: 'FOTO',      company_logo: null, company_description: 'Fotografia e conteúdo visual para marcas, pessoas e eventos.' },
+    { company_name: 'CUBO INTERATIVO',  category: 'PW',        company_logo: null, company_description: 'Desenvolvimento web, apps e experiências interativas sob medida.' },
+    { company_name: 'NORTE FILMES',     category: 'VIDEO',     company_logo: null, company_description: 'Produtora de conteúdo audiovisual focada em histórias e impacto.' },
+    { company_name: 'VOZES CRIATIVAS',  category: 'SOM',       company_logo: null, company_description: 'Design de som, locução e produção musical para multimédia.' },
+    { company_name: 'FOCO VISUAL',      category: 'FOTO',      company_logo: null, company_description: 'Fotografia publicitária e corporativa com olhar contemporâneo.' },
 ]
 
 export const speedHuntingSteps = [
@@ -148,17 +171,17 @@ export const concertosFeaturedEvent = {
     subtitle: 'Live de Abertura do Out of the Box – Faro 2026',
     desc: 'Um concerto especial que marca o arranque do festival. Música, audiovisual e energia coletiva para abrir 15 dias de criatividade sem limites.',
     badges: ['CONCERTO', 'ENTRADA LIVRE'],
+    info_link: 'https://www.eticalgarve.com/comunidade/live-insight/',
+    social_link: 'https://www.instagram.com/liveinsight.etic',
 }
 
 export const concertosProgramme = [
-    { day: '4',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'BEATS BY ETIC_Algarve',               time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '5',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'SOUND EXPERIMENTS',            time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '6',  month: 'JUL', tag: 'SHOWCASE',  tagColor: '#a855f7', title: 'ELECTRO / VISUAL SHOWCASE',    time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '7',  month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'NOISE & TEXTURES LIVE',        time: '19:00', venue: 'IPDJ, Faro' },
-    { day: '8',  month: 'JUL', tag: 'CONCERTO',  tagColor: '#ec4899', title: 'ALUNOS EM PALCO SESSÃO 1',     time: '20:00', venue: 'IPDJ, Faro' },
-    { day: '9',  month: 'JUL', tag: 'DJ SET',    tagColor: '#f97316', title: 'VIBE COLLECTIVE DJ SET',       time: '21:00', venue: 'IPDJ, Faro' },
-    { day: '10', month: 'JUL', tag: 'LIVE',      tagColor: '#3b82f6', title: 'ACÚSTICO E EXPERIMENTAL',      time: '20:30', venue: 'IPDJ, Faro' },
-    { day: '11', month: 'JUL', tag: 'HAPPENING', tagColor: '#ec4899', title: 'HAPPENING MULTIDISCIPLINAR',   time: '20:00', venue: 'IPDJ, Faro' },
+    { id: 1, band_name: 'LIVE IN SIGHT',              description: 'O concerto de abertura do Out of the Box 2026. Uma noite de estreias ao vivo com os alunos de Som e Áudio da ETIC_Algarve — música, energia e criatividade para arrancar o festival.',        info_link: 'https://www.eticalgarve.com/comunidade/live-insight/', social_link: 'https://www.instagram.com/liveinsight.etic',        image: null, start_datetime: '2026-07-03T21:00:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
+    { id: 2, band_name: 'THE ALGARVE COLLECTIVE',     description: 'Projeto de fusão entre jazz, funk e eletrónica criado por músicos do sul de Portugal. Uma performance ao vivo que combina instrumentação acústica com produção digital em tempo real.',         info_link: 'https://www.thealgarvecollective.com',                 social_link: 'https://www.instagram.com/thealgarvecollective',    image: null, start_datetime: '2026-07-07T20:30:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
+    { id: 3, band_name: 'NOITE EM BRANCO',            description: 'Duo de música eletrónica e voz formado por ex-alunos da ETIC_Algarve. Composições ambientais e letras em português que falam de identidade e território.',                                    info_link: 'https://www.noiteembranco.pt',                         social_link: 'https://www.instagram.com/noiteembranco.music',     image: null, start_datetime: '2026-07-12T21:30:00', location: 'Palco Exterior — IPDJ, Faro',  is_active: true },
+    { id: 4, band_name: 'BEATS BY ETIC',              description: 'DJ set coletivo dos alunos de Produção Musical. Uma noite de sets eletrónicos que explora diferentes géneros — de house a drum & bass — com visuais criados pelas turmas de Motion Design.',   info_link: null,                                                  social_link: 'https://www.instagram.com/eticalgarve',             image: null, start_datetime: '2026-07-05T20:00:00', location: 'Palco Interior — IPDJ, Faro',  is_active: true },
+    { id: 5, band_name: 'SOUND EXPERIMENTS',          description: 'Concerto experimental dos alunos de Som, explorando soundscapes, noise e texturas sonoras. Uma viagem imersiva pelos limites do som.',                                                        info_link: null,                                                  social_link: null,                                                image: null, start_datetime: '2026-07-08T19:00:00', location: 'Sala Experimental — IPDJ, Faro', is_active: true },
+    { id: 6, band_name: 'HAPPENING MULTIDISCIPLINAR', description: 'Performance coletiva que junta alunos de Som, Vídeo, Design e Dança. Um happening único que celebra a criatividade cruzada e encerra a semana do festival em grande.',                         info_link: null,                                                  social_link: 'https://www.instagram.com/eticalgarve',             image: null, start_datetime: '2026-07-17T20:00:00', location: 'Palco Principal — IPDJ, Faro', is_active: true },
 ]
 
 export const concertosHappenings = [
@@ -334,9 +357,9 @@ export const workshopsMetrics = [
 export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTOGRAFIA', 'VÍDEO', 'SOM', 'PROGRAMAÇÃO', 'MARKETING', 'VIDEOJOGOS', 'CINEMA/TV']
 
 
-// Palestras
+// Sunset Talks
 
-export const palestrasTypeColors: Record<SessionType, string> = {
+export const sunsetTalksTypeColors: Record<SessionType, string> = {
   'PALESTRA':     '#c8ff00',
   'WORKSHOP':     '#60a5fa',
   'CONCERTOS': '#fb923c',
@@ -345,7 +368,7 @@ export const palestrasTypeColors: Record<SessionType, string> = {
 
 
 
-export const palestrasSessions: Session[] = [
+export const sunsetTalksSessions: Session[] = [
   // ── 3 Jul ──
   { id: 1,  day: 3,  time: '10:00', location: 'SALA 1', type: 'PALESTRA',  title: 'O Futuro do Design é Humano',         speaker_name: 'Inês Almeida',                    speaker_activity: 'Designer & Art Director',   description: 'Uma reflexão sobre o papel do design num mundo cada vez mais tecnológico e sobre como a empatia e a criatividade continuam a ser essenciais.', image: Fundo },
   { id: 2,  day: 3,  time: '11:30', location: 'SALA 2', type: 'WORKSHOP',  title: 'Motion Design com Propósito',         speaker_name: 'Rui Tomás',                       speaker_activity: 'Motion Designer',           description: 'Workshop prático sobre storytelling visual, animação e ferramentas para criar impacto.',                                                    image: Fundo },
@@ -366,13 +389,13 @@ export const palestrasSessions: Session[] = [
   // ── 8 Jul ──
   { id: 13, day: 8,  time: '11:00', location: 'SALA 5', type: 'WORKSHOP',  title: 'Produção Musical para Imagem',        speaker_name: 'DJ Marcos',                       speaker_activity: 'Produtor Musical',          description: 'Criação de trilhas sonoras e sound design para vídeo, publicidade e experiências.', image: Fundo },
   { id: 14, day: 8,  time: '16:00', location: 'SALA 6', type: 'CONCERTOS', title: 'Arquitectura de Marca Digital',       speaker_name: 'Joana Pereira',                   speaker_activity: 'Brand Strategist',          description: 'Como as marcas se constroem no digital e o papel do design em cada ponto de contacto.', image: Fundo },
-  // ── 9 & 10 Jul (Speed Hunting) — sem palestras ──
+  // ── 9 & 10 Jul (Speed Hunting) — sem sunset talks ──
   // ── 11 Jul ──
   { id: 15, day: 11, time: '10:00', location: 'SALA 7', type: 'PALESTRA',  title: 'Fotografia Documental',               speaker_name: 'Pedro Tavares',                   speaker_activity: 'Fotógrafo Documental',      description: 'Ética, técnica e oportunidades na fotografia documental e reportagem.', image: Fundo },
   { id: 16, day: 11, time: '14:30', location: 'SALA 8', type: 'WORKSHOP',  title: 'Narrativa Visual em Banda Desenhada', speaker_name: 'Sofia Matos',                     speaker_activity: 'Ilustradora & BD',          description: 'Estrutura narrativa, storyboard e composição visual na banda desenhada.', image: Fundo },
 ]
 
-export const palestrasEventDays = [
+export const sunsetTalksEventDays = [
   { day: 3,  weekday: 'SEX' }, { day: 4,  weekday: 'SÁB' }, { day: 5,  weekday: 'DOM' },
   { day: 6,  weekday: 'SEG' }, { day: 7,  weekday: 'TER' }, { day: 8,  weekday: 'QUA' },
   { day: 9,  weekday: 'QUI' }, { day: 10, weekday: 'SEX' }, { day: 11, weekday: 'SÁB' },
@@ -380,9 +403,9 @@ export const palestrasEventDays = [
   { day: 15, weekday: 'QUA' }, { day: 16, weekday: 'QUI' }, { day: 17, weekday: 'SEX' },
 ]
 
-export const palestrasAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
-export const palestrasAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
-export const palestrasPageSize = 4
+export const sunsetTalksAllTypes  = ['TODAS', 'PALESTRA', 'WORKSHOP', 'CONCERTOS', 'PROJEÇÕES'] as const
+export const sunsetTalksAllSalas  = ['TODAS', 'SALA 1', 'SALA 2', 'SALA 3', 'SALA 4', 'SALA 5', 'SALA 6', 'SALA 7', 'SALA 8'] as const
+export const sunsetTalksPageSize = 4
 
 
 // Exposições

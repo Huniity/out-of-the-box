@@ -1,10 +1,12 @@
 
+import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
-import { projecoesMetrics as metrics, projecoesSessions as sessions, projecoesFeatures as features } from '../utils/metrics'
+import { projecoesMetrics as metrics, projecoesSessions, projecoesFeatures as features } from '../utils/metrics'
+import { cinemaApi } from '../services/api/cinema.api'
 
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
@@ -23,8 +25,9 @@ const Cinema = () => {
             start_event_date,
             end_event_date,
         } = usePageData('cinema');
-        
 
+    const [sessions, setSessions] = useState(projecoesSessions)
+    useEffect(() => { cinemaApi.getSessions().then(setSessions as any) }, [])
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">

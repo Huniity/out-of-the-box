@@ -6,7 +6,8 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange } from '../utils/dashboard'
 
-import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques as destaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
+import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesDestCardW as DEST_CARD_W, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
+import { exposicoesApi } from '../services/api/exposicoes.api'
 
 const AREA_OPTIONS = [
   { value: 'TODAS',  label: 'TODAS' },
@@ -37,6 +38,9 @@ const Exposicoes = () => {
     start_event_date,
     end_event_date,
   } = usePageData('exposicoes')
+
+  const [destaques, setDestaques] = useState(exposicoesDestaques)
+  useEffect(() => { exposicoesApi.getExposicoes().then(setDestaques as any) }, [])
 
   const [activeArea, setActiveArea] = useState('TODAS')
 
