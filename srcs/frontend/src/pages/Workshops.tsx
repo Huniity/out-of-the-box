@@ -186,7 +186,6 @@ const Workshops = () => {
                                 <div className="shrink-0">
                                     <div
                                         className="w-20 h-20 rounded-sm flex items-center justify-center"
-                                        style={{ background: `${color}15`, border: `1.5px solid ${color}50`, color }}
                                     >
                                         {areaObj?.icon}
                                     </div>
@@ -243,10 +242,7 @@ const Workshops = () => {
                 <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
                     {areas.map((a, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3">
-                            <div
-                                className="w-14 h-14 rounded-full flex items-center justify-center"
-                                style={{ background: `${a.color}15`, border: `1.5px solid ${a.color}40`, color: a.color }}
-                            >
+                            <div className="w-14 h-14 flex items-center justify-center">
                                 {a.icon}
                             </div>
                             <p className="text-[10px] font-black uppercase tracking-wide text-white leading-tight">{a.name}</p>
