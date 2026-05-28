@@ -66,6 +66,9 @@ class SunsetTalks(models.Model):
     social_link = models.URLField(blank=True, null=True, help_text="Rede social ou Site")
     registration_link = models.URLField(blank=True, null=True, help_text="Link para inscrição")
     
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
+    category_other = models.CharField(max_length=100, blank=True, null=True, help_text="Preencher quando categoria for 'Outros'")
+
     image = models.ImageField(upload_to='sunset_talks/', blank=True, null=True)
     start_datetime = models.DateTimeField()
     location = models.CharField(max_length=255)

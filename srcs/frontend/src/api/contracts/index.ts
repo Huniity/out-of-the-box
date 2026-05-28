@@ -35,6 +35,8 @@ export interface SunsetTalksContract {
     speaker_info_link: string | null;
     social_link: string | null;
     registration_link: string | null;
+    category: string | null;
+    category_other: string | null;
     image: string | null;
     start_datetime: string;
     location: string;
