@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Briefcase, Users, MessageSquare, Link2, CheckCircle2, ChevronRight } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
@@ -186,44 +186,61 @@ const SpeedHunting = () => {
                 </div>
 
                 {/* Category filters */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                    {categories.map(cat => (
+                <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5 mb-12">
+                    <div className="flex flex-wrap gap-2 justify-center items-center">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
+                                    activeCategory === cat
+                                        ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
+                                        : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
+                                }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
                         <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
-                                activeCategory === cat
-                                    ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
-                                    : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
-                            }`}
+                            onClick={() => setActiveCategory('TODAS')}
+                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity ml-2"
                         >
-                            {cat}
+                            <RefreshCw size={13} /> Limpar Filtros
                         </button>
-                    ))}
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filtered.map((c, i) => (
-                        <div key={i} className="flex gap-4 p-5 rounded-sm border border-white/10 bg-black hover:border-white/20 transition-colors duration-300">
-                            {/* Logo circle */}
-                            <div
-                                className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xs font-black"
-                                style={{ background: `${c.color}20`, border: `1px solid ${c.color}50`, color: c.color }}
-                            >
-                                {c.initials}
-                            </div>
-                            <div className="flex flex-col gap-1 min-w-0">
-                                <p className="text-xs font-black uppercase tracking-wide text-white leading-tight">{c.name}</p>
+                        <div key={i} className="flex overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
+                            {/* Left — square logo + badge */}
+                            <div className="flex-none w-[168px] flex flex-col justify-center items-center gap-4 py-6 border-r border-white/10">
+                                <div
+                                    className="w-24 h-24 flex items-center justify-center text-sm font-black rounded-sm"
+                                    style={{ background: `${c.color}15`, border: `1.5px solid ${c.color}50`, color: c.color }}
+                                >
+                                    {c.initials}
+                                </div>
                                 <span
-                                    className="inline-block self-start px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm"
-                                    style={{ background: `${c.color}25`, color: c.color }}
+                                    className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[112px] leading-tight"
+                                    style={{ backgroundColor: c.color }}
                                 >
                                     {c.category}
                                 </span>
-                                <p className="text-[11px] text-white/40 leading-relaxed mt-1">{c.desc}</p>
-                                <p className="text-[10px] text-white/25 mt-1 flex items-center gap-1">
-                                    <MapPin size={10} className="text-[#c8ff00]/50" /> Presente nos dias 9 e 10 julho
+                            </div>
+
+                            {/* Content */}
+                            <div className="flex-1 px-4 py-4 flex flex-col justify-center gap-1 min-w-0">
+                                <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.name}</h3>
+                                <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.desc}</p>
+                                <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
+                                    <MapPin size={10} className="text-[#c8ff00]/50" /> Dias 9 e 10 Jul
                                 </p>
+                            </div>
+
+                            {/* Right — decoration */}
+                            <div className="flex-none flex items-center px-3">
+                                <span className="text-xl" style={{ color: c.color }}>✳</span>
                             </div>
                         </div>
                     ))}

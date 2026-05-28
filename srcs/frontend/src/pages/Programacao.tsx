@@ -439,9 +439,9 @@ const Programacao = () => {
             {/* ── Filter box ── */}
             <section id="filtros" className="px-8 xl:px-20 pb-8">
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
-                    <div className="flex flex-wrap items-end gap-4 justify-center">
-                        <div className="flex flex-col gap-1.5 min-w-[140px]">
-                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Categoria</label>
+                    <div className="flex flex-wrap items-end gap-4 justify-center ">
+                        <div className="flex flex-col gap-1.5 min-w-[140px] ">
+                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest ">Categoria</label>
                             <div className="relative">
                                 <select
                                     value={selectedType}

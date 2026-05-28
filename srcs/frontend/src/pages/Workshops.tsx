@@ -1,7 +1,7 @@
 
 
 import { useState } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Zap, Camera, Film, Music2, Code2, Megaphone, Gamepad2, Tv2, X } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
@@ -128,37 +128,40 @@ const Workshops = () => {
             </section>
 
             {/* ── FILTER BAR ── */}
-            <section className="border-b border-white/10 px-8 xl:px-20 py-4 bg-black/90 sticky top-0 z-20 backdrop-blur-sm">
-                <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mr-2 shrink-0">Filtrar por:</span>
-                    {filterAreas.map(area => (
-                        <button
-                            key={area}
-                            onClick={() => setActiveArea(area)}
-                            className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
-                                activeArea === area
-                                    ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
-                                    : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
-                            }`}
-                        >
-                            {area}
-                        </button>
-                    ))}
-                    {activeArea !== 'TODAS' && (
+            <section className="px-8 xl:px-20 py-8">
+                <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
+                    <div className="flex flex-wrap gap-2 justify-center items-center">
+                        {filterAreas.map(area => (
+                            <button
+                                key={area}
+                                onClick={() => setActiveArea(area)}
+                                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
+                                    activeArea === area
+                                        ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
+                                        : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
+                                }`}
+                            >
+                                {area}
+                            </button>
+                        ))}
                         <button
                             onClick={() => setActiveArea('TODAS')}
-                            className="ml-auto flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white transition-colors duration-200"
+                            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity ml-2"
                         >
-                            <X size={11} /> Limpar Filtros
+                            <RefreshCw size={13} /> Limpar Filtros
                         </button>
-                    )}
+                    </div>
                 </div>
             </section>
 
             {/* ── PROGRAMA DE WORKSHOPS ── */}
             <section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-                    <div className="flex items-center gap-3">
+                    <div>
+                        <div className="mb-3 flex items-center gap-2">
+                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
+                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">APRENDER COM A ETIC_ALGARVE</span>
+                        </div>
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                             PROGRAMA DE <span className="text-[#c8ff00]">WORKSHOPS</span>
                         </h2>
@@ -180,10 +183,9 @@ const Workshops = () => {
                                 style={{ borderColor: `${color}30` }}
                             >
                                 {/* Number + Icon */}
-                                <div className="shrink-0 flex flex-col items-center gap-1">
-                                    <span className="text-[10px] font-black text-white/25 leading-none tabular-nums">{w.num}</span>
+                                <div className="shrink-0">
                                     <div
-                                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                                        className="w-20 h-20 rounded-sm flex items-center justify-center"
                                         style={{ background: `${color}15`, border: `1.5px solid ${color}50`, color }}
                                     >
                                         {areaObj?.icon}
@@ -196,20 +198,19 @@ const Workshops = () => {
                                     <p className="text-xs text-white/40 mb-2">{w.desc}</p>
                                     <div className="flex flex-wrap items-center gap-1.5">
                                         <span
-                                            className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm"
-                                            style={{ background: `${color}25`, color }}
+                                            className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
+                                            style={{ backgroundColor: color }}
                                         >{w.area}</span>
-                                        <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-sm bg-white/10 text-white/50">{w.team}</span>
                                     </div>
                                 </div>
 
                                 {/* Date + Time */}
-                                <div className="shrink-0 flex flex-col items-end gap-1.5 text-right">
-                                    <span className="flex items-center gap-1 text-[11px] text-white/60">
-                                        <CalendarDays size={11} className="text-[#c8ff00]" /> {w.day} {w.month}
+                                <div className="shrink-0 flex flex-col items-end gap-2 text-right">
+                                    <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
+                                        <CalendarDays size={14} className="text-[#c8ff00]" /> {w.day} {w.month}
                                     </span>
-                                    <span className="flex items-center gap-1 text-[11px] text-white/60">
-                                        <Clock size={11} className="text-[#c8ff00]" /> {w.time}
+                                    <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
+                                        <Clock size={14} className="text-[#c8ff00]" /> {w.time}
                                     </span>
                                 </div>
 
@@ -230,12 +231,16 @@ const Workshops = () => {
 
             {/* ── ÁREAS FORMATIVAS E EQUIPAS ── */}
             <section id="areas" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]">
-                <div className="flex items-center gap-3 mb-12">
+                <div>
+                    <div className="mb-3 flex items-center gap-2">
+                        <span className="text-[#c8ff00] text-lg leading-none">✦</span>
+                        <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">CONHECER AS ÁREAS FORMATIVAS</span>
+                    </div>
                     <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
                         ÁREAS FORMATIVAS <span className="text-[#c8ff00]">E EQUIPAS</span>
                     </h2>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
+                <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
                     {areas.map((a, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3">
                             <div
