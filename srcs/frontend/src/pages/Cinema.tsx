@@ -1,15 +1,15 @@
 
 import { useState, useEffect } from 'react'
-import { CalendarDays, MapPin, ChevronDown, ArrowRight, Clock, Mic } from 'lucide-react'
+import { CalendarDays, MapPin, ChevronDown, ArrowRight, Clock, Mic, Share2 } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
 import { projecoesMetrics as metrics, projecoesSessions, projecoesFeatures as features } from '../utils/metrics'
 import { cinemaApi } from '../services/api/cinema.api'
-
+import type { CinemaContract } from '../api/contracts'
 import { usePageData } from '../hooks/usePageData'
-import { formatEventDateRange } from '../utils/dashboard'
+import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
 import polaroid_cinema from '../assets/polaroids/polaroid_cinema.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
@@ -26,7 +26,7 @@ const Cinema = () => {
             end_event_date,
         } = usePageData('cinema');
 
-    const [sessions, setSessions] = useState(projecoesSessions)
+    const [sessions, setSessions] = useState<CinemaContract[]>(projecoesSessions as any)
     useEffect(() => { cinemaApi.getSessions().then(setSessions as any) }, [])
 
     return (
@@ -138,48 +138,70 @@ const Cinema = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    {sessions.map((s, i) => (
-                        <div key={i} className="group flex flex-col rounded-sm border border-white/10 bg-black hover:border-white/20 transition-colors duration-300 overflow-hidden cursor-pointer">
-                            {/* Image */}
-                            <div className="relative overflow-hidden aspect-video">
-                                <img src={heroImg} alt={s.title}
-                                    className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.65] group-hover:scale-105" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                {/* Date overlay */}
-                                <div className="absolute top-3 left-3">
-                                    <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
-                                        <span className="block text-base font-black leading-none">{s.day}</span>
-                                        <span className="block text-[8px] font-black uppercase tracking-widest">{s.month}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {sessions.map((s, i) => {
+                        const dt = new Date(s.start_datetime)
+                        const day = dt.getDate()
+                        const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+                        const imgSrc = s.image ? resolveMediaUrl(s.image) : heroImg
+
+                        return (
+                            <div key={i} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
+                                {/* Image */}
+                                <div className="relative overflow-hidden aspect-video shrink-0">
+                                    <img src={imgSrc} alt={s.title}
+                                        className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                    <div className="absolute top-3 left-3">
+                                        <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
+                                            <span className="block text-base font-black leading-none">{day}</span>
+                                            <span className="block text-[8px] font-black uppercase tracking-widest">JUL</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card face */}
+                                <div className="p-4 flex flex-col gap-2 flex-1">
+                                    <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{s.title}</h3>
+                                    <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
+                                        <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
+                                        <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{s.location}</span></span>
+                                    </div>
+                                </div>
+
+                                {/* Hover info panel */}
+                                <div className="absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                                    <div className="flex items-start justify-between gap-2 mb-3">
+                                        <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{s.title}</h3>
+                                        <span className="text-[#c8ff00] text-lg leading-none shrink-0">✳</span>
+                                    </div>
+                                    {s.director_team && (
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-[#c8ff00] mb-2">{s.director_team}</p>
+                                    )}
+                                    <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{s.synopsis}</p>
+                                    <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2">
+                                        <div className="flex items-center gap-3 text-[10px] text-white/35">
+                                            <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
+                                            <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{s.location}</span></span>
+                                        </div>
+                                        {s.social_link && (
+                                            <div className="flex gap-2 mt-1">
+                                                <a
+                                                    href={s.social_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={e => e.stopPropagation()}
+                                                    className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest border border-white/20 text-white/60 rounded-sm hover:border-white/40 hover:text-white transition-colors"
+                                                >
+                                                    <Share2 size={10} /> Socials
+                                                </a>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Info */}
-                            <div className="p-4 flex flex-col gap-2 flex-1">
-                                <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">
-                                    {s.title}
-                                </h3>
-                                <p className="text-xs text-white/40 leading-relaxed flex-1">{s.desc}</p>
-                                <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-                                    <span className="flex items-center gap-1"><Clock size={10} className="text-[#c8ff00]" /> {s.time}</span>
-                                    <span className="text-white/20">•</span>
-                                    <span className="flex items-center gap-1"><MapPin size={10} className="text-[#c8ff00]" /> {s.venue}</span>
-                                    <span className="ml-auto block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center w-[120px]"
-                                        style={{ backgroundColor: s.tagColor }}>
-                                        {s.tag}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-10 flex justify-center">
-                    <SecondaryButton href="#sobre" size="lg">
-                        Ver Programa Completo
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </SecondaryButton>
+                        )
+                    })}
                 </div>
             </section>
 
