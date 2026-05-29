@@ -5,7 +5,7 @@ import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
-import { formatEventDateRange } from '../utils/dashboard'
+import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import PageStars from '../components/core/PageStars'
 import leaf from '../assets/doodles/leaf3.webp'
 
@@ -212,7 +212,7 @@ const Programacao = () => {
                                 speaker_name: item.speaker_name,
                                 speaker_activity: item.speaker_activity,
                                 description: item.description,
-                                image: item.image || fallbackImage,
+                                image: item.image ? resolveMediaUrl(item.image) : fallbackImage,
                             }
                         }),
                     ...workshops
@@ -229,7 +229,7 @@ const Programacao = () => {
                                 speaker_name: item.mentor_name,
                                 speaker_activity: item.duration,
                                 description: item.description,
-                                image: item.image || fallbackImage,
+                                image: item.image ? resolveMediaUrl(item.image) : fallbackImage,
                             }
                         }),
                     ...speed
@@ -247,7 +247,7 @@ const Programacao = () => {
                                 speaker_activity: 'Encontro rápido com empresa',
                                 description:
                                     'Sessão de ligação entre alunos e empresas para networking, portfólio e oportunidades.',
-                                image: item.company_logo || fallbackImage,
+                                image: item.company_logo ? resolveMediaUrl(item.company_logo) : fallbackImage,
                             }
                         }),
                     ...expos
@@ -265,7 +265,7 @@ const Programacao = () => {
                                 speaker_name: item.artists,
                                 speaker_activity: item.opening_hours,
                                 description: item.synopsis,
-                                image: item.image || fallbackImage,
+                                image: item.image ? resolveMediaUrl(item.image) : fallbackImage,
                             }
                         }),
                     ...concertos
@@ -282,7 +282,7 @@ const Programacao = () => {
                                 speaker_name: item.band_name,
                                 speaker_activity: 'Concerto',
                                 description: item.description,
-                                image: item.image || fallbackImage,
+                                image: item.image ? resolveMediaUrl(item.image) : fallbackImage,
                             }
                         }),
                     ...cinema
@@ -299,7 +299,7 @@ const Programacao = () => {
                                 speaker_name: item.director_team,
                                 speaker_activity: item.duration,
                                 description: item.synopsis,
-                                image: item.image || fallbackImage,
+                                image: item.image ? resolveMediaUrl(item.image) : fallbackImage,
                             }
                         }),
                 ].sort((a, b) => {
