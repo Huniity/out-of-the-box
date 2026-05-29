@@ -3,15 +3,17 @@ import { useState, useEffect } from 'react'
 import { ChevronRight, ChevronDown, ArrowRight } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import '../styles/leaves.css'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 
 import { semanaLabiaMetrics as metrics, semanaLabiaProjects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
 import { semanaLabiaApi } from '../services/api/semanaLabia.api'
-import PageStars from '../components/core/PageStars'
 import polaroid_semanalabias from '../assets/polaroids/polaroid_semanalabias.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
+
+import SectionHeader from '../components/core/SectionHeader'
+import MetricsBar from '../components/core/MetricsBar'
+import CtaBannerSection from '../components/core/CtaBannerSection'
+import HeroPageSection from '../components/core/HeroPageSection'
 
 
 const SemanaLabia = () => {
@@ -29,95 +31,56 @@ const SemanaLabia = () => {
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
             {/* ── HERO ── */}
-            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-                {/* Glow blobs */}
-                <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-                <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-                <PageStars />
-                <HeroPolaroid src={polaroid_semanalabias} />
-
-                <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-                    {/* Left — text */}
-                    <div className="flex-1 flex flex-col py-8">
-                        {/* Title */}
-                        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            {main_white_title}{' '}
-                            <span className="text-[#c8ff00]">{main_green_title}</span>
-                        </h1>
-
-                        {/* Description */}
-                        <p className="mb-8 max-w-md text-sm leading-relaxed text-white/50">
-                            {main_description}
-                        </p>
-
-                        {/* CTAs */}
-                        <div className="flex flex-wrap gap-3">
-                            <PrimaryButton href="#sobre">
-                                O que é a lábia?
-                                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </PrimaryButton>
-                            <SecondaryButton href="#projetos">
-                                Ver projetos
-                                <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </SecondaryButton>
-                        </div>
-                    </div>
-
-                    {/* Right — hero image */}
-                    <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-                        <img src={heroImg} alt="Semana Lábia 2026" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-                        {/* Fade to black on all sides */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-                        {/* Decorative zig-zag path over the image */}
-                        <StaticZigzagPath
-                            from={{ x: 70, y: 0 }}
-                            to={{ x: 2, y: 100 }}
-                            steps={1}
-                            amplitude={10}
-                            curve={0.6}
-                            color="#c8ff00"
-                            strokeWidth={5}
-                            dashed
-                            dashLength={18}
-                            dashGap={12}
-                            opacity={0.9}
-                        />
-                    </div>
+            <HeroPageSection
+                polaroidSrc={polaroid_semanalabias}
+                heroImgSrc={heroImg}
+                heroImgAlt="Semana Lábia 2026"
+                noLeaf
+                zigzag={{
+                    from: { x: 70, y: 0 },
+                    to: { x: 2, y: 100 },
+                    steps: 1,
+                    amplitude: 10,
+                    curve: 0.6,
+                    strokeWidth: 5,
+                    dashLength: 18,
+                    dashGap: 12,
+                    opacity: 0.9,
+                }}
+            >
+                <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                    {main_white_title}{' '}
+                    <span className="text-[#c8ff00]">{main_green_title}</span>
+                </h1>
+                <p className="mb-8 max-w-md text-sm leading-relaxed text-white/50">
+                    {main_description}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                    <PrimaryButton href="#sobre">
+                        O que é a lábia?
+                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    </PrimaryButton>
+                    <SecondaryButton href="#projetos">
+                        Ver projetos
+                        <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                    </SecondaryButton>
                 </div>
-            </section>
+            </HeroPageSection>
 
             {/* ── METRICS BAR ── */}
-            <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 ml-12 mr-12">
-                    {metrics.map((m, i) => (
-                        <div key={i} className="flex flex-col gap-1">
-                            <div className="flex items-center gap-3 mb-1">
-                                <div className="text-[#c8ff00] opacity-70">{m.icon}</div>
-                                {m.value && (
-                                    <p className="text-4xl font-black leading-none text-white">{m.value}</p>
-                                )}
-                            </div>
-                            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#c8ff00] mb-1">{m.label}</p>
-                            <p className="text-xs text-white/40 leading-relaxed mt-2">{m.desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            <MetricsBar metrics={metrics} />
 
             {/* ── O QUE É ── */}
             <section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10">
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
                     {/* Left */}
                     <div className="flex-1">
-                        <div className="mb-4 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Sobre</span>
-                        </div>
-                        <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight mb-6">
-                            O QUE É A<br /><span className="text-[#c8ff00]">SEMANA LÁBIA?</span>
-                        </h2>
+                        <SectionHeader
+                            label="Sobre"
+                            title={<>O QUE É A<br /><span className="text-[#c8ff00]">SEMANA LÁBIA?</span></>}
+                            className="mb-6"
+                        />
                         <div className="h-[2px] w-16 bg-[#c8ff00] opacity-50 mb-6" />
                         <p className="text-sm leading-relaxed text-white/50 mb-4 max-w-md">
                             A Semana Lábia é uma semana intensiva e multidisciplinar onde
@@ -138,14 +101,12 @@ const SemanaLabia = () => {
                         <div className="flex flex-col sm:flex-row sm:items-start gap-4 w-full">
                             {processSteps.map((step, i) => (
                                 <div key={i} className="flex sm:contents">
-                                    {/* Step */}
                                     <div className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-2 flex-1">
                                         <div className="w-18 h-18 rounded-full border-2 border-[#c8ff00]/80 flex items-center justify-center text-[#c8ff00] shrink-0">
                                             {step.icon}
                                         </div>
                                         <p className="text-[11px] text-white/50 leading-tight text-left sm:text-center max-w-[110px]">{step.label}</p>
                                     </div>
-                                    {/* Arrow between steps */}
                                     {i < processSteps.length - 1 && (
                                         <div className="hidden sm:flex items-center justify-center self-start mt-5 px-1">
                                             <ChevronRight size={16} className="text-pink-400" />
@@ -161,15 +122,10 @@ const SemanaLabia = () => {
             {/* ── PROJETOS EM ANÁLISE ── */}
             <section id="projetos" className="px-16 xl:px-32 py-24 border-b border-white/10 bg-white/[0.02]">
                 <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                    <div>
-                        <div className="mb-3 flex items-center gap-2">
-                            <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Projetos em Análise</span>
-                        </div>
-                        <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
-                            PROJETOS PARTICIPANTES <span className="text-[#c8ff00]"> DA SEMANA LÁBIA 2026</span>
-                        </h2>
-                    </div>
+                    <SectionHeader
+                        label="Projetos em Análise"
+                        title={<>PROJETOS PARTICIPANTES <span className="text-[#c8ff00]"> DA SEMANA LÁBIA 2026</span></>}
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -179,13 +135,10 @@ const SemanaLabia = () => {
                             <img src={p.image} alt={p.title}
                                 className="h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.65] group-hover:scale-105" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                            {/* Top accent line */}
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c8ff00] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            {/* Status badge */}
                             <div className="absolute top-4 left-4 bg-[#c8ff00] px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm">
                                 A Confirmar
                             </div>
-                            {/* Title */}
                             <div className="absolute bottom-5 left-4 right-4">
                                 <h3 className="text-base font-black uppercase leading-tight tracking-tight text-white">
                                     {p.title}
@@ -199,13 +152,10 @@ const SemanaLabia = () => {
             {/* ── PORQUÊ PARTICIPAR ── */}
             <section className="px-8 xl:px-20 py-20 border-b border-white/10">
                 <div className="mb-12">
-                    <div className="mb-3 flex items-center gap-2">
-                        <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                        <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Motivações</span>
-                    </div>
-                    <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
-                        PORQUÊ <span className="text-[#c8ff00]">PARTICIPAR?</span>
-                    </h2>
+                    <SectionHeader
+                        label="Motivações"
+                        title={<>PORQUÊ <span className="text-[#c8ff00]">PARTICIPAR?</span></>}
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -220,25 +170,17 @@ const SemanaLabia = () => {
             </section>
 
             {/* ── CTA BANNER ── */}
-            <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
-                <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
-                    <div className="flex-1">
-                        <h2 className="font-black uppercase leading-none tracking-tight text-white"
-                            style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                            <span className="text-[#c8ff00]">1</span> SEMANA. <br />
-                            <span className="text-[#c8ff00]">12</span> PROJETOS.<br />
-                            <span className="text-[#c8ff00]">104</span> FORMANDOS.<br />
-                            <span className="text-[#c8ff00]">INÚMERAS</span> EXPERIÊNCIAS.
-                        </h2>
-                    </div>
+            <CtaBannerSection
+                headline={<><span className="text-[#c8ff00]">1</span> SEMANA. <br /><span className="text-[#c8ff00]">12</span> PROJETOS.<br /><span className="text-[#c8ff00]">104</span> FORMANDOS.<br /><span className="text-[#c8ff00]">INÚMERAS</span> EXPERIÊNCIAS.</>}
+                rightSlot={
                     <div className="shrink-0">
                         <PrimaryButton href={cta_button_link} size="lg">
                             {cta_button_text}
                             <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                         </PrimaryButton>
                     </div>
-                </div>
-            </section>
+                }
+            />
 
         </div>
     )

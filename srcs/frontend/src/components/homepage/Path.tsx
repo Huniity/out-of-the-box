@@ -187,6 +187,7 @@ export default function AreasWall() {
         src={dOrange}
         alt=""
         aria-hidden="true"
+        className="hidden sm:block"
         style={{
           position: 'absolute',
           bottom: '10%',
@@ -218,6 +219,7 @@ export default function AreasWall() {
         src={doodlePink}
         alt=""
         aria-hidden="true"
+        className="hidden sm:block"
         style={{
           position: 'absolute',
           top: '55%',
@@ -233,6 +235,7 @@ export default function AreasWall() {
         src={doodleBlack}
         alt=""
         aria-hidden="true"
+        className="hidden sm:block"
         style={{
           position: 'absolute',
           top: '39%',
@@ -360,9 +363,11 @@ export default function AreasWall() {
                   >
                     {/* Number badge */}
                     <span
-                      className="absolute -top-15 -left-15 z-30 flex items-center justify-center text-[10px] font-black text-black leading-none"
+                      className="absolute -top-8 -left-8 md:-top-15 md:-left-15 z-30 flex items-center justify-center text-[10px] font-black text-black leading-none"
                     >
-                      <IconGallery images={area.icons} />
+                      <span className="block scale-[0.8] md:scale-100 origin-top-left">
+                        <IconGallery images={area.icons} />
+                      </span>
                     </span>
 
                     <img
@@ -374,7 +379,7 @@ export default function AreasWall() {
                     />
 
                     {/* Description + link below the polaroid */}
-                    <div className="mt-2 px-2 flex flex-col gap-0.5 relative z-20">
+                    <div className="mt-2 px-2 py-1.5 flex flex-col gap-0.5 relative z-20 rounded-sm bg-black md:bg-transparent">
                       <p className="text-white/45 text-[14px] leading-snug text-center">{area.desc}</p>
                       <span className="flex items-center justify-center gap-1 text-[14px] font-black uppercase tracking-widest text-[#c8ff00]/60 group-hover:text-[#c8ff00] transition-colors duration-200">
                         Ver a Área <ArrowRight size={9} strokeWidth={3} />

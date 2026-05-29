@@ -2,12 +2,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
-import PageStars from '../components/core/PageStars'
-import leaf from '../assets/doodles/leaf3.webp'
+import HeroPageSection from '../components/core/HeroPageSection'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
 
@@ -359,82 +357,45 @@ const Programacao = () => {
     return (
         <main className="min-h-screen bg-black text-white overflow-x-hidden">
             {/* ── Hero ── */}
-            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-                        <img
-              src={leaf}
-              alt=""
-              aria-hidden="true"
-              className="
-                  leaf-2 absolute pointer-events-none select-none z-[200]
-                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
-              "
-          />
-                <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-                <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-                <PageStars />
-                <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-                    <div className="flex-1 flex flex-col py-8">
-                        <h1
-                            className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
-                        >
-                            {main_white_title || 'PROGRAMACAO'}
-                            <br />
-                            <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
-                        </h1>
-
-                        <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            {main_description ||
-                                'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
-                        </p>
-
-                        <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5">
-                                <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
-                                {formatEventDateRange(start_event_date, end_event_date)}
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
-                            </span>
-                        </div>
-
-                        <div className="flex flex-wrap gap-3">
-                            <PrimaryButton href="#sessoes">
-                                Ver Programacao{' '}
-                                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </PrimaryButton>
-                            <SecondaryButton href="#filtros">
-                                Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </SecondaryButton>
-                        </div>
-                    </div>
-
-                    <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-                        <img src={Fundo} alt="Programacao" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-                        <StaticZigzagPath
-                            from={{ x: 20, y: 5 }}
-                            to={{ x: 80, y: 95 }}
-                            steps={4}
-                            amplitude={20}
-                            curve={1.2}
-                            color="#c8ff00"
-                            strokeWidth={4}
-                            dashed
-                            dashLength={10}
-                            dashGap={8}
-                            opacity={0.7}
-                        />
-                    </div>
+            <HeroPageSection
+                heroImgSrc={Fundo}
+                heroImgAlt="Programacao"
+                zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
+            >
+                <h1
+                    className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
+                >
+                    {main_white_title || 'PROGRAMACAO'}
+                    <br />
+                    <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
+                </h1>
+                <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+                    {main_description ||
+                        'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
+                </p>
+                <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                    <span className="flex items-center gap-1.5">
+                        <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
+                        {formatEventDateRange(start_event_date, end_event_date)}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                        <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                        <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
+                    </span>
                 </div>
-            </section>
+                <div className="flex flex-wrap gap-3">
+                    <PrimaryButton href="#sessoes">
+                        Ver Programacao{' '}
+                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    </PrimaryButton>
+                    <SecondaryButton href="#filtros">
+                        Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                    </SecondaryButton>
+                </div>
+            </HeroPageSection>
 
             {/* ── Filter box ── */}
             <section id="filtros" className="px-8 xl:px-20 pb-8">

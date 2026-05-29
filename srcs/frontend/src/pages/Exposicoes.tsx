@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { CalendarDays, MapPin, Users, ArrowRight, ChevronDown, RefreshCw, ChevronLeft, ChevronRight, Clock } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
@@ -18,8 +17,11 @@ const AREA_OPTIONS = [
 ]
 import PageStars from '../components/core/PageStars'
 import polaroid_exposicoes from '../assets/polaroids/polaroid_exposicoes.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/doodles/leaf3.webp'
+
+import SectionHeader from '../components/core/SectionHeader'
+import MetricsBar from '../components/core/MetricsBar'
+import CtaBannerSection from '../components/core/CtaBannerSection'
+import HeroPageSection from '../components/core/HeroPageSection'
 
 
 const parseDateBadge = (dateStr: string) => {
@@ -85,74 +87,35 @@ const Exposicoes = () => {
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* ── Hero ── */}
-      <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-        <img
-          src={leaf}
-          alt=""
-          aria-hidden="true"
-          className="
-            leaf-2 absolute pointer-events-none select-none z-[200]
-            w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-            sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-            md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-            lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
-          "
-        />
-        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-        <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-        <PageStars />
-        <HeroPolaroid src={polaroid_exposicoes} />
-
-        <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-          <div className="flex-1 flex flex-col py-8">
-            <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-              {main_white_title}{' '}
-              <span className="text-[#c8ff00]">{main_green_title}</span>
-            </h1>
-            <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</p>
-            <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-              <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-              <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-              <span className="flex items-center gap-1.5"><Users size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton href="#destaques">
-                Ver Exposições <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-              </PrimaryButton>
-              <SecondaryButton href="#sobre">
-                Sobre a Área <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-              </SecondaryButton>
-            </div>
-          </div>
-
-          <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-            <img src={Fundo} alt="Exposições" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-            <StaticZigzagPath
-              from={{ x: 20, y: 5 }} to={{ x: 80, y: 95 }}
-              steps={4} amplitude={20} curve={1.2}
-              color="#c8ff00" strokeWidth={4} dashed dashLength={10} dashGap={8} opacity={0.7}
-            />
-          </div>
+      <HeroPageSection
+        polaroidSrc={polaroid_exposicoes}
+        heroImgSrc={Fundo}
+        heroImgAlt="Exposições"
+        zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
+      >
+        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+          {main_white_title}{' '}
+          <span className="text-[#c8ff00]">{main_green_title}</span>
+        </h1>
+        <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</p>
+        <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+          <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+          <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+          <span className="flex items-center gap-1.5"><Users size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
         </div>
-      </section>
+        <div className="flex flex-wrap gap-3">
+          <PrimaryButton href="#destaques">
+            Ver Exposições <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+          </PrimaryButton>
+          <SecondaryButton href="#sobre">
+            Sobre a Área <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+          </SecondaryButton>
+        </div>
+      </HeroPageSection>
 
       {/* ── Criatividade bar ── */}
-      <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-24 ml-12 mr-12">
-          {criatividade.map((f, i) => (
-            <div key={i} className="flex flex-col gap-1">
-              <div className="flex items-center gap-3 mb-1">
-                <div className="text-[#c8ff00] opacity-70">{f.icon}</div>
-              </div>
-              <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#c8ff00] mb-1">{f.label}</p>
-              <p className="text-xs text-white/40 leading-relaxed mt-2">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <MetricsBar metrics={criatividade} cols={3} />
 
       {/* ── Filter ── */}
       <section id="filtros" className="px-8 xl:px-20 pb-8 pt-12">
@@ -184,15 +147,11 @@ const Exposicoes = () => {
       {/* ── Exposições grid ── */}
       <section id="destaques" className="border-t border-white/10 px-8 xl:px-20 py-14">
         <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-[#ec4899] text-lg leading-none">✦</span>
-              <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Destaques em Exposição</span>
-            </div>
-            <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight">
-              OBRAS EM <span className="text-[#c8ff00]">DESTAQUE</span>
-            </h2>
-          </div>
+          <SectionHeader
+            label="Destaques em Exposição"
+            title={<>OBRAS EM <span className="text-[#c8ff00]">DESTAQUE</span></>}
+            accent="#ec4899"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -333,18 +292,10 @@ const Exposicoes = () => {
       </section>
 
       {/* ── Footer CTA ── */}
-      <section className="relative overflow-hidden pl-8 xl:pl-20 py-20">
-        <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
-          <div className="flex-1">
-            <h2 className="font-black uppercase leading-none tracking-tight text-white"
-                style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-              Visita as <span className="text-[#c8ff00]">exposições.</span><br />
-              Vem ver o talento ao <span className="text-[#c8ff00]">vivo.</span>
-            </h2>
-            <p className="mt-4 text-xs text-white/40">Inspira-te e apoia os criadores do futuro.</p>
-          </div>
-        </div>
-      </section>
+      <CtaBannerSection
+        headline={<>Visita as <span className="text-[#c8ff00]">exposições.</span><br />Vem ver o talento ao <span className="text-[#c8ff00]">vivo.</span></>}
+        subtext={<p className="text-xs text-white/40">Inspira-te e apoia os criadores do futuro.</p>}
+      />
     </main>
   )
 }
