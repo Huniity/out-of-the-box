@@ -33,6 +33,7 @@ export const PAGE_SLUG_MAP: Record<string, string> = {
     "Concertos":     "concertos",
     "Speed Hunting": "speed-hunting",
     "Semana Lábia":  "semana-labia",
+    "Programação":   "programacao",
 };
 
 type PageFallback = {
@@ -112,6 +113,13 @@ export const PAGE_FALLBACKS: Record<string, PageFallback> = {
         main_description: "Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.",
         cta_button_text:  "Explora Mais",
         cta_button_link:  "https://www.eticalgarve.com/comunidade/labia/",
+    },
+    programacao: {
+        main_white_title: "Ideias Em",
+        main_green_title: "Movimento",
+        main_description: "A criatividade tem hora marcada, mas não tem limites. Explora o fluxo completo de atividades, debates e performances que vão transformar o teu dia.",
+        start_event_date: "2026-07-03",
+        end_event_date:   "2026-07-17",
     },
 };
 

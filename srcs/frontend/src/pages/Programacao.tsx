@@ -388,7 +388,7 @@ const Programacao = () => {
                 </div>
                 <div className="flex flex-wrap gap-3">
                     <PrimaryButton href="#sessoes">
-                        Ver Programacao{' '}
+                        Ver Programação{' '}
                         <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                     </PrimaryButton>
                     <SecondaryButton href="#filtros">
@@ -575,7 +575,7 @@ const Programacao = () => {
                                         <div className="hidden md:flex flex-col gap-1 px-5 py-4">
                                             <div className="flex items-center gap-2">
                                                 <h3 className="font-black text-base uppercase leading-tight tracking-tight text-white">{event.title}</h3>
-                                                <span className="shrink-0 text-lg leading-none" style={{ color: typeColor }}>✳</span>
+                                                <span className="shrink-0 text-lg leading-none" style={{ color: typeColor }}>✦</span>
                                             </div>
                                             <p className="text-xs font-black uppercase tracking-wide" style={{ color: typeColor }}>{event.speaker_name}</p>
                                             <p className="text-xs text-white/40 mt-0.5">{event.speaker_activity}</p>

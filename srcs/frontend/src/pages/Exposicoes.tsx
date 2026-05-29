@@ -198,7 +198,7 @@ const Exposicoes = () => {
                 <div className={`absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 transition-transform duration-300 ease-out ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{d.title}</h3>
-                    <span className="text-lg leading-none shrink-0" style={{ color: accent }}>✳</span>
+                    <span className="text-lg leading-none shrink-0" style={{ color: accent }}>✦</span>
                   </div>
                   <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: accent }}>{d.artists}</p>
                   <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{d.synopsis}</p>
