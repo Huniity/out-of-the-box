@@ -48,7 +48,7 @@ const EventCard = ({ title, imageSrc, day, time, location, isActive, onToggle, e
     <div className={`absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 transition-transform duration-300 ease-out ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
       <div className="flex items-start justify-between gap-2 mb-3">
         <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{title}</h3>
-        <span className="text-[#c8ff00] text-lg leading-none shrink-0">✳</span>
+        <span className="text-[#c8ff00] text-lg leading-none shrink-0">✦</span>
       </div>
       {expandedContent}
       <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2">

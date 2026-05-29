@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
+import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
+import PageStars from '../components/core/PageStars'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
-import HeroPageSection from '../components/core/HeroPageSection'
+import HeroPolaroid from '../components/core/HeroPolaroid'
+import leaf from '../assets/doodles/leaf3.webp'
 
 
 const SunsetTalks = () => {
@@ -48,34 +51,76 @@ const SunsetTalks = () => {
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
 
       {/* ── Hero ── */}
-      <HeroPageSection
-        polaroidSrc={polaroid_sunset_talks}
-        heroImgSrc={Fundo}
-        heroImgAlt="Sunset Talks"
-        zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
-      >
-        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-          {main_white_title}<br />
-          <span className="text-[#c8ff00]">{main_green_title}</span>
-        </h1>
-        <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-          {main_description}
-        </p>
-        <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-          <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-          <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-          <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+      <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
+                <img
+              src={leaf}
+              alt=""
+              aria-hidden="true"
+              className="
+                  leaf-2 absolute pointer-events-none select-none z-[200]
+                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
+                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
+                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
+                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
+              "
+          />
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
+        <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
+        <PageStars />
+                <HeroPolaroid src={polaroid_sunset_talks} />
+
+        <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
+          {/* Left — text */}
+          <div className="flex-1 flex flex-col py-8">
+            <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+              {main_white_title}<br />
+              <span className="text-[#c8ff00]">{main_green_title}</span>
+            </h1>
+
+            <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+              {main_description}
+            </p>
+
+            {/* Info pills */}
+            <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+              <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+              <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+              <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
+              <PrimaryButton href="#sessoes">
+                Ver Sessões <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </PrimaryButton>
+              <SecondaryButton href="#filtros">
+                Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+              </SecondaryButton>
+            </div>
+          </div>
+
+          {/* Right — hero image */}
+          <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
+            <img src={Fundo} alt="Sunset Talks" className="absolute inset-0 h-full w-full object-cover brightness-75" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
+            <StaticZigzagPath
+              from={{ x: 20, y: 5 }}
+              to={{ x: 80, y: 95 }}
+              steps={4}
+              amplitude={20}
+              curve={1.2}
+              color="#c8ff00"
+              strokeWidth={4}
+              dashed
+              dashLength={10}
+              dashGap={8}
+              opacity={0.7}
+            />
+          </div>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <PrimaryButton href="#sessoes">
-            Ver Sessões <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-          </PrimaryButton>
-          <SecondaryButton href="#filtros">
-            Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-          </SecondaryButton>
-        </div>
-      </HeroPageSection>
+      </section>
 
       {/* ── Filter box ── */}
       <section id="filtros" className="px-8 xl:px-20 pb-8">
@@ -198,7 +243,7 @@ const SunsetTalks = () => {
           const dayNum  = startDt ? startDt.getDate() : s.day
           const timeStr = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : s.time
 
-          const imgSrc          = s.image ? resolveMediaUrl(s.image as string) : Fundo
+          const imgSrc          = s.image ? resolveMediaUrl(s.image) : Fundo
           const infoLink        = s.speaker_info_link   ?? (s as any).speaker_info_link   ?? null
           const socialLink      = s.social_link         ?? (s as any).social_link         ?? null
           const registrationLink = s.registration_link  ?? (s as any).registration_link   ?? null
@@ -250,7 +295,7 @@ const SunsetTalks = () => {
                     <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">
                       {s.title}
                     </h3>
-                    <span className="shrink-0 text-lg leading-none" style={{ color: catColor }}>✳</span>
+                    <span className="shrink-0 text-lg leading-none" style={{ color: catColor }}>✦</span>
                   </div>
                   <p className="text-xs font-black uppercase tracking-wide" style={{ color: catColor }}>
                     {s.speaker_name}
