@@ -10,10 +10,16 @@ type Props = {
     fmt: (val: unknown) => string;
 };
 
-// Category-like fields tried in order
+// Title-like fields tried in order (first non-empty wins)
+const TITLE_FIELDS = ["title", "band_name", "company_name"];
+
+// Description-like fields tried in order
+const DESC_FIELDS = ["description", "synopsis", "company_description"];
+
+// Secondary label fields shown as a chip
 const CATEGORY_FIELDS = [
-    "speaker_role", "artist_name", "company", "company_name",
-    "mentor_name", "director_name", "recruiter_name",
+    "speaker_name", "band_name", "artist_name", "mentor_name",
+    "director_team", "recruiter_name", "speaker_role", "company",
 ];
 
 const PT_MONTHS = ["JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"];
@@ -61,7 +67,14 @@ function EventCard({
             ? toHHMM(startDt)
             : null;
 
-    const catField = CATEGORY_FIELDS.find((f) => row[f]);
+    const titleField = TITLE_FIELDS.find((f) => row[f]);
+    const titleValue = titleField ? String(row[titleField]) : "—";
+
+    const descField = DESC_FIELDS.find((f) => row[f]);
+    const descValue = descField ? String(row[descField]) : null;
+
+    // Don't show the same value as both title and category chip
+    const catField = CATEGORY_FIELDS.find((f) => f !== titleField && row[f]);
     const category = catField ? String(row[catField]) : null;
 
     return (
@@ -81,11 +94,11 @@ function EventCard({
             {/* Content */}
             <div className="min-w-0 flex-1">
                 <h3 className="mb-0.5 truncate text-base font-bold text-white">
-                    {String(row.title ?? "—")}
+                    {titleValue}
                 </h3>
-                {row.description != null && row.description !== "" && (
+                {descValue && (
                     <p className="mb-3 truncate text-sm text-gray-400">
-                        {String(row.description)}
+                        {descValue}
                     </p>
                 )}
                 <div className="flex flex-wrap items-center gap-2">

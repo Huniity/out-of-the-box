@@ -1,4 +1,4 @@
-.PHONY: help up-dev up-prod clean migrate-dev migrate-prod migration-dev migration-prod superuser-dev superuser-prod check-dev check-prod backend-test-dev backend-test-prod frontend-test
+.PHONY: help up-dev up-prod clean purge restart rebuild migrate-dev migrate-prod migration-dev migration-prod superuser-dev superuser-auto-dev superuser-prod check-dev check-prod backend-test-dev backend-test-prod frontend-test
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -15,6 +15,11 @@ env: ## Create .env file if it doesn't exist
 		printf "ALLOWED_HOSTS=localhost,127.0.0.1,backend, *\n" >> .env; \
 		printf "DJANGO_SETTINGS_MODULE=core.settings\n" >> .env; \
 		printf "SECRET_KEY=django-insecure-du@=ttc8hp*snf^og$mt_zywso3s713sq+_m=8yrma3cf=8s54\n" >> .env; \
+		printf "\n" >> .env; \
+		printf "# Default superuser (auto-created by make superuser-auto-dev)\n" >> .env; \
+		printf "DJANGO_SUPERUSER_USERNAME=admin_ootb2026\n" >> .env; \
+		printf "DJANGO_SUPERUSER_PASSWORD=admin_ootb2026\n" >> .env; \
+		printf "DJANGO_SUPERUSER_EMAIL=admin@ootb.local\n" >> .env; \
 		printf "\n" >> .env; \
 		printf "# Production settings\n" >> .env; \
 		printf "\n" >> .env; \
@@ -38,26 +43,12 @@ start-dev: ## Start dev workflow with strict database readiness check
 	@echo "Backend is ready! Running migrations and setup..."
 	$(MAKE) migration-dev
 	$(MAKE) migrate-dev
+# 	$(MAKE) superuser-auto-dev
 	$(MAKE) superuser-dev
 	$(MAKE) populate-dev
 	@echo "Setup complete! Attaching to container logs..."
 	docker compose -f compose.dev.yaml logs -f
 
-# start-dev: sync-dev ## Start dev workflow with strict database readiness check
-# 	@echo "Starting Docker containers in background..."
-# 	docker compose -f compose.dev.yaml up --build -d
-# 	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
-# 	@until docker compose -f compose.dev.yaml exec backend python manage.py check > /dev/null 2>&1; do \
-# 		echo "Backend not ready yet... checking again in 2 seconds"; \
-# 		sleep 2; \
-# 	done
-# 	@echo "Backend is ready! Running migrations and setup..."
-# 	$(MAKE) migration-dev
-# 	$(MAKE) migrate-dev
-# 	$(MAKE) superuser-dev
-# 	$(MAKE) populate-dev
-# 	@echo "Setup complete! Attaching to container logs..."
-# 	docker compose -f compose.dev.yaml logs -f
 
 sync-dev:
 	cd srcs/frontend && npm install && cd ../../ && cd srcs/backend && uv sync && cd ../../
@@ -66,16 +57,31 @@ up-dev: ## Start development environment
 	docker compose -f compose.dev.yaml up
 	$(MAKE) migrate-dev
 
-# up-dev: ## Start development environment
-# 	docker compose -f compose.dev.yaml up --build
-# 	$(MAKE) migrate-dev
 
 up-prod: ## Start production environment
 	docker compose -f compose.prod.yaml up --build
 
-clean: ## Stop and remove all containers, volumes, and orphans
+
+purge: ## ⚠️  DANGER: Stop containers AND delete all volumes (database data lost)
+	@read -p "This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "2nd Warning: This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "3rd Warning: This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@echo "Purging all containers and volumes..."
 	docker compose -f compose.dev.yaml down -v --remove-orphans
 	docker compose -f compose.prod.yaml down -v --remove-orphans
+
+restart: ## Restart all running dev containers (no rebuild)
+	docker compose -f compose.dev.yaml restart
+
+rebuild: ## Rebuild and restart all dev containers
+	docker compose -f compose.dev.yaml up --build -d
+	@echo "Waiting for backend to be ready..."
+	@until docker compose -f compose.dev.yaml exec backend python manage.py check > /dev/null 2>&1; do \
+		echo "Backend not ready yet... retrying in 2s"; \
+		sleep 2; \
+	done
+	$(MAKE) migrate-dev
+	@echo "Rebuild complete. Use 'docker compose -f compose.dev.yaml logs -f' to follow logs."
 
 migrate-dev: ## Run database migrations in development environment
 	docker compose -f compose.dev.yaml exec backend python manage.py migrate
@@ -89,7 +95,15 @@ migration-dev: ## Create new database migrations in development environment
 migration-prod: ## Create new database migrations in production environment
 	docker compose -f compose.prod.yaml exec backend python manage.py makemigrations
 
-superuser-dev: ## Create a superuser in development environment
+# superuser-auto-dev: ## Auto-create default superuser from .env without prompting
+# 	@export $$(grep -v '^#' .env | xargs) && \
+# 	docker compose -f compose.dev.yaml exec \
+# 		-e DJANGO_SUPERUSER_USERNAME=$$DJANGO_SUPERUSER_USERNAME \
+# 		-e DJANGO_SUPERUSER_PASSWORD=$$DJANGO_SUPERUSER_PASSWORD \
+# 		-e DJANGO_SUPERUSER_EMAIL=$$DJANGO_SUPERUSER_EMAIL \
+# 		backend python manage.py createsuperuser --noinput || true
+
+superuser-dev: ## Create a superuser in development environment (interactive)
 	docker compose -f compose.dev.yaml exec backend python manage.py createsuperuser
 
 superuser-prod: ## Create a superuser in production environment

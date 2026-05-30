@@ -43,7 +43,7 @@ export default function DashboardNav({ activeTab, onTabChange, onPagesLoaded, on
 
                 {pages.length > 0 && (
                     <>
-                        {pages.filter((page) => page.name !== "Home" && page.name !== "Programação").map((page) => (
+                        {pages.filter((page) => page.name !== "Home" && page.name !== "Programação" && page.name !== "Semana Lábia").map((page) => (
                             <button
                                 key={page.id}
                                 onClick={() => select(String(page.id))}

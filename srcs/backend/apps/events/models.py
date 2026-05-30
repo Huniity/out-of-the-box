@@ -33,34 +33,27 @@ class Page(models.Model):
 
 
 class Exposicoes(models.Model):
-    AREA_CHOICES = [
-        ('DESIGN', 'Design'),
-        ('FOTO', 'Fotografia'),
-        ('GAMES', 'Videojogos'),
-        ('LABIA', 'Espaço Lábia'),
-    ]
-    
     title = models.CharField(max_length=255)
-    area = models.CharField(max_length=10, choices=AREA_CHOICES, default='DESIGN')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
     synopsis = models.TextField(help_text="Sinopse da exposição")
     artists = models.TextField(help_text="Identificação dos artistas")
     image = models.ImageField(upload_to='exposicoes/', blank=True, null=True)
-    
+
     opening_hours = models.CharField(max_length=255, help_text="Ex: 09:00 - 18:00 (Flexível IPDJ)")
     start_date = models.DateField()
     end_date = models.DateField()
-    
+
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"[{self.area}] {self.title}"
+        return f"[{self.category}] {self.title}"
 
 class SunsetTalks(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    speaker_name = models.CharField(max_length=255)
-    speaker_activity = models.CharField(max_length=255, help_text="Atividade/Cargo")
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    speaker_name = models.CharField(max_length=255, blank=True)
+    speaker_activity = models.CharField(max_length=255, blank=True, help_text="Atividade/Cargo")
     
     speaker_info_link = models.URLField(blank=True, null=True, help_text="Link para + info")
     social_link = models.URLField(blank=True, null=True, help_text="Rede social ou Site")
@@ -70,68 +63,68 @@ class SunsetTalks(models.Model):
     category_other = models.CharField(max_length=100, blank=True, null=True, help_text="Preencher quando categoria for 'Outros'")
 
     image = models.ImageField(upload_to='sunset_talks/', blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
 class Workshops(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    mentor_name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    mentor_name = models.CharField(max_length=255, blank=True)
     mentor_social = models.URLField(blank=True, null=True)
-    
-    duration = models.CharField(max_length=100, help_text="Ex: 2 horas")
-    max_participants = models.IntegerField()
+
+    duration = models.CharField(max_length=100, blank=True, help_text="Ex: 2 horas")
+    max_participants = models.IntegerField(null=True, blank=True)
     registration_link = models.URLField(blank=True, null=True)
-    
+
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
 class Cinema(models.Model):
-    title = models.CharField(max_length=255)
-    director_team = models.CharField(max_length=255, help_text="Realizador/Equipa")
-    synopsis = models.TextField()
-    
-    duration = models.CharField(max_length=100)
+    title = models.CharField(max_length=255, blank=True)
+    director_team = models.CharField(max_length=255, blank=True, help_text="Realizador/Equipa")
+    synopsis = models.TextField(blank=True)
+
+    duration = models.CharField(max_length=100, blank=True)
     social_link = models.URLField(blank=True, null=True, help_text="Rede social do realizador/projeto")
-    
+
     image = models.ImageField(upload_to='cinema/', blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
 class Concertos(models.Model):
-    band_name = models.CharField(max_length=255)
-    description = models.TextField(help_text="Descrição da banda")
+    band_name = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
     info_link = models.URLField(blank=True, null=True)
     social_link = models.URLField(blank=True, null=True)
-    
+
     image = models.ImageField(upload_to='concertos/', blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.band_name
 
 class SpeedHunting(models.Model):
-    company_name = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255, blank=True)
     company_logo = models.ImageField(upload_to='speed_hunting/logos/', blank=True, null=True)
     company_description = models.TextField(max_length=500, blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -139,13 +132,13 @@ class SpeedHunting(models.Model):
 
 
 class SemanaLabia(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    featured_projects = models.TextField()
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    featured_projects = models.TextField(blank=True)
     image = models.ImageField(upload_to='semana_labia/', blank=True, null=True)
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
-    location = models.CharField(max_length=255)
+    start_datetime = models.DateTimeField(null=True, blank=True)
+    end_datetime = models.DateTimeField(null=True, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
