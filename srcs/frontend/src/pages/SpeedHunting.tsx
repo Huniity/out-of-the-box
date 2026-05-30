@@ -254,7 +254,7 @@ const SpeedHunting = () => {
                                 <div className="flex-1 px-4 py-4 flex flex-col justify-center gap-1 min-w-0">
                                     <div className="flex items-start justify-between gap-2">
                                         <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.company_name}</h3>
-                                        <span className="text-lg sm:hidden shrink-0 mt-0.5" style={{ color: catColor }}>✳</span>
+                                        <span className="text-lg sm:hidden shrink-0 mt-0.5" style={{ color: catColor }}>✦</span>
                                     </div>
                                     <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.company_description}</p>
                                     <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
@@ -264,7 +264,7 @@ const SpeedHunting = () => {
 
                                 {/* Right — decoration (desktop only) */}
                                 <div className="hidden sm:flex flex-none items-center px-3">
-                                    <span className="text-xl" style={{ color: catColor }}>✳</span>
+                                    <span className="text-xl" style={{ color: catColor }}>✦</span>
                                 </div>
                             </div>
                         )

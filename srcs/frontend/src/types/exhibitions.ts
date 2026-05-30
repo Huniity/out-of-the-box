@@ -1,10 +1,10 @@
 
-export type ExhibitionArea = 'DESIGN' | 'FOTO' | 'GAMES' | 'LABIA'
+export type ExhibitionArea = 'DESIGN' | 'FOTO' | 'JOGOS' | 'OUTROS'
 
 export type Exhibition = {
   id: number
   title: string
-  area: ExhibitionArea
+  category: ExhibitionArea
   synopsis: string
   artists: string
   image: string

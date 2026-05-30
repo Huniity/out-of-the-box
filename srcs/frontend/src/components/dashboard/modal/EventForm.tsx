@@ -26,6 +26,7 @@ const EventForm = ({
     const [formData, setFormData] = useState<Record<string, unknown>>({});
     const [saving, setSaving] = useState(false);
     const [previewing, setPreviewing] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
 
     const formFields = useMemo(() => {
         if (fields.length > 0) {
@@ -50,27 +51,37 @@ const EventForm = ({
 
         setFormData(nextData);
         setPreviewing(false);
+        setFieldErrors({});
     }, [initial, formFields, open]);
 
     if (!open) return null;
 
     const updateField = (key: string, value: unknown) => {
-        setFormData((prev) => ({
-            ...prev,
-            [key]: value,
-        }));
+        setFieldErrors((prev) => { const e = { ...prev }; delete e[key]; return e; });
+        setFormData((prev) => ({ ...prev, [key]: value }));
     };
 
     const handleSubmit = async () => {
         setSaving(true);
 
         try {
-            // Exclude null image fields — null means "no new file chosen", not "clear the image"
+            const intFields = new Set(["max_participants", "duration_minutes", "capacity", "max_candidates"]);
             const dataToSend = Object.fromEntries(
-                Object.entries(formData).filter(([k, v]) => !(imageFields.has(k) && v === null))
+                Object.entries(formData)
+                    .filter(([k, v]) => !(imageFields.has(k) && v === null))
+                    .map(([k, v]) => {
+                        if ((k.endsWith("_datetime") || k.endsWith("_date") || k === "date") && v === "") return [k, null];
+                        if (intFields.has(k)) { const n = parseInt(v as string, 10); return [k, isNaN(n) ? null : n]; }
+                        if ((k.endsWith("_link") || k.endsWith("_social") || k.endsWith("_url")) && v === "") return [k, null];
+                        return [k, v];
+                    })
             );
             await onSave(dataToSend);
             onClose();
+        } catch (err) {
+            if (err && typeof err === "object" && !("message" in err)) {
+                setFieldErrors(err as Record<string, string[]>);
+            }
         } finally {
             setSaving(false);
         }
@@ -129,6 +140,7 @@ const EventForm = ({
                                     value={formData[field]}
                                     initialValue={initial?.[field]}
                                     onChange={updateField}
+                                    error={fieldErrors[field]?.[0]}
                                 />
                             );
                         })}

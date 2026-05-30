@@ -10,6 +10,7 @@ import MobileOverlay from "../components/dashboard/mobile/MobileOverlay";
 import EventForm from "../components/dashboard/modal/EventForm";
 import PageLivePreview from "../components/dashboard/PageLivePreview";
 import type { ApiPage } from "../types/dashboard";
+import { PAGE_SLUG_MAP } from "../utils/dashboard";
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState<string>("overview");
@@ -106,10 +107,17 @@ export default function Dashboard() {
 }
 
 // ── Page fields shown/editable in the overview modal ───────────────────────
-const PAGE_EDITABLE_FIELDS = [
-    "name", "main_white_title", "main_green_title", "main_description",
+const BASE_PAGE_FIELDS = [
+    "main_white_title", "main_green_title", "main_description",
     "cta_button_text", "cta_button_link", "start_event_date", "end_event_date", "is_live",
 ];
+
+function getPageFields(page: ApiPage): string[] {
+    const hasButton = !!(page.cta_button_text || page.cta_button_link);
+    return BASE_PAGE_FIELDS.filter(f =>
+        hasButton || (f !== "cta_button_text" && f !== "cta_button_link")
+    );
+}
 
 function Overview({
     apiPages,
@@ -165,10 +173,11 @@ function Overview({
                     onClose={() => setEditingPage(null)}
                     onSave={handleSave}
                     initial={editingPage as unknown as Record<string, unknown>}
-                    fields={PAGE_EDITABLE_FIELDS}
-                    renderPreview={(data) => (
-                        <PageLivePreview url={String(data.url ?? "")} />
-                    )}
+                    fields={getPageFields(editingPage)}
+                    renderPreview={() => {
+                        const slug = PAGE_SLUG_MAP[editingPage.name] ?? "";
+                        return <PageLivePreview url={slug ? `/${slug}` : "/"} />;
+                    }}
                 />
             )}
         </div>

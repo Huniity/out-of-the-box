@@ -51,7 +51,7 @@ createRoot(rootElement).render(
         <Route path="/sunset-talks" element={<SunsetTalks />} />
         <Route path="/programacao" element={<Programacao />} />
         <Route path="/cinema" element={<Cinema />} />
-        <Route path="/semana-labia" element={<SemanaLabia />} />
+        {/* <Route path="/semana-labia" element={<SemanaLabia />} /> */}
         <Route path="/speed-hunting" element={<SpeedHunting />} />
         <Route path="/workshops" element={<Workshops />} />
       </Route>

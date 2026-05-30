@@ -243,7 +243,7 @@ const SunsetTalks = () => {
           const dayNum  = startDt ? startDt.getDate() : s.day
           const timeStr = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : s.time
 
-          const imgSrc          = s.image ? resolveMediaUrl(s.image as string) : Fundo
+          const imgSrc          = s.image ? resolveMediaUrl(s.image) : Fundo
           const infoLink        = s.speaker_info_link   ?? (s as any).speaker_info_link   ?? null
           const socialLink      = s.social_link         ?? (s as any).social_link         ?? null
           const registrationLink = s.registration_link  ?? (s as any).registration_link   ?? null
@@ -295,7 +295,7 @@ const SunsetTalks = () => {
                     <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">
                       {s.title}
                     </h3>
-                    <span className="shrink-0 text-lg leading-none" style={{ color: catColor }}>✳</span>
+                    <span className="shrink-0 text-lg leading-none" style={{ color: catColor }}>✦</span>
                   </div>
                   <p className="text-xs font-black uppercase tracking-wide" style={{ color: catColor }}>
                     {s.speaker_name}
