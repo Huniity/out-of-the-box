@@ -1,7 +1,7 @@
 
 
 import { useState, useEffect } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Timer, Users } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 
@@ -133,7 +133,7 @@ const Workshops = () => {
                                         )}
                                     </div>
 
-                                    {/* Date + Time + Sala — desktop order 3 */}
+                                    {/* Date + Time + Sala + chips — desktop order 3 */}
                                     <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3">
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
                                             <CalendarDays size={14} className="text-[#c8ff00]" /> {day} JUL
@@ -144,13 +144,27 @@ const Workshops = () => {
                                         <span className="flex items-center gap-1 text-xs text-white/40 leading-snug">
                                             <MapPin size={12} className="text-[#c8ff00] shrink-0" /> <span className="text-right">{w.location}</span>
                                         </span>
+                                        {(w.duration || w.max_participants) && (
+                                            <div className="flex flex-wrap items-center justify-end gap-1 mt-1">
+                                                {w.duration && (
+                                                    <span className="flex items-center gap-1 text-[10px] text-white/35 border border-white/10 rounded-sm px-1.5 py-0.5">
+                                                        <Timer size={10} className="text-[#c8ff00]" /> {w.duration}
+                                                    </span>
+                                                )}
+                                                {w.max_participants && (
+                                                    <span className="flex items-center gap-1 text-[10px] text-white/35 border border-white/10 rounded-sm px-1.5 py-0.5">
+                                                        <Users size={10} className="text-[#c8ff00]" /> {w.max_participants} vagas
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
                                 {/* Info — desktop order 2 */}
                                 <div className="flex-1 min-w-0 lg:order-2">
                                     <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className="text-xs text-white/40 line-clamp-4 lg:line-clamp-5">{w.description}</p>
+                                    <p className="text-xs text-white/40 line-clamp-3">{w.description}</p>
                                 </div>
 
                                 {/* Arrow — desktop order 4 */}

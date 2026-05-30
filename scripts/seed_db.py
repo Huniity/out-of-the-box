@@ -65,7 +65,7 @@ def seed_database():
     Exposicoes.objects.bulk_create([
         Exposicoes(
             title="Design Para o Futuro",
-            area="DESIGN",
+            category="DESIGN",
             synopsis="Uma exposição que explora a intersecção entre design gráfico, tipografia e tecnologia emergente. Os alunos apresentam identidades visuais, sistemas de branding e peças de comunicação que desafiam os limites do design contemporâneo.",
             artists="Mariana Costa, João Ferreira, Beatriz Lopes",
             opening_hours="10:00 - 19:00 (IPDJ, Faro)",
@@ -76,7 +76,7 @@ def seed_database():
         ),
         Exposicoes(
             title="Foco Aberto",
-            area="FOTO",
+            category="FOTO",
             synopsis="Uma seleção de trabalhos fotográficos que documentam a identidade do Algarve, o quotidiano urbano e retratos humanos. Explorando técnicas analógicas e digitais, os autores constroem narrativas visuais únicas.",
             artists="Pedro Tavares, Ana Sofia Ferreira, Cláudia Matos",
             opening_hours="10:00 - 18:00 (IPDJ, Faro)",
@@ -87,7 +87,7 @@ def seed_database():
         ),
         Exposicoes(
             title="Game Over Reality",
-            area="GAMES",
+            category="JOGOS",
             synopsis="Jogos indie, instalações interativas e protótipos desenvolvidos pelos alunos de Videojogos. Uma viagem pelos mundos criados em Unity e Unreal Engine, onde a narrativa e o gameplay se fundem com a arte.",
             artists="Filipe Guerreiro, Sofia Matos, Rui Tomás",
             opening_hours="11:00 - 20:00 (IPDJ, Faro)",
@@ -98,7 +98,7 @@ def seed_database():
         ),
         Exposicoes(
             title="Espaço Lábia 2026",
-            area="LABIA",
+            category="OUTROS",
             synopsis="Projetos multidisciplinares da Semana Lábia expostos ao público. Uma mostra que celebra a colaboração entre áreas formativas distintas, resultando em obras que cruzam design, som, imagem e interatividade.",
             artists="Equipas da Semana Lábia 2026",
             opening_hours="09:00 - 17:00 (IPDJ, Faro)",
@@ -389,7 +389,7 @@ def seed_database():
         Page(name="Cinema", is_live=True, main_white_title="ETIC", main_green_title="EM CARTAZ", main_description="Apresentação dos projetos finais das turmas de Realização, Cinema e TV da ETIC_Algarve. Sessões abertas ao público, entrada livre.", cta_button_text="Explorar Curtas Metragens", cta_button_link="https://www.youtube.com/watch?v=z69B4lJ-sUE", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Concertos", is_live=True, main_white_title="Concertos", main_green_title="Live", main_description="A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.", cta_button_text="Live In Sight ", cta_button_link="https://www.eticalgarve.com/comunidade/live-insight/", start_event_date=date(2026, 7, 3), end_event_date=date(2026, 7, 17)),
         Page(name="Speed Hunting", is_live=True, main_white_title="Speed", main_green_title="Hunting", main_description="Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.", cta_button_text="Saiba mais sobre a programação", cta_button_link="/programacao", start_event_date=date(2026, 7, 9), end_event_date=date(2026, 7, 10)),
-        Page(name="Semana Lábia", is_live=True, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
+        # Page(name="Semana Lábia", is_live=True, main_white_title="Semana Lábia", main_green_title="2026", main_description="Uma secção dedicada aos projetos da Semana Lábia 2026, a semana intensiva e multidisciplinar de criação e aprendizagem em contexto real da ETIC_Algarve.", cta_button_text="Explora Mais", cta_button_link="https://www.eticalgarve.com/comunidade/labia/"),
 ])
 
 

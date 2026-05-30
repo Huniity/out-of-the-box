@@ -116,7 +116,10 @@ make env                 # Create .env from defaults (skips if already exists)
 make start-dev           # Full first-time setup: build, migrate, seed, logs
 make up-dev              # Start dev containers (build + run)
 make up-prod             # Start production containers
-make clean               # Stop and remove all containers and volumes
+make restart             # Restart all running dev containers (no rebuild)
+make rebuild             # Rebuild images, restart containers, run migrations
+make clean               # Stop and remove containers — volumes are preserved
+make purge               # ⚠️  Stop containers AND delete all volumes (prompts for confirmation)
 
 # Migrations
 make migration-dev       # Generate new migrations (dev)
@@ -125,7 +128,8 @@ make migration-prod      # Generate new migrations (prod)
 make migrate-prod        # Apply migrations (prod)
 
 # Users
-make superuser-dev       # Create Django superuser (dev)
+make superuser-auto-dev  # Auto-create default superuser: admin / admin (no prompt)
+make superuser-dev       # Create a custom superuser interactively (dev)
 make superuser-prod      # Create Django superuser (prod)
 
 # Database

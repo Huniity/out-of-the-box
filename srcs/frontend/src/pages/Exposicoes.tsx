@@ -12,8 +12,8 @@ const AREA_OPTIONS = [
   { value: 'TODAS',  label: 'TODAS' },
   { value: 'DESIGN', label: 'DESIGN' },
   { value: 'FOTO',   label: 'FOTOGRAFIA' },
-  { value: 'GAMES',  label: 'VIDEOJOGOS' },
-  { value: 'LABIA',  label: 'ESPAÇO LÁBIA' },
+  { value: 'JOGOS',  label: 'VIDEOJOGOS' },
+  { value: 'OUTROS', label: 'OUTROS' },
 ]
 import PageStars from '../components/core/PageStars'
 import polaroid_exposicoes from '../assets/polaroids/polaroid_exposicoes.webp'
@@ -82,7 +82,7 @@ const Exposicoes = () => {
     setGalOffset(galPageOffset(next))
   }
 
-  const filtered = destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.area === activeArea))
+  const filtered = destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.category === activeArea))
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -156,7 +156,7 @@ const Exposicoes = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((d, i) => {
-            const accent    = areaColors[d.area]
+            const accent    = areaColors[d.category]
             const start     = parseDateBadge(d.start_date)
             const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
             const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
@@ -170,7 +170,7 @@ const Exposicoes = () => {
                     className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute top-3 left-3">
-                    <div className="text-black px-2 py-1 text-center inline-block" style={{ backgroundColor: accent }}>
+                    <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
                       <span className="block text-base font-black leading-none">{start.day}</span>
                       <span className="block text-[8px] font-black uppercase tracking-widest">{start.month}</span>
                     </div>
@@ -179,7 +179,7 @@ const Exposicoes = () => {
                     className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm"
                     style={{ backgroundColor: accent }}
                   >
-                    {areaLabels[d.area]}
+                    {areaLabels[d.category]}
                   </div>
                 </div>
 

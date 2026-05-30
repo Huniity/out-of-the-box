@@ -15,7 +15,7 @@ export interface PageContract {
 export interface ExposicoesContract {
     id: number;
     title: string;
-    area: 'DESIGN' | 'FOTO' | 'GAMES' | 'LABIA';
+    category: 'DESIGN' | 'FOTO' | 'JOGOS' | 'OUTROS';
     synopsis: string;
     artists: string;
     image: string | null;

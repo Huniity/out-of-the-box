@@ -37,20 +37,21 @@ const crudDashboard = (apiBase: string) => {
             for (const [k, v] of Object.entries(data)) {
                 if (v instanceof File) {
                     form.append(k, v);
-                } else if (v !== null && v !== undefined && v !== "") {
+                } else if (v !== null && v !== undefined) {
                     form.append(k, String(v));
                 }
             }
             body = form;
         } else {
-            const cleaned = Object.fromEntries(
-                Object.entries(data).map(([k, v]) => [k, v === "" ? null : v])
-            );
             headers["Content-Type"] = "application/json";
-            body = JSON.stringify(cleaned);
+            body = JSON.stringify(data);
         }
 
-        await fetch(url, { method, headers, credentials: "include", body });
+        const res = await fetch(url, { method, headers, credentials: "include", body });
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw errorData;
+        }
         load();
     }
 
