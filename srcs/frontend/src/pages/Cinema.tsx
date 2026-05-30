@@ -92,6 +92,7 @@ const Cinema = () => {
                                 day={day}
                                 time={time}
                                 location={s.location}
+                                duration={s.duration || undefined}
                                 isActive={isActive}
                                 onToggle={() => setActiveCard(isActive ? null : s.id)}
                                 expandedContent={
