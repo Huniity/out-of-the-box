@@ -357,7 +357,7 @@ const Programacao = () => {
     const visible = filtered.slice(0, shown)
 
     return (
-        <main className="min-h-screen bg-black text-white overflow-x-hidden">
+        <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
             {/* ── Hero ── */}
             <HeroPageSection
                 heroImgSrc={Fundo}

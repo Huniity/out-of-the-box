@@ -40,7 +40,7 @@ const Concertos = () => {
     const featuredTime = featuredDt ? featuredDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
             <HeroPageSection

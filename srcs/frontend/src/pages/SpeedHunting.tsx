@@ -40,7 +40,7 @@ const SpeedHunting = () => {
     )
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
             <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">

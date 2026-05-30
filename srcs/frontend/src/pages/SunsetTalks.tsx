@@ -52,7 +52,7 @@ const SunsetTalks = () => {
   const visible = useMemo(() => filtered.slice(0, shown), [filtered, shown])
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
 
       {/* ── Hero ── */}
       <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">

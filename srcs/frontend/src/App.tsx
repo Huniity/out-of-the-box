@@ -27,17 +27,22 @@ function Homepage() {
             <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
 
 
-            {/* Stars */}
-            <PageStars />
-            <img
+            {/* Stars — opacity only to avoid conflicting with CSS sway animation */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
+                <PageStars />
+            </motion.div>
+            <motion.img
                 src={doodleOrange}
                 alt=""
                 aria-hidden="true"
                 className="absolute bottom-0 right-0 w-[18%] sm:bottom-[40%] sm:right-[-10%] sm:w-[25%] pointer-events-none select-none z-[50]"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             />
 
-            {/* Leaves */}
-            <img
+            {/* Leaves — opacity only to avoid conflicting with CSS float animation */}
+            <motion.img
                 src={leafImg}
                 alt=""
                 aria-hidden="true"
@@ -49,8 +54,11 @@ function Homepage() {
                     lg:w-[35%] lg:right-[112%] lg:top-[35%] lg:rotate-[60deg]
                     xl:w-[35%] xl:right-[112%] xl:top-[55%] xl:rotate-[60deg]
                 "
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.1 }}
             />
-                        <img
+            <motion.img
                 src={leafImg3}
                 alt=""
                 aria-hidden="true"
@@ -61,8 +69,11 @@ function Homepage() {
                     md:w-[20%] md:right-[38%] md:top-[25%] md:rotate-[302deg]
                     lg:w-[15%] lg:right-[52%] lg:top-[40%] lg:rotate-[340deg] lg:z-[2]
                 "
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.2 }}
             />
-            <img
+            <motion.img
                 src={leafImg2}
                 alt=""
                 aria-hidden="true"
@@ -73,8 +84,11 @@ function Homepage() {
                     md:w-[40%] md:right-[20%] md:top-[47%] md:rotate-[5deg]
                     lg:w-[20%] lg:right-[50%] lg:top-[60%] lg:rotate-[0deg]
                 "
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.25 }}
             />
-            <img
+            <motion.img
                 src={leafImg2}
                 alt=""
                 aria-hidden="true"
@@ -84,14 +98,20 @@ function Homepage() {
                     lg:w-[40%] lg:right-[85%] lg:top-[50%] lg:rotate-[10deg] lg:block
                     xl:w-[40%] xl:right-[85%] xl:top-[90%] xl:rotate-[10deg] xl:block
                 "
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.3 }}
             />
 
-            {/* Date & local banner — center overlap */}
-            <img
+            {/* Date & local banner — opacity + float */}
+            <motion.img
                 src={dateELocal}
                 alt="3 a 17 de julho, IPDJ"
                 className="absolute z-[100] pointer-events-none select-none hidden lg:block w-full max-w-[300px] h-auto -rotate-3"
                 style={{ left: '43%', top: '62%' }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             />
 
             <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">

@@ -56,7 +56,7 @@ const Exposicoes = () => {
   )
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
       {/* ── Hero ── */}
       <HeroPageSection
         polaroidSrc={polaroid_exposicoes}

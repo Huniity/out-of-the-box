@@ -32,7 +32,7 @@ const SemanaLabia = () => {
     useEffect(() => { semanaLabiaApi.getProjects().then(data => setProjects(data)) }, [])
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
             {/* ── HERO ── */}
             <HeroPageSection
                 polaroidSrc={polaroid_semanalabias}

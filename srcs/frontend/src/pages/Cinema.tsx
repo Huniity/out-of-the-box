@@ -35,7 +35,7 @@ const Cinema = () => {
     const [activeCard, setActiveCard] = useState<number | null>(null)
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
             <HeroPageSection
