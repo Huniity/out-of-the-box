@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { CalendarDays, Clock, MapPin } from 'lucide-react'
+import { CalendarDays, Clock, MapPin, Timer } from 'lucide-react'
 
 interface EventCardProps {
   title: string
@@ -7,13 +7,14 @@ interface EventCardProps {
   day: number
   time: string
   location: string
+  duration?: string
   isActive: boolean
   onToggle: () => void
   expandedContent: ReactNode
   footerLinks?: ReactNode
 }
 
-const EventCard = ({ title, imageSrc, day, time, location, isActive, onToggle, expandedContent, footerLinks }: EventCardProps) => (
+const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, onToggle, expandedContent, footerLinks }: EventCardProps) => (
   <div
     onClick={onToggle}
     className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer"
@@ -40,6 +41,7 @@ const EventCard = ({ title, imageSrc, day, time, location, isActive, onToggle, e
       <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
         <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} JUL</span>
         <span className="flex items-center gap-1 shrink-0"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
+        {duration && <span className="flex items-center gap-1 shrink-0"><Timer size={10} className="text-[#c8ff00]" /> {duration}</span>}
         <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{location}</span></span>
       </div>
     </div>
