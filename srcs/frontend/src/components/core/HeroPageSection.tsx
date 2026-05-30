@@ -45,7 +45,7 @@ const HeroPageSection = ({ polaroidSrc, heroImgSrc, heroImgAlt, children, noLeaf
           aria-hidden="true"
           className="
             leaf-2 absolute pointer-events-none select-none z-[200]
-            w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
+            w-[65%] right-[60%] bottom-0 rotate-[8deg]
             sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
             md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
             lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
