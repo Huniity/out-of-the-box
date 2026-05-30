@@ -1,15 +1,11 @@
-import { fetchWithConfig } from './index';
-import { workshopsWorkshops } from '../../utils/metrics';
-import { mapWorkshops } from '../../api/mappers';
+import { fetchWithConfig } from './index'
+import type { WorkshopsContract } from '../../api/contracts'
+
+type Raw = WorkshopsContract[] | { results?: WorkshopsContract[] }
 
 export const workshopsApi = {
-    getWorkshops: async () => {
-        try {
-            const data = await fetchWithConfig('/workshops/');
-            return mapWorkshops(Array.isArray(data) ? data : data.results || []);
-        } catch (error) {
-            console.warn("API offline - fallback Workshops:", error);
-            return mapWorkshops(workshopsWorkshops as any);
-        }
+    getWorkshops: async (): Promise<WorkshopsContract[]> => {
+        const data = await fetchWithConfig<Raw>('/workshops/')
+        return Array.isArray(data) ? data : (data.results ?? [])
     }
-};
+}

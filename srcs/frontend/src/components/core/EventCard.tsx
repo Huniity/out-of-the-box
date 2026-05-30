@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { ReactNode } from 'react'
 import { CalendarDays, Clock, MapPin, Timer } from 'lucide-react'
 
@@ -5,6 +6,7 @@ interface EventCardProps {
   title: string
   imageSrc: string
   day: number
+  month: string
   time: string
   location: string
   duration?: string
@@ -14,7 +16,7 @@ interface EventCardProps {
   footerLinks?: ReactNode
 }
 
-const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, onToggle, expandedContent, footerLinks }: EventCardProps) => (
+const EventCard = memo(({ title, imageSrc, day, month, time, location, duration, isActive, onToggle, expandedContent, footerLinks }: EventCardProps) => (
   <div
     onClick={onToggle}
     className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer"
@@ -24,13 +26,14 @@ const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, o
       <img
         src={imageSrc}
         alt={title}
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
       <div className="absolute top-3 left-3">
         <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
           <span className="block text-base font-black leading-none">{day}</span>
-          <span className="block text-[8px] font-black uppercase tracking-widest">JUL</span>
+          <span className="block text-[8px] font-black uppercase tracking-widest">{month}</span>
         </div>
       </div>
     </div>
@@ -39,7 +42,7 @@ const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, o
     <div className="p-4 flex flex-col gap-2 flex-1">
       <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{title}</h3>
       <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-        <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} JUL</span>
+        <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} {month}</span>
         <span className="flex items-center gap-1 shrink-0"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
         {duration && <span className="flex items-center gap-1 shrink-0"><Timer size={10} className="text-[#c8ff00]" /> {duration}</span>}
         <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{location}</span></span>
@@ -55,7 +58,7 @@ const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, o
       {expandedContent}
       <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2">
         <div className="flex items-center gap-3 text-[10px] text-white/35">
-          <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} JUL</span>
+          <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} className="text-[#c8ff00]" /> {day} {month}</span>
           <span className="flex items-center gap-1 shrink-0"><Clock size={10} className="text-[#c8ff00]" /> {time}</span>
           <span className="flex items-center gap-1 truncate"><MapPin size={10} className="text-[#c8ff00] shrink-0" /> <span className="truncate">{location}</span></span>
         </div>
@@ -63,6 +66,8 @@ const EventCard = ({ title, imageSrc, day, time, location, duration, isActive, o
       </div>
     </div>
   </div>
-)
+))
+
+EventCard.displayName = 'EventCard'
 
 export default EventCard

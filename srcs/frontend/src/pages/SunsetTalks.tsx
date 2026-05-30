@@ -1,16 +1,19 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
-import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
+import type { SunsetTalksContract } from '../api/contracts'
 import PageStars from '../components/core/PageStars'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
 import HeroPolaroid from '../components/core/HeroPolaroid'
 import leaf from '../assets/doodles/leaf3.webp'
+import { motion } from 'framer-motion'
+import { heroStagger, heroItem } from '../utils/animations'
 
 
 const SunsetTalks = () => {
@@ -22,8 +25,8 @@ const SunsetTalks = () => {
     end_event_date,
   } = usePageData('sunset-talks')
 
-  const [sessions, setSessions] = useState(sunsetTalksSessions)
-  useEffect(() => { sunsetTalksApi.getTalks().then(setSessions as any) }, [])
+  const [sessions, setSessions] = useState<SunsetTalksContract[]>([])
+  useEffect(() => { sunsetTalksApi.getTalks().then(data => setSessions(data)) }, [])
 
   const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
   const [selectedType, setSelectedType] = useState<string>('TODAS')
@@ -38,14 +41,15 @@ const SunsetTalks = () => {
     setShown(pageSize)
   }
 
-  const filtered = sessions.filter(s => {
-    const matchDay  = selectedDay  === null          || s.day  === selectedDay
-    const matchType = selectedType === 'TODAS'       || s.type === selectedType
-    const matchSala = selectedSala === 'TODAS'       || s.location === selectedSala
+  const filtered = useMemo(() => sessions.filter(s => {
+    const sDay = s.start_datetime ? new Date(s.start_datetime).getDate() : s.day
+    const matchDay  = selectedDay  === null    || sDay === selectedDay
+    const matchType = selectedType === 'TODAS' || s.type === selectedType
+    const matchSala = selectedSala === 'TODAS' || s.location === selectedSala
     return matchDay && matchType && matchSala
-  })
+  }), [sessions, selectedDay, selectedType, selectedSala])
 
-  const visible = filtered.slice(0, shown)
+  const visible = useMemo(() => filtered.slice(0, shown), [filtered, shown])
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -71,34 +75,34 @@ const SunsetTalks = () => {
 
         <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
           {/* Left — text */}
-          <div className="flex-1 flex flex-col py-8">
-            <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+          <motion.div variants={heroStagger} initial="hidden" animate="visible" className="flex-1 flex flex-col py-8">
+            <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
               {main_white_title}<br />
               <span className="text-[#c8ff00]">{main_green_title}</span>
-            </h1>
+            </motion.h1>
 
-            <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+            <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
               {main_description}
-            </p>
+            </motion.p>
 
             {/* Info pills */}
-            <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+            <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
               <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
               <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
               <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3">
+            <motion.div variants={heroItem} className="flex flex-wrap gap-3">
               <PrimaryButton href="#sessoes">
                 Ver Sessões <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
               </PrimaryButton>
               <SecondaryButton href="#filtros">
                 Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
               </SecondaryButton>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right — hero image */}
           <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
@@ -106,16 +110,16 @@ const SunsetTalks = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
             <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
             <StaticZigzagPath
-              from={{ x: 20, y: 5 }}
-              to={{ x: 80, y: 95 }}
-              steps={4}
-              amplitude={20}
-              curve={1.2}
+              from={{ x: 30, y: 2 }}
+              to={{ x: 70, y: 98 }}
+              steps={3}
+              amplitude={24}
+              curve={2.2}
               color="#c8ff00"
               strokeWidth={4}
               dashed
-              dashLength={10}
-              dashGap={8}
+              dashLength={12}
+              dashGap={10}
               opacity={0.7}
             />
           </div>
@@ -189,7 +193,7 @@ const SunsetTalks = () => {
         <div ref={daysRef} className="flex gap-2 overflow-x-auto no-scrollbar pb-1 justify-center">
           {eventDays.map(d => {
             const isActive = selectedDay === d.day
-            const hasSession = sessions.some(s => s.day === d.day)
+            const hasSession = sessions.some(s => (s.start_datetime ? new Date(s.start_datetime).getDate() : s.day) === d.day)
             return (
               <button
                 key={d.day}
@@ -234,19 +238,19 @@ const SunsetTalks = () => {
         )}
 
         {visible.map((s) => {
-          const typeColor = typeColors[s.type]
+          const typeColor = typeColors[s.type as keyof typeof typeColors] ?? '#c8ff00'
           const cat = s.category ?? ''
           const catColor = cat && cat !== 'OUTROS' ? (areaColor[cat] ?? '#ffffff') : '#ffffff'
 
-          // Support both mock data (day + time) and real API data (start_datetime)
-          const startDt = (s as any).start_datetime ? new Date((s as any).start_datetime) : null
-          const dayNum  = startDt ? startDt.getDate() : s.day
-          const timeStr = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : s.time
+          const startDt  = s.start_datetime ? new Date(s.start_datetime) : null
+          const dayNum   = startDt ? startDt.getDate() : null
+          const monthStr = startDt ? startDt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '') : ''
+          const timeStr  = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
-          const imgSrc          = s.image ? resolveMediaUrl(s.image) : Fundo
-          const infoLink        = s.speaker_info_link   ?? (s as any).speaker_info_link   ?? null
-          const socialLink      = s.social_link         ?? (s as any).social_link         ?? null
-          const registrationLink = s.registration_link  ?? (s as any).registration_link   ?? null
+          const imgSrc           = s.image ? resolveMediaUrl(s.image) : Fundo
+          const infoLink         = s.speaker_info_link ?? null
+          const socialLink       = s.social_link ?? null
+          const registrationLink = s.registration_link ?? null
 
           return (
             <div
@@ -257,7 +261,7 @@ const SunsetTalks = () => {
               {/* LEFT — date · time · location · badge */}
               <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
                 <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
-                  {dayNum} JUL
+                  {dayNum} {monthStr}
                 </p>
                 <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
                   {timeStr}
@@ -287,6 +291,7 @@ const SunsetTalks = () => {
                   <img
                     src={imgSrc}
                     alt={s.title}
+                    loading="lazy"
                     className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>

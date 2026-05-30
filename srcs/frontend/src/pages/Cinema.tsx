@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import { CalendarDays, MapPin, ChevronDown, ArrowRight, Mic, Share2 } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
+import { motion } from 'framer-motion'
 
-import { projecoesMetrics as metrics, projecoesSessions, projecoesFeatures as features } from '../utils/metrics'
+import { projecoesMetrics as metrics, projecoesFeatures as features } from '../utils/metrics'
 import { cinemaApi } from '../services/api/cinema.api'
 import type { CinemaContract } from '../api/contracts'
 import { usePageData } from '../hooks/usePageData'
@@ -16,6 +17,7 @@ import MetricsBar from '../components/core/MetricsBar'
 import EventCard from '../components/core/EventCard'
 import CtaBannerSection from '../components/core/CtaBannerSection'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
 
 const Cinema = () => {
         const {
@@ -28,8 +30,8 @@ const Cinema = () => {
             end_event_date,
         } = usePageData('cinema');
 
-    const [sessions, setSessions] = useState<CinemaContract[]>(projecoesSessions as any)
-    useEffect(() => { cinemaApi.getSessions().then(setSessions as any) }, [])
+    const [sessions, setSessions] = useState<CinemaContract[]>([])
+    useEffect(() => { cinemaApi.getSessions().then(data => setSessions(data)) }, [])
     const [activeCard, setActiveCard] = useState<number | null>(null)
 
     return (
@@ -40,36 +42,38 @@ const Cinema = () => {
                 polaroidSrc={polaroid_cinema}
                 heroImgSrc={heroImg}
                 heroImgAlt="Projeções Vídeo"
-                zigzag={{ steps: 3, amplitude: 25, curve: 1.4 }}
+                zigzag={{ from: { x: 35, y: 2 }, to: { x: 98, y: 98 }, steps: 2, amplitude: 38, curve: 1.7, dashLength: 14, dashGap: 8 }}
             >
-                <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                    {main_white_title}<br />
-                    <span className="text-[#c8ff00]">{main_green_title}</span>
-                </h1>
-                <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</p>
-                <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                    <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-                    <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-                    <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <PrimaryButton href="#programa">
-                        Ver Programa
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </PrimaryButton>
-                    <SecondaryButton href="#sobre">
-                        Sobre as Projeções
-                        <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                    </SecondaryButton>
-                </div>
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                        {main_white_title}<br />
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</motion.p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+                        <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+                        <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+                    </motion.div>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#programa">
+                            Ver Programa
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#sobre">
+                            Sobre as Projeções
+                            <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
             </HeroPageSection>
 
             {/* ── INFO BAR ── */}
             <MetricsBar metrics={metrics} />
 
             {/* ── PROGRAMA DE PROJEÇÕES ── */}
-            <section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                     <SectionHeader
                         label="Programa de Projeções"
@@ -77,51 +81,54 @@ const Cinema = () => {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {sessions.map((s, i) => {
                         const dt = new Date(s.start_datetime)
                         const day = dt.getDate()
+                        const month = dt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '')
                         const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
                         const imgSrc = s.image ? resolveMediaUrl(s.image) : heroImg
                         const isActive = activeCard === s.id
                         return (
-                            <EventCard
-                                key={i}
-                                title={s.title}
-                                imageSrc={imgSrc}
-                                day={day}
-                                time={time}
-                                location={s.location}
-                                duration={s.duration || undefined}
-                                isActive={isActive}
-                                onToggle={() => setActiveCard(isActive ? null : s.id)}
-                                expandedContent={
-                                    <>
-                                        {s.director_team && (
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-[#c8ff00] mb-2">{s.director_team}</p>
-                                        )}
-                                        <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{s.synopsis}</p>
-                                    </>
-                                }
-                                footerLinks={s.social_link ? (
-                                    <a
-                                        href={s.social_link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={e => e.stopPropagation()}
-                                        className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest border border-white/20 text-white/60 rounded-sm hover:border-white/40 hover:text-white transition-colors"
-                                    >
-                                        <Share2 size={10} /> Socials
-                                    </a>
-                                ) : undefined}
-                            />
+                            <motion.div key={i} variants={cardItem}>
+                                <EventCard
+                                    title={s.title}
+                                    imageSrc={imgSrc}
+                                    day={day}
+                                    month={month}
+                                    time={time}
+                                    location={s.location}
+                                    duration={s.duration || undefined}
+                                    isActive={isActive}
+                                    onToggle={() => setActiveCard(isActive ? null : s.id)}
+                                    expandedContent={
+                                        <>
+                                            {s.director_team && (
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-[#c8ff00] mb-2">{s.director_team}</p>
+                                            )}
+                                            <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{s.synopsis}</p>
+                                        </>
+                                    }
+                                    footerLinks={s.social_link ? (
+                                        <a
+                                            href={s.social_link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={e => e.stopPropagation()}
+                                            className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest border border-white/20 text-white/60 rounded-sm hover:border-white/40 hover:text-white transition-colors"
+                                        >
+                                            <Share2 size={10} /> Socials
+                                        </a>
+                                    ) : undefined}
+                                />
+                            </motion.div>
                         )
                     })}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ── SOBRE AS PROJEÇÕES ── */}
-            <section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]">
+            <motion.section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="flex flex-col lg:flex-row gap-16 items-start">
                     {/* Left — text */}
                     <div className="flex-1">
@@ -142,19 +149,19 @@ const Cinema = () => {
                     </div>
 
                     {/* Right — features */}
-                    <div className="flex-1 flex flex-col gap-6">
+                    <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="flex-1 flex flex-col gap-6">
                         {features.map((f, i) => (
-                            <div key={i} className="flex gap-5 p-5 rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/20 transition-colors duration-300">
+                            <motion.div key={i} variants={cardItem} className="flex gap-5 p-5 rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/20 transition-colors duration-300">
                                 <div className="shrink-0 mt-0.5">{f.icon}</div>
                                 <div>
                                     <h3 className="text-xs font-black uppercase tracking-widest text-[#c8ff00] mb-2">{f.title}</h3>
                                     <p className="text-xs text-white/40 leading-relaxed">{f.desc}</p>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* ── CTA BANNER ── */}
             <CtaBannerSection

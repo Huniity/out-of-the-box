@@ -41,6 +41,9 @@ export interface SunsetTalksContract {
     start_datetime: string;
     location: string;
     is_active: boolean;
+    type?: string | null;
+    day?: number | null;
+    moderator?: string | null;
 }
 
 export interface WorkshopsContract {

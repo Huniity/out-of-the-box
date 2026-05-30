@@ -6,6 +6,8 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { motion } from 'framer-motion'
+import { fadeUp, heroStagger, heroItem, viewport } from '../utils/animations'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
 
@@ -360,41 +362,43 @@ const Programacao = () => {
             <HeroPageSection
                 heroImgSrc={Fundo}
                 heroImgAlt="Programacao"
-                zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
+                zigzag={{ from: { x: 10, y: 3 }, to: { x: 90, y: 97 }, steps: 5, amplitude: 18, curve: 1.0, dashLength: 8, dashGap: 12 }}
             >
-                <h1
-                    className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
-                >
-                    {main_white_title || 'PROGRAMACAO'}
-                    <br />
-                    <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
-                </h1>
-                <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                    {main_description ||
-                        'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
-                </p>
-                <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                    <span className="flex items-center gap-1.5">
-                        <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
-                        {formatEventDateRange(start_event_date, end_event_date)}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                        <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                        <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
-                    </span>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <PrimaryButton href="#sessoes">
-                        Ver Programação{' '}
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </PrimaryButton>
-                    <SecondaryButton href="#filtros">
-                        Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                    </SecondaryButton>
-                </div>
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem}
+                        className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
+                    >
+                        {main_white_title || 'PROGRAMACAO'}
+                        <br />
+                        <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
+                    </motion.h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+                        {main_description ||
+                            'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
+                    </motion.p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5">
+                            <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
+                            {formatEventDateRange(start_event_date, end_event_date)}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                            <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                            <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
+                        </span>
+                    </motion.div>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#sessoes">
+                            Ver Programação{' '}
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#filtros">
+                            Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
             </HeroPageSection>
 
             {/* ── Filter box ── */}
@@ -518,7 +522,7 @@ const Programacao = () => {
             </section>
 
             {/* ── Session list ── */}
-            <section id="sessoes" className="px-8 xl:px-20 pb-16 flex flex-col gap-4">
+            <motion.section id="sessoes" className="px-8 xl:px-20 pb-16 flex flex-col gap-4" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 {loading && (
                     <div className="py-20 text-center text-white/40 text-sm font-bold uppercase tracking-widest">A carregar eventos...</div>
                 )}
@@ -565,6 +569,7 @@ const Programacao = () => {
                                         <img
                                             src={event.image}
                                             alt={event.title}
+                                            loading="lazy"
                                             className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
                                         />
                                     </div>
@@ -604,6 +609,7 @@ const Programacao = () => {
                                             <img
                                                 src={event.image}
                                                 alt={event.title}
+                                                loading="lazy"
                                                 className="w-full h-full object-cover brightness-60"
                                             />
                                         </div>
@@ -629,7 +635,7 @@ const Programacao = () => {
                         </button>
                     </div>
                 )}
-            </section>
+            </motion.section>
         </main>
     )
 }

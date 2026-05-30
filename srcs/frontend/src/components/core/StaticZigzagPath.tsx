@@ -1,27 +1,5 @@
 import { useId } from 'react'
-
-/**
- * StaticZigzagPath
- *
- * A static (non-animated) SVG zig-zag path you can drop anywhere.
- *
- * Props
- * ─────
- * from       {x, y}   Start point in % of the container  (default: {x:50, y:0})
- * to         {x, y}   End point in % of the container    (default: {x:50, y:100})
- * steps      number   Zig-zag peaks between start & end  (default: 3)
- * amplitude  number   Side-swing width in %              (default: 25)
- * curve      number   0 = sharp corners · 1 = smooth S   (default: 0.35)
- * color      string   Stroke colour                      (default: '#c8ff00')
- * strokeWidth number  Stroke width in CSS px             (default: 2)
- * dashed     boolean  Dashed line?                       (default: true)
- * dashLength number   Length of each dash in px          (default: 8)
- * dashGap    number   Gap between dashes in px           (default: 6)
- * opacity    number   Overall opacity                    (default: 0.5)
- * fadeEnds   boolean  Fade stroke to transparent at both ends (default: true)
- * className  string   Extra classes on the <svg>
- * style      CSSProperties
- */
+import { motion } from 'framer-motion'
 
 interface Point { x: number; y: number }
 
@@ -48,7 +26,6 @@ function buildPath(pts: Point[], curve: number): string {
     for (let i = 0; i < pts.length - 1; i++) {
         const a = pts[i], b = pts[i + 1]
         const midY = (a.y + b.y) / 2
-        // tension: 0 → straight lines, 1 → tight S-curves (mirrors original Path.tsx logic)
         const t = curve * 0.5
         d += ` C ${a.x} ${midY + (b.y - a.y) * t},`
            + ` ${b.x} ${midY - (b.y - a.y) * t},`
@@ -73,13 +50,11 @@ export function StaticZigzagPath({
     className  = '',
     style,
 }: StaticZigzagPathProps) {
-    // Build intermediate zig-zag waypoints
     const pts: Point[] = [from]
     for (let i = 1; i <= steps; i++) {
         const t = i / (steps + 1)
         const x = from.x + (to.x - from.x) * t
         const y = from.y + (to.y - from.y) * t
-        // alternate left / right
         const swing = amplitude * (i % 2 === 0 ? 1 : -1)
         pts.push({ x: x + swing, y })
     }
@@ -87,8 +62,14 @@ export function StaticZigzagPath({
 
     const d = buildPath(pts, curve)
     const uid = useId().replace(/:/g, '')
-    const gradId = `zzp-grad-${uid}`
-    const maskId = `zzp-mask-${uid}`
+    const gradId  = `zzp-grad-${uid}`
+    const maskId  = `zzp-mask-${uid}`
+    const clipId  = `zzp-clip-${uid}`
+
+    // Animate the clip rect from the top of the path downward so the path
+    // appears to draw itself from start → finish on mount.
+    const startY = Math.min(from.y, to.y) - 10
+    const endH   = Math.abs(to.y - from.y) + 20   // full span + padding
 
     return (
         <svg
@@ -99,7 +80,6 @@ export function StaticZigzagPath({
             style={{ opacity, ...style }}
         >
             <defs>
-                {/* Gradient aligned from `from` → `to` so both ends fade out */}
                 <linearGradient
                     id={gradId}
                     gradientUnits="userSpaceOnUse"
@@ -111,12 +91,26 @@ export function StaticZigzagPath({
                     <stop offset="88%"  stopColor="white" stopOpacity="1" />
                     <stop offset="100%" stopColor="white" stopOpacity="0" />
                 </linearGradient>
+
                 {fadeEnds && (
                     <mask id={maskId}>
                         <rect x="-50" y="-50" width="200" height="200" fill={`url(#${gradId})`} />
                     </mask>
                 )}
+
+                {/* Reveal clip — rect grows from start-y downward on mount */}
+                <clipPath id={clipId}>
+                    <motion.rect
+                        x="-50"
+                        y={startY}
+                        width="200"
+                        initial={{ height: 0 }}
+                        animate={{ height: endH }}
+                        transition={{ duration: 2.4, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
+                    />
+                </clipPath>
             </defs>
+
             <path
                 d={d}
                 fill="none"
@@ -125,6 +119,7 @@ export function StaticZigzagPath({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 vectorEffect="non-scaling-stroke"
+                clipPath={`url(#${clipId})`}
                 {...(fadeEnds ? { mask: `url(#${maskId})` } : {})}
                 {...(dashed ? { strokeDasharray: `${dashLength} ${dashGap}` } : {})}
             />

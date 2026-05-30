@@ -5,15 +5,18 @@ import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import '../styles/leaves.css'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
+import { motion } from 'framer-motion'
 
-import { semanaLabiaMetrics as metrics, semanaLabiaProjects, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
+import { semanaLabiaMetrics as metrics, semanaLabiaReasons as reasons, semanaLabiaProcessSteps as processSteps } from '../utils/metrics'
 import { semanaLabiaApi } from '../services/api/semanaLabia.api'
+import type { SemanaLabiaContract } from '../api/contracts'
 import polaroid_semanalabias from '../assets/polaroids/polaroid_semanalabias.webp'
 
 import SectionHeader from '../components/core/SectionHeader'
 import MetricsBar from '../components/core/MetricsBar'
 import CtaBannerSection from '../components/core/CtaBannerSection'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
 
 
 const SemanaLabia = () => {
@@ -25,8 +28,8 @@ const SemanaLabia = () => {
         cta_button_link,
     } = usePageData('semana-labia');
 
-    const [projects, setProjects] = useState(semanaLabiaProjects)
-    useEffect(() => { semanaLabiaApi.getProjects().then(setProjects as any) }, [])
+    const [projects, setProjects] = useState<SemanaLabiaContract[]>([])
+    useEffect(() => { semanaLabiaApi.getProjects().then(data => setProjects(data)) }, [])
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -48,31 +51,33 @@ const SemanaLabia = () => {
                     opacity: 0.9,
                 }}
             >
-                <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                    {main_white_title}{' '}
-                    <span className="text-[#c8ff00]">{main_green_title}</span>
-                </h1>
-                <p className="mb-8 max-w-md text-sm leading-relaxed text-white/50">
-                    {main_description}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                    <PrimaryButton href="#sobre">
-                        O que é a lábia?
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </PrimaryButton>
-                    <SecondaryButton href="#projetos">
-                        Ver projetos
-                        <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                    </SecondaryButton>
-                </div>
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                        {main_white_title}{' '}
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
+                    <motion.p variants={heroItem} className="mb-8 max-w-md text-sm leading-relaxed text-white/50">
+                        {main_description}
+                    </motion.p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#sobre">
+                            O que é a lábia?
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#projetos">
+                            Ver projetos
+                            <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
             </HeroPageSection>
 
             {/* ── METRICS BAR ── */}
             <MetricsBar metrics={metrics} />
 
             {/* ── O QUE É ── */}
-            <section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
                     {/* Left */}
                     <div className="flex-1">
@@ -117,10 +122,10 @@ const SemanaLabia = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* ── PROJETOS EM ANÁLISE ── */}
-            <section id="projetos" className="px-16 xl:px-32 py-24 border-b border-white/10 bg-white/[0.02]">
+            <motion.section id="projetos" className="px-16 xl:px-32 py-24 border-b border-white/10 bg-white/[0.02]" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                     <SectionHeader
                         label="Projetos em Análise"
@@ -128,11 +133,11 @@ const SemanaLabia = () => {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                     {projects.map((p, i) => (
-                        <article key={i}
+                        <motion.article key={i} variants={cardItem}
                             className="group relative overflow-hidden rounded-sm border border-white/10 bg-[#111] aspect-[4/3] cursor-pointer">
-                            <img src={p.image} alt={p.title}
+                            <img src={p.image ?? ''} alt={p.title} loading="lazy"
                                 className="h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.65] group-hover:scale-105" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c8ff00] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -144,13 +149,13 @@ const SemanaLabia = () => {
                                     {p.title}
                                 </h3>
                             </div>
-                        </article>
+                        </motion.article>
                     ))}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ── PORQUÊ PARTICIPAR ── */}
-            <section className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="mb-12">
                     <SectionHeader
                         label="Motivações"
@@ -158,16 +163,16 @@ const SemanaLabia = () => {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {reasons.map((r, i) => (
-                        <div key={i} className="flex flex-col gap-4 p-6 rounded-sm border border-white/10 bg-white/5 hover:border-[#c8ff00]/20 transition-colors duration-300">
+                        <motion.div key={i} variants={cardItem} className="flex flex-col gap-4 p-6 rounded-sm border border-white/10 bg-white/5 hover:border-[#c8ff00]/20 transition-colors duration-300">
                             <div>{r.icon}</div>
                             <h3 className="text-sm font-black uppercase tracking-wide text-white leading-tight">{r.title}</h3>
                             <p className="text-xs text-white/40 leading-relaxed">{r.desc}</p>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ── CTA BANNER ── */}
             <CtaBannerSection
