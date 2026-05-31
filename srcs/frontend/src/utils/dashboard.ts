@@ -186,6 +186,7 @@ export const fieldLabels: Record<string, string> = {
     opening_hours: "Horário de exposição",
     start_date: "Data de início",
     end_date: "Data de fim",
+    is_highlighted: "Em destaque",
 };
 
 /**

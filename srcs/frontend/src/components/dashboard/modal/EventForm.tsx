@@ -88,7 +88,7 @@ const EventForm = ({
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75">
             <div className={`w-full rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl transition-[max-width] duration-300 ${previewing ? 'max-w-4xl' : 'max-w-lg'}`}>
                 {/* Header */}
                 <div className="mb-4 flex items-center justify-between gap-4">

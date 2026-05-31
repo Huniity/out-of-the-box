@@ -109,3 +109,12 @@ export interface SemanaLabiaContract {
     is_active: boolean;
     created_at: string;
 }
+
+export interface HighlightContract {
+    title: string
+    subtitle: string
+    tag: 'CONCERTO' | 'TALK' | 'WORKSHOP' | 'CINEMA' | 'EXPOSIÇÃO'
+    start_datetime: string | null
+    location: string
+    image: string | null
+}

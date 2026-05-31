@@ -48,7 +48,7 @@ const HeroPageSection = ({ polaroidSrc, heroImgSrc, heroImgAlt, children, noLeaf
             w-[65%] left-[60%] bottom-0 translate-y-[70%] -scale-x-100 rotate-[8deg]
             sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
             md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-            lg:w-[22%] lg:left-[-3%] lg:right-auto lg:top-auto lg:bottom-0 lg:translate-y-[30%] lg:scale-x-100 lg:rotate-[15deg]
+            lg:w-[30%] lg:left-[105%] lg:right-auto lg:top-[0%] lg:bottom-0 lg:translate-y-[30%] lg:scale-x-100 lg:rotate-[300deg]
           "
         />
       )}

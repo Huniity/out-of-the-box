@@ -45,6 +45,7 @@ class Exposicoes(models.Model):
 
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return f"[{self.category}] {self.title}"
@@ -66,6 +67,7 @@ class SunsetTalks(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -84,6 +86,7 @@ class Workshops(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -100,6 +103,7 @@ class Cinema(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -114,6 +118,7 @@ class Concertos(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.band_name
