@@ -369,13 +369,12 @@ const Programacao = () => {
                         className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
                         style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
                     >
-                        {main_white_title || 'PROGRAMACAO'}
+                        {main_white_title}
                         <br />
-                        <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
                     </motion.h1>
                     <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                        {main_description ||
-                            'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
+                        {main_description}
                     </motion.p>
                     <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
                         <span className="flex items-center gap-1.5">

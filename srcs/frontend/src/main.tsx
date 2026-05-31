@@ -9,6 +9,7 @@ import Footer from './components/core/Footer'
 import ErrorBoundary from './components/core/ErrorBoundary'
 
 import { PAGE_SLUG_MAP } from './utils/dashboard'
+import { applyPageMeta } from './utils/meta'
 
 const Concertos    = lazy(() => import('./pages/Concertos'))
 const Exposicoes   = lazy(() => import('./pages/Exposicoes'))
@@ -20,9 +21,6 @@ const SpeedHunting = lazy(() => import('./pages/SpeedHunting'))
 const Workshops    = lazy(() => import('./pages/Workshops'))
 const Dashboard    = lazy(() => import('./pages/Dashboard'))
 
-const slugToName = Object.fromEntries(
-  Object.entries(PAGE_SLUG_MAP).map(([name, slug]) => [`/${slug}`, name])
-)
 
 const PageFade = () => {
   const { pathname } = useLocation()
@@ -51,8 +49,7 @@ const MainLayout = () => {
   }, [pathname])
 
   useEffect(() => {
-    const name = slugToName[pathname] ?? (pathname === '/programacao' ? 'Programação' : undefined)
-    document.title = name ? `${name} — Out of the Box` : 'Out of the Box'
+    applyPageMeta(pathname)
   }, [pathname])
 
   return (
