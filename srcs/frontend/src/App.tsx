@@ -116,8 +116,8 @@ function Homepage() {
 
             <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
                 {/* Left — logotype + CTAs */}
-                <div className="flex-1 flex flex-col items-center lg:items-end justify-center py-8 pb-32">
-                    <motion.div variants={heroStagger} initial="hidden" animate="visible" className="flex flex-col gap-6 w-full max-w-[450px]">
+                <div className="flex-1 flex flex-col items-center lg:items-end justify-center py-4 pb-4 lg:py-8 lg:pb-32">
+                    <motion.div variants={heroStagger} initial="hidden" animate="visible" className="flex flex-col gap-3 lg:gap-6 w-full max-w-[450px]">
                         <motion.img
                             variants={heroItem}
                             src={OOTBLogo}
@@ -136,7 +136,7 @@ function Homepage() {
                             variants={heroItem}
                             src={dateELocal}
                             alt="3 a 17 de julho, IPDJ"
-                            className="lg:hidden w-full max-w-[300px] h-auto -rotate-3 select-none pointer-events-none mx-auto"
+                            className="lg:hidden w-full max-w-[200px] h-auto -rotate-3 select-none pointer-events-none mx-auto"
                         />
                     </motion.div>
                 </div>

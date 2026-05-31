@@ -2,7 +2,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { motion } from 'framer-motion'
 
@@ -11,11 +10,9 @@ import { speedHuntingApi } from '../services/api/speedHunting.api'
 import type { SpeedHuntingContract } from '../api/contracts'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
-import PageStars from '../components/core/PageStars'
 import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/doodles/leaf3.webp'
 import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
+import HeroPageSection from '../components/core/HeroPageSection'
 
 
 const SpeedHunting = () => {
@@ -43,78 +40,41 @@ const SpeedHunting = () => {
         <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
-            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-                        <img
-              src={leaf}
-              alt=""
-              aria-hidden="true"
-              className="
-                  leaf-2 absolute pointer-events-none select-none z-[200]
-                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
-              "
-          />
-                <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-                <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-                <PageStars />
-                <HeroPolaroid src={polaroid_speedhunting} />
+            <HeroPageSection
+                polaroidSrc={polaroid_speedhunting}
+                heroImgSrc={heroImg}
+                heroImgAlt="Speed Hunting"
+                zigzag={{ from: { x: 45, y: 3 }, to: { x: 98, y: 97 }, steps: 5, amplitude: 28, curve: 0.3, strokeWidth: 4, dashLength: 8, dashGap: 6, opacity: 0.7 }}
+            >
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                        {main_white_title}<br />
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
 
-                <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-                    {/* Left — text */}
-                    <motion.div variants={heroStagger} initial="hidden" animate="visible" className="flex-1 flex flex-col py-8">
-                        <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            {main_white_title}<br />
-                            <span className="text-[#c8ff00]">{main_green_title}</span>
-                        </motion.h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+                        {main_description}
+                    </motion.p>
 
-                        <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            {main_description}
-                        </motion.p>
-
-                        {/* Info pills */}
-                        <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-                            <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-                            <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-                        </motion.div>
-
-                        {/* CTAs */}
-                        <motion.div variants={heroItem} className="flex flex-wrap gap-3">
-                            <PrimaryButton href="#empresas">
-                                Ver Empresas Confirmadas
-                                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </PrimaryButton>
-                            <SecondaryButton href="#como-funciona">
-                                Como Funciona
-                                <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </SecondaryButton>
-                        </motion.div>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+                        <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+                        <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
                     </motion.div>
 
-                    {/* Right — hero image */}
-                    <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-                        <img src={heroImg} alt="Speed Hunting" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-                        <StaticZigzagPath
-                            from={{ x: 45, y: 3 }}
-                            to={{ x: 98, y: 97 }}
-                            steps={5}
-                            amplitude={28}
-                            curve={0.3}
-                            color="#c8ff00"
-                            strokeWidth={4}
-                            dashed
-                            dashLength={8}
-                            dashGap={6}
-                            opacity={0.7}
-                        />
-                    </div>
-                </div>
-            </section>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#empresas">
+                            Ver Empresas Confirmadas
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#como-funciona">
+                            Como Funciona
+                            <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
+            </HeroPageSection>
 
             {/* ── METRICS BAR ── */}
             <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
