@@ -237,12 +237,14 @@ const SunsetTalks = () => {
                     {cat === 'OUTROS' ? (s.category_other ?? 'Outros') : (areaLabel[cat] ?? cat)}
                   </span>
                 )}
-                <span
-                  className="block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center"
-                  style={{ backgroundColor: typeColor }}
-                >
-                  {s.type}
-                </span>
+                {s.type && (
+                  <span
+                    className="block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center"
+                    style={{ backgroundColor: typeColor }}
+                  >
+                    {s.type}
+                  </span>
+                )}
               </div>
 
               {/* MIDDLE — image + content */}
