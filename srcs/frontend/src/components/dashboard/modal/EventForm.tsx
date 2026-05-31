@@ -45,8 +45,11 @@ const EventForm = ({
     useEffect(() => {
         const nextData: Record<string, unknown> = {};
 
+        const boolField = (f: string) => f.startsWith("is_") || f === "registration_required";
         for (const field of formFields) {
-            nextData[field] = imageFields.has(field) ? null : (initial?.[field] ?? "");
+            if (imageFields.has(field)) nextData[field] = null;
+            else if (boolField(field)) nextData[field] = initial?.[field] ?? false;
+            else nextData[field] = initial?.[field] ?? "";
         }
 
         setFormData(nextData);

@@ -32,7 +32,41 @@ env: ## Create .env file if it doesn't exist
 	@echo "Environment variables:"
 	@cat .env
 
+env-prod:
+	env: ## Create .env file if it doesn't exist
+	@if [ ! -f .env ]; then \
+		echo "Creating .env file..."; \
+		printf "POSTGRES_DB=ootb_db\n" > .env; \
+		printf "POSTGRES_USER=ootb_dev\n" >> .env; \
+		printf "POSTGRES_PASSWORD=ootb_2026\n" >> .env; \
+		printf "DATABASE_URL=postgres://ootb_dev:ootb_2026@db:5432/ootb_db\n" >> .env; \
+		printf "# DEBUG=True\n" >> .env; \
+		printf "# ALLOWED_HOSTS=localhost,127.0.0.1,backend, *\n" >> .env; \
+		printf "DJANGO_SETTINGS_MODULE=core.settings\n" >> .env; \
+		printf "SECRET_KEY=django-insecure-du@=ttc8hp*snf^og$mt_zywso3s713sq+_m=8yrma3cf=8s54\n" >> .env; \
+		printf "\n" >> .env; \
+		printf "# Default superuser (auto-created by make superuser-auto-dev)\n" >> .env; \
+		printf "DJANGO_SUPERUSER_USERNAME=admin_ootb2026\n" >> .env; \
+		printf "DJANGO_SUPERUSER_PASSWORD=admin_ootb2026\n" >> .env; \
+		printf "DJANGO_SUPERUSER_EMAIL=admin@ootb.local\n" >> .env; \
+		printf "\n" >> .env; \
+		printf "# Production settings\n" >> .env; \
+		printf "\n" >> .env; \
+		printf "ALLOWED_HOSTS=outofthebox.eticalgarve.com,localhost,127.0.0.1\n" >> .env; \
+		printf "CORS_ALLOWED_ORIGINS=https://outofthebox.eticalgarve.com,http://localhost:5173\n" >> .env; \
+		printf "CSRF_TRUSTED_ORIGINS=https://outofthebox.eticalgarve.com\n" >> .env; \
+		printf "DEBUG=False\n" >> .env; \
+		printf "\n" >> .env; \
+	else \
+		echo ".env file already exists."; \
+	fi
+	@echo "Environment variables:"
+	@cat .env
+
+
 start-dev: ## Start dev workflow with strict database readiness check
+	@read -p "⚠️  Are you starting development environment? Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "⚠️  Keep in mind that development environment CLEARS database and injects sample data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
 	@echo "Starting Docker containers in background..."
 	docker compose -f compose.dev.yaml up --build -d 
 	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
@@ -41,6 +75,7 @@ start-dev: ## Start dev workflow with strict database readiness check
 		sleep 2; \
 	done
 	@echo "Backend is ready! Running migrations and setup..."
+	$(MAKE) env-prod
 	$(MAKE) migration-dev
 	$(MAKE) migrate-dev
 # 	$(MAKE) superuser-auto-dev
@@ -49,8 +84,26 @@ start-dev: ## Start dev workflow with strict database readiness check
 	@echo "Setup complete! Attaching to container logs..."
 	docker compose -f compose.dev.yaml logs -f
 
+start-prod: ## Start production workflow with strict database readiness check
+	@read -p "⚠️  Are you starting production environment? Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "⚠️  Keep in mind that production environment injects ONLY main pages data (title, desc, dates and CTA buttons and links), doesn't erase the database.. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@echo "Starting Docker containers in background..."
+	docker compose -f compose.prod.yaml up --build -d 
+	@echo "Waiting for PostgreSQL and Django backend to be fully ready..."
+	@until docker compose -f compose.prod.yaml exec backend python manage.py check > /dev/null 2>&1; do \
+		echo "Backend not ready yet... checking again in 2 seconds"; \
+		sleep 2; \
+	done
+	@echo "Backend is ready! Running migrations and setup..."
+	$(MAKE) migration-prod
+	$(MAKE) migrate-prod
+# 	$(MAKE) superuser-auto-prod
+	$(MAKE) superuser-prod
+	$(MAKE) populate-prod
+	@echo "Setup complete! Attaching to container logs..."
+	docker compose -f compose.prod.yaml logs -f
 
-sync-dev:
+sync-dev: ## Sync local code changes to dev containers (useful if you edit files outside of mounted volumes)
 	cd srcs/frontend && npm install && cd ../../ && cd srcs/backend && uv sync && cd ../../
 
 up-dev: ## Start development environment
@@ -63,15 +116,18 @@ up-prod: ## Start production environment
 
 
 purge: ## ⚠️  DANGER: Stop containers AND delete all volumes (database data lost)
-	@read -p "This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
-	@read -p "2nd Warning: This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
-	@read -p "3rd Warning: This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "|⚠️  WARNING | This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "|⚠️  2nd WARNING | This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
+	@read -p "|⚠️  3rd WARNING | This will DELETE all volumes including database data. Type 'yes' to confirm: " ans && [ "$$ans" = "yes" ] || (echo "Aborted."; exit 1)
 	@echo "Purging all containers and volumes..."
 	docker compose -f compose.dev.yaml down -v --remove-orphans
 	docker compose -f compose.prod.yaml down -v --remove-orphans
 
 restart: ## Restart all running dev containers (no rebuild)
 	docker compose -f compose.dev.yaml restart
+
+restart-prod: ## Restart all running prod containers (no rebuild)
+	docker compose -f compose.prod.yaml restart
 
 rebuild: ## Rebuild and restart all dev containers
 	docker compose -f compose.dev.yaml up --build -d
@@ -82,6 +138,17 @@ rebuild: ## Rebuild and restart all dev containers
 	done
 	$(MAKE) migrate-dev
 	@echo "Rebuild complete. Use 'docker compose -f compose.dev.yaml logs -f' to follow logs."
+	
+
+rebuild-prod: ## Rebuild and restart all prod containers
+	docker compose -f compose.prod.yaml up --build -d
+	@echo "Waiting for backend to be ready..."
+	@until docker compose -f compose.prod.yaml exec backend python manage.py check > /dev/null 2>&1; do \
+		echo "Backend not ready yet... retrying in 2s"; \
+		sleep 2; \
+	done
+	$(MAKE) migrate-prod
+	@echo "Rebuild complete. Use 'docker compose -f compose.prod.yaml logs -f' to follow logs."
 
 migrate-dev: ## Run database migrations in development environment
 	docker compose -f compose.dev.yaml exec backend python manage.py migrate
@@ -139,6 +206,8 @@ logs-pytest-prod: ## Pytest logs in production environment
 populate-dev: ## Populate database with sample data in development environment
 	docker compose -f compose.dev.yaml exec backend python /scripts/seed_db.py
 
+populate-prod: ## Populate database with main pages data in production environment
+	docker compose -f compose.prod.yaml exec backend python /scripts/seed_db_prod.py
 
 convert: ## Convert PNG/JPG assets to WebP (runs from srcs/frontend)
 	cd srcs/frontend && node -e "const sharp = require('sharp'); const fs = require('fs'); const path = require('path'); const dir = 'src/assets'; const files = fs.readdirSync(dir).filter(f => f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg')); Promise.all(files.map(f => { const input = path.join(dir, f); const output = path.join(dir, f.replace(/\.(png|jpg|jpeg)$$/,'.webp')); return sharp(input).webp({ quality: 80 }).toFile(output).then(() => console.log(f, '->', output)); })).then(() => console.log('Done!'));"

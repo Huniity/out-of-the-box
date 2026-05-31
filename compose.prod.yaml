@@ -65,6 +65,7 @@ services:
       - django_logs:/app/logs
       - static_files:/app/staticfiles  # shared with nginx
       - media_files:/app/staticfiles/media  # user uploads, shared with nginx
+      - ./scripts:/scripts
     expose:
       - "8000"  # internal only, nginx proxies
     depends_on:
