@@ -11,6 +11,7 @@ import EventForm from "../components/dashboard/modal/EventForm";
 import PageLivePreview from "../components/dashboard/PageLivePreview";
 import type { ApiPage } from "../types/dashboard";
 import { PAGE_SLUG_MAP } from "../utils/dashboard";
+import { bustCache } from "../services/api";
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState<string>("overview");
@@ -144,6 +145,7 @@ function Overview({
         });
         if (!res.ok) throw new Error("Failed to save page");
         const updated: ApiPage = await res.json();
+        bustCache();
         onPageUpdated(updated);
         setEditingPage(null);
     };

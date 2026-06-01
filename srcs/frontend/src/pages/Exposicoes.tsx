@@ -1,12 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
-import { CalendarDays, MapPin, Users, ArrowRight, ChevronDown, RefreshCw, ChevronLeft, ChevronRight, Clock } from 'lucide-react'
+import { useState, useEffect, useMemo } from 'react'
+import { CalendarDays, MapPin, Users, ArrowRight, ChevronDown, RefreshCw, Clock } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
+import { motion } from 'framer-motion'
 
-import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesDestaques, exposicoesGalleryImages as galleryImages, exposicoesCriatividade as criatividade, exposicoesGalCardW as GAL_CARD_W } from '../utils/metrics'
+import { exposicoesAreaColors as areaColors, exposicoesAreaLabels as areaLabels, exposicoesCriatividade as criatividade } from '../utils/metrics'
 import { exposicoesApi } from '../services/api/exposicoes.api'
+import type { ExposicoesContract } from '../api/contracts'
 
 const AREA_OPTIONS = [
   { value: 'TODAS',  label: 'TODAS' },
@@ -22,6 +24,7 @@ import SectionHeader from '../components/core/SectionHeader'
 import MetricsBar from '../components/core/MetricsBar'
 import CtaBannerSection from '../components/core/CtaBannerSection'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
 
 
 const parseDateBadge = (dateStr: string) => {
@@ -41,77 +44,47 @@ const Exposicoes = () => {
     end_event_date,
   } = usePageData('exposicoes')
 
-  const [destaques, setDestaques] = useState(exposicoesDestaques)
-  useEffect(() => { exposicoesApi.getExposicoes().then(setDestaques as any) }, [])
+  const [destaques, setDestaques] = useState<ExposicoesContract[]>([])
+  useEffect(() => { exposicoesApi.getExposicoes().then(data => setDestaques(data)) }, [])
   const [activeCard, setActiveCard] = useState<number | null>(null)
 
   const [activeArea, setActiveArea] = useState('TODAS')
 
-  const [galOffset,  setGalOffset]  = useState(0)
-  const [galIndex,   setGalIndex]   = useState(0)
-  const [galMax,     setGalMax]     = useState(0)
-
-  const galTrack       = useRef<HTMLDivElement>(null)
-  const galBox         = useRef<HTMLDivElement>(null)
-  const galTouchStartX = useRef(0)
-
-  useEffect(() => {
-    const compute = () => {
-      if (galTrack.current && galBox.current)
-        setGalMax(Math.max(0, galTrack.current.scrollWidth - galBox.current.clientWidth))
-    }
-    const t = setTimeout(compute, 80)
-    window.addEventListener('resize', compute)
-    return () => { clearTimeout(t); window.removeEventListener('resize', compute) }
-  }, [])
-
-  const galPageCount  = Math.max(1, Math.floor(galMax / GAL_CARD_W) + 1)
-  const galPageOffset = (i: number) => i === galPageCount - 1 ? galMax : i * GAL_CARD_W
-
-  useEffect(() => {
-    const clamped = Math.max(0, Math.min(galIndex, galPageCount - 1))
-    if (clamped !== galIndex) {
-      setGalIndex(clamped)
-      setGalOffset(galPageOffset(clamped))
-    }
-  }, [galMax])
-
-  const shiftGal = (dir: 1 | -1) => {
-    const next = Math.max(0, Math.min(galIndex + dir, galPageCount - 1))
-    setGalIndex(next)
-    setGalOffset(galPageOffset(next))
-  }
-
-  const filtered = destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.category === activeArea))
+  const filtered = useMemo(
+    () => destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.category === activeArea)),
+    [destaques, activeArea]
+  )
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
       {/* ── Hero ── */}
       <HeroPageSection
         polaroidSrc={polaroid_exposicoes}
         heroImgSrc={Fundo}
         heroImgAlt="Exposições"
-        zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
+        zigzag={{ from: { x: 35, y: 5 }, to: { x: 98, y: 95 }, steps: 3, amplitude: 33, curve: 2.0, dashLength: 10, dashGap: 14 }}
       >
-        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-          {main_white_title}{' '}
-          <span className="text-[#c8ff00]">{main_green_title}</span>
-        </h1>
-        <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</p>
-        <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-          <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-          <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-          <span className="flex items-center gap-1.5"><Users size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <PrimaryButton href="#destaques">
-            Ver Exposições <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-          </PrimaryButton>
-          <SecondaryButton href="#sobre">
-            Sobre a Área <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-          </SecondaryButton>
-        </div>
+        <motion.div variants={heroStagger} initial="hidden" animate="visible">
+          <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+            {main_white_title}{' '}
+            <span className="text-[#c8ff00]">{main_green_title}</span>
+          </motion.h1>
+          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</motion.p>
+          <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+            <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+            <span className="flex items-center gap-1.5"><Users size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+          </motion.div>
+          <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+            <PrimaryButton href="#destaques">
+              Ver Exposições <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+            </PrimaryButton>
+            <SecondaryButton href="#sobre">
+              Sobre a Área <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+            </SecondaryButton>
+          </motion.div>
+        </motion.div>
       </HeroPageSection>
 
       {/* ── Criatividade bar ── */}
@@ -145,7 +118,7 @@ const Exposicoes = () => {
       </section>
 
       {/* ── Exposições grid ── */}
-      <section id="destaques" className="border-t border-white/10 px-8 xl:px-20 py-14">
+      <motion.section id="destaques" className="border-t border-white/10 px-8 xl:px-20 py-14" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
         <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <SectionHeader
             label="Destaques em Exposição"
@@ -154,19 +127,19 @@ const Exposicoes = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((d, i) => {
-            const accent    = areaColors[d.category]
+            const accent    = areaColors[d.category as keyof typeof areaColors] ?? '#c8ff00'
             const start     = parseDateBadge(d.start_date)
             const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
             const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
 
             const isActive = activeCard === (d.id ?? i)
             return (
-              <div key={d.id ?? i} onClick={() => setActiveCard(isActive ? null : (d.id ?? i))} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
+              <motion.div key={d.id ?? i} variants={cardItem} onClick={() => setActiveCard(isActive ? null : (d.id ?? i))} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
                 {/* Image */}
                 <div className="relative overflow-hidden aspect-video shrink-0">
-                  <img src={imgSrc} alt={d.title}
+                  <img src={imgSrc} alt={d.title} loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute top-3 left-3">
@@ -179,7 +152,7 @@ const Exposicoes = () => {
                     className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm"
                     style={{ backgroundColor: accent }}
                   >
-                    {areaLabels[d.category]}
+                    {areaLabels[d.category as keyof typeof areaLabels]}
                   </div>
                 </div>
 
@@ -208,14 +181,14 @@ const Exposicoes = () => {
                     <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* ── Sobre ── */}
-      <section id="sobre" className="border-t border-white/10 px-8 xl:px-20 py-16">
+      <motion.section id="sobre" className="border-t border-white/10 px-8 xl:px-20 py-16" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
         <div className="flex flex-col lg:flex-row gap-16 items-start mb-16">
           <div className="flex-1">
             <h2 className="font-black text-4xl xl:text-6xl uppercase leading-none tracking-tight mb-4 text-white">
@@ -231,65 +204,7 @@ const Exposicoes = () => {
           </div>
           <div className="flex-1 flex flex-col gap-4 lg:pt-2" />
         </div>
-      </section>
-
-      {/* ── Gallery strip ── */}
-      <section className="border-t border-white/10 px-8 xl:px-20 py-14 bg-[#0a0a0a]">
-        <div className="flex items-center justify-between mb-8 max-w-[1300px] mx-auto">
-          <div className="flex items-center gap-2">
-            <span className="text-[#c8ff00] text-xl">✦</span>
-            <span className="text-white font-black text-sm uppercase tracking-widest">Um Olhar sobre as Exposições</span>
-          </div>
-          <div className="flex gap-2">
-            {([-1, 1] as const).map(dir => (
-              <button
-                key={dir}
-                onClick={() => shiftGal(dir)}
-                disabled={dir === -1 ? galIndex <= 0 : galIndex >= galPageCount - 1}
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-all duration-200 disabled:opacity-20 text-white/60"
-              >
-                {dir === -1 ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="overflow-hidden max-w-[1300px] mx-auto" ref={galBox}>
-          <div
-            ref={galTrack}
-            className="flex gap-3 transition-transform duration-[420ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-            style={{ transform: `translateX(-${galOffset}px)` }}
-            onTouchStart={e => { galTouchStartX.current = e.touches[0].clientX }}
-            onTouchEnd={e => {
-              const dx = galTouchStartX.current - e.changedTouches[0].clientX
-              if (Math.abs(dx) > 40) shiftGal(dx > 0 ? 1 : -1)
-            }}
-          >
-            {galleryImages.map((img, i) => (
-              <div key={i} className="flex-none w-[200px] h-[140px] overflow-hidden rounded-sm">
-                <img src={img} alt="" aria-hidden
-                  className="w-full h-full object-cover brightness-75 hover:brightness-90 hover:scale-105 transition-all duration-300"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        {galPageCount > 1 && (
-          <div className="flex justify-center gap-1.5 mt-6 max-w-[836px] mx-auto">
-            {Array.from({ length: galPageCount }, (_, i) => {
-              const active = galIndex === i
-              return (
-                <button
-                  key={i}
-                  onClick={() => { setGalIndex(i); setGalOffset(galPageOffset(i)) }}
-                  className="rounded-full transition-all duration-300"
-                  style={{ width: active ? '50px' : '10px', height: '10px', backgroundColor: active ? '#c8ff00' : 'rgba(255,255,255,0.2)' }}
-                  aria-label={`Go to gallery page ${i + 1}`}
-                />
-              )
-            })}
-          </div>
-        )}
-      </section>
+      </motion.section>
 
       {/* ── Footer CTA ── */}
       <CtaBannerSection

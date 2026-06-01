@@ -43,25 +43,25 @@ const HeroPageSection = ({ polaroidSrc, heroImgSrc, heroImgAlt, children, noLeaf
           src={leaf}
           alt=""
           aria-hidden="true"
-          className="
-            leaf-2 absolute pointer-events-none select-none z-[200]
+          className=" z-0
+            leaf-2 absolute pointer-events-none select-none
             w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-            sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-            md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-            lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
+            sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg] sm:z-0
+            md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[310deg] md:z-0
+            lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg] lg:z-11
           "
         />
       )}
       <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
       <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
       <PageStars />
-      {polaroidSrc && <HeroPolaroid src={polaroidSrc} />}
 
-      <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
+      <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12 ">
+        {polaroidSrc && <HeroPolaroid src={polaroidSrc} />}
         <div className="flex-1 flex flex-col py-8">
           {children}
         </div>
-        <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
+        <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20 ">
           <img src={heroImgSrc} alt={heroImgAlt} className="absolute inset-0 h-full w-full object-cover brightness-75" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />

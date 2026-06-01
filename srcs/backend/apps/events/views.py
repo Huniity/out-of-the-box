@@ -119,6 +119,73 @@ class SemanaLabiaViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
+def highlights_view(request):
+    def fmt(dt):
+        return dt.isoformat() if dt else None
+
+    def img(field):
+        if not field:
+            return None
+        req = request
+        return req.build_absolute_uri(field.url) if field else None
+
+    results = []
+
+    for c in Concertos.objects.filter(is_highlight=True, is_active=True):
+        results.append({
+            'title': c.band_name,
+            'subtitle': c.description[:60] + '…' if len(c.description) > 60 else c.description,
+            'tag': 'CONCERTO',
+            'start_datetime': fmt(c.start_datetime),
+            'location': c.location,
+            'image': img(c.image),
+        })
+
+    for s in SunsetTalks.objects.filter(is_highlight=True, is_active=True):
+        results.append({
+            'title': s.title,
+            'subtitle': s.speaker_name,
+            'tag': 'TALK',
+            'start_datetime': fmt(s.start_datetime),
+            'location': s.location,
+            'image': img(s.image),
+        })
+
+    for w in Workshops.objects.filter(is_highlight=True, is_active=True):
+        results.append({
+            'title': w.title,
+            'subtitle': w.mentor_name,
+            'tag': 'WORKSHOP',
+            'start_datetime': fmt(w.start_datetime),
+            'location': w.location,
+            'image': None,
+        })
+
+    for ci in Cinema.objects.filter(is_highlight=True, is_active=True):
+        results.append({
+            'title': ci.title,
+            'subtitle': ci.director_team,
+            'tag': 'CINEMA',
+            'start_datetime': fmt(ci.start_datetime),
+            'location': ci.location,
+            'image': img(ci.image),
+        })
+
+    for e in Exposicoes.objects.filter(is_highlight=True, is_active=True):
+        results.append({
+            'title': e.title,
+            'subtitle': e.artists[:60] + '…' if len(e.artists) > 60 else e.artists,
+            'tag': 'EXPOSIÇÃO',
+            'start_datetime': e.start_date.isoformat() if e.start_date else None,
+            'location': e.location,
+            'image': img(e.image),
+        })
+
+    results.sort(key=lambda x: x['start_datetime'] or '')
+    return Response(results)
+
+
+@api_view(['GET'])
 def me(request):
     if not request.user.is_authenticated:
         return Response({"detail": "Not authenticated"}, status=401)

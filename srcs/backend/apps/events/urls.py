@@ -15,6 +15,7 @@ from .views import (
     ConcertosViewSet,
     SpeedHuntingViewSet,
     SemanaLabiaViewSet,
+    highlights_view,
     me,
     logout_view,
 )
@@ -36,6 +37,7 @@ urlpatterns = [
     path("pages/", PageListView.as_view(), name="page-list"),
     path("pages/<int:pk>/", PageDetailView.as_view(), name="page-detail"),
     path("speaker/", SpeakerCountView.as_view(), name="speaker-count"),
+    path("highlights/", highlights_view, name="highlights"),
     path("auth/me/", me, name="auth-me"),
     path("auth/logout/", logout_view, name="auth-logout"),
 ]

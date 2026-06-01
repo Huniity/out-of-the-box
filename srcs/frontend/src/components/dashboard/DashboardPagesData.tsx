@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 import type { DashboardProps } from "../../types/dashboard";
 import type { ModalAction } from "../../types/modal";
 import crudDashboard from "../../hooks/crudDashboard";
-import { formatValue, hiddenFields, dashboardFields, PAGE_SLUG_MAP } from "../../utils/dashboard";
+import { formatValue, hiddenFields, dashboardFields, PAGE_SLUG_MAP, PAGE_EVENT_FIELDS } from "../../utils/dashboard";
 import SearchFilter from "./filters/SearchFilter";
 import SortNameFilter from "./filters/SortNameFilter";
 import SortDateFilter from "./filters/SortDateFilter";
@@ -17,7 +17,8 @@ import ClearFiltersButton from "./filters/ClearFiltersButton";
 
 
 export default function PageDataTable({ page }: DashboardProps) {
-    const apiBase = `/api/${PAGE_SLUG_MAP[page.name] ?? page.name.toLowerCase()}`;
+    const slug = PAGE_SLUG_MAP[page.name] ?? page.name.toLowerCase();
+    const apiBase = `/api/${slug}`;
     const { rows, loading, saveEvent, deleteEvent } = crudDashboard(apiBase);
     const [modal, setModal] = useState<ModalAction>({ mode: "closed" });
 
@@ -32,7 +33,9 @@ export default function PageDataTable({ page }: DashboardProps) {
 
     const close = () => setModal({ mode: "closed" });
 
-    const allCols = rows.length > 0 ? Object.keys(rows[0]).filter((k) => !hiddenFields.has(k)) : [];
+    const allCols = rows.length > 0
+        ? Object.keys(rows[0]).filter((k) => !hiddenFields.has(k))
+        : (PAGE_EVENT_FIELDS[slug] ?? []);
     const columns = dashboardFields.filter((c) => allCols.includes(c));
     const modalFields = allCols;
 

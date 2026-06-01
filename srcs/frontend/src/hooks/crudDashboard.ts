@@ -1,6 +1,5 @@
-
-
 import { useEffect, useState, useCallback } from "react";
+import { bustCache } from "../services/api";
 
 function getCsrf(): string {
     return document.cookie
@@ -52,6 +51,7 @@ const crudDashboard = (apiBase: string) => {
             const errorData = await res.json().catch(() => ({}));
             throw errorData;
         }
+        bustCache();
         load();
     }
 
@@ -61,6 +61,7 @@ const crudDashboard = (apiBase: string) => {
             headers: { "X-CSRFToken": getCsrf() },
             credentials: "include",
         });
+        bustCache();
         load();
     }
 

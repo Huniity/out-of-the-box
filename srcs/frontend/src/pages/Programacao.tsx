@@ -6,8 +6,21 @@ import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { motion } from 'framer-motion'
+import { fadeUp, heroStagger, heroItem, viewport } from '../utils/animations'
 
 type EventKind = 'SUNSET TALKS' | 'WORKSHOPS' | 'SPEED HUNTING' | 'EXPOSICOES' | 'CONCERTOS' | 'CINEMA'
+
+type AreaKind =
+    | 'TODAS'
+    | 'ANIMACAO_VIDEOJOGOS'
+    | 'DESIGN'
+    | 'FOTO'
+    | 'MARKETING_COMUNICACAO'
+    | 'PW'
+    | 'SOM_MUSICA'
+    | 'VIDEO'
+    | 'VIDEOJOGOS'
 
 type ProgramEvent = {
     id: string
@@ -18,6 +31,7 @@ type ProgramEvent = {
     time: string
     location: string
     type: EventKind
+    area: Exclude<AreaKind, 'TODAS'> | null
     category: string
     title: string
     speaker_name: string
@@ -32,6 +46,8 @@ type SunsetTalkApi = {
     description: string
     speaker_name: string
     speaker_activity: string
+    area?: string | null
+    category?: string | null
     image: string | null
     start_datetime: string
     location: string
@@ -44,6 +60,8 @@ type WorkshopApi = {
     description: string
     mentor_name: string
     duration: string
+    area?: string | null
+    category?: string | null
     image: string | null
     start_datetime: string
     location: string
@@ -54,6 +72,8 @@ type SpeedHuntingApi = {
     id: number
     company_name: string
     company_logo: string | null
+    area?: string | null
+    category?: string | null
     start_datetime: string
     location: string
     is_active: boolean
@@ -62,7 +82,8 @@ type SpeedHuntingApi = {
 type ExposicaoApi = {
     id: number
     title: string
-    area: string
+    area?: string | null
+    category?: string | null
     synopsis: string
     artists: string
     image: string | null
@@ -76,6 +97,7 @@ type ConcertoApi = {
     id: number
     band_name: string
     description: string
+    area?: string | null
     image: string | null
     start_datetime: string
     location: string
@@ -88,10 +110,48 @@ type CinemaApi = {
     director_team: string
     synopsis: string
     duration: string
+    area?: string | null
     image: string | null
     start_datetime: string
     location: string
     is_active: boolean
+}
+
+const AREA_OPTIONS: Array<{ value: Exclude<AreaKind, 'TODAS'>; label: string }> = [
+    { value: 'ANIMACAO_VIDEOJOGOS', label: 'Animação e Videojogos' },
+    { value: 'DESIGN', label: 'Design' },
+    { value: 'FOTO', label: 'Fotografia' },
+    { value: 'MARKETING_COMUNICACAO', label: 'Marketing & Comunicação' },
+    { value: 'PW', label: 'Programação' },
+    { value: 'SOM_MUSICA', label: 'Som & Música' },
+    { value: 'VIDEO', label: 'Vídeo' },
+    { value: 'VIDEOJOGOS', label: 'Videojogos' },
+]
+
+const normalizeArea = (value?: string | null): Exclude<AreaKind, 'TODAS'> | null => {
+    switch (value) {
+        case 'ANIMACAO_VIDEOJOGOS':
+        case 'DESIGN':
+        case 'FOTO':
+        case 'MARKETING_COMUNICACAO':
+        case 'PW':
+        case 'SOM_MUSICA':
+        case 'VIDEO':
+        case 'VIDEOJOGOS':
+            return value
+        case 'MARKETING':
+            return 'MARKETING_COMUNICACAO'
+        case 'SOM':
+            return 'SOM_MUSICA'
+        case 'VIDEOJOGOS':
+            return 'VIDEOJOGOS'
+        case 'JOGOS':
+            return 'ANIMACAO_VIDEOJOGOS'
+        case 'CINEMA':
+            return 'VIDEO'
+        default:
+            return null
+    }
 }
 
 const typeColors: Record<EventKind, string> = {
@@ -176,6 +236,7 @@ const Programacao = () => {
     const [events, setEvents] = useState<ProgramEvent[]>([])
     const [loading, setLoading] = useState(true)
     const [selectedDay, setSelectedDay] = useState<string>('')
+    const [selectedArea, setSelectedArea] = useState<AreaKind>('TODAS')
     const [selectedType, setSelectedType] = useState<string>('TODAS')
     const [selectedSala, setSelectedSala] = useState<string>('TODAS')
     const [shown, setShown] = useState(pageSize)
@@ -205,6 +266,7 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'SUNSET TALKS',
+                                area: normalizeArea(item.area ?? item.category),
                                 category: 'Talk',
                                 title: item.title,
                                 speaker_name: item.speaker_name,
@@ -222,6 +284,7 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'WORKSHOPS',
+                                area: normalizeArea(item.area ?? item.category),
                                 category: 'Workshop',
                                 title: item.title,
                                 speaker_name: item.mentor_name,
@@ -239,6 +302,7 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'SPEED HUNTING',
+                                area: normalizeArea(item.area ?? item.category),
                                 category: 'Networking',
                                 title: item.company_name,
                                 speaker_name: item.company_name,
@@ -258,7 +322,8 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'EXPOSICOES',
-                                category: item.area,
+                                area: normalizeArea(item.area ?? item.category),
+                                category: item.area ?? item.category ?? 'OUTROS',
                                 title: item.title,
                                 speaker_name: item.artists,
                                 speaker_activity: item.opening_hours,
@@ -275,6 +340,7 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'CONCERTOS',
+                                area: normalizeArea(item.area ?? 'SOM_MUSICA'),
                                 category: 'Musica ao vivo',
                                 title: item.band_name,
                                 speaker_name: item.band_name,
@@ -292,6 +358,7 @@ const Programacao = () => {
                                 ...date,
                                 location: item.location || 'A confirmar',
                                 type: 'CINEMA',
+                                area: normalizeArea(item.area ?? 'VIDEO'),
                                 category: 'Projecao',
                                 title: item.title,
                                 speaker_name: item.director_team,
@@ -336,6 +403,7 @@ const Programacao = () => {
 
     const clearFilters = () => {
         setSelectedDay('')
+        setSelectedArea('TODAS')
         setSelectedType('TODAS')
         setSelectedSala('TODAS')
         setShown(pageSize)
@@ -344,65 +412,86 @@ const Programacao = () => {
     const filtered = useMemo(
         () =>
             events.filter(event => {
+                const matchArea = selectedArea === 'TODAS' || event.area === selectedArea
                 const matchDay = selectedDay === '' || event.dateKey === selectedDay
                 const matchType = selectedType === 'TODAS' || event.type === selectedType
                 const matchSala = selectedSala === 'TODAS' || event.location === selectedSala
-                return matchDay && matchType && matchSala
+                return matchArea && matchDay && matchType && matchSala
             }),
-        [events, selectedDay, selectedType, selectedSala],
+        [events, selectedArea, selectedDay, selectedType, selectedSala],
     )
 
     const visible = filtered.slice(0, shown)
 
     return (
-        <main className="min-h-screen bg-black text-white overflow-x-hidden">
+        <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
             {/* ── Hero ── */}
             <HeroPageSection
                 heroImgSrc={Fundo}
                 heroImgAlt="Programacao"
-                zigzag={{ steps: 4, amplitude: 20, curve: 1.2 }}
+                zigzag={{ from: { x: 10, y: 3 }, to: { x: 90, y: 97 }, steps: 5, amplitude: 18, curve: 1.0, dashLength: 8, dashGap: 12 }}
             >
-                <h1
-                    className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
-                >
-                    {main_white_title || 'PROGRAMACAO'}
-                    <br />
-                    <span className="text-[#c8ff00]">{main_green_title || 'COMPLETA'}</span>
-                </h1>
-                <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                    {main_description ||
-                        'Explora todos os eventos do festival num unico calendario: talks, workshops, speed hunting, exposicoes, concertos e cinema.'}
-                </p>
-                <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                    <span className="flex items-center gap-1.5">
-                        <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
-                        {formatEventDateRange(start_event_date, end_event_date)}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                        <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                        <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
-                    </span>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <PrimaryButton href="#sessoes">
-                        Ver Programação{' '}
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </PrimaryButton>
-                    <SecondaryButton href="#filtros">
-                        Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                    </SecondaryButton>
-                </div>
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem}
+                        className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}
+                    >
+                        {main_white_title}
+                        <br />
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+                        {main_description}
+                    </motion.p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5">
+                            <CalendarDays size={14} className="text-[#c8ff00]" />{' '}
+                            {formatEventDateRange(start_event_date, end_event_date)}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                            <MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                            <Mic size={14} className="text-[#c8ff00]" /> Entrada Livre
+                        </span>
+                    </motion.div>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#sessoes">
+                            Ver Programação{' '}
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                    </motion.div>
+                </motion.div>
             </HeroPageSection>
 
             {/* ── Filter box ── */}
             <section id="filtros" className="px-8 xl:px-20 pb-8">
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5">
                     <div className="flex flex-wrap items-end gap-4 justify-center ">
+                        <div className="flex flex-col gap-1.5 min-w-[180px] ">
+                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest ">Área</label>
+                            <div className="relative">
+                                <select
+                                    value={selectedArea}
+                                    onChange={e => {
+                                        setSelectedArea(e.target.value as AreaKind)
+                                        setShown(pageSize)
+                                    }}
+                                    className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
+                                >
+                                    <option value="TODAS">TODAS</option>
+                                    {AREA_OPTIONS.map(area => (
+                                        <option key={area.value} value={area.value}>
+                                            {area.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
+                            </div>
+                        </div>
+
                         <div className="flex flex-col gap-1.5 min-w-[140px] ">
-                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest ">Categoria</label>
+                            <label className="text-[10px] font-black text-white/30 uppercase tracking-widest ">Tipo</label>
                             <div className="relative">
                                 <select
                                     value={selectedType}
@@ -518,7 +607,7 @@ const Programacao = () => {
             </section>
 
             {/* ── Session list ── */}
-            <section id="sessoes" className="px-8 xl:px-20 pb-16 flex flex-col gap-4">
+            <motion.section id="sessoes" className="scroll-mt-32 px-8 xl:px-20 pb-16 flex flex-col gap-4" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 {loading && (
                     <div className="py-20 text-center text-white/40 text-sm font-bold uppercase tracking-widest">A carregar eventos...</div>
                 )}
@@ -565,6 +654,7 @@ const Programacao = () => {
                                         <img
                                             src={event.image}
                                             alt={event.title}
+                                            loading="lazy"
                                             className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
                                         />
                                     </div>
@@ -604,6 +694,7 @@ const Programacao = () => {
                                             <img
                                                 src={event.image}
                                                 alt={event.title}
+                                                loading="lazy"
                                                 className="w-full h-full object-cover brightness-60"
                                             />
                                         </div>
@@ -629,7 +720,7 @@ const Programacao = () => {
                         </button>
                     </div>
                 )}
-            </section>
+            </motion.section>
         </main>
     )
 }

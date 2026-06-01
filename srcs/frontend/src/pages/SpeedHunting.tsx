@@ -1,19 +1,18 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
+import { motion } from 'framer-motion'
 
-import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCompanies, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
 import type { SpeedHuntingContract } from '../api/contracts'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
-import PageStars from '../components/core/PageStars'
 import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/doodles/leaf3.webp'
+import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
+import HeroPageSection from '../components/core/HeroPageSection'
 
 
 const SpeedHunting = () => {
@@ -27,91 +26,55 @@ const SpeedHunting = () => {
             end_event_date,
         } = usePageData('speed-hunting');
 
-    const [companies, setCompanies] = useState<SpeedHuntingContract[]>(speedHuntingCompanies as any)
-    useEffect(() => { speedHuntingApi.getCompanies().then(setCompanies as any) }, [])
+    const [companies, setCompanies] = useState<SpeedHuntingContract[]>([])
+    useEffect(() => { speedHuntingApi.getCompanies().then(data => setCompanies(data)) }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
 
-    const filtered = activeCategory === 'TODAS'
-        ? companies
-        : companies.filter(c => c.category === activeCategory)
+    const filtered = useMemo(
+        () => activeCategory === 'TODAS' ? companies : companies.filter(c => c.category === activeCategory),
+        [companies, activeCategory]
+    )
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
-            <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-                        <img
-              src={leaf}
-              alt=""
-              aria-hidden="true"
-              className="
-                  leaf-2 absolute pointer-events-none select-none z-[200]
-                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
-              "
-          />
-                <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-                <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-                <PageStars />
-                <HeroPolaroid src={polaroid_speedhunting} />
+            <HeroPageSection
+                polaroidSrc={polaroid_speedhunting}
+                heroImgSrc={heroImg}
+                heroImgAlt="Speed Hunting"
+                zigzag={{ from: { x: 45, y: 3 }, to: { x: 98, y: 97 }, steps: 5, amplitude: 28, curve: 0.3, strokeWidth: 4, dashLength: 8, dashGap: 6, opacity: 0.7 }}
+            >
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                        {main_white_title}<br />
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
 
-                <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-                    {/* Left — text */}
-                    <div className="flex-1 flex flex-col py-8">
-                        <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                            {main_white_title}<br />
-                            <span className="text-[#c8ff00]">{main_green_title}</span>
-                        </h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+                        {main_description}
+                    </motion.p>
 
-                        <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-                            {main_description}
-                        </p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+                        <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+                        <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+                    </motion.div>
 
-                        {/* Info pills */}
-                        <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-                            <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-                            <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-                        </div>
-
-                        {/* CTAs */}
-                        <div className="flex flex-wrap gap-3">
-                            <PrimaryButton href="#empresas">
-                                Ver Empresas Confirmadas
-                                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                            </PrimaryButton>
-                            <SecondaryButton href="#como-funciona">
-                                Como Funciona
-                                <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                            </SecondaryButton>
-                        </div>
-                    </div>
-
-                    {/* Right — hero image */}
-                    <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-                        <img src={heroImg} alt="Speed Hunting" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-                        <StaticZigzagPath
-                            from={{ x: 20, y: 5 }}
-                            to={{ x: 80, y: 95 }}
-                            steps={3}
-                            amplitude={25}
-                            curve={1.4}
-                            color="#c8ff00"
-                            strokeWidth={4}
-                            dashed
-                            dashLength={10}
-                            dashGap={8}
-                            opacity={0.7}
-                        />
-                    </div>
-                </div>
-            </section>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#empresas">
+                            Ver Empresas Confirmadas
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#como-funciona">
+                            Como Funciona
+                            <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
+            </HeroPageSection>
 
             {/* ── METRICS BAR ── */}
             <section className="border-t border-b border-white/10 bg-white/5 px-8 xl:px-20 py-10">
@@ -132,7 +95,7 @@ const SpeedHunting = () => {
             </section>
 
             {/* ── O QUE É ── */}
-            <section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section id="sobre" className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
                     {/* Left */}
                     <div className="flex-1">
@@ -173,10 +136,10 @@ const SpeedHunting = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* ── EMPRESAS CONFIRMADAS ── */}
-            <section id="empresas" className="px-16 xl:px-32 py-24 border-b border-white/10 bg-white/[0.02]">
+            <motion.section id="empresas" className="px-16 xl:px-32 py-24 border-b border-white/10 bg-white/[0.02]" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                     <div>
                         <div className="mb-3 flex items-center gap-2">
@@ -216,7 +179,7 @@ const SpeedHunting = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filtered.map((c, i) => {
                         const catColor = speedHuntingCategoryColor[c.category ?? ''] ?? '#ffffff'
                         const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
@@ -225,13 +188,14 @@ const SpeedHunting = () => {
                         const logoSrc = c.company_logo ? resolveMediaUrl(c.company_logo) : null
 
                         return (
-                            <div key={i} className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
+                            <motion.div key={i} variants={cardItem} className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
                                 {/* Top (mobile) / Left (desktop) — logo + badge */}
                                 <div className="flex-none sm:w-[140px] flex flex-row sm:flex-col justify-start sm:justify-center items-center gap-4 px-4 sm:px-0 py-4 sm:py-6 border-b sm:border-b-0 sm:border-r border-white/10">
                                     {logoSrc ? (
                                         <img
                                             src={logoSrc}
                                             alt={c.company_name}
+                                            loading="lazy"
                                             className="w-14 h-14 sm:w-20 sm:h-20 object-contain rounded-sm shrink-0"
                                         />
                                     ) : (
@@ -266,14 +230,14 @@ const SpeedHunting = () => {
                                 <div className="hidden sm:flex flex-none items-center px-3">
                                     <span className="text-xl" style={{ color: catColor }}>✦</span>
                                 </div>
-                            </div>
+                            </motion.div>
                         )
                     })}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ── COMO FUNCIONA ── */}
-            <section id="como-funciona" className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section id="como-funciona" className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="flex flex-col lg:flex-row gap-16">
                     {/* Left — steps */}
                     <div className="flex-1">
@@ -284,18 +248,18 @@ const SpeedHunting = () => {
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight mb-10">
                             O <span className="text-[#c8ff00]">PROCESSO</span>
                         </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {steps.map((step, i) => (
-                                <div key={i} className="flex flex-col gap-3 p-5 rounded-sm border border-white/10 bg-white/5">
+                                <motion.div key={i} variants={cardItem} className="flex flex-col gap-3 p-5 rounded-sm border border-white/10 bg-white/5">
                                     <div className="flex items-center gap-3">
                                         <span className="text-[#c8ff00] text-2xl font-black leading-none">{step.num}</span>
                                         <div className="text-[#c8ff00] opacity-70">{step.icon}</div>
                                     </div>
                                     <h3 className="text-xs font-black uppercase tracking-wide text-white leading-tight">{step.title}</h3>
                                     <p className="text-[11px] text-white/40 leading-relaxed">{step.desc}</p>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Right — tips */}
@@ -307,17 +271,17 @@ const SpeedHunting = () => {
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight mb-10">
                             VEM <span className="text-[#c8ff00]">PREPARADO</span>
                         </h2>
-                        <div className="flex flex-col gap-3">
+                        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="flex flex-col gap-3">
                             {tips.map((tip, i) => (
-                                <div key={i} className="flex items-start gap-3 p-4 rounded-sm border border-white/10 bg-white/5 hover:border-[#c8ff00]/20 transition-colors duration-300">
+                                <motion.div key={i} variants={cardItem} className="flex items-start gap-3 p-4 rounded-sm border border-white/10 bg-white/5 hover:border-[#c8ff00]/20 transition-colors duration-300">
                                     <CheckCircle2 size={16} className="text-[#c8ff00] shrink-0 mt-0.5" strokeWidth={1.5} />
                                     <p className="text-sm text-white/60 leading-relaxed">{tip}</p>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* ── CTA BANNER ── */}
             <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">

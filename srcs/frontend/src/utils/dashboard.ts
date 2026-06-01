@@ -125,10 +125,21 @@ export const PAGE_FALLBACKS: Record<string, PageFallback> = {
 
 //Fields that should be displayed first in the dashboard table
 export const dashboardFields = [
-    "title", 
-    "description", 
+    "title",
+    "description",
     "is_active"
 ];
+
+// Fallback field list per API slug — used when no rows exist yet (empty table)
+export const PAGE_EVENT_FIELDS: Record<string, string[]> = {
+    "exposicoes":    ["title", "category", "synopsis", "artists", "image", "opening_hours", "start_date", "end_date", "location", "is_active", "is_highlight"],
+    "sunset-talks":  ["title", "description", "speaker_name", "speaker_activity", "speaker_info_link", "social_link", "registration_link", "category", "category_other", "image", "start_datetime", "location", "is_active", "is_highlight"],
+    "workshops":     ["title", "description", "mentor_name", "mentor_social", "duration", "max_participants", "registration_link", "category", "start_datetime", "location", "is_active", "is_highlight"],
+    "cinema":        ["title", "director_team", "synopsis", "duration", "social_link", "image", "start_datetime", "location", "is_active", "is_highlight"],
+    "concertos":     ["band_name", "description", "info_link", "social_link", "image", "start_datetime", "location", "is_active", "is_highlight"],
+    "speed-hunting": ["company_name", "company_logo", "company_description", "category", "start_datetime", "location", "is_active"],
+    "semana-labia":  ["title", "description", "featured_projects", "image", "start_datetime", "end_datetime", "location", "is_active"],
+};
 
 
 export const fieldLabels: Record<string, string> = {
@@ -186,6 +197,7 @@ export const fieldLabels: Record<string, string> = {
     opening_hours: "Horário de exposição",
     start_date: "Data de início",
     end_date: "Data de fim",
+    is_highlighted: "Em destaque",
 };
 
 /**

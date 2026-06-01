@@ -1,6 +1,6 @@
 # Out of the Box
 
-Event management platform for the ETIC_Algarve. Django REST API backend, React frontend, PostgreSQL database — all containerised with Docker Compose.
+Event management platform for ETIC_Algarve. Django REST API backend, React frontend, PostgreSQL database — all containerised with Docker Compose.
 
 ---
 
@@ -27,7 +27,8 @@ out-of-the-box/
 ├── Makefile                # All workflow commands
 ├── env.example             # Environment variable template
 ├── scripts/
-│   └── seed_db.py          # Database seed script
+│   ├── seed_db.py          # Dev database seed script
+│   └── seed_db_prod.py     # Prod database seed script (pages data only)
 ├── ops/
 │   ├── backend/            # Dockerfiles (dev + prod)
 │   └── nginx/              # nginx.conf (prod)
@@ -39,34 +40,42 @@ out-of-the-box/
     │   │       └── migrations/
     │   └── manage.py
     └── frontend/
+        ├── public/
+        │   ├── robots.txt      # SEO: crawler rules
+        │   └── sitemap.xml     # SEO: all public routes
         └── src/
-            ├── assets/         # Images, SVGs, decorative elements
+            ├── assets/         # Images, WebP doodles, decorative elements
+            ├── api/contracts/  # TypeScript interfaces for API responses
             ├── components/
             │   ├── buttons/    # PrimaryButton, SecondaryButton
-            │   ├── core/       # Navbar, Footer, MarqueeBanner, etc.
+            │   ├── core/       # Navbar, Footer, HeroPageSection, PageStars, HeroPolaroid, etc.
             │   ├── dashboard/  # CRUD dashboard components + modals
             │   └── homepage/   # HeroGallery, Carousel, Path, etc.
             ├── hooks/          # usePageData, useAuthUser, crudDashboard
-            ├── pages/          # One file per event type + Dashboard
-            ├── styles/         # leaves.css, marquee.css, path.css
-            ├── types/          # TypeScript interfaces
-            └── utils/          # dashboard.ts, metrics.tsx
+            ├── pages/          # One file per event type + Dashboard + Programacao
+            ├── services/api/   # API call helpers (one per resource)
+            ├── styles/         # leaves.css, marquee.css, path.css, stars.css
+            ├── utils/          # dashboard.ts, meta.ts, metrics.tsx
+            └── types/          # TypeScript interfaces
 ```
 
 ---
 
 ## Environment Variables
 
-Run `make env` for environment variables.
+Copy `.env.example` to `.env` and fill in values, or run `make env` to generate one.
 
+For production, set:
 
-For production, also set:
 ```env
-DEBUG=False
-ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
 SECRET_KEY=<strong-random-key>
+DEBUG=False
+ALLOWED_HOSTS=yourdomain.com,localhost,127.0.0.1
 CSRF_TRUSTED_ORIGINS=https://yourdomain.com
+CORS_ALLOWED_ORIGINS=https://yourdomain.com
 ```
+
+> **Note:** `ALLOWED_HOSTS` takes bare hostnames (no `https://`), comma-separated. `localhost` and `127.0.0.1` must be included for the Docker healthcheck to pass.
 
 ---
 
@@ -115,11 +124,16 @@ make env                 # Create .env from defaults (skips if already exists)
 # Dev workflow
 make start-dev           # Full first-time setup: build, migrate, seed, logs
 make up-dev              # Start dev containers (build + run)
-make up-prod             # Start production containers
 make restart             # Restart all running dev containers (no rebuild)
 make rebuild             # Rebuild images, restart containers, run migrations
+make sync-dev            # Sync local code changes without rebuilding containers
 make clean               # Stop and remove containers — volumes are preserved
 make purge               # ⚠️  Stop containers AND delete all volumes (prompts for confirmation)
+
+# Prod workflow
+make start-prod          # Full first-time prod setup: build, migrate, superuser, seed, logs
+make up-prod             # Start production containers
+make populate-prod       # Seed prod database with pages data
 
 # Migrations
 make migration-dev       # Generate new migrations (dev)
@@ -128,12 +142,11 @@ make migration-prod      # Generate new migrations (prod)
 make migrate-prod        # Apply migrations (prod)
 
 # Users
-make superuser-auto-dev  # Auto-create default superuser: admin / admin (no prompt)
-make superuser-dev       # Create a custom superuser interactively (dev)
+make superuser-dev       # Create a superuser interactively (dev)
 make superuser-prod      # Create Django superuser (prod)
 
 # Database
-make populate-dev        # Seed database with sample data
+make populate-dev        # Seed database with sample data (dev)
 
 # Tests
 make backend-test-dev    # Run pytest in dev container
@@ -149,6 +162,9 @@ make logs-backend-dev    # Tail Django log (dev)
 make logs-backend-prod   # Tail Django log (prod)
 make logs-pytest-dev     # Show pytest output (dev)
 make logs-pytest-prod    # Show pytest output (prod)
+
+# Assets
+make convert             # Convert PNG/JPG assets to WebP
 ```
 
 ---
@@ -166,14 +182,22 @@ All endpoints are prefixed with `/api/`.
 | `GET` | `/api/exposicoes/{id}/` | Get exposição |
 | `PATCH` | `/api/exposicoes/{id}/` | Update exposição |
 | `DELETE` | `/api/exposicoes/{id}/` | Delete exposição |
-| | `/api/palestras/` | Same pattern |
+| | `/api/sunset-talks/` | Same pattern |
 | | `/api/workshops/` | Same pattern |
-| | `/api/projecoes/` | Same pattern |
+| | `/api/cinema/` | Same pattern |
 | | `/api/concertos/` | Same pattern |
 | | `/api/speed-hunting/` | Same pattern |
 | | `/api/semana-labia/` | Same pattern |
 
 `POST` and `PATCH` accept **`multipart/form-data`** when uploading an image, or **`application/json`** otherwise. Write operations require authentication (`IsAuthenticatedOrReadOnly`).
+
+### Homepage highlights
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/highlights/` | All active events with `is_highlight=True`, sorted by date |
+
+Events from any category can be promoted to the homepage Carousel by setting `is_highlight = true` in the dashboard.
 
 ### Pages
 
@@ -191,7 +215,7 @@ All endpoints are prefixed with `/api/`.
 |---|---|---|
 | `GET` | `/api/auth/me/` | Current user info (401 if unauthenticated) |
 | `POST` | `/api/auth/logout/` | End session |
-| `GET` | `/api/speaker/` | Speaker (Palestras) count |
+| `GET` | `/api/speaker/` | Speaker (Sunset Talks) count |
 | `GET` | `/api/health/` | Health check |
 
 ### API docs
@@ -208,6 +232,7 @@ The custom admin dashboard lives at `/dashboard` in the React app. It requires a
 - **Overview tab** — page-level stats and editable page content (titles, descriptions, dates, CTA buttons)
 - **Event tabs** — one per page type; supports create, view, edit, delete with live filters and pagination
 - **Image uploads** — file picker in the event form sends `multipart/form-data`; files are stored under `MEDIA_ROOT` (`staticfiles/media/`)
+- **Highlights** — toggle `is_highlight` on any event to feature it in the homepage Carousel
 
 To create a dashboard user:
 
@@ -228,15 +253,23 @@ The prod stack (`compose.prod.yaml`) replaces the Vite dev server with a pre-bui
 cd srcs/frontend && npm run build
 # (dist/ is copied into the backend image by the prod Dockerfile)
 
-# 2. Set production env vars in .env
+# 2. Fill in production values in .env
+#    Required: SECRET_KEY, DEBUG=False, ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS, CORS_ALLOWED_ORIGINS
 
-# 3. Start
-make up-prod
-make migrate-prod
-make superuser-prod
+# 3. First-time start (builds, migrates, creates superuser, seeds pages)
+make start-prod
 ```
 
 Nginx listens on port 80, proxies `/api/` and `/admin/` to Gunicorn, and serves static + media files directly from the `static_files` volume.
+
+---
+
+## SEO
+
+- Per-page `<title>`, `<meta name="description">`, Open Graph, and Twitter Card tags are applied dynamically on route change via `src/utils/meta.ts`.
+- `public/robots.txt` allows all crawlers and points to the sitemap.
+- `public/sitemap.xml` lists all public routes with the production domain.
+- The shared OG image is served from `/ootb_w26_900.webp` (stable URL, no content hash).
 
 ---
 

@@ -16,6 +16,7 @@ export interface ExposicoesContract {
     id: number;
     title: string;
     category: 'DESIGN' | 'FOTO' | 'JOGOS' | 'OUTROS';
+    area?: string | null;
     synopsis: string;
     artists: string;
     image: string | null;
@@ -32,6 +33,7 @@ export interface SunsetTalksContract {
     description: string;
     speaker_name: string;
     speaker_activity: string;
+    area?: string | null;
     speaker_info_link: string | null;
     social_link: string | null;
     registration_link: string | null;
@@ -41,6 +43,9 @@ export interface SunsetTalksContract {
     start_datetime: string;
     location: string;
     is_active: boolean;
+    type?: string | null;
+    day?: number | null;
+    moderator?: string | null;
 }
 
 export interface WorkshopsContract {
@@ -49,6 +54,7 @@ export interface WorkshopsContract {
     description: string;
     mentor_name: string;
     mentor_social: string | null;
+    area?: string | null;
     category: string | null;
     duration: string;
     max_participants: number;
@@ -64,6 +70,7 @@ export interface CinemaContract {
     director_team: string;
     synopsis: string;
     duration: string;
+    area?: string | null;
     social_link: string | null;
     image: string | null;
     start_datetime: string;
@@ -75,6 +82,7 @@ export interface ConcertosContract {
     id: number;
     band_name: string;
     description: string;
+    area?: string | null;
     info_link: string | null;
     social_link: string | null;
     image: string | null;
@@ -89,6 +97,7 @@ export interface SpeedHuntingContract {
     company_logo: string | null;
     company_description: string | null;
     category: string | null;
+    area?: string | null;
     start_datetime: string;
     location: string;
     is_active: boolean;
@@ -105,4 +114,13 @@ export interface SemanaLabiaContract {
     location: string;
     is_active: boolean;
     created_at: string;
+}
+
+export interface HighlightContract {
+    title: string
+    subtitle: string
+    tag: 'CONCERTO' | 'TALK' | 'WORKSHOP' | 'CINEMA' | 'EXPOSIÇÃO'
+    start_datetime: string | null
+    location: string
+    image: string | null
 }

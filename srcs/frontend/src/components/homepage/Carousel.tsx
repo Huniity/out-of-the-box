@@ -1,6 +1,3 @@
-// components/ProgramacaoCarousel.tsx
-'use client'
-
 import doodleBlue from '../../assets/doodles/d_blu2.webp'
 import doodlePurple from '../../assets/doodles/d_pu.webp'
 import doodlePink from '../../assets/doodles/d_p.webp'
@@ -8,28 +5,26 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { MapPin, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react'
 import Fundo from '../../assets/etic_algarve/FUNDO.webp'
 import { PrimaryButton } from '../buttons/MainButton'
+import { highlightsApi } from '../../services/api/highlights.api'
+import type { HighlightContract } from '../../api/contracts'
 
-type EventCard = {
-  day: number
-  month: string
-  time: string
-  accentColor: string
-  title: string
-  subtitle: string
-  location: string
-  image?: string
-  tag?: string
+const TAG_COLORS: Record<string, string> = {
+  CONCERTO:  '#c8ff00',
+  TALK:      '#f9a8d4',
+  WORKSHOP:  '#fb923c',
+  CINEMA:    '#60a5fa',
+  'EXPOSIÇÃO': '#a78bfa',
 }
 
-const events: EventCard[] = [
-  { day: 3,  month: 'JUL', time: '19:00', accentColor: '#c8ff00', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 1', location: 'IPDJ, Faro', tag: 'CONCERTO' },
-  { day: 4,  month: 'JUL', time: '20:00', accentColor: '#f9a8d4', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 2', location: 'IPDJ, Faro', tag: 'PALESTRA' },
-  { day: 5,  month: 'JUL', time: '19:00', accentColor: '#fb923c', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 3', location: 'IPDJ, Faro', tag: 'WORKSHOP' },
-  { day: 6,  month: 'JUL', time: '20:00', accentColor: '#c8ff00', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 4', location: 'IPDJ, Faro', tag: 'CONCERTO' },
-  { day: 7,  month: 'JUL', time: '19:00', accentColor: '#60a5fa', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 5', location: 'IPDJ, Faro', tag: 'CINEMA'   },
-  { day: 8,  month: 'JUL', time: '20:00', accentColor: '#f9a8d4', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 6', location: 'IPDJ, Faro', tag: 'LIVE'     },
-  { day: 9,  month: 'JUL', time: '19:00', accentColor: '#c8ff00', title: 'A Confirmar', subtitle: 'Cabeça de Cartaz — Dia 7', location: 'IPDJ, Faro', tag: 'CONCERTO' },
-]
+function parseDt(iso: string | null) {
+  if (!iso) return { day: 0, month: 'JUL', time: '--:--' }
+  const d = new Date(iso)
+  return {
+    day:   d.getUTCDate(),
+    month: d.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', ''),
+    time:  d.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }),
+  }
+}
 
 const GAP = 12 // gap-3
 
@@ -37,10 +32,13 @@ const Carousel = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
+  const [events, setEvents] = useState<HighlightContract[]>([])
   const [cardsPerPage, setCardsPerPage] = useState(5)
   const [containerWidth, setContainerWidth] = useState(0)
   const [page, setPage] = useState(0)
   const [visible, setVisible] = useState(false)
+
+  useEffect(() => { highlightsApi.getHighlights().then(setEvents).catch(() => {}) }, [])
 
   const totalPages = Math.ceil(events.length / cardsPerPage)
 
@@ -145,7 +143,10 @@ const Carousel = () => {
           className="flex gap-2.5 transition-transform duration-[420ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
           style={{ transform: `translateX(-${page * containerWidth }px)` }}
         >
-          {events.map((ev, i) => (
+          {events.map((ev, i) => {
+            const accent = TAG_COLORS[ev.tag] ?? '#c8ff00'
+            const { day, month, time } = parseDt(ev.start_datetime)
+            return (
             <div
               key={i}
               className="flex-none rounded-xl overflow-hidden relative cursor-pointer group"
@@ -165,8 +166,8 @@ const Carousel = () => {
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"
                 style={{
-                  boxShadow: `inset 0 0 0 1px ${ev.accentColor}55`,
-                  background: `radial-gradient(ellipse at 50% 100%, ${ev.accentColor}18 0%, transparent 70%)`,
+                  boxShadow: `inset 0 0 0 1px ${accent}55`,
+                  background: `radial-gradient(ellipse at 50% 100%, ${accent}18 0%, transparent 70%)`,
                 }}
               />
 
@@ -176,17 +177,15 @@ const Carousel = () => {
                     className="text-black text-[11px] font-extrabold leading-none px-2 py-1 rounded-md uppercase tracking-tight"
                     style={{ backgroundColor: '#c8ff00' }}
                   >
-                    <span className="text-base block">{ev.day}</span>
-                    {ev.month}
+                    <span className="text-base block">{day}</span>
+                    {month}
                   </div>
-                  {ev.tag && (
-                    <span
-                      className="text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest"
-                      style={{ color: '#000', backgroundColor: ev.accentColor, opacity: 0.92 }}
-                    >
-                      {ev.tag}
-                    </span>
-                  )}
+                  <span
+                    className="text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest"
+                    style={{ color: '#000', backgroundColor: accent, opacity: 0.92 }}
+                  >
+                    {ev.tag}
+                  </span>
                 </div>
 
                 <div className="flex flex-col gap-1">
@@ -197,9 +196,9 @@ const Carousel = () => {
                   <div className="flex items-center gap-1 mt-0.5">
                     <span
                       className="self-start text-black text-[11px] font-extrabold px-2 py-0.5 rounded animate-pulse"
-                      style={{ backgroundColor: ev.accentColor, animationDuration: '3s' }}
+                      style={{ backgroundColor: accent, animationDuration: '3s' }}
                     >
-                      {ev.time}
+                      {time}
                     </span>
                     <MapPin size={10} color="rgba(198,220,128,0.55)" />
                     <span className="text-white/45 text-[11px]">{ev.location}</span>
@@ -207,7 +206,8 @@ const Carousel = () => {
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
       </div>

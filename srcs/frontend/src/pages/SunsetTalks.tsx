@@ -1,16 +1,62 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
-import StaticZigzagPath from '../components/core/StaticZigzagPath'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
-import { sunsetTalksTypeColors as typeColors, sunsetTalksSessions, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
-import PageStars from '../components/core/PageStars'
+import type { SunsetTalksContract } from '../api/contracts'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
-import HeroPolaroid from '../components/core/HeroPolaroid'
-import leaf from '../assets/doodles/leaf3.webp'
+import { motion } from 'framer-motion'
+import { heroStagger, heroItem } from '../utils/animations'
+import HeroPageSection from '../components/core/HeroPageSection'
+
+type AreaKind =
+  | 'TODAS'
+  | 'ANIMACAO_VIDEOJOGOS'
+  | 'DESIGN'
+  | 'FOTO'
+  | 'MARKETING_COMUNICACAO'
+  | 'PW'
+  | 'SOM_MUSICA'
+  | 'VIDEO'
+  | 'VIDEOJOGOS'
+
+const AREA_OPTIONS: Array<{ value: Exclude<AreaKind, 'TODAS'>; label: string }> = [
+  { value: 'ANIMACAO_VIDEOJOGOS', label: 'Animação e Videojogos' },
+  { value: 'DESIGN', label: 'Design' },
+  { value: 'FOTO', label: 'Fotografia' },
+  { value: 'MARKETING_COMUNICACAO', label: 'Marketing & Comunicação' },
+  { value: 'PW', label: 'Programação' },
+  { value: 'SOM_MUSICA', label: 'Som & Música' },
+  { value: 'VIDEO', label: 'Vídeo' },
+  { value: 'VIDEOJOGOS', label: 'Videojogos' },
+]
+
+const normalizeArea = (value?: string | null): Exclude<AreaKind, 'TODAS'> | null => {
+  switch (value) {
+    case 'ANIMACAO_VIDEOJOGOS':
+    case 'DESIGN':
+    case 'FOTO':
+    case 'MARKETING_COMUNICACAO':
+    case 'PW':
+    case 'SOM_MUSICA':
+    case 'VIDEO':
+    case 'VIDEOJOGOS':
+      return value
+    case 'MARKETING':
+      return 'MARKETING_COMUNICACAO'
+    case 'SOM':
+      return 'SOM_MUSICA'
+    case 'JOGOS':
+      return 'ANIMACAO_VIDEOJOGOS'
+    case 'CINEMA':
+      return 'VIDEO'
+    default:
+      return null
+  }
+}
 
 
 const SunsetTalks = () => {
@@ -22,10 +68,11 @@ const SunsetTalks = () => {
     end_event_date,
   } = usePageData('sunset-talks')
 
-  const [sessions, setSessions] = useState(sunsetTalksSessions)
-  useEffect(() => { sunsetTalksApi.getTalks().then(setSessions as any) }, [])
+  const [sessions, setSessions] = useState<SunsetTalksContract[]>([])
+  useEffect(() => { sunsetTalksApi.getTalks().then(data => setSessions(data)) }, [])
 
   const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
+  const [selectedArea, setSelectedArea] = useState<AreaKind>('TODAS')
   const [selectedType, setSelectedType] = useState<string>('TODAS')
   const [selectedSala, setSelectedSala] = useState<string>('TODAS')
   const [shown, setShown] = useState(pageSize)
@@ -33,6 +80,7 @@ const SunsetTalks = () => {
 
   const clearFilters = () => {
     setSelectedDay(null)
+    setSelectedArea('TODAS')
     setSelectedType('TODAS')
     setSelectedSala('TODAS')
     setShown(pageSize)
@@ -40,92 +88,79 @@ const SunsetTalks = () => {
 
   const filtered = sessions.filter(s => {
     const matchDay  = selectedDay  === null          || s.day  === selectedDay
+    const matchArea = selectedArea === 'TODAS'       || normalizeArea(s.category) === selectedArea
     const matchType = selectedType === 'TODAS'       || s.type === selectedType
     const matchSala = selectedSala === 'TODAS'       || s.location === selectedSala
-    return matchDay && matchType && matchSala
+    return matchDay && matchArea && matchType && matchSala
   })
+
+  const visibleDays = eventDays.filter(day => sessions.some(session => session.day === day.day))
 
   const visible = filtered.slice(0, shown)
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
 
       {/* ── Hero ── */}
-      <section className="relative h-[calc(100vh-66px)] flex items-stretch px-8 xl:px-20 overflow-hidden">
-                <img
-              src={leaf}
-              alt=""
-              aria-hidden="true"
-              className="
-                  leaf-2 absolute pointer-events-none select-none z-[200]
-                  w-[65%] right-[60%] top-[95%] -translate-y-1/2 rotate-[8deg]
-                  sm:w-[65%] sm:left-[110%] sm:top-[70%] sm:rotate-[310deg]
-                  md:w-[40%] md:right-[78%] md:top-[98%] md:rotate-[5deg]
-                  lg:w-[30%] lg:left-[105%] lg:top-[70%] lg:rotate-[310deg]
-              "
-          />
-        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#c8ff00]/10 blur-3xl pointer-events-none" />
-        <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-[#745ff2]/10 blur-3xl pointer-events-none" />
-        <PageStars />
-                <HeroPolaroid src={polaroid_sunset_talks} />
+      <HeroPageSection
+        polaroidSrc={polaroid_sunset_talks}
+        heroImgSrc={Fundo}
+        heroImgAlt="Sunset Talks"
+        zigzag={{ from: { x: 30, y: 2 }, to: { x: 70, y: 98 }, steps: 3, amplitude: 24, curve: 2.2, strokeWidth: 4, dashLength: 12, dashGap: 10, opacity: 0.7 }}
+      >
+        <motion.div variants={heroStagger} initial="hidden" animate="visible">
+          <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+            {main_white_title}<br />
+            <span className="text-[#c8ff00]">{main_green_title}</span>
+          </motion.h1>
 
-        <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-stretch gap-12">
-          {/* Left — text */}
-          <div className="flex-1 flex flex-col py-8">
-            <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-              {main_white_title}<br />
-              <span className="text-[#c8ff00]">{main_green_title}</span>
-            </h1>
+          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+            {main_description}
+          </motion.p>
 
-            <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
-              {main_description}
-            </p>
+          <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+            <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+            <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+            <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
+          </motion.div>
 
-            {/* Info pills */}
-            <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-              <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-              <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-              <span className="flex items-center gap-1.5"><Mic size={14} className="text-[#c8ff00]" /> Entrada Livre</span>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton href="#sessoes">
-                Ver Sessões <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-              </PrimaryButton>
-              <SecondaryButton href="#filtros">
-                Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-              </SecondaryButton>
-            </div>
-          </div>
-
-          {/* Right — hero image */}
-          <div className="hidden lg:block flex-1 relative overflow-hidden lg:min-h-0 -mr-8 xl:-mr-20">
-            <img src={Fundo} alt="Sunset Talks" className="absolute inset-0 h-full w-full object-cover brightness-75" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
-            <StaticZigzagPath
-              from={{ x: 20, y: 5 }}
-              to={{ x: 80, y: 95 }}
-              steps={4}
-              amplitude={20}
-              curve={1.2}
-              color="#c8ff00"
-              strokeWidth={4}
-              dashed
-              dashLength={10}
-              dashGap={8}
-              opacity={0.7}
-            />
-          </div>
-        </div>
-      </section>
+          <motion.div variants={heroItem} className="flex flex-col items-start sm:flex-row gap-3">
+            <PrimaryButton href="#sessoes">
+              Ver Sessões <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+            </PrimaryButton>
+            <SecondaryButton href="#filtros">
+              Filtrar <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+            </SecondaryButton>
+          </motion.div>
+        </motion.div>
+      </HeroPageSection>
 
       {/* ── Filter box ── */}
       <section id="filtros" className="px-8 xl:px-20 pb-8">
         <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5 ">
           <div className="flex flex-wrap items-end gap-4 justify-center">
+            { /* FIlter Area */}
+
+            {/* ÁREA */}
+            <div className="flex flex-col gap-1.5 min-w-[180px]">
+              <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Área</label>
+              <div className="relative">
+                <select
+                  value={selectedArea}
+                  onChange={e => { setSelectedArea(e.target.value as AreaKind); setShown(pageSize) }}
+                  className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
+                >
+                  <option value="TODAS">TODAS</option>
+                  {AREA_OPTIONS.map(area => (
+                    <option key={area.value} value={area.value}>
+                      {area.label}
+                    </option>
+                  ))}
+                </select>
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
+              </div>
+            </div>
 
             {/* CATEGORIA */}
             <div className="flex flex-col gap-1.5 min-w-[140px]">
@@ -187,9 +222,9 @@ const SunsetTalks = () => {
       {/* ── Date tabs ── */}
       <section className="px-8 xl:px-20 pb-8">
         <div ref={daysRef} className="flex gap-2 overflow-x-auto no-scrollbar pb-1 justify-center">
-          {eventDays.map(d => {
+          {visibleDays.map(d => {
             const isActive = selectedDay === d.day
-            const hasSession = sessions.some(s => s.day === d.day)
+            const hasSession = sessions.some(s => (s.start_datetime ? new Date(s.start_datetime).getDate() : s.day) === d.day)
             return (
               <button
                 key={d.day}
@@ -226,7 +261,7 @@ const SunsetTalks = () => {
       </section>
 
       {/* ── Session list ── */}
-      <section id="sessoes" className="px-8 xl:px-20 pb-16 flex flex-col gap-4">
+      <section id="sessoes" className="scroll-mt-32 px-8 xl:px-20 pb-16 flex flex-col gap-4">
         {visible.length === 0 && (
           <div className="py-20 text-center text-white/30 text-sm font-bold uppercase tracking-widest">
             Sem sessões para os filtros selecionados.
@@ -234,19 +269,19 @@ const SunsetTalks = () => {
         )}
 
         {visible.map((s) => {
-          const typeColor = typeColors[s.type]
+          const typeColor = typeColors[s.type as keyof typeof typeColors] ?? '#c8ff00'
           const cat = s.category ?? ''
           const catColor = cat && cat !== 'OUTROS' ? (areaColor[cat] ?? '#ffffff') : '#ffffff'
 
-          // Support both mock data (day + time) and real API data (start_datetime)
-          const startDt = (s as any).start_datetime ? new Date((s as any).start_datetime) : null
-          const dayNum  = startDt ? startDt.getDate() : s.day
-          const timeStr = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : s.time
+          const startDt  = s.start_datetime ? new Date(s.start_datetime) : null
+          const dayNum   = startDt ? startDt.getDate() : null
+          const monthStr = startDt ? startDt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '') : ''
+          const timeStr  = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
-          const imgSrc          = s.image ? resolveMediaUrl(s.image) : Fundo
-          const infoLink        = s.speaker_info_link   ?? (s as any).speaker_info_link   ?? null
-          const socialLink      = s.social_link         ?? (s as any).social_link         ?? null
-          const registrationLink = s.registration_link  ?? (s as any).registration_link   ?? null
+          const imgSrc           = s.image ? resolveMediaUrl(s.image) : Fundo
+          const infoLink         = s.speaker_info_link ?? null
+          const socialLink       = s.social_link ?? null
+          const registrationLink = s.registration_link ?? null
 
           return (
             <div
@@ -257,7 +292,7 @@ const SunsetTalks = () => {
               {/* LEFT — date · time · location · badge */}
               <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
                 <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
-                  {dayNum} JUL
+                  {dayNum} {monthStr}
                 </p>
                 <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
                   {timeStr}
@@ -273,12 +308,14 @@ const SunsetTalks = () => {
                     {cat === 'OUTROS' ? (s.category_other ?? 'Outros') : (areaLabel[cat] ?? cat)}
                   </span>
                 )}
-                <span
-                  className="block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center"
-                  style={{ backgroundColor: typeColor }}
-                >
-                  {s.type}
-                </span>
+                {s.type && (
+                  <span
+                    className="block px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center"
+                    style={{ backgroundColor: typeColor }}
+                  >
+                    {s.type}
+                  </span>
+                )}
               </div>
 
               {/* MIDDLE — image + content */}
@@ -287,6 +324,7 @@ const SunsetTalks = () => {
                   <img
                     src={imgSrc}
                     alt={s.title}
+                    loading="lazy"
                     className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>

@@ -107,9 +107,9 @@ const FieldRenderer = ({
         );
     }
 
-    // Boolean (auto-detected)
-    const isBoolean = typeof (initialValue ?? value) === "boolean";
-    if (field === "is_active" || isBoolean) {
+    // Boolean — by name convention (is_*) or type detection
+    const isBoolean = field.startsWith("is_") || field === "registration_required" || typeof (initialValue ?? value) === "boolean";
+    if (isBoolean) {
         return (
             <label className="block text-sm">
                 <span className="mb-1 block text-gray-300">{label}</span>

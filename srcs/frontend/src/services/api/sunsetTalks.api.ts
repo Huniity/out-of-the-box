@@ -1,15 +1,11 @@
-import { fetchWithConfig } from './index';
-import { sunsetTalksSessions } from '../../utils/metrics';
-import { mapSunsetTalks } from '../../api/mappers';
+import { fetchWithConfig } from './index'
+import type { SunsetTalksContract } from '../../api/contracts'
+
+type Raw = SunsetTalksContract[] | { results?: SunsetTalksContract[] }
 
 export const sunsetTalksApi = {
-    getTalks: async () => {
-        try {
-            const data = await fetchWithConfig('/sunset-talks/');
-            return mapSunsetTalks(Array.isArray(data) ? data : data.results || []);
-        } catch (error) {
-            console.warn("API offline - fallback Sunset Talks:", error);
-            return mapSunsetTalks(sunsetTalksSessions as any);
-        }
+    getTalks: async (): Promise<SunsetTalksContract[]> => {
+        const data = await fetchWithConfig<Raw>('/sunset-talks/')
+        return Array.isArray(data) ? data : (data.results ?? [])
     }
-};
+}

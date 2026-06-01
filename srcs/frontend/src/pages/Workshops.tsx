@@ -1,11 +1,12 @@
 
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, Clock, Timer, Users } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
+import { motion } from 'framer-motion'
 
-import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel, workshopsAreas as areas, workshopFilterAreas as filterAreas, workshopsWorkshops } from '../utils/metrics'
+import { workshopsMetrics as metrics, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel, workshopsAreas as areas, workshopFilterAreas as filterAreas } from '../utils/metrics'
 import { workshopsApi } from '../services/api/workshops.api'
 import type { WorkshopsContract } from '../api/contracts'
 import { usePageData } from '../hooks/usePageData'
@@ -17,6 +18,7 @@ import MetricsBar from '../components/core/MetricsBar'
 import FilterBox from '../components/core/FilterBox'
 import CtaBannerSection from '../components/core/CtaBannerSection'
 import HeroPageSection from '../components/core/HeroPageSection'
+import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
 
 
 const Workshops = () => {
@@ -30,46 +32,49 @@ const Workshops = () => {
                 end_event_date,
             } = usePageData('workshops');
 
-    const [workshops, setWorkshops] = useState<WorkshopsContract[]>(workshopsWorkshops as any)
-    useEffect(() => { workshopsApi.getWorkshops().then(setWorkshops as any) }, [])
+    const [workshops, setWorkshops] = useState<WorkshopsContract[]>([])
+    useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops(data)) }, [])
 
     const [activeArea, setActiveArea] = useState('TODAS')
 
-    const filtered = activeArea === 'TODAS'
-        ? workshops
-        : workshops.filter(w => w.category === activeArea)
+    const filtered = useMemo(
+        () => activeArea === 'TODAS' ? workshops : workshops.filter(w => w.category === activeArea),
+        [workshops, activeArea]
+    )
 
     return (
-        <div className="bg-black text-white min-h-screen overflow-x-hidden">
+        <div className="bg-black text-white min-h-screen overflow-x-hidden relative">
 
             {/* ── HERO ── */}
             <HeroPageSection
                 polaroidSrc={polaroid_workshops}
                 heroImgSrc={heroImg}
                 heroImgAlt="Workshops"
-                zigzag={{ steps: 3, amplitude: 25, curve: 1.4 }}
+                zigzag={{ from: { x: 25, y: 2 }, to: { x: 75, y: 98 }, steps: 4, amplitude: 22, curve: 1.4 }}
             >
-                <h1 className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
-                    style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
-                    {main_white_title}<br />
-                    <span className="text-[#c8ff00]">{main_green_title}</span>
-                </h1>
-                <p className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</p>
-                <div className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
-                    <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
-                    <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
-                    <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Grátis</span>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <PrimaryButton href="#programa">
-                        Ver Workshops
-                        <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
-                    </PrimaryButton>
-                    <SecondaryButton href="#areas">
-                        Explorar Áreas
-                        <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
-                    </SecondaryButton>
-                </div>
+                <motion.div variants={heroStagger} initial="hidden" animate="visible">
+                    <motion.h1 variants={heroItem} className="font-black uppercase leading-none tracking-tight text-white m-0 mb-4"
+                        style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1 }}>
+                        {main_white_title}<br />
+                        <span className="text-[#c8ff00]">{main_green_title}</span>
+                    </motion.h1>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</motion.p>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
+                        <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
+                        <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
+                        <span className="flex items-center gap-1.5"><Ticket size={14} className="text-[#c8ff00]" /> Entrada Grátis</span>
+                    </motion.div>
+                    <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+                        <PrimaryButton href="#programa">
+                            Ver Workshops
+                            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </PrimaryButton>
+                        <SecondaryButton href="#areas">
+                            Explorar Áreas
+                            <ChevronDown size={14} className="transition-transform duration-200 group-hover:translate-y-1" />
+                        </SecondaryButton>
+                    </motion.div>
+                </motion.div>
             </HeroPageSection>
 
             {/* ── METRICS BAR ── */}
@@ -87,7 +92,7 @@ const Workshops = () => {
             </section>
 
             {/* ── PROGRAMA DE WORKSHOPS ── */}
-            <section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10">
+            <motion.section id="programa" className="px-8 xl:px-20 py-20 border-b border-white/10" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
                     <div>
                         <SectionHeader
@@ -101,18 +106,20 @@ const Workshops = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {filtered.map((w, i) => {
                         const cat = w.category ?? ''
                         const color = areaColor[cat] ?? '#c8ff00'
                         const areaObj = areas.find(a => a.code === cat)
                         const dt = new Date(w.start_datetime)
                         const day = dt.getDate()
+                        const month = dt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '')
                         const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
 
                         return (
-                            <div
+                            <motion.div
                                 key={i}
+                                variants={cardItem}
                                 className="group flex flex-col lg:flex-row lg:items-center gap-4 p-5 pr-6 lg:pr-5 lg:h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer min-h-[290px] lg:min-h-0"
                                 style={{ borderColor: `${color}30` }}
                             >
@@ -136,7 +143,7 @@ const Workshops = () => {
                                     {/* Date + Time + Sala + chips — desktop order 3 */}
                                     <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3">
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                            <CalendarDays size={14} className="text-[#c8ff00]" /> {day} JUL
+                                            <CalendarDays size={14} className="text-[#c8ff00]" /> {day} {month}
                                         </span>
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
                                             <Clock size={14} className="text-[#c8ff00]" /> {time}
@@ -171,37 +178,37 @@ const Workshops = () => {
                                 <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4">
                                     <ArrowRight size={12} />
                                 </div>
-                            </div>
+                            </motion.div>
                         )
                     })}
-                </div>
+                </motion.div>
 
                 <p className="mt-8 flex items-center gap-2 text-xs text-white/30">
                     <span className="w-4 h-4 rounded-full border border-white/20 flex items-center justify-center text-[8px] shrink-0">i</span>
                     As vagas são limitadas. Inscreve-te com antecedência para garantir o teu lugar.
                 </p>
-            </section>
+            </motion.section>
 
             {/* ── ÁREAS FORMATIVAS E EQUIPAS ── */}
-            <section id="areas" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]">
+            <motion.section id="areas" className="px-8 xl:px-20 py-20 border-b border-white/10 bg-white/[0.02]" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                 <div>
                     <SectionHeader
                         label="CONHECER AS ÁREAS FORMATIVAS"
                         title={<>ÁREAS FORMATIVAS <span className="text-[#c8ff00]">E EQUIPAS</span></>}
                     />
                 </div>
-                <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
                     {areas.map((a, i) => (
-                        <div key={i} className="flex flex-col items-center text-center gap-3">
+                        <motion.div key={i} variants={cardItem} className="flex flex-col items-center text-center gap-3">
                             <div className="w-14 h-14 flex items-center justify-center">
                                 {a.icon}
                             </div>
                             <p className="text-[10px] font-black uppercase tracking-wide text-white leading-tight">{a.name}</p>
                             <p className="text-[10px] text-white/35 leading-relaxed">{a.desc}</p>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ── CTA BANNER ── */}
             <CtaBannerSection

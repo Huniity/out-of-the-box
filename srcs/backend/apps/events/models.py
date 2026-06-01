@@ -12,6 +12,17 @@ CATEGORY_CHOICES = [
     ('OUTROS', 'Outros')
 ]
 
+COURSE_AREA_CHOICES = [
+    ('ANIMACAO_VIDEOJOGOS', 'Animação e Videojogos'),
+    ('DESIGN', 'Design'),
+    ('FOTO', 'Fotografia'),
+    ('MARKETING_COMUNICACAO', 'Marketing & Comunicação'),
+    ('PW', 'Programação'),
+    ('SOM_MUSICA', 'Som & Música'),
+    ('VIDEO', 'Vídeo'),
+    ('VIDEOJOGOS', 'Videojogos'),
+]
+
 
 class Page(models.Model):
     id = models.AutoField(primary_key=True)
@@ -45,6 +56,7 @@ class Exposicoes(models.Model):
 
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return f"[{self.category}] {self.title}"
@@ -54,11 +66,12 @@ class SunsetTalks(models.Model):
     description = models.TextField(blank=True)
     speaker_name = models.CharField(max_length=255, blank=True)
     speaker_activity = models.CharField(max_length=255, blank=True, help_text="Atividade/Cargo")
-    
+    area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
+
     speaker_info_link = models.URLField(blank=True, null=True, help_text="Link para + info")
     social_link = models.URLField(blank=True, null=True, help_text="Rede social ou Site")
     registration_link = models.URLField(blank=True, null=True, help_text="Link para inscrição")
-    
+
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
     category_other = models.CharField(max_length=100, blank=True, null=True, help_text="Preencher quando categoria for 'Outros'")
 
@@ -66,6 +79,7 @@ class SunsetTalks(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -75,6 +89,7 @@ class Workshops(models.Model):
     description = models.TextField(blank=True)
     mentor_name = models.CharField(max_length=255, blank=True)
     mentor_social = models.URLField(blank=True, null=True)
+    area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
 
     duration = models.CharField(max_length=100, blank=True, help_text="Ex: 2 horas")
     max_participants = models.IntegerField(null=True, blank=True)
@@ -84,6 +99,7 @@ class Workshops(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -92,6 +108,7 @@ class Cinema(models.Model):
     title = models.CharField(max_length=255, blank=True)
     director_team = models.CharField(max_length=255, blank=True, help_text="Realizador/Equipa")
     synopsis = models.TextField(blank=True)
+    area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
 
     duration = models.CharField(max_length=100, blank=True)
     social_link = models.URLField(blank=True, null=True, help_text="Rede social do realizador/projeto")
@@ -100,6 +117,7 @@ class Cinema(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -107,6 +125,7 @@ class Cinema(models.Model):
 class Concertos(models.Model):
     band_name = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
+    area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
     info_link = models.URLField(blank=True, null=True)
     social_link = models.URLField(blank=True, null=True)
 
@@ -114,6 +133,7 @@ class Concertos(models.Model):
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
+    is_highlight = models.BooleanField(default=False)
 
     def __str__(self):
         return self.band_name
@@ -123,6 +143,7 @@ class SpeedHunting(models.Model):
     company_logo = models.ImageField(upload_to='speed_hunting/logos/', blank=True, null=True)
     company_description = models.TextField(max_length=500, blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
+    area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
     start_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)

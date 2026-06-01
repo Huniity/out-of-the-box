@@ -1,16 +1,11 @@
-import { fetchWithConfig } from './index';
-import { projecoesSessions } from '../../utils/metrics';
-import { mapCinema } from '../../api/mappers';
+import { fetchWithConfig } from './index'
+import type { CinemaContract } from '../../api/contracts'
+
+type Raw = CinemaContract[] | { results?: CinemaContract[] }
 
 export const cinemaApi = {
-    getSessions: async () => {
-        try {
-            const data = await fetchWithConfig('/cinema/');
-            return mapCinema(Array.isArray(data) ? data : data.results || []);
-        } catch (error) {
-            console.warn("API offline - fallback Cinema/Projeções:", error);
-            // @ts-ignore
-            return mapCinema(projecoesSessions);
-        }
+    getSessions: async (): Promise<CinemaContract[]> => {
+        const data = await fetchWithConfig<Raw>('/cinema/')
+        return Array.isArray(data) ? data : (data.results ?? [])
     }
-};
+}

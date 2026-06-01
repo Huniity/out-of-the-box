@@ -45,8 +45,11 @@ const EventForm = ({
     useEffect(() => {
         const nextData: Record<string, unknown> = {};
 
+        const boolField = (f: string) => f.startsWith("is_") || f === "registration_required";
         for (const field of formFields) {
-            nextData[field] = imageFields.has(field) ? null : (initial?.[field] ?? "");
+            if (imageFields.has(field)) nextData[field] = null;
+            else if (boolField(field)) nextData[field] = initial?.[field] ?? false;
+            else nextData[field] = initial?.[field] ?? "";
         }
 
         setFormData(nextData);
@@ -88,7 +91,7 @@ const EventForm = ({
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75">
             <div className={`w-full rounded-2xl border border-white/10 bg-[#111] p-6 shadow-2xl transition-[max-width] duration-300 ${previewing ? 'max-w-4xl' : 'max-w-lg'}`}>
                 {/* Header */}
                 <div className="mb-4 flex items-center justify-between gap-4">
