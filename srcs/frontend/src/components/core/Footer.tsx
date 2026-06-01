@@ -109,7 +109,7 @@ export default function Footer() {
               <CalendarDays size={14} className="shrink-0 text-[#c8ff00]" />
               3 a 17 de julho de 2026
             </p>
-            <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd0552dcd3e61689:0x2e5fb82fa85b7d34?sa=X&ved=1t:8290&ictx=111" className="flex items-center gap-2 transition hover:text-[#c8ff00]">
+            <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd0552dcd3e61689:0x2e5fb82fa85b7d34?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition hover:text-[#c8ff00]">
               <MapPin size={14} className="shrink-0 text-[#c8ff00]" />
               <span>IPDJ, Faro<br />Rua da Polícia da Segurança Pública, 1<br />8000-408 Faro</span>
             </a>

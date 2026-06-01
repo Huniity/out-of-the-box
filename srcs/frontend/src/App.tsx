@@ -127,7 +127,7 @@ function Homepage() {
                             className="w-full h-auto select-none"
                         />
                         <motion.div variants={heroItem} className="flex justify-center pr-4">
-                            <PrimaryButton href="/programacao" className="group">
+                            <PrimaryButton href="programacao#sessoes" className="group">
                                 Ver Programação
                                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
                             </PrimaryButton>

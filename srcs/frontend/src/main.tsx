@@ -11,6 +11,7 @@ import ErrorBoundary from './components/core/ErrorBoundary'
 import { PAGE_SLUG_MAP } from './utils/dashboard'
 import { applyPageMeta } from './utils/meta'
 
+// Lazy loading para melhor performance
 const Concertos    = lazy(() => import('./pages/Concertos'))
 const Exposicoes   = lazy(() => import('./pages/Exposicoes'))
 const SunsetTalks  = lazy(() => import('./pages/SunsetTalks'))
@@ -21,6 +22,10 @@ const SpeedHunting = lazy(() => import('./pages/SpeedHunting'))
 const Workshops    = lazy(() => import('./pages/Workshops'))
 const Dashboard    = lazy(() => import('./pages/Dashboard'))
 
+// Mapeamento inverso para títulos de página dinâmicos
+const slugToName = Object.fromEntries(
+  Object.entries(PAGE_SLUG_MAP).map(([name, slug]) => [`/${slug}`, name])
+)
 
 const PageFade = () => {
   const { pathname } = useLocation()
@@ -42,15 +47,54 @@ const PageFade = () => {
 }
 
 const MainLayout = () => {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
 
+  // 1. Atualização de Meta / Título da Página
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    // Tenta aplicar meta tags globais primeiro (se existirem)
+    if (typeof applyPageMeta === 'function') {
+      applyPageMeta(pathname)
+    }
+    
+    // Fallback/Atualização do Document Title baseado no PAGE_SLUG_MAP
+    const name = slugToName[pathname] ?? (pathname === '/programacao' ? 'Programação' : undefined)
+    document.title = name ? `${name} — Out of the Box` : 'Out of the Box'
   }, [pathname])
 
+  // 2. Gestão de Scroll (Top vs Hash Link)
   useEffect(() => {
-    applyPageMeta(pathname)
-  }, [pathname])
+    if (!hash) {
+      // Se não há hash, vai para o topo instantaneamente
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+
+    // Se há hash, aguarda o elemento renderizar (útil com lazy loading)
+    const elementId = decodeURIComponent(hash.slice(1))
+    let cancelled = false
+    let attempts = 0
+
+    const scrollToHash = () => {
+      if (cancelled) return
+
+      const element = document.getElementById(elementId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+
+      attempts += 1
+      if (attempts < 10) {
+        requestAnimationFrame(scrollToHash)
+      }
+    }
+
+    requestAnimationFrame(scrollToHash)
+
+    return () => {
+      cancelled = true
+    }
+  }, [pathname, hash])
 
   return (
     <>
@@ -67,9 +111,10 @@ const MainLayout = () => {
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
 
-// Prevent double createRoot on Vite HMR re-execution
+// Previne o erro de duplicação do createRoot no HMR do Vite
 const w = window as typeof window & { __reactRoot?: ReturnType<typeof createRoot> }
 const root = w.__reactRoot ?? (w.__reactRoot = createRoot(rootElement))
+
 root.render(
   <BrowserRouter>
     <Suspense fallback={<div className="min-h-screen bg-black" />}>
