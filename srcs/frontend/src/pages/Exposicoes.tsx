@@ -196,7 +196,7 @@ const Exposicoes = () => {
             </h2>
             <div className="h-[3px] w-20 bg-[#c8ff00] mb-10" />
             <p className="text-sm leading-relaxed text-white/50">
-              Nesta área apresentamos ao público os projetos finais dos alunos de todas as áreas formativas da ETIC_Algarve.
+              Nesta área apresentamos ao público os projetos finais dos formandos de todas as áreas formativas da ETIC_Algarve.
             </p>
             <p className="text-sm leading-relaxed text-white/50">
               É o momento em que ideias, pesquisa e experimentação se transformam em obras que inspiram e surpreendem.

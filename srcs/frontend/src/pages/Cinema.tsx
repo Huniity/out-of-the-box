@@ -139,7 +139,7 @@ const Cinema = () => {
                         />
                         <div className="h-[2px] w-16 bg-[#c8ff00] opacity-50 mb-6" />
                         <p className="text-sm leading-relaxed text-white/50 mb-4 max-w-md">
-                            Os alunos finalistas apresentam os seus projetos finais, desenvolvidos
+                            Os formandos finalistas apresentam os seus projetos finais, desenvolvidos
                             ao longo do curso, em sessões públicas de cinema e televisão.
                         </p>
                         <p className="text-sm leading-relaxed text-white/50 max-w-md">

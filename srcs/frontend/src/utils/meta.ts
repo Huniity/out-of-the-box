@@ -13,7 +13,7 @@ export const PAGE_META: Record<string, PageMeta> = {
   },
   '/exposicoes': {
     title: `Exposições — ${SITE}`,
-    description: 'Obras e projetos finais dos alunos da ETIC_Algarve em exposição durante o festival Out of the Box 2026.',
+    description: 'Obras e projetos finais dos formandos da ETIC_Algarve em exposição durante o festival Out of the Box 2026.',
   },
   '/workshops': {
     title: `Workshops — ${SITE}`,
@@ -21,7 +21,7 @@ export const PAGE_META: Record<string, PageMeta> = {
   },
   '/cinema': {
     title: `Cinema — ${SITE}`,
-    description: 'Sessões de cinema e curtas-metragens produzidas pelos alunos da ETIC_Algarve no festival Out of the Box 2026.',
+    description: 'Sessões de cinema e curtas-metragens produzidas pelos formandos da ETIC_Algarve no festival Out of the Box 2026.',
   },
   '/concertos': {
     title: `Concertos — ${SITE}`,

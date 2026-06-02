@@ -51,7 +51,7 @@ export const PAGE_FALLBACKS: Record<string, PageFallback> = {
     exposicoes: {
         main_white_title: "A Obra Ganha",
         main_green_title: "Vida",
-        main_description: "Descobre as exposições que revelam o talento e a criatividade dos alunos das áreas de Design, Fotografia e Videojogos.",
+        main_description: "Descobre as exposições que revelam o talento e a criatividade dos formandos das áreas de Design, Fotografia e Videojogos.",
         start_event_date: "2026-07-03",
         end_event_date:   "2026-07-17",
     },
@@ -92,7 +92,7 @@ export const PAGE_FALLBACKS: Record<string, PageFallback> = {
     concertos: {
         main_white_title: "Concertos",
         main_green_title: "Live",
-        main_description: "A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos alunos durante o festival.",
+        main_description: "A música ao vivo e os happenings dão ritmo ao Out of the Box. Aqui encontras o evento de abertura Live In Sight e todas as atuações dos formandos durante o festival.",
         cta_button_text:  "Live In Sight",
         cta_button_link:  "https://www.eticalgarve.com/comunidade/live-insight/",
         start_event_date: "2026-07-03",
@@ -101,7 +101,7 @@ export const PAGE_FALLBACKS: Record<string, PageFallback> = {
     "speed-hunting": {
         main_white_title: "Speed",
         main_green_title: "Hunting",
-        main_description: "Encontros rápidos entre empresas e alunos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.",
+        main_description: "Encontros rápidos entre empresas e formandos da ETIC_Algarve para apresentação de portfólio, conversa profissional e criação de oportunidades.",
         cta_button_text:  "Saiba mais sobre a programação",
         cta_button_link:  "/sunset-talks",
         start_event_date: "2026-07-09",
