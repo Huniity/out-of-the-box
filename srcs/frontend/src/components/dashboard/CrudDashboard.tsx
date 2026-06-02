@@ -114,6 +114,11 @@ function EventCard({
                     >
                         {row.is_active ? "Ativo" : "Inativo"}
                     </span>
+                    {row.is_highlight && (
+                        <span className="rounded px-2 py-0.5 text-[11px] font-bold bg-emerald-500/20 text-emerald-400">
+                            Destaque
+                        </span>
+                    )}
                 </div>
             </div>
 
