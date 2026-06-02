@@ -231,7 +231,7 @@ const Carousel = () => {
 
       {/* CTA */}
       <div className="w-full flex justify-center">
-        <PrimaryButton href="/programacao">
+        <PrimaryButton href="/programacao#sessoes">
           PROGRAMAÇÃO COMPLETA
           <MoveRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
         </PrimaryButton>

@@ -75,7 +75,7 @@ export default function Footer() {
               Início
             </a>
             <a href="/programacao" className="transition hover:text-[#c8ff00]">
-              Programação OOTB
+              Programação
             </a>
             <a href="/sunset-talks" className="transition hover:text-[#c8ff00]">
               Sunset Talks

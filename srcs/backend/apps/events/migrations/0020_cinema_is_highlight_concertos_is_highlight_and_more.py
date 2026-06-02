@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0018_allow_blank_required_fields'),
+        ('events', '0019_add_area_fields'),
     ]
 
     operations = [
