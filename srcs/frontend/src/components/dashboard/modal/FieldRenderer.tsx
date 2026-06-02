@@ -49,11 +49,7 @@ const FieldRenderer = ({
 
     // Datetime fields
     if (field === "start_datetime" || field === "end_datetime") {
-        let inputValue = "";
-        if (value) {
-            const d = new Date(value as string);
-            if (!isNaN(d.getTime())) inputValue = d.toISOString().slice(0, 16);
-        }
+        const inputValue = typeof value === "string" ? value.slice(0, 16) : "";
         return (
             <label className="block text-sm">
                 <span className="mb-1 block text-gray-300">{label}</span>
