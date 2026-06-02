@@ -308,7 +308,7 @@ const Programacao = () => {
                                 speaker_name: item.company_name,
                                 speaker_activity: 'Encontro rápido com empresa',
                                 description:
-                                    'Sessão de ligação entre formandos e empresas para networking, portfólio e oportunidades.',
+                                    'Sessão de ligação entre alunos e empresas para networking, portfólio e oportunidades.',
                                 image: item.company_logo ? resolveMediaUrl(item.company_logo) : fallbackImage,
                             }
                         }),

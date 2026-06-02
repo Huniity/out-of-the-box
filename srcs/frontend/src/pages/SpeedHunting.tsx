@@ -109,7 +109,7 @@ const SpeedHunting = () => {
                         <div className="h-[2px] w-16 bg-[#c8ff00] opacity-50 mb-6" />
                         <p className="text-sm leading-relaxed text-white/50 max-w-md">
                             Inspirado no speed dating, o Speed Hunting é uma dinâmica de
-                            encontros rápidos entre formandos e empresas. Em poucos minutos,
+                            encontros rápidos entre alunos e empresas. Em poucos minutos,
                             podes apresentar o teu trabalho, falar sobre o teu percurso,
                             receber feedback e criar ligações que podem abrir portas no futuro.
                         </p>
@@ -266,7 +266,7 @@ const SpeedHunting = () => {
                     <div className="flex-1">
                         <div className="mb-4 flex items-center gap-2">
                             <span className="text-[#c8ff00] text-lg leading-none">✦</span>
-                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Dicas para formandos</span>
+                            <span className="text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase">Dicas para Alunos</span>
                         </div>
                         <h2 className="font-black text-3xl xl:text-4xl uppercase leading-none tracking-tight mb-10">
                             VEM <span className="text-[#c8ff00]">PREPARADO</span>

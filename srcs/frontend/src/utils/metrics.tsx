@@ -198,7 +198,7 @@ export const projecoesFeatures = [
     {
         icon: <Play size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,
         title: 'PROJETOS FINAIS',
-        desc: 'Trabalhos originais de formandos das áreas de Realização, Cinema e TV.',
+        desc: 'Trabalhos originais de alunos das áreas de Realização, Cinema e TV.',
     },
     {
         icon: <Users size={32} strokeWidth={1.5} className="text-[#c8ff00]" />,

@@ -69,7 +69,7 @@ const BentoGallery = () => {
             </h2>
           <p className="max-w-sm text-xs leading-relaxed text-white/40">
             Projetos finais, experiências visuais, fotografia, vídeo, design e
-            videojogos criados pelos formandos da ETIC_Algarve.
+            videojogos criados pelos alunos da ETIC_Algarve.
           </p>
           </div>
 

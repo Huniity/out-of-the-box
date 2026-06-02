@@ -261,7 +261,7 @@ export default function AreasWall() {
               <span className="text-white">O que é o</span><span className="text-[#c8ff00]"> OUT OF THE BOX</span>
             </h2>
             <p className="max-w-sm text-xs leading-relaxed text-white/40">
-              O Out of the Box é um evento anual que celebra a criatividade e o talento dos formandos da ETIC_Algarve, reunindo exposições, palestras, workshops, projeções vídeo, concertos e muito mais.
+              O Out of the Box é um evento anual que celebra a criatividade e o talento dos alunos da ETIC_Algarve, reunindo exposições, palestras, workshops, projeções vídeo, concertos e muito mais.
             </p>
           </div>
         </div>
