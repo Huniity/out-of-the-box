@@ -170,7 +170,7 @@ export const projecoesMetrics = [
     {
         icon: <CalendarDays size={38} strokeWidth={1.8} />,
         value: '',
-        label: 'Quando?',
+        label: 'A festa do cinema da ETIC_Algarve',
         desc: 'Durante o Out of the Box 2026 — uma semana de cinema.',
     },
     {

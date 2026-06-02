@@ -32,8 +32,7 @@ env: ## Create .env file if it doesn't exist
 	@echo "Environment variables:"
 	@cat .env
 
-env-prod:
-	env: ## Create .env file if it doesn't exist
+env-prod:## Create .env file if it doesn't exist
 	@if [ ! -f .env ]; then \
 		echo "Creating .env file..."; \
 		printf "POSTGRES_DB=ootb_db\n" > .env; \

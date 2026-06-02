@@ -49,13 +49,18 @@ const Exposicoes = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null)
 
   const [activeArea, setActiveArea] = useState('TODAS')
-
+  useEffect(() => {
+  setActiveCard(null)
+  }, [activeArea])
   const filtered = useMemo(
     () => destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.category === activeArea)),
     [destaques, activeArea]
+    
   )
-
+console.log('Área:', activeArea)
+console.log('Filtrados:', filtered.length)
   return (
+    
     <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
       {/* ── Hero ── */}
       <HeroPageSection
@@ -127,13 +132,34 @@ const Exposicoes = () => {
           />
         </div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((d, i) => {
+        {/* Se estiver vazio, mostra mensagem. Se tiver itens, mostra a grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-20 border border-dashed border-white/10 rounded-sm">
+            <p className="text-sm text-white/40 uppercase tracking-widest font-black">
+              Nenhuma exposição encontrada nesta área.
+            </p>
+            <button 
+              onClick={() => setActiveArea('TODAS')}
+              className="mt-4 text-xs text-[#c8ff00] underline font-black uppercase tracking-widest hover:opacity-80"
+            >
+              Ver todas as áreas
+            </button>
+          </div>
+        ) : (
+            <motion.div
+              key={activeArea}
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >            
+            {filtered.map((d, i) => {
+            console.log('Renderizando:', d.title, 'Categoria:', d.category)
             const accent    = areaColors[d.category as keyof typeof areaColors] ?? '#c8ff00'
             const start     = parseDateBadge(d.start_date)
             const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
             const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
-
+            
             const isActive = activeCard === (d.id ?? i)
             return (
               <motion.div key={d.id ?? i} variants={cardItem} onClick={() => setActiveCard(isActive ? null : (d.id ?? i))} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
@@ -185,6 +211,7 @@ const Exposicoes = () => {
             )
           })}
         </motion.div>
+        )}
       </motion.section>
 
       {/* ── Sobre ── */}
