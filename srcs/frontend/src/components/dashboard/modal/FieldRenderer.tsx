@@ -9,7 +9,7 @@ type FieldRendererProps = {
 };
 
 const inputClass = (border: string) =>
-    `w-full rounded-lg border ${border} bg-black px-3 py-2 text-white placeholder-gray-500 outline-none focus:border-white/30`;
+    `w-full rounded-lg border ${border} bg-black px-3 py-2 text-white placeholder-gray-500 outline-none focus:border-white/30 [color-scheme:dark]`;
 
 const FieldRenderer = ({
     field,
@@ -107,13 +107,15 @@ const FieldRenderer = ({
     const isBoolean = field.startsWith("is_") || field === "registration_required" || typeof (initialValue ?? value) === "boolean";
     if (isBoolean) {
         return (
-            <label className="block text-sm">
+            <div className="block text-sm">
                 <span className="mb-1 block text-gray-300">{label}</span>
-                <input type="checkbox" checked={Boolean(value)}
-                    onChange={(e) => onChange(field, e.target.checked)}
-                    className="h-4 w-4 rounded border border-white/20 bg-black" />
+                <label className="inline-flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={Boolean(value)}
+                        onChange={(e) => onChange(field, e.target.checked)}
+                        className="h-4 w-4 rounded border border-white/20 bg-black" />
+                </label>
                 {err}
-            </label>
+            </div>
         );
     }
 
