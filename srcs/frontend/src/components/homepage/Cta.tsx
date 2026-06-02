@@ -77,7 +77,7 @@ const EticCTA = () => {
             Design, Fotografia, Som e Música, Vídeo, Animação e Videojogos, Marketing e Comunicação, Programação.
           </p>
 
-          <PrimaryButton href="/cursos" className="w-[300px] justify-center">
+          <PrimaryButton href="https://www.eticalgarve.com/cursos-etic-algarve/" className="w-[300px] justify-center">
             Saber mais
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </PrimaryButton>
