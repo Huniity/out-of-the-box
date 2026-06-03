@@ -11,6 +11,18 @@ type FieldRendererProps = {
 const inputClass = (border: string) =>
     `w-full rounded-lg border ${border} bg-black px-3 py-2 text-white placeholder-gray-500 outline-none focus:border-white/30 [color-scheme:dark]`;
 
+function ClearButton({ onClear }: { onClear: () => void }) {
+    return (
+        <button
+            type="button"
+            onClick={onClear}
+            className="shrink-0 px-3 py-2 rounded-lg border border-white/10 bg-black text-white/40 hover:text-white hover:border-white/30 text-xs transition-colors"
+        >
+            ✕
+        </button>
+    );
+}
+
 const FieldRenderer = ({
     field,
     value,
@@ -51,26 +63,33 @@ const FieldRenderer = ({
     if (field === "start_datetime" || field === "end_datetime") {
         const inputValue = typeof value === "string" ? value.slice(0, 16) : "";
         return (
-            <label className="block text-sm">
+            <div className="block text-sm">
                 <span className="mb-1 block text-gray-300">{label}</span>
-                <input type="datetime-local" value={inputValue}
-                    onChange={(e) => onChange(field, e.target.value)}
-                    className={inputClass(border)} />
+                <div className="flex gap-2">
+                    <input type="datetime-local" value={inputValue}
+                        onChange={(e) => onChange(field, e.target.value)}
+                        className={`${inputClass(border)} flex-1`} />
+                    {inputValue && <ClearButton onClear={() => onChange(field, "")} />}
+                </div>
                 {err}
-            </label>
+            </div>
         );
     }
 
     // Date-only fields
     if (field === "date" || field.endsWith("_date")) {
+        const dateValue = String(value ?? "");
         return (
-            <label className="block text-sm">
+            <div className="block text-sm">
                 <span className="mb-1 block text-gray-300">{label}</span>
-                <input type="date" value={String(value ?? "")}
-                    onChange={(e) => onChange(field, e.target.value)}
-                    className={inputClass(border)} />
+                <div className="flex gap-2">
+                    <input type="date" value={dateValue}
+                        onChange={(e) => onChange(field, e.target.value)}
+                        className={`${inputClass(border)} flex-1`} />
+                    {dateValue && <ClearButton onClear={() => onChange(field, "")} />}
+                </div>
                 {err}
-            </label>
+            </div>
         );
     }
 
