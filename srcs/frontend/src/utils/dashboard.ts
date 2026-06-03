@@ -134,7 +134,7 @@ export const dashboardFields = [
 export const PAGE_EVENT_FIELDS: Record<string, string[]> = {
     "exposicoes":    ["title", "category", "synopsis", "artists", "image", "opening_hours", "start_date", "end_date", "location", "is_active", "is_highlight"],
     "sunset-talks":  ["title", "description", "speaker_name", "speaker_activity", "speaker_info_link", "social_link", "registration_link", "category", "category_other", "image", "start_datetime", "location", "is_active", "is_highlight"],
-    "workshops":     ["title", "description", "mentor_name", "mentor_social", "duration", "max_participants", "registration_link", "category", "start_datetime", "location", "is_active", "is_highlight"],
+    "workshops":     ["title", "description", "category", "duration", "max_participants", "registration_link", "start_datetime", "location", "is_active", "is_highlight"],
     "cinema":        ["title", "director_team", "synopsis", "duration", "social_link", "image", "start_datetime", "location", "is_active", "is_highlight"],
     "concertos":     ["band_name", "description", "info_link", "social_link", "image", "start_datetime", "location", "is_active", "is_highlight"],
     "speed-hunting": ["company_name", "company_logo", "company_description", "category", "start_datetime", "location", "is_active"],

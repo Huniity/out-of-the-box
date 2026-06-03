@@ -37,7 +37,7 @@ export default function PageDataTable({ page }: DashboardProps) {
         ? Object.keys(rows[0]).filter((k) => !hiddenFields.has(k))
         : (PAGE_EVENT_FIELDS[slug] ?? []);
     const columns = dashboardFields.filter((c) => allCols.includes(c));
-    const modalFields = allCols;
+    const modalFields = slug === 'workshops' ? (PAGE_EVENT_FIELDS[slug] ?? allCols) : allCols;
 
     async function handleSave(data: Record<string, unknown>) {
         const id = modal.mode === "edit" ? modal.row.id : undefined;
