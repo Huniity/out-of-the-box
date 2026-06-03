@@ -50,11 +50,11 @@ class Exposicoes(models.Model):
     artists = models.TextField(help_text="Identificação dos artistas")
     image = models.ImageField(upload_to='exposicoes/', blank=True, null=True)
 
-    opening_hours = models.CharField(max_length=255, help_text="Ex: 09:00 - 18:00 (Flexível IPDJ)")
-    start_date = models.DateField()
-    end_date = models.DateField()
+    opening_hours = models.CharField(max_length=255, blank=True, help_text="Ex: 09:00 - 18:00 (Flexível IPDJ)")
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
 
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
 

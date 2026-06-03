@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
@@ -292,13 +292,13 @@ const SunsetTalks = () => {
               {/* LEFT — date · time · location · badge */}
               <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
                 <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
-                  {dayNum} {monthStr}
+                  {dayNum && monthStr ? `${dayNum} ${monthStr}` : 'Em Breve'}
                 </p>
-                <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
-                  {timeStr}
+                <p className="font-black text-3xl leading-none" style={{ color: catColor }}>
+                  {timeStr || 'Em Breve'}
                 </p>
                 <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest leading-snug">
-                  {s.location}
+                  {s.location || 'Em Breve'}
                 </p>
                 {cat && (
                   <span

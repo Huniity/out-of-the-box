@@ -83,10 +83,10 @@ const Cinema = () => {
 
                 <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {sessions.map((s, i) => {
-                        const dt = new Date(s.start_datetime)
-                        const day = dt.getDate()
-                        const month = dt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '')
-                        const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+                        const dt = s.start_datetime ? new Date(s.start_datetime) : null
+                        const day = dt ? dt.getDate() : undefined
+                        const month = dt ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : undefined
+                        const time = dt ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : undefined
                         const imgSrc = s.image ? resolveMediaUrl(s.image) : heroImg
                         const isActive = activeCard === s.id
                         return (
@@ -97,7 +97,7 @@ const Cinema = () => {
                                     day={day}
                                     month={month}
                                     time={time}
-                                    location={s.location}
+                                    location={s.location || undefined}
                                     duration={s.duration || undefined}
                                     isActive={isActive}
                                     onToggle={() => setActiveCard(isActive ? null : s.id)}

@@ -189,10 +189,10 @@ const Concertos = () => {
 
                 <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {programme.map((p, i) => {
-                        const dt = new Date(p.start_datetime)
-                        const day = dt.getDate()
-                        const month = dt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '')
-                        const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+                        const dt = p.start_datetime ? new Date(p.start_datetime) : null
+                        const day = dt ? dt.getDate() : undefined
+                        const month = dt ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : undefined
+                        const time = dt ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : undefined
                         const imgSrc = p.image ? resolveMediaUrl(p.image) : heroImg
                         const isActive = activeCard === p.id
                         return (
@@ -203,7 +203,7 @@ const Concertos = () => {
                                     day={day}
                                     month={month}
                                     time={time}
-                                    location={p.location}
+                                    location={p.location || undefined}
                                     isActive={isActive}
                                     onToggle={() => setActiveCard(isActive ? null : p.id)}
                                     expandedContent={

@@ -168,12 +168,14 @@ console.log('Filtrados:', filtered.length)
                   <img src={imgSrc} alt={d.title} loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
-                      <span className="block text-base font-black leading-none">{start.day}</span>
-                      <span className="block text-[8px] font-black uppercase tracking-widest">{start.month}</span>
+                  {d.start_date && (
+                    <div className="absolute top-3 left-3">
+                      <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
+                        <span className="block text-base font-black leading-none">{start.day}</span>
+                        <span className="block text-[8px] font-black uppercase tracking-widest">{start.month}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div
                     className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm"
                     style={{ backgroundColor: accent }}
@@ -187,9 +189,9 @@ console.log('Filtrados:', filtered.length)
                   <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{d.title}</h3>
                   <p className="text-[11px] text-white/50 leading-relaxed">{d.artists}</p>
                   <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-                    <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>
-                    <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {openTime}</span>
-                    <span className="flex items-center gap-1 truncate"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>
+                    {d.start_date && <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
+                    {openTime && <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
+                    {d.location && <span className="flex items-center gap-1 truncate"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>}
                   </div>
                 </div>
 
@@ -202,9 +204,9 @@ console.log('Filtrados:', filtered.length)
                   <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: accent }}>{d.artists}</p>
                   <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{d.synopsis}</p>
                   <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-1 text-[10px] text-white/35">
-                    <span className="flex items-center gap-1"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>
-                    <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {openTime}</span>
-                    <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>
+                    {d.start_date && <span className="flex items-center gap-1"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
+                    {openTime && <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
+                    {d.location && <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>}
                   </div>
                 </div>
               </motion.div>

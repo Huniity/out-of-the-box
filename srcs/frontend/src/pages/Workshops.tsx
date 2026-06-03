@@ -111,10 +111,10 @@ const Workshops = () => {
                         const cat = w.category ?? ''
                         const color = areaColor[cat] ?? '#c8ff00'
                         const areaObj = areas.find(a => a.code === cat)
-                        const dt = new Date(w.start_datetime)
-                        const day = dt.getDate()
-                        const month = dt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '')
-                        const time = dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+                        const dt = w.start_datetime ? new Date(w.start_datetime) : null
+                        const day = dt ? dt.getDate() : null
+                        const month = dt ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : null
+                        const time = dt ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : null
 
                         return (
                             <motion.div
@@ -143,13 +143,16 @@ const Workshops = () => {
                                     {/* Date + Time + Sala + chips — desktop order 3 */}
                                     <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3">
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                            <CalendarDays size={14} className="text-[#c8ff00]" /> {day} {month}
+                                            <CalendarDays size={14} className="text-[#c8ff00]" />
+                                            {day && month ? `${day} ${month}` : 'Em Breve'}
                                         </span>
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
-                                            <Clock size={14} className="text-[#c8ff00]" /> {time}
+                                            <Clock size={14} className="text-[#c8ff00]" />
+                                            {time || 'Em Breve'}
                                         </span>
                                         <span className="flex items-center gap-1 text-xs text-white/40 leading-snug">
-                                            <MapPin size={12} className="text-[#c8ff00] shrink-0" /> <span className="text-right">{w.location}</span>
+                                            <MapPin size={12} className="text-[#c8ff00] shrink-0" />
+                                            <span className="text-right">{w.location || 'Em Breve'}</span>
                                         </span>
                                         {(w.duration || w.max_participants) && (
                                             <div className="flex flex-wrap items-center justify-end gap-1 mt-1">
@@ -176,7 +179,9 @@ const Workshops = () => {
 
                                 {/* Arrow — desktop order 4 */}
                                 <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4">
-                                    <ArrowRight size={12} />
+                                    <a href={w.registration_link ?? '#'} target="_blank" rel="noopener noreferrer">
+                                        <ArrowRight size={12} />
+                                    </a>
                                 </div>
                             </motion.div>
                         )
