@@ -31,6 +31,7 @@ WORKDIR /frontend
 COPY srcs/frontend/package*.json ./
 RUN npm ci
 COPY srcs/frontend .
+ENV VITE_API_BASE_URL=/api
 RUN npm run build
 
 FROM python:3.14.4-slim
@@ -46,13 +47,14 @@ COPY srcs/backend/requirements.txt .
 RUN uv pip install --system -r requirements.txt
 
 COPY srcs/backend .
+COPY scripts /scripts
 
-# Copy frontend build into staticfiles/dist so nginx can serve it
-COPY --from=frontend-builder /frontend/dist ./staticfiles/dist
+# Baked frontend build — copied into the shared volume on every container start
+COPY --from=frontend-builder /frontend/dist /app/frontend-dist
 
 RUN mkdir -p /app/logs /app/staticfiles && chmod 777 /app/logs
 
 EXPOSE 8000
 
-# collectstatic runs at startup so the shared volume gets populated
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:8000"]
+# Replace stale dist in the shared volume, then collect Django static files
+CMD ["sh", "-c", "rm -rf /app/staticfiles/dist && cp -a /app/frontend-dist /app/staticfiles/dist && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:8000"]

@@ -2,37 +2,62 @@
 
 from django.db import migrations, models
 
+IS_HIGHLIGHT_TABLES = (
+    "events_cinema",
+    "events_concertos",
+    "events_exposicoes",
+    "events_sunsettalks",
+    "events_workshops",
+)
+
+ADD_IS_HIGHLIGHT_COLUMNS = "\n".join(
+    f'ALTER TABLE {table} ADD COLUMN IF NOT EXISTS is_highlight boolean NOT NULL DEFAULT false;'
+    for table in IS_HIGHLIGHT_TABLES
+)
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0019_add_area_fields'),
+        ("events", "0019_add_area_fields"),
+    ]
+
+    state_operations = [
+        migrations.AddField(
+            model_name="cinema",
+            name="is_highlight",
+            field=models.BooleanField(default=False),
+        ),
+        migrations.AddField(
+            model_name="concertos",
+            name="is_highlight",
+            field=models.BooleanField(default=False),
+        ),
+        migrations.AddField(
+            model_name="exposicoes",
+            name="is_highlight",
+            field=models.BooleanField(default=False),
+        ),
+        migrations.AddField(
+            model_name="sunsettalks",
+            name="is_highlight",
+            field=models.BooleanField(default=False),
+        ),
+        migrations.AddField(
+            model_name="workshops",
+            name="is_highlight",
+            field=models.BooleanField(default=False),
+        ),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='cinema',
-            name='is_highlight',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='concertos',
-            name='is_highlight',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='exposicoes',
-            name='is_highlight',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='sunsettalks',
-            name='is_highlight',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='workshops',
-            name='is_highlight',
-            field=models.BooleanField(default=False),
+        migrations.SeparateDatabaseAndState(
+            state_operations=state_operations,
+            database_operations=[
+                migrations.RunSQL(
+                    sql=ADD_IS_HIGHLIGHT_COLUMNS,
+                    reverse_sql=migrations.RunSQL.noop,
+                ),
+            ],
         ),
     ]
