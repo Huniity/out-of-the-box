@@ -206,12 +206,12 @@ const SpeedHunting = () => {
                                             {initials}
                                         </div>
                                     )}
-                                    <span
+                                    {/* <span
                                         className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center sm:w-[104px] leading-tight"
                                         style={{ backgroundColor: catColor }}
                                     >
                                         {catLabel}
-                                    </span>
+                                    </span> */}
                                 </div>
 
                                 {/* Content */}

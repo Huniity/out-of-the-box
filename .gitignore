@@ -12,3 +12,4 @@ srcs/backend/logs/*.log
 srcs/backend/staticfiles/media/
 terraform.tfstate
 terraform.tfstate.backup
+./infrastructure
