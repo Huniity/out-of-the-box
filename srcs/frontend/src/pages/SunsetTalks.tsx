@@ -286,17 +286,19 @@ const SunsetTalks = () => {
           return (
             <div
               key={s.id}
-              className="flex flex-row overflow-hidden rounded-sm border bg-[#0d0d0d] transition-all duration-200 group"
+              className="flex flex-col lg:flex-row overflow-hidden rounded-sm border bg-[#0d0d0d] transition-all duration-200 group"
               style={{ borderColor: `${catColor}50` }}
             >
               {/* LEFT — date · time · location · badge */}
-              <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
+              <div className="hidden lg:flex flex-col justify-center gap-2 w-44 px-4 py-4 border-r border-white/10">
                 <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
                   {dayNum && monthStr ? `${dayNum} ${monthStr}` : 'Em Breve'}
                 </p>
+
                 <p className="font-black text-3xl leading-none" style={{ color: catColor }}>
                   {timeStr || 'Em Breve'}
                 </p>
+
                 <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest leading-snug">
                   {s.location || 'Em Breve'}
                 </p>
@@ -317,10 +319,37 @@ const SunsetTalks = () => {
                   </span>
                 )}
               </div>
+              {/* MOBILE TOP — date + image */}
+              <div className="flex lg:hidden">
+                {/* DATE */}
+                <div
+                  className="w-28 flex flex-col justify-center gap-1 px-3 py-3 border-r border-white/10"
+                >
+                  <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: catColor }}>
+                    {dayNum && monthStr ? `${dayNum} ${monthStr}` : 'Em Breve'}
+                  </p>
 
+                  <p className="font-black text-2xl leading-none" style={{ color: catColor }}>
+                    {timeStr || 'Em Breve'}
+                  </p>
+
+                  <p className="text-[9px] text-white/35 font-bold uppercase tracking-widest leading-snug">
+                    {s.location || 'Em Breve'}
+                  </p>
+                </div>
+
+                {/* IMAGE */}
+                <div className="flex-1 h-28 overflow-hidden">
+                  <img
+                    src={imgSrc}
+                    alt={s.title}
+                    className="w-full h-full object-cover brightness-60"
+                  />
+                </div>
+              </div>
               {/* MIDDLE — image + content */}
               <div className="flex flex-1 overflow-hidden">
-                <div className="flex-none w-44 h-auto shrink-0 overflow-hidden">
+                <div className="hidden lg:block flex-none w-44 h-48 lg:h-auto shrink-0 overflow-hidden">
                   <img
                     src={imgSrc}
                     alt={s.title}
@@ -328,7 +357,7 @@ const SunsetTalks = () => {
                     className="w-full h-full object-cover brightness-60 group-hover:brightness-75 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>
-                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1 min-w-0">
+                <div className="flex-1 px-4 lg:px-5 py-4 flex flex-col justify-center gap-1">
                   <div className="flex items-center gap-2">
                     <h3 className="font-black text-base sm:text-lg uppercase leading-tight tracking-tight text-white">
                       {s.title}
@@ -347,7 +376,7 @@ const SunsetTalks = () => {
               </div>
 
               {/* RIGHT — info link · social · chevron */}
-              <div className="flex-none flex flex-col items-center justify-center gap-3 px-4 pr-5">
+              <div className="flex-none flex flex-row lg:flex-col items-center justify-center gap-3 px-4 py-3 lg:py-0 lg:border-l border-white/10">
                 {infoLink && (
                   <a
                     href={infoLink}
