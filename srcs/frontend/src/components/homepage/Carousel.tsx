@@ -176,19 +176,23 @@ const Carousel = () => {
                   <div className="absolute inset-0 flex flex-col p-3.5">
                     {/* Top: date + tag — always anchored to top */}
                     <div className="flex items-start justify-between shrink-0">
-                      <div
-                        className="text-black text-[11px] font-extrabold leading-none px-2 py-1 rounded-md uppercase tracking-tight text-center"
-                        style={{ backgroundColor: '#c8ff00' }}
-                      >
-                        <span className="text-base block font-black">{day}</span>
-                        {month}
-                      </div>
-                      <span
-                        className="text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest text-black"
-                        style={{ backgroundColor: accent, opacity: 0.92 }}
-                      >
-                        {ev.tag}
-                      </span>
+                      {ev.start_datetime ? (
+                        <div
+                          className="text-black text-[11px] font-extrabold leading-none px-2 py-1 rounded-md uppercase tracking-tight text-center"
+                          style={{ backgroundColor: '#c8ff00' }}
+                        >
+                          <span className="text-base block font-black">{day}</span>
+                          {month}
+                        </div>
+                      ) : <div className="h-11"/>}
+                      {ev.tag && (
+                        <span
+                          className="text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest text-black"
+                          style={{ backgroundColor: accent, opacity: 0.92 }}
+                        >
+                          {ev.tag}
+                        </span>
+                      )}
                     </div>
 
                     {/* Gap between top badges and text */}
@@ -213,16 +217,20 @@ const Carousel = () => {
 
                     {/* Time + location — always anchored to bottom */}
                     <div className="flex items-start gap-1 shrink-0">
-                      <span
-                        className="shrink-0 text-black text-[12px] font-extrabold px-2 py-0.5 rounded animate-pulse"
-                        style={{ backgroundColor: accent, animationDuration: '3s' }}
-                      >
-                        {time}
-                      </span>
-                      <MapPin size={10} color="rgba(198,220,128,0.55)" className="shrink-0 mt-0.5" />
-                      <span className="text-white/45 text-[12px] leading-tight">
-                        {ev.location}
-                      </span>
+                      {ev.start_datetime && (
+                        <span
+                          className="shrink-0 text-black text-[12px] font-extrabold px-2 py-0.5 rounded animate-pulse"
+                          style={{ backgroundColor: accent, animationDuration: '3s' }}
+                        >
+                          {time}
+                        </span>
+                      )}
+                      {ev.location && (
+                        <>
+                          <MapPin size={10} color="rgba(198,220,128,0.55)" className="shrink-0 mt-0.5" />
+                          <span className="text-white/45 text-[12px] leading-tight">{ev.location}</span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

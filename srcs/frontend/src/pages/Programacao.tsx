@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
@@ -29,6 +28,7 @@ type ProgramEvent = {
     weekday: string
     monthShort: string
     time: string
+    isComingSoon: boolean
     location: string
     type: EventKind
     area: Exclude<AreaKind, 'TODAS'> | null
@@ -49,7 +49,7 @@ type SunsetTalkApi = {
     area?: string | null
     category?: string | null
     image: string | null
-    start_datetime: string
+    start_datetime: string | null
     location: string
     is_active: boolean
 }
@@ -63,7 +63,7 @@ type WorkshopApi = {
     area?: string | null
     category?: string | null
     image: string | null
-    start_datetime: string
+    start_datetime: string | null
     location: string
     is_active: boolean
 }
@@ -74,7 +74,7 @@ type SpeedHuntingApi = {
     company_logo: string | null
     area?: string | null
     category?: string | null
-    start_datetime: string
+    start_datetime: string | null
     location: string
     is_active: boolean
 }
@@ -88,7 +88,7 @@ type ExposicaoApi = {
     artists: string
     image: string | null
     opening_hours: string
-    start_date: string
+    start_date: string | null
     location: string
     is_active: boolean
 }
@@ -99,7 +99,7 @@ type ConcertoApi = {
     description: string
     area?: string | null
     image: string | null
-    start_datetime: string
+    start_datetime: string | null
     location: string
     is_active: boolean
 }
@@ -112,7 +112,7 @@ type CinemaApi = {
     duration: string
     area?: string | null
     image: string | null
-    start_datetime: string
+    start_datetime: string | null
     location: string
     is_active: boolean
 }
@@ -143,8 +143,6 @@ const normalizeArea = (value?: string | null): Exclude<AreaKind, 'TODAS'> | null
             return 'MARKETING_COMUNICACAO'
         case 'SOM':
             return 'SOM_MUSICA'
-        case 'VIDEOJOGOS':
-            return 'VIDEOJOGOS'
         case 'JOGOS':
             return 'ANIMACAO_VIDEOJOGOS'
         case 'CINEMA':
@@ -183,9 +181,20 @@ const toDateKey = (date: Date) => {
 }
 
 const normalizeFromDateTime = (
-    dateIso: string,
+    dateIso: string | null | undefined,
     timeOverride?: string,
-): Pick<ProgramEvent, 'dateKey' | 'day' | 'weekday' | 'monthShort' | 'time'> => {
+): Pick<ProgramEvent, 'dateKey' | 'day' | 'weekday' | 'monthShort' | 'time' | 'isComingSoon'> => {
+    if (!dateIso) {
+        return {
+            dateKey: '9999-12-31',
+            day: 0,
+            weekday: '',
+            monthShort: '',
+            time: '',
+            isComingSoon: true,
+        }
+    }
+
     const date = new Date(dateIso)
     const time =
         timeOverride ??
@@ -201,6 +210,7 @@ const normalizeFromDateTime = (
         weekday: weekdayShort(date),
         monthShort: monthShort(date),
         time,
+        isComingSoon: false,
     }
 }
 
@@ -316,7 +326,10 @@ const Programacao = () => {
                         .filter(item => item.is_active)
                         .map((item): ProgramEvent => {
                             const openTime = item.opening_hours?.split(/[\s–-]/)[0].trim()
-                            const date = normalizeFromDateTime(`${item.start_date}T00:00:00`, openTime)
+                            const date = normalizeFromDateTime(
+                                item.start_date ? `${item.start_date}T00:00:00` : null,
+                                openTime,
+                            )
                             return {
                                 id: `expo-${item.id}`,
                                 ...date,
@@ -387,9 +400,16 @@ const Programacao = () => {
         }
     }, [])
 
+    // Coming soon events excluded from date tabs
     const eventDays = useMemo(
         () =>
-            Array.from(new Map(events.map(event => [event.dateKey, event])).values()).map(item => ({
+            Array.from(
+                new Map(
+                    events
+                        .filter(e => !e.isComingSoon)
+                        .map(event => [event.dateKey, event]),
+                ).values(),
+            ).map(item => ({
                 value: item.dateKey,
                 day: item.day,
                 weekday: item.weekday,
@@ -632,12 +652,23 @@ const Programacao = () => {
                                 <div className="flex flex-row">
                                     {/* LEFT — date · time · location · badge */}
                                     <div className="flex-none w-36 flex flex-col justify-center gap-2 px-4 py-4 border-r border-white/10">
-                                        <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: typeColor }}>
-                                            {event.day} {event.monthShort}
-                                        </p>
-                                        <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
-                                            {event.time}
-                                        </p>
+                                        {event.isComingSoon ? (
+                                            <p
+                                                className="text-sm font-black uppercase tracking-widest leading-tight"
+                                                style={{ color: typeColor }}
+                                            >
+                                                Em breve
+                                            </p>
+                                        ) : (
+                                            <>
+                                                <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: typeColor }}>
+                                                    {event.day} {event.monthShort}
+                                                </p>
+                                                <p className="font-black text-3xl leading-none" style={{ color: typeColor }}>
+                                                    {event.time}
+                                                </p>
+                                            </>
+                                        )}
                                         <p className="text-[10px] text-white/35 font-bold uppercase tracking-widest leading-snug">
                                             {event.location}
                                         </p>
