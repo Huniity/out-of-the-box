@@ -179,7 +179,9 @@ const Workshops = () => {
 
                                 {/* Arrow — desktop order 4 */}
                                 <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4">
-                                    <ArrowRight size={12} />
+                                    <a href={w.registration_link ?? '#'} target="_blank" rel="noopener noreferrer">
+                                        <ArrowRight size={12} />
+                                    </a>
                                 </div>
                             </motion.div>
                         )
