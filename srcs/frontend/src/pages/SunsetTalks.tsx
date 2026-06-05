@@ -115,7 +115,7 @@ const SunsetTalks = () => {
             <span className="text-[#c8ff00]">{main_green_title}</span>
           </motion.h1>
 
-          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">
+          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white">
             {main_description}
           </motion.p>
 

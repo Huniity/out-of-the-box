@@ -75,7 +75,7 @@ console.log('Filtrados:', filtered.length)
             {main_white_title}{' '}
             <span className="text-[#c8ff00]">{main_green_title}</span>
           </motion.h1>
-          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</motion.p>
+          <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white">{main_description}</motion.p>
           <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
             <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>
@@ -166,7 +166,7 @@ console.log('Filtrados:', filtered.length)
                 {/* Image */}
                 <div className="relative overflow-hidden aspect-video shrink-0">
                   <img src={imgSrc} alt={d.title} loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   {d.start_date && (
                     <div className="absolute top-3 left-3">
