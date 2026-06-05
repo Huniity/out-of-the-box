@@ -3,6 +3,7 @@ import { useState, useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import logo_etic from '../../assets/etic_algarve/etic_algarve.svg'
+import logo_15_anos from '../../assets/etic_algarve/SELO_15_ANOS_BRANCO.webp'
 import MarqueeBanner from './MarqueeBanner'
 
 const NAV_LINKS = [
@@ -41,11 +42,21 @@ function Navbar() {
         >
             <nav className="w-full flex items-center bg-black pl-4 p-4 relative">
                 {/* Logo — left */}
-                <div className="flex items-center w-[125px]">
-                    <a href="/">
-                        <img src={logo_etic} alt="Logo" width={250} height={250} />
+                <div className="w-[250px]">
+                    <a href="/" className="flex items-center gap-4">
+                        <img
+                            src={logo_etic}
+                            alt="ETIC Algarve"
+                            className="h-12 w-auto"
+                        />
+                        <img
+                            src={logo_15_anos}
+                            alt="15 Anos"
+                            className="h-12 w-auto"
+                        />
                     </a>
                 </div>
+
 
                 {/* Desktop links — centered */}
                 <div className="hidden lg:flex flex-1 justify-center items-center">

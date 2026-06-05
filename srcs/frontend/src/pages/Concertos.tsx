@@ -55,7 +55,7 @@ const Concertos = () => {
                         {main_white_title} <br />
                         <span className="text-[#c8ff00]">{main_green_title}</span>
                     </motion.h1>
-                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white/50">{main_description}</motion.p>
+                    <motion.p variants={heroItem} className="mb-6 max-w-md text-sm leading-relaxed text-white">{main_description}</motion.p>
                     <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-8 text-xs text-white/60">
                         <span className="flex items-center gap-1.5"><CalendarDays size={14} className="text-[#c8ff00]" /> {formatEventDateRange(start_event_date, end_event_date)}</span>
                         <span className="flex items-center gap-1.5"><MapPin size={14} className="text-[#c8ff00]" /> IPDJ, Faro</span>

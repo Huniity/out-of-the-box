@@ -27,7 +27,7 @@ const EventCard = memo(({ title, imageSrc, day, month, time, location, duration,
         src={imageSrc}
         alt={title}
         loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover brightness-50 transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
       {day && month && (
