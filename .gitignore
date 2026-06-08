@@ -10,6 +10,13 @@ node_modules/
 .pytest_cache/
 srcs/backend/logs/*.log
 srcs/backend/staticfiles/media/
-terraform.tfstate
-terraform.tfstate.backup
-./infrastructure
+# Terraform
+infrastructure/
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
