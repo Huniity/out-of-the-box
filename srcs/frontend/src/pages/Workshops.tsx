@@ -36,6 +36,8 @@ const Workshops = () => {
     useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops(data)) }, [])
 
     const [activeArea, setActiveArea] = useState('TODAS')
+    
+    const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
     const filtered = useMemo(
         () => activeArea === 'TODAS' ? workshops : workshops.filter(w => w.category === activeArea),
@@ -106,7 +108,7 @@ const Workshops = () => {
                     </p>
                 </div>
 
-                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
                     {filtered.map((w, i) => {
                         const cat = w.category ?? ''
                         const color = areaColor[cat] ?? '#c8ff00'
@@ -115,13 +117,17 @@ const Workshops = () => {
                         const day = dt ? dt.getDate() : null
                         const month = dt ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : null
                         const time = dt ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : null
-
+                        const isExpanded = expandedCard === i
                         return (
                             <motion.div
                                 key={i}
                                 variants={cardItem}
-                                className="group flex flex-col lg:flex-row lg:items-center gap-4 p-5 pr-6 lg:pr-5 lg:h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer min-h-[290px] lg:min-h-0"
+                                className={`group flex flex-col lg:flex-row lg:items-start gap-4 p-5 pr-6 lg:pr-5 lg:min-h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer min-h-[290px] lg:min-h-0 ${
+                                    isExpanded ? "border-opacity-100" : ""
+                                }`}
                                 style={{ borderColor: `${color}30` }}
+                                onClick={() => setExpandedCard(isExpanded ? null : i)}
+                                layout="position"
                             >
                                 {/* Mobile: top row (icon+badge left, date/time right).
                                     Desktop: lg:contents dissolves this wrapper so children
@@ -172,14 +178,26 @@ const Workshops = () => {
                                 </div>
 
                                 {/* Info — desktop order 2 */}
-                                <div className="flex-1 min-w-0 lg:order-2">
+                                <motion.div className="flex-1 min-w-0 lg:order-2 lg:pt-1" layout="position">
                                     <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className="text-xs text-white/40 line-clamp-3">{w.description}</p>
-                                </div>
+                                    <p className={`text-xs text-white/40 ${isExpanded ? "" : "line-clamp-3"}`}>
+                                        {w.description}
+                                    </p>
+                                    <span className="text-[9px] text-[#c8ff00]/60 mt-1 block">
+                                        {isExpanded ? "Clique para encolher ▲" : "Clique para ler tudo ▼"}
+                                    </span>
+                                </motion.div>
 
                                 {/* Arrow — desktop order 4 */}
-                                <div className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4">
-                                    <a href={w.registration_link ?? '#'} target="_blank" rel="noopener noreferrer">
+                                <div className={`shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4 ${
+                                    isExpanded ? "rotate-90 text-[#c8ff00] border-[#c8ff00]/50" : ""
+                                }`}>
+                                    <a 
+                                        href={w.registration_link ?? '#'} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
                                         <ArrowRight size={12} />
                                     </a>
                                 </div>
