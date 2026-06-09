@@ -253,7 +253,7 @@ export const workshopsMetrics = [
     { icon: <Ticket       size={38} strokeWidth={1.8} />, value: '',   label: 'ENTRADA GRÁTIS', desc: 'Participação gratuita mediante disponibilidade e inscrição prévia.' },
 ]
 
-export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'Video', 'SOM', 'PW', 'MARKETING', 'JOGOS']
+export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'VIDEO', 'SOM', 'PW', 'MARKETING', 'JOGOS']
 
 
 // Sunset Talks
