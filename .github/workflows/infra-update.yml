@@ -20,7 +20,17 @@ jobs:
     # --- 1. VALIDAÇÃO DIRETA DO TERRAFORM  ---
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
-
+    - name: Debug & Terraform Validate
+      run: |
+        echo "=== Listagem de ficheiros na raiz do repositório ==="
+        ls -R
+        
+        # Vamos tentar entrar na pasta que viste no teu Makefile, 
+        # mas ignorando erros se não existir, só para ver o que falha.
+        cd infrastructure/terraform || cd Infrastructure/Terraform || cd .
+        
+        terraform init -backend=false
+        terraform validate
     - name: Terraform Init & Validate
       run: |
         TF_DIR=$(dirname $(find . -name "main.tf" -not -path "*/.*" | head -n 1))
