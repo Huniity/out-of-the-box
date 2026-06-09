@@ -59,8 +59,8 @@ jobs:
         # Cria a pasta .ssh se não existir
         mkdir -p ~/.ssh
         
-        # Guarda a chave secreta no ficheiro exato 'etic_ssh'
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/etic_ssh
+        # Guarda a chave secreta no ficheiro exato 'id_rsa'
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         
         # Define as permissões obrigatórias do Linux para chaves privadas
         chmod 600 ~/.ssh/etic_ssh
