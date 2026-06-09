@@ -27,7 +27,7 @@ export function PrimaryButton({ href, children, size = 'sm', className, onClick 
 
 export function SecondaryButton({ href, children, size = 'sm', className, onClick }: CTAButtonProps) {
     const sizeClass = size === 'lg' ? 'px-6 py-3' : 'px-5 py-2.5'
-    const cls = `${ctaBase} border-white/20 text-white/70 hover:border-white/40 hover:text-white ${sizeClass}${className ? ` ${className}` : ''}`
+    const cls = `${ctaBase} border-white/20 text-white/70 hover:border-white/40 hover:text-white z-1 ${sizeClass}${className ? ` ${className}` : ''}`
     if (href) {
         if (isInternalHref(href)) return <Link to={href} className={cls}>{children}</Link>
         return <a href={href} className={cls}>{children}</a>

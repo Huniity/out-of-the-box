@@ -17,7 +17,6 @@ const AREA_OPTIONS = [
   { value: 'JOGOS',  label: 'VIDEOJOGOS' },
   { value: 'OUTROS', label: 'OUTROS' },
 ]
-import PageStars from '../components/core/PageStars'
 import polaroid_exposicoes from '../assets/polaroids/polaroid_exposicoes.webp'
 
 import SectionHeader from '../components/core/SectionHeader'
@@ -25,7 +24,6 @@ import MetricsBar from '../components/core/MetricsBar'
 import CtaBannerSection from '../components/core/CtaBannerSection'
 import HeroPageSection from '../components/core/HeroPageSection'
 import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
-
 
 const parseDateBadge = (dateStr: string) => {
   const d = new Date(dateStr)
@@ -50,17 +48,15 @@ const Exposicoes = () => {
 
   const [activeArea, setActiveArea] = useState('TODAS')
   useEffect(() => {
-  setActiveCard(null)
+    setActiveCard(null)
   }, [activeArea])
+
   const filtered = useMemo(
     () => destaques.filter(d => d.is_active && (activeArea === 'TODAS' || d.category === activeArea)),
     [destaques, activeArea]
-    
   )
-console.log('Área:', activeArea)
-console.log('Filtrados:', filtered.length)
+
   return (
-    
     <main className="min-h-screen bg-black text-white overflow-x-hidden relative">
       {/* ── Hero ── */}
       <HeroPageSection
@@ -132,7 +128,6 @@ console.log('Filtrados:', filtered.length)
           />
         </div>
 
-        {/* Se estiver vazio, mostra mensagem. Se tiver itens, mostra a grid */}
         {filtered.length === 0 ? (
           <div className="text-center py-20 border border-dashed border-white/10 rounded-sm">
             <p className="text-sm text-white/40 uppercase tracking-widest font-black">
@@ -154,65 +149,60 @@ console.log('Filtrados:', filtered.length)
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
             >            
             {filtered.map((d, i) => {
-            console.log('Renderizando:', d.title, 'Categoria:', d.category)
-            const accent    = areaColors[d.category as keyof typeof areaColors] ?? '#c8ff00'
-            const start     = parseDateBadge(d.start_date)
-            const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
-            const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
-            
-            const isActive = activeCard === (d.id ?? i)
-            return (
-              <motion.div key={d.id ?? i} variants={cardItem} onClick={() => setActiveCard(isActive ? null : (d.id ?? i))} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
-                {/* Image */}
-                <div className="relative overflow-hidden aspect-video shrink-0">
-                  <img src={imgSrc} alt={d.title} loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  {d.start_date && (
-                    <div className="absolute top-3 left-3">
-                      <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
-                        <span className="block text-base font-black leading-none">{start.day}</span>
-                        <span className="block text-[8px] font-black uppercase tracking-widest">{start.month}</span>
+              const accent    = areaColors[d.category as keyof typeof areaColors] ?? '#c8ff00'
+              const start     = parseDateBadge(d.start_date)
+              const imgSrc    = d.image ? resolveMediaUrl(d.image as string) : Fundo
+              const openTime  = d.opening_hours?.split(/[\s–-]/)[0].trim() ?? ''
+              const isActive = activeCard === (d.id ?? i)
+
+              return (
+                <motion.div key={d.id ?? i} variants={cardItem} onClick={() => setActiveCard(isActive ? null : (d.id ?? i))} className="group relative flex flex-col rounded-sm border border-white/10 bg-black hover:border-[#c8ff00]/30 transition-colors duration-300 overflow-hidden cursor-pointer">
+                  {/* Image */}
+                  <div className="relative overflow-hidden aspect-video shrink-0">
+                    <img src={imgSrc} alt={d.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:brightness-[0.3] group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    {d.start_date && (
+                      <div className="absolute top-3 left-3">
+                        <div className="bg-[#c8ff00] text-black px-2 py-1 text-center inline-block">
+                          <span className="block text-base font-black leading-none">{start.day}</span>
+                          <span className="block text-[8px] font-black uppercase tracking-widest">{start.month}</span>
+                        </div>
                       </div>
+                    )}
+                    <div className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm" style={{ backgroundColor: accent }}>
+                      {areaLabels[d.category as keyof typeof areaLabels]}
                     </div>
-                  )}
-                  <div
-                    className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-black rounded-sm"
-                    style={{ backgroundColor: accent }}
-                  >
-                    {areaLabels[d.category as keyof typeof areaLabels]}
                   </div>
-                </div>
 
-                {/* Card face */}
-                <div className="p-4 flex flex-col gap-2 flex-1">
-                  <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{d.title}</h3>
-                  <p className="text-[11px] text-white/50 leading-relaxed">{d.artists}</p>
-                  <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
-                    {d.start_date && <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
-                    {openTime && <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
-                    {d.location && <span className="flex items-center gap-1 truncate"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>}
+                  {/* Card face */}
+                  <div className="p-4 flex flex-col gap-2 flex-1">
+                    <h3 className="font-black text-sm uppercase leading-tight tracking-wide text-white">{d.title}</h3>
+                    <p className="text-[11px] text-white/50 leading-relaxed">{d.artists}</p>
+                    <div className="flex items-center gap-3 text-[10px] text-white/30 mt-auto pt-2 border-t border-white/10">
+                      {d.start_date && <span className="flex items-center gap-1 shrink-0"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
+                      {openTime && <span className="flex items-center gap-1 shrink-0"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
+                      {d.location && <span className="flex items-center gap-1 truncate"><MapPin size={10} className="shrink-0" style={{ color: accent }} /> <span className="truncate">{d.location}</span></span>}
+                    </div>
                   </div>
-                </div>
 
-                {/* Hover panel */}
-                <div className={`absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 transition-transform duration-300 ease-out ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{d.title}</h3>
-                    <span className="text-lg leading-none shrink-0" style={{ color: accent }}>✦</span>
+                  {/* Hover panel */}
+                  <div className={`absolute inset-0 flex flex-col bg-black/96 border border-[#c8ff00]/20 p-5 transition-transform duration-300 ease-out ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{d.title}</h3>
+                      <span className="text-lg leading-none shrink-0" style={{ color: accent }}>✦</span>
+                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: accent }}>{d.artists}</p>
+                    <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{d.synopsis}</p>
+                    <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-1 text-[10px] text-white/35">
+                      {d.start_date && <span className="flex items-center gap-1"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
+                      {openTime && <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
+                      {d.location && <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>}
+                    </div>
                   </div>
-                  <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: accent }}>{d.artists}</p>
-                  <p className="text-xs text-white/55 leading-relaxed flex-1 overflow-y-auto">{d.synopsis}</p>
-                  <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-1 text-[10px] text-white/35">
-                    {d.start_date && <span className="flex items-center gap-1"><CalendarDays size={10} style={{ color: accent }} /> {start.day} {start.month}</span>}
-                    {openTime && <span className="flex items-center gap-1"><Clock size={10} style={{ color: accent }} /> {openTime}</span>}
-                    {d.location && <span className="flex items-center gap-1"><MapPin size={10} style={{ color: accent }} className="shrink-0" /> {d.location}</span>}
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
-        </motion.div>
+                </motion.div>
+              )
+            })}
+          </motion.div>
         )}
       </motion.section>
 
@@ -224,7 +214,7 @@ console.log('Filtrados:', filtered.length)
               CRIATIVIDADE<br />EM EXPOSIÇÃO
             </h2>
             <div className="h-[3px] w-20 bg-[#c8ff00] mb-10" />
-            <p className="text-sm leading-relaxed text-white/50">
+            <p className="text-sm leading-relaxed text-white/50 mb-4">
               Nesta área apresentamos ao público os projetos finais dos formandos de todas as áreas formativas da ETIC_Algarve.
             </p>
             <p className="text-sm leading-relaxed text-white/50">
