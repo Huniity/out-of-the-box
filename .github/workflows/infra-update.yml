@@ -23,7 +23,10 @@ jobs:
 
     - name: Terraform Init & Validate
       run: |
-        cd infrastructure/terraform
+        TF_DIR=$(dirname $(find . -name "main.tf" -not -path "*/.*" | head -n 1))
+        echo "Pasta do Terraform encontrada em: $TF_DIR"
+        cd "$TF_DIR"
+        
         terraform init -backend=false
         terraform validate
 
