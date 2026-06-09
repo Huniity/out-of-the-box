@@ -63,7 +63,7 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         
         # Define as permissões obrigatórias do Linux para chaves privadas
-        chmod 600 ~/.ssh/etic_ssh
+        chmod 600 ~/.ssh/id_rsa
         
         # Em vez do known_hosts (que bloqueia o IP), configuramos o SSH
         # do Runner para aceitar esta VM sem fazer perguntas
