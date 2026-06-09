@@ -54,24 +54,28 @@ jobs:
       uses: actions/checkout@v4
 
     # --- 3. CONFIGURAÇÃO SSH ---
-    - name: Setup SSH Key for Terraform
+    - name: Setup SSH Key & Agent for Terraform
       run: |
         mkdir -p ~/.ssh
         
-        # 1. Guarda a chave e limpa quebras de linha do Windows (CRLF) para Linux (LF)
+        # 1. Guarda a chave privada limpa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
-        
-        # 2. Garante que há uma linha em branco no fim da chave (exigência do OpenSSH)
-        echo "" >> ~/.ssh/id_rsa
-        
-        # 3. Permissões estritas obrigatórias
         chmod 600 ~/.ssh/id_rsa
         
-        # 4. Configura o SSH do sistema para aceitar a VM sem validação interativa
+        # 2. Configura as regras de bypass do Host
         echo "Host ${{ secrets.VM_HOST }}" >> ~/.ssh/config
         echo "  StrictHostKeyChecking no" >> ~/.ssh/config
         echo "  UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-        echo "  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+        
+        # 3. LIGA O SSH AGENT E ADICIONA A CHAVE (O segredo que faltava!)
+        # Usamos o >> $GITHUB_ENV para que o agente fique ativo nos passos seguintes
+        ssh-agent -s > ~/.ssh/agent.env
+        source ~/.ssh/agent.env
+        ssh-add ~/.ssh/id_rsa
+        
+        # Exporta as variáveis do agente para o GitHub Actions segurar nos próximos steps
+        echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
+        echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> $GITHUB_ENV
 
     # --- 4. INSTALAR O TERRAFORM NO RUNNER ---
     - name: Setup Terraform
