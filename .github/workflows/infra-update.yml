@@ -54,13 +54,22 @@ jobs:
       uses: actions/checkout@v4
 
     # --- 3. CONFIGURAÇÃO SSH ---
-    - name: Setup SSH Key for Terraform
+    - name: Setup ETIC SSH Key for Terraform
       run: |
+        # Cria a pasta .ssh se não existir
         mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        echo "StrictHostKeyChecking no" >> ~/.ssh/config
-        echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+        
+        # Guarda a chave secreta no ficheiro exato 'etic_ssh'
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/etic_ssh
+        
+        # Define as permissões obrigatórias do Linux para chaves privadas
+        chmod 600 ~/.ssh/etic_ssh
+        
+        # Em vez do known_hosts (que bloqueia o IP), configuramos o SSH
+        # do Runner para aceitar esta VM sem fazer perguntas
+        echo "Host ${{ secrets.VM_HOST }}" >> ~/.ssh/config
+        echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+        echo "  UserKnownHostsFile=/dev/null" >> ~/.ssh/config
 
     # --- 4. INSTALAR O TERRAFORM NO RUNNER ---
     - name: Setup Terraform
