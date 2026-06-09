@@ -1,0 +1,66 @@
+name: Nightly Infra Update & Test
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # Roda todas as noites às 3h
+  push:
+    branches: [ origin/pedro/infra ]
+  workflow_dispatch:
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Código
+      uses: actions/checkout@v4
+
+    # --- 1. TERRAFORM INITIALIZATION ---
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init & Validate
+      run: |
+        make infra-init
+        cd infrastructure/terraform && terraform validate
+
+    # --- 2. TESTS ---
+    - name: Setup Docker
+      uses: docker/setup-buildx-action@v3
+
+    - name: Run Backend Tests (Pytest)
+      run: make backend-test-dev
+
+    - name: Run Frontend Tests (Vitest)
+      run: make frontend-test
+
+  deploy:
+    needs: test-and-validate
+    runs-on: ubuntu-latest
+    
+    # SECRETS PARA O DEPLOY (VM_HOST, VM_USER, SSH_PRIVATE_KEY) DEVEM ESTAR CONFIGURADOS NAS SECRETS DO REPOSITÓRIO
+    env:
+      TF_VAR_server_ip: ${{ secrets.VM_HOST }}
+      TF_VAR_ssh_user: ${{ secrets.VM_USER }}
+      TF_VAR_ssh_key_path: /home/runner/.ssh/id_rsa
+      TF_CLI_ARGS_apply: "-auto-approve"
+
+    steps:
+    - name: Checkout Código
+      uses: actions/checkout@v4
+
+    # --- 3. CONFIGURAÇÃO SSH ---
+    - name: Setup SSH Key for Terraform
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.VM_HOST }} >> ~/.ssh/known_hosts
+
+    # --- 4. INSTALAR O TERRAFORM NO RUNNER ---
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    # --- 5. EXECUTAR DEPLOY USANDO OS TEUS COMANDOS DO MAKE ---
+    - name: Deploy Infrastructure via Makefile
+      run: |
+        make infra-init
+        make infra-apply
