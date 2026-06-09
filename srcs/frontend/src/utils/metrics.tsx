@@ -218,12 +218,11 @@ export const projecoesFeatures = [
 export const workshopsAreas = [
     { code: 'DESIGN',    icon: <img src={wsIconDesign}    alt="" className="w-full h-full object-contain" />, name: 'DESIGN',       color: '#d0ea73', desc: 'Comunicação visual, branding e design de experiências.' },
     { code: 'FOTO',      icon: <img src={wsIconFoto}      alt="" className="w-full h-full object-contain" />, name: 'FOTOGRAFIA',   color: '#f8ad2c', desc: 'Imagem, luz e composição para contar histórias.' },
-    { code: 'VIDEO',     icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'VÍDEO',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
+    { code: 'VIDEO',     icon: <img src={wsIconVideo}     alt="" className="w-full h-full object-contain" />, name: 'Cinema / Vídeo',        color: '#d35f99', desc: 'Realização, edição e produção audiovisual e cinematográfica.' },
     { code: 'SOM',       icon: <img src={wsIconSom}       alt="" className="w-full h-full object-contain" />, name: 'SOM',          color: '#918fc0', desc: 'Captação, edição e produção de som profissional.' },
     { code: 'PW',        icon: <img src={wsIconPw}        alt="" className="w-full h-full object-contain" />, name: 'PROGRAMAÇÃO',  color: '#69ffa0', desc: 'Desenvolvimento criativo, interativo e tecnológico.' },
     { code: 'MARKETING', icon: <img src={wsIconMarketing} alt="" className="w-full h-full object-contain" />, name: 'MARKETING',    color: '#f97316', desc: 'Estratégia, conteúdo e comunicação de impacto.' },
-    { code: 'JOGOS',     icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' },
-    { code: 'CINEMA',    icon: <img src={wsIconCinema}    alt="" className="w-full h-full object-contain" />, name: 'CINEMA / TV',  color: '#ffa8d3', desc: 'Escrita, produção e linguagens para ecrã e televisão.' },
+    { code: 'JOGOS',     icon: <img src={wsIconJogos}     alt="" className="w-full h-full object-contain" />, name: 'VIDEOJOGOS',   color: '#3b82f6', desc: 'Design, narrativa e prototipagem de jogos.' }
 ]
 
 export const workshopsAreaColor: Record<string, string> = {
@@ -233,8 +232,7 @@ export const workshopsAreaColor: Record<string, string> = {
     'SOM':       '#918fc0',
     'PW':        '#69ffa0',
     'MARKETING': '#f97316',
-    'JOGOS':     '#3b82f6',
-    'CINEMA':    '#ffa8d3',
+    'JOGOS':     '#3b82f6'
 }
 
 export const workshopsAreaLabel: Record<string, string> = {
@@ -244,8 +242,7 @@ export const workshopsAreaLabel: Record<string, string> = {
     'SOM':       'Som',
     'PW':        'Programação',
     'MARKETING': 'Marketing',
-    'JOGOS':     'Videojogos',
-    'CINEMA':    'Cinema / TV',
+    'JOGOS':     'Videojogos'
 }
 
 
@@ -256,7 +253,7 @@ export const workshopsMetrics = [
     { icon: <Ticket       size={38} strokeWidth={1.8} />, value: '',   label: 'ENTRADA GRÁTIS', desc: 'Participação gratuita mediante disponibilidade e inscrição prévia.' },
 ]
 
-export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'VIDEO', 'SOM', 'PW', 'MARKETING', 'JOGOS', 'CINEMA']
+export const workshopFilterAreas = ['TODAS', 'DESIGN', 'FOTO', 'VIDEO', 'SOM', 'PW', 'MARKETING', 'JOGOS']
 
 
 // Sunset Talks

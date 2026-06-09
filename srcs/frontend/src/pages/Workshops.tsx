@@ -220,9 +220,9 @@ const Workshops = () => {
                         title={<>ÁREAS FORMATIVAS <span className="text-[#c8ff00]">E EQUIPAS</span></>}
                     />
                 </div>
-                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-12 max-w-6xl mx-auto">
                     {areas.map((a, i) => (
-                        <motion.div key={i} variants={cardItem} className="flex flex-col items-center text-center gap-3">
+                        <motion.div key={i} variants={cardItem} className="flex flex-col items-center text-center gap-3 w-[calc(50%-1rem)] sm:w-[calc(33.333%-2rem)] lg:w-[120px]">
                             <div className="w-14 h-14 flex items-center justify-center">
                                 {a.icon}
                             </div>
