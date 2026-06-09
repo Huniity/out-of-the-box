@@ -6,7 +6,10 @@ on:
   push:
     branches: [ origin/pedro/infra ]
   workflow_dispatch:
-  
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   test-and-validate:
     runs-on: ubuntu-latest
@@ -14,14 +17,15 @@ jobs:
     - name: Checkout Código
       uses: actions/checkout@v4
 
-    # --- 1. TERRAFORM INITIALIZATION ---
+    # --- 1. VALIDAÇÃO DIRETA DO TERRAFORM  ---
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
     - name: Terraform Init & Validate
       run: |
-        make infra-init
-        cd infrastructure/terraform && terraform validate
+        cd infrastructure/terraform
+        terraform init -backend=false
+        terraform validate
 
     # --- 2. TESTS ---
     - name: Setup Docker
