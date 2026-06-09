@@ -54,29 +54,35 @@ jobs:
       uses: actions/checkout@v4
 
     # --- 3. CONFIGURAÇÃO SSH ---
-    - name: Setup ETIC SSH Key for Terraform
+    - name: Setup SSH Key for Terraform
       run: |
-        # Cria a pasta .ssh se não existir
         mkdir -p ~/.ssh
         
-        # Guarda a chave secreta no ficheiro exato 'id_rsa'
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        # 1. Guarda a chave e limpa quebras de linha do Windows (CRLF) para Linux (LF)
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
         
-        # Define as permissões obrigatórias do Linux para chaves privadas
+        # 2. Garante que há uma linha em branco no fim da chave (exigência do OpenSSH)
+        echo "" >> ~/.ssh/id_rsa
+        
+        # 3. Permissões estritas obrigatórias
         chmod 600 ~/.ssh/id_rsa
         
-        # Em vez do known_hosts (que bloqueia o IP), configuramos o SSH
-        # do Runner para aceitar esta VM sem fazer perguntas
+        # 4. Configura o SSH do sistema para aceitar a VM sem validação interativa
         echo "Host ${{ secrets.VM_HOST }}" >> ~/.ssh/config
         echo "  StrictHostKeyChecking no" >> ~/.ssh/config
         echo "  UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+        echo "  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
 
     # --- 4. INSTALAR O TERRAFORM NO RUNNER ---
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
-    # --- 5. EXECUTAR DEPLOY USANDO OS TEUS COMANDOS DO MAKE ---
+    # --- 5. EXECUTAR DEPLOY FORÇANDO AS VARIÁVEIS DAS SECRETS ---
     - name: Deploy Infrastructure via Makefile
       run: |
         make infra-init
         make infra-apply
+      env:
+        TF_VAR_server_ip: ${{ secrets.VM_HOST }}
+        TF_VAR_ssh_user: ${{ secrets.VM_USER }}
+        TF_VAR_ssh_key_path: /home/runner/.ssh/id_rsa
