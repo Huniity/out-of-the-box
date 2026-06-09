@@ -4,11 +4,11 @@ on:
   schedule:
     - cron: '0 3 * * *' # Roda todas as noites às 3h
   push:
-    branches: [ origin/pedro/infra ]
-  workflow_dispatch:
+    branches: [ pedro/infra ] # Ajustado sem o prefixo 'origin/' para o GitHub Actions reconhecer
+  workflow_dispatch: # Permite o disparo manual na interface do GitHub
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true" # Força o uso do Node 24 para evitar avisos de depreciação
 
 jobs:
   test-and-validate:
@@ -17,46 +17,37 @@ jobs:
     - name: Checkout Código
       uses: actions/checkout@v4
 
-    # --- 1. VALIDAÇÃO DIRETA DO TERRAFORM  ---
+    # --- 1. VALIDAÇÃO DO TERRAFORM ---
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
-    - name: Debug & Terraform Validate
-      run: |
-        echo "=== Listagem de ficheiros na raiz do repositório ==="
-        ls -R
-        
-        # Vamos tentar entrar na pasta que viste no teu Makefile, 
-        # mas ignorando erros se não existir, só para ver o que falha.
-        cd infrastructure/terraform || cd Infrastructure/Terraform || cd .
-        
-        terraform init -backend=false
-        terraform validate
+
     - name: Terraform Init & Validate
       run: |
-        TF_DIR=$(dirname $(find . -name "main.tf" -not -path "*/.*" | head -n 1))
-        echo "Pasta do Terraform encontrada em: $TF_DIR"
-        cd "$TF_DIR"
-        
+        cd infrastructure/terraform
         terraform init -backend=false
         terraform validate
 
-    # --- 2. TESTS ---
+    # --- 2. TESTES DA APLICAÇÃO (CONTAINER TEMPORÁRIO) ---
     - name: Setup Docker
       uses: docker/setup-buildx-action@v3
 
-    - name: Run Backend Tests (Pytest)
-      run: make backend-test-dev
+    - name: Create Temporary .env for Tests
+      run: make env
+
+    # Executa o Pytest num container isolado que se auto-destrói (--rm) assim que termina
+    - name: Run Backend Tests (Pytest - Isolated)
+      run: docker compose -f compose.dev.yaml run --rm backend pytest
 
   deploy:
     needs: test-and-validate
     runs-on: ubuntu-latest
     
-    # SECRETS PARA O DEPLOY (VM_HOST, VM_USER, SSH_PRIVATE_KEY) DEVEM ESTAR CONFIGURADOS NAS SECRETS DO REPOSITÓRIO
+    # Injeção de Secrets diretamente como variáveis de ambiente para o teu Terraform local
     env:
       TF_VAR_server_ip: ${{ secrets.VM_HOST }}
       TF_VAR_ssh_user: ${{ secrets.VM_USER }}
       TF_VAR_ssh_key_path: /home/runner/.ssh/id_rsa
-      TF_CLI_ARGS_apply: "-auto-approve"
+      TF_CLI_ARGS_apply: "-auto-approve" # Injeta o auto-approve para não travar o Makefile
 
     steps:
     - name: Checkout Código
