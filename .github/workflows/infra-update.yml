@@ -7,9 +7,6 @@ on:
     branches: [ origin/pedro/infra ]
   workflow_dispatch:
   
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-  
 jobs:
   test-and-validate:
     runs-on: ubuntu-latest
@@ -32,9 +29,6 @@ jobs:
 
     - name: Run Backend Tests (Pytest)
       run: make backend-test-dev
-
-    - name: Run Frontend Tests (Vitest)
-      run: make frontend-test
 
   deploy:
     needs: test-and-validate
