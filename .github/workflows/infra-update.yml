@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 3 * * *' # Roda todas as noites às 3h
   push:
-    branches: [ pedro/infra ] # Ajustado sem o prefixo 'origin/' para o GitHub Actions reconhecer
+    branches: [ origin/pedro/infra ] # Ajustado sem o prefixo 'origin/' para o GitHub Actions reconhecer
   workflow_dispatch: # Permite o disparo manual na interface do GitHub
 
 env:
