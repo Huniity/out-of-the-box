@@ -7,6 +7,9 @@ import leafImg2 from '../../assets/doodles/Artboard_13.webp'
 import leafImg3 from '../../assets/doodles/Artboard_12.webp'
 import '../../styles/leaves.css'
 
+import adobe from '../../assets/supports/adobe.png'
+import ipdj from '../../assets/partners/ipdj_faro.png'
+import republica from '../../assets/partners/republica_pt.png'
 
 export default function Footer() {
   return (
@@ -53,17 +56,48 @@ export default function Footer() {
       />
       <div className="relative z-10 grid gap-2 md:grid-cols-12 md:items-start">
         {/* Brand */}
-        <div className="md:col-span-4">
-          <div className="mb-5 flex items-center gap-3">
+        <div className="md:col-span-5 flex flex-col gap-6 mb-12 md:mb-0">
+          {/* 1. Bloco do Logo + Copyright */}
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
             <img src={EticWhite} alt="ETIC_Algarve Logo" className="w-60 shrink-0" />
+            <p className="text-xs text-left text-white/45 lg:mt-4">
+              © 2026 ETIC_Algarve — Todos os direitos reservados.
+            </p>
           </div>
 
+          {/* 2. Bloco dos Logótipos com Alturas Iguais */}
+          {/* O 'items-stretch' força todas as colunas a terem a mesma altura máxima */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 items-stretch mt-4">
+            
+            {/* Parceria: República Portuguesa */}
+            <div className="flex flex-col justify-between gap-3 h-full border-b border-white/5 pb-4 md:border-none md:pb-0">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-left text-white font-medium">
+                  Parceria:
+                </p>
+                <img src={republica} alt="República Portuguesa Logo" className="w-28 shrink-0 object-contain" />
+              </div>
+            </div>
 
-          <p className="mt-8 text-xs text-left text-white/45">
-            © 2026 ETIC_Algarve — Todos os direitos reservados.
-          </p>
+            {/* IPDJ */}
+            {/* Usamos 'justify-center' para centralizar o logo verticalmente, alinhando visualmente com a República */}
+            <div className="flex flex-col justify-center gap-2 h-full pb-4 md:pb-0">
+              <img src={ipdj} alt="IPDJ Logo" className="w-24 shrink-0 object-contain" />
+            </div>
+
+            {/* Apoio: Adobe */}
+            {/* No mobile ocupa a largura total por baixo, mas mantém a estrutura flexível interna limpa */}
+            <div className="col-span-2 md:col-span-1 flex flex-col justify-between gap-2 h-full pt-2 md:pt-0">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-left text-white font-medium">
+                  Apoio:
+                </p>
+                <img src={adobe} alt="Adobe Logo" className="w-24 shrink-0 object-contain" />
+              </div>
+            </div>
+
+          </div>
         </div>
-
         {/* Navigation */}
         <div className="md:col-span-2 text-left">
           <h3 className="mb-4 text-sm font-black uppercase tracking-wide text-white">
@@ -124,7 +158,7 @@ export default function Footer() {
           </div>
         </div>
         {/* Socials */}
-        <div className="md:col-span-3">
+        <div className="md:col-span-2">
           <h3 className="mb-4 text-sm font-black uppercase tracking-wide text-left text-white">
             Segue-nos
           </h3>
