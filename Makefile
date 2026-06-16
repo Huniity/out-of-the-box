@@ -1,4 +1,4 @@
-.PHONY: help up-dev up-prod clean purge restart rebuild migrate-dev migrate-prod migration-dev migration-prod superuser-dev superuser-auto-dev superuser-prod check-dev check-prod backend-test-dev backend-test-prod frontend-test
+.PHONY: help env env-prod start-dev start-prod sync-dev up-dev up-prod purge restart restart-prod rebuild rebuild-prod migrate-dev migrate-prod migration-dev migration-prod superuser-dev superuser-prod check-dev check-prod backend-test-dev backend-test-prod frontend-test logs-backend-dev logs-backend-prod logs-pytest-dev logs-pytest-prod populate-dev populate-prod setup-terraform infra-init infra-plan infra-apply convert populate_speedhunting clear_database populate-and-clear
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -12,7 +12,8 @@ env: ## Create .env file if it doesn't exist
 		printf "POSTGRES_PASSWORD=ootb_2026\n" >> .env; \
 		printf "DATABASE_URL=postgres://ootb_dev:ootb_2026@db:5432/ootb_db\n" >> .env; \
 		printf "DEBUG=True\n" >> .env; \
-		printf "ALLOWED_HOSTS=localhost,127.0.0.1,backend, *\n" >> .env; \
+		printf "ALLOWED_HOSTS=outofthebox.eticalgarve.com,localhost,127.0.0.1,backend\n" >> .env; \
+		printf "CSRF_TRUSTED_ORIGINS=https://outofthebox.eticalgarve.com,http://localhost:5173,http://localhost:8000\n" >> .env; \
 		printf "DJANGO_SETTINGS_MODULE=core.settings\n" >> .env; \
 		printf "SECRET_KEY=django-insecure-du@=ttc8hp*snf^og$mt_zywso3s713sq+_m=8yrma3cf=8s54\n" >> .env; \
 		printf "\n" >> .env; \
@@ -32,7 +33,7 @@ env: ## Create .env file if it doesn't exist
 	@echo "Environment variables:"
 	@cat .env
 
-env-prod:## Create .env file if it doesn't exist
+env-prod: ## Create production .env file if it doesn't exist
 	@if [ ! -f .env ]; then \
 		echo "Creating .env file..."; \
 		printf "POSTGRES_DB=ootb_db\n" > .env; \
@@ -208,6 +209,26 @@ populate-dev: ## Populate database with sample data in development environment
 populate-prod: ## Populate database with main pages data in production environment
 	docker compose -f compose.prod.yaml exec backend python /scripts/seed_db_prod.py
 
+# Infrastructure / deployment
+setup-terraform: ## Interactively configure Terraform variables
+	@cd infrastructure/terraform && \
+	if [ -f terraform.tfvars ]; then \
+		echo "terraform.tfvars already exists. Delete it first to reconfigure."; \
+	else \
+		cp terraform.tfvars.example terraform.tfvars; \
+		echo "Created infrastructure/terraform/terraform.tfvars — fill in your values."; \
+	fi
+
+infra-init: ## Initialise Terraform (run once)
+	cd infrastructure/terraform && terraform init
+
+infra-plan: ## Preview changes Terraform will make
+	cd infrastructure/terraform && terraform plan
+
+infra-apply: ## Deploy to the remote server
+	cd infrastructure/terraform && terraform apply
+
+
 convert: ## Convert PNG/JPG assets to WebP (runs from srcs/frontend)
 	cd srcs/frontend && node -e "const sharp = require('sharp'); const fs = require('fs'); const path = require('path'); const dir = 'src/assets'; const files = fs.readdirSync(dir).filter(f => f.endsWith('.png') || f.endsWith('.jpg') || f.endsWith('.jpeg')); Promise.all(files.map(f => { const input = path.join(dir, f); const output = path.join(dir, f.replace(/\.(png|jpg|jpeg)$$/,'.webp')); return sharp(input).webp({ quality: 80 }).toFile(output).then(() => console.log(f, '->', output)); })).then(() => console.log('Done!'));"
 
@@ -217,4 +238,7 @@ populate_speedhunting: ## Seed database with Speed Hunting specific data
 clear_database: ## Clear all data from the database (use with caution)
 	docker compose -f compose.dev.yaml exec backend python /scripts/clear_database.py
 
-populate-and-clear: clear_database populate-prod populate_speedhunting
+populate-and-clear: ## Clear DB, then seed prod pages and Speed Hunting data
+	$(MAKE) clear_database
+	$(MAKE) populate-prod
+	$(MAKE) populate_speedhunting

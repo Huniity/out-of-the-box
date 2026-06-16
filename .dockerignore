@@ -11,6 +11,7 @@
 srcs/frontend/node_modules
 srcs/frontend/.next
 srcs/frontend/dist
+srcs/frontend/.vite
 srcs/backend/.venv
 srcs/backend/__pycache__
 srcs/backend/.pytest_cache
