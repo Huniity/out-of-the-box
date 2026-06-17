@@ -108,68 +108,86 @@ const Workshops = () => {
                     </p>
                 </div>
 
-                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
+                <motion.div
+                    variants={stagger}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewport}
+                    className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start"
+                >
                     {filtered.map((w, i) => {
                         const cat = w.category ?? ''
                         const color = areaColor[cat] ?? '#c8ff00'
                         const areaObj = areas.find(a => a.code === cat)
                         const dt = w.start_datetime ? new Date(w.start_datetime) : null
                         const day = dt ? dt.getDate() : null
-                        const month = dt ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : null
-                        const time = dt ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : null
+                        const month = dt
+                            ? dt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '')
+                            : null
+                        const time = dt
+                            ? dt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+                            : null
+
                         const isExpanded = expandedCard === i
+
                         return (
                             <motion.div
                                 key={i}
                                 variants={cardItem}
-                                className={`group flex flex-col lg:flex-row lg:items-start gap-4 p-5 pr-6 lg:pr-5 lg:min-h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-pointer min-h-[290px] lg:min-h-0 ${
-                                    isExpanded ? "border-opacity-100" : ""
+                                className={`group flex flex-col lg:flex-row lg:items-start gap-4 p-5 pr-6 lg:pr-5 lg:min-h-[200px] rounded-sm border bg-white/[0.02] hover:bg-white/5 transition-all duration-300 cursor-default min-h-[290px] lg:min-h-0 ${
+                                    isExpanded ? 'border-opacity-100' : ''
                                 }`}
                                 style={{ borderColor: `${color}30` }}
-                                onClick={() => setExpandedCard(isExpanded ? null : i)}
                                 layout="position"
                             >
-                                {/* Mobile: top row (icon+badge left, date/time right).
-                                    Desktop: lg:contents dissolves this wrapper so children
-                                    participate directly in the flex-row and can be reordered. */}
+                                {/* Mobile wrapper */}
                                 <div className="flex items-start justify-between gap-3 lg:contents">
-                                    {/* Area icon + badge — desktop order 1 */}
+                                    {/* Ícone da Área */}
                                     <div className="shrink-0 flex flex-col items-center gap-1.5 w-20 lg:w-24 lg:order-1">
                                         <div className="w-14 h-14 lg:w-20 lg:h-20 flex items-center justify-center">
                                             {areaObj?.icon}
                                         </div>
+
                                         {cat && (
                                             <span
                                                 className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm text-center w-full truncate"
                                                 style={{ backgroundColor: color }}
-                                            >{areaLabel[cat] ?? cat}</span>
+                                            >
+                                                {areaLabel[cat] ?? cat}
+                                            </span>
                                         )}
                                     </div>
 
-                                    {/* Date + Time + Sala + chips — desktop order 3 */}
-                                    <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3">
+                                    {/* Bloco da Data */}
+                                    <div className="shrink-0 flex flex-col items-end gap-2 text-right max-w-[52%] lg:max-w-none lg:order-3 cursor-default">
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
                                             <CalendarDays size={14} className="text-[#c8ff00]" />
                                             {day && month ? `${day} ${month}` : 'Em Breve'}
                                         </span>
+
                                         <span className="flex items-center gap-1.5 text-sm font-black text-white/60">
                                             <Clock size={14} className="text-[#c8ff00]" />
                                             {time || 'Em Breve'}
                                         </span>
+
                                         <span className="flex items-center gap-1 text-xs text-white/40 leading-snug">
                                             <MapPin size={12} className="text-[#c8ff00] shrink-0" />
                                             <span className="text-right">{w.location || 'Em Breve'}</span>
                                         </span>
+
                                         {(w.duration || w.max_participants) && (
                                             <div className="flex flex-wrap items-center justify-end gap-1 mt-1">
                                                 {w.duration && (
                                                     <span className="flex items-center gap-1 text-[10px] text-white/35 border border-white/10 rounded-sm px-1.5 py-0.5">
-                                                        <Timer size={10} className="text-[#c8ff00]" /> {w.duration}
+                                                        <Timer size={10} className="text-[#c8ff00]" />
+                                                        {w.duration}
                                                     </span>
                                                 )}
+
                                                 {w.max_participants && (
                                                     <span className="flex items-center gap-1 text-[10px] text-white/35 border border-white/10 rounded-sm px-1.5 py-0.5">
-                                                        <Users size={10} className="text-[#c8ff00]" /> {w.max_participants} vagas
+                                                        <Users size={10} className="text-[#c8ff00]" />
+                                                        {w.max_participants} vagas
                                                     </span>
                                                 )}
                                             </div>
@@ -177,29 +195,59 @@ const Workshops = () => {
                                     </div>
                                 </div>
 
-                                {/* Info — desktop order 2 */}
-                                <motion.div className="flex-1 min-w-0 lg:order-2 lg:pt-1" layout="position">
-                                    <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">{w.title}</h3>
-                                    <p className={`text-xs text-white/40 ${isExpanded ? "" : "line-clamp-3"}`}>
+                                {/* Textos da Info */}
+                                <motion.div
+                                    className="flex-1 min-w-0 lg:order-2 lg:pt-1"
+                                    layout="position"
+                                >
+                                    <h3 className="font-black uppercase text-sm tracking-wide text-white leading-tight mb-1">
+                                        {w.title}
+                                    </h3>
+
+                                    <p className={`text-xs text-white/40 ${isExpanded ? '' : 'line-clamp-3'}`}>
                                         {w.description}
                                     </p>
-                                    <span className="text-[9px] text-[#c8ff00]/60 mt-1 block">
-                                        {isExpanded ? "Clique para encolher ▲" : "Clique para ler tudo ▼"}
-                                    </span>
+
+                                    <button
+                                        type="button"
+                                        className="text-[9px] text-[#c8ff00]/60 mt-1 block cursor-pointer text-left"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setExpandedCard(isExpanded ? null : i)
+                                        }}
+                                    >
+                                        {isExpanded ? 'Clique para encolher ▲' : 'Clique para ler tudo ▼'}
+                                    </button>
                                 </motion.div>
 
-                                {/* Arrow — desktop order 4 */}
-                                <div className={`shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 self-end lg:self-auto lg:order-4 ${
-                                    isExpanded ? "rotate-90 text-[#c8ff00] border-[#c8ff00]/50" : ""
-                                }`}>
-                                    <a 
-                                        href={w.registration_link ?? '#'} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        onClick={(e) => e.stopPropagation()}
+                                {/* Botão do Link Externo */}
+                                <div className="flex flex-col self-center items-center gap-1 shrink-0 lg:order-4">
+                                    <div
+                                        className={`w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c8ff00]/50 group-hover:text-[#c8ff00] transition-all duration-300 ${
+                                            w.registration_link ? 'block' : 'hidden'
+                                        }`}
                                     >
-                                        <ArrowRight size={12} />
-                                    </a>
+                                        <a
+                                            href={w.registration_link ?? '#'}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="w-full h-full flex items-center justify-center cursor-pointer"
+                                        >
+                                            <ArrowRight size={12} />
+                                        </a>
+                                    </div>
+
+                                    <span 
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        if (w.registration_link) {
+                                            window.open(w.registration_link, '_blank')
+                                        }
+                                    }}
+                                    className="text-[9px] uppercase font-bold tracking-wider text-[#c8ff00]/70 cursor-pointer" >
+                                        Inscreve-te
+                                    </span>
                                 </div>
                             </motion.div>
                         )
