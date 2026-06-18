@@ -1,19 +1,19 @@
-
 import { useState, useEffect, useMemo } from 'react'
-import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, ArrowRight, ChevronDown, CheckCircle2, ChevronRight, RefreshCw, Instagram, Linkedin, Facebook } from 'lucide-react'
 import heroImg from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { motion } from 'framer-motion'
-
+import facebook_logo from '../assets/icons/SPEEDHUNTING/facebook.svg';
+import instagram_logo from '../assets/icons/SPEEDHUNTING/instagram.svg';
+import linkedin_logo from '../assets/icons/SPEEDHUNTING/linkedin.svg';
 import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
 import type { SpeedHuntingContract } from '../api/contracts'
-import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
+import { formatEventDateRange, resolveMediaUrl,formatEventDateRange_ISO } from '../utils/dashboard'
 import { usePageData } from '../hooks/usePageData'
 import polaroid_speedhunting from '../assets/polaroids/polaroid_speedhunting.webp'
 import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../utils/animations'
 import HeroPageSection from '../components/core/HeroPageSection'
-
 
 const SpeedHunting = () => {
     const {
@@ -30,6 +30,15 @@ const SpeedHunting = () => {
     useEffect(() => { speedHuntingApi.getCompanies().then(data => setCompanies(data)) }, [])
 
     const [activeCategory, setActiveCategory] = useState('TODAS')
+    
+    // 👇 NOVO: Estado para controlar qual card de empresa está expandido
+    const [expandedCard, setExpandedCard] = useState<number | null>(null)
+    
+    // Resetar o card expandido quando mudas de categoria para evitar bugs visuais
+    const handleCategoryChange = (cat: string) => {
+        setActiveCategory(cat)
+        setExpandedCard(null)
+    }
 
     const filtered = useMemo(
         () => activeCategory === 'TODAS' ? companies : companies.filter(c => c.category === activeCategory),
@@ -158,7 +167,7 @@ const SpeedHunting = () => {
                         {categories.map(cat => (
                             <button
                                 key={cat}
-                                onClick={() => setActiveCategory(cat)}
+                                onClick={() => handleCategoryChange(cat)}
                                 className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
                                     activeCategory === cat
                                         ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
@@ -171,7 +180,7 @@ const SpeedHunting = () => {
                     </div>
                     <div className="flex justify-center mt-3">
                         <button
-                            onClick={() => setActiveCategory('TODAS')}
+                            onClick={() => handleCategoryChange('TODAS')}
                             className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity"
                         >
                             <RefreshCw size={13} /> Limpar Filtros
@@ -186,9 +195,18 @@ const SpeedHunting = () => {
                         const initials = (c.company_name ?? '')
                             .split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
                         const logoSrc = c.company_logo ? resolveMediaUrl(c.company_logo) : null
-
+                        const companyUrl = c.company_website || null
+                        // 👇 DETERMINA SE ESTE CARD ESPECÍFICO ESTÁ ABERTO
+                        const isExpanded = expandedCard === i
                         return (
-                            <motion.div key={i} variants={cardItem} className="flex flex-col sm:flex-row overflow-hidden rounded-sm border border-white/10 bg-[#0d0d0d] hover:border-white/20 transition-all duration-200 group">
+                            <motion.div 
+                                key={i} 
+                                variants={cardItem} 
+                                layout="position" // ── Transição suave ao esticar
+                                className={`flex flex-col sm:flex-row overflow-hidden rounded-sm border bg-[#0d0d0d] hover:border-white/20 transition-all duration-300 group cursor-default ${
+                                    isExpanded ? 'border-white/40 border-opacity-100' : 'border-white/10'
+                                }`}
+                            >
                                 {/* Top (mobile) / Left (desktop) — logo + badge */}
                                 <div className="flex-none sm:w-[140px] flex flex-row sm:flex-col justify-start sm:justify-center items-center gap-4 px-4 sm:px-0 py-4 sm:py-6 border-b sm:border-b-0 sm:border-r border-white/10">
                                     {logoSrc ? (
@@ -206,12 +224,6 @@ const SpeedHunting = () => {
                                             {initials}
                                         </div>
                                     )}
-                                    {/* <span
-                                        className="block px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black rounded-sm text-center sm:w-[104px] leading-tight"
-                                        style={{ backgroundColor: catColor }}
-                                    >
-                                        {catLabel}
-                                    </span> */}
                                 </div>
 
                                 {/* Content */}
@@ -220,10 +232,42 @@ const SpeedHunting = () => {
                                         <h3 className="font-black text-sm uppercase leading-tight tracking-tight text-white">{c.company_name}</h3>
                                         <span className="text-lg sm:hidden shrink-0 mt-0.5" style={{ color: catColor }}>✦</span>
                                     </div>
-                                    <p className="text-xs text-white/35 leading-relaxed line-clamp-4 mt-1">{c.company_description}</p>
-                                    <p className="text-[10px] text-white/25 mt-1.5 flex items-center gap-1">
-                                        <MapPin size={10} className="text-[#c8ff00]/50" /> Dias 9 e 10 Jul
+                                    
+                                    {/* 👇 ATUALIZADO: Controla dinamicamente a quebra do texto */}
+                                    <p className={`text-xs text-white/35 leading-relaxed mt-1 ${isExpanded ? '' : 'line-clamp-4'}`}>
+                                        {c.company_description}
                                     </p>
+
+                                    {c.company_description && c.company_description.length > 500 && (
+                                    <button
+                                        type="button"
+                                        className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
+                                        onClick={(e) => {
+                                            e.stopPropagation() // ── Isola o clique totalmente no botão
+                                            setExpandedCard(isExpanded ? null : i)
+                                        }}
+                                    >
+                                        {isExpanded ? 'Clique para encolher ▲' : 'Clique para ler tudo ▼'}
+                                    </button>
+                                    )}
+                                    <div>
+                                      {c.start_datetime && c.end_datetime && (
+                                        <p className="text-[10px] text-white/25 mt-2.5 flex items-center gap-1 cursor-default" onClick={(e) => e.stopPropagation()}>
+                                            <CalendarDays size={10} className="text-[#c8ff00]/50" /> {formatEventDateRange_ISO(c.start_datetime, c.end_datetime)}
+                                        </p>
+                                      )}
+                                        {companyUrl && (
+                                            <a 
+                                                href={companyUrl} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                onClick={(e) => e.stopPropagation()} // ── Segurança para o link não mexer no estado do card
+                                                className="text-[10px] text-[#c8ff00] font-black uppercase tracking-widest hover:underline shrink-0 mt-0.5 cursor-pointer"
+                                            >
+                                                Visitar Website
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
 
                                 {/* Right — decoration (desktop only) */}
@@ -287,7 +331,7 @@ const SpeedHunting = () => {
             <section className="relative overflow-hidden pr-8 xl:pr-20 py-20">
                 <div className="relative z-10 border border-white/10 bg-white/5 rounded-sm px-10 py-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
                     <div className="flex-1">
-                                                <h2 className="font-black uppercase leading-none tracking-tight text-white"
+                        <h2 className="font-black uppercase leading-none tracking-tight text-white"
                             style={{ fontSize: 'clamp(1.6rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
                             <span className="text-[#c8ff00]">DOIS</span> DIAS. <br />
                             <span className="text-[#c8ff00]">DEZENAS</span> PROJETOS.<br />

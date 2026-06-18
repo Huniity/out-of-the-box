@@ -141,13 +141,17 @@ class Concertos(models.Model):
 class SpeedHunting(models.Model):
     company_name = models.CharField(max_length=255, blank=True)
     company_logo = models.ImageField(upload_to='speed_hunting/logos/', blank=True, null=True)
-    company_description = models.TextField(max_length=500, blank=True, null=True)
+    company_description = models.TextField(max_length=1500, blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, blank=True, null=True)
     area = models.CharField(max_length=50, choices=COURSE_AREA_CHOICES, blank=True, null=True)
     start_datetime = models.DateTimeField(null=True, blank=True)
+    end_datetime = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
-
+    company_website = models.URLField(blank=True, null=True)
+    company_linkedin = models.URLField(blank=True, null=True)
+    company_facebook = models.URLField(blank=True, null=True)
+    company_instagram = models.URLField(blank=True, null=True)
     def __str__(self):
         return self.company_name
 
