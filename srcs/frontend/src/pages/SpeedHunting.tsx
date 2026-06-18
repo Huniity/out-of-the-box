@@ -188,7 +188,7 @@ const SpeedHunting = () => {
                     </div>
                 </div>
 
-                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
                     {filtered.map((c, i) => {
                         const catColor = speedHuntingCategoryColor[c.category ?? ''] ?? '#ffffff'
                         const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
@@ -250,23 +250,58 @@ const SpeedHunting = () => {
                                         {isExpanded ? 'Clique para encolher ▲' : 'Clique para ler tudo ▼'}
                                     </button>
                                     )}
-                                    <div>
-                                      {c.start_datetime && c.end_datetime && (
-                                        <p className="text-[10px] text-white/25 mt-2.5 flex items-center gap-1 cursor-default" onClick={(e) => e.stopPropagation()}>
-                                            <CalendarDays size={10} className="text-[#c8ff00]/50" /> {formatEventDateRange_ISO(c.start_datetime, c.end_datetime)}
-                                        </p>
-                                      )}
-                                        {companyUrl && (
-                                            <a 
-                                                href={companyUrl} 
-                                                target="_blank" 
-                                                rel="noopener noreferrer" 
-                                                onClick={(e) => e.stopPropagation()} // ── Segurança para o link não mexer no estado do card
-                                                className="text-[10px] text-[#c8ff00] font-black uppercase tracking-widest hover:underline shrink-0 mt-0.5 cursor-pointer"
-                                            >
-                                                Visitar Website
-                                            </a>
-                                        )}
+                                    <div className="flex items-center gap-4 mt-3">
+                                        <div>
+                                            {c.start_datetime && c.end_datetime && (
+                                                <p className="text-[10px] text-white/25 mt-2.5 flex items-center gap-1 cursor-default" onClick={(e) => e.stopPropagation()}>
+                                                    <CalendarDays size={10} className="text-[#c8ff00]/50" /> {formatEventDateRange_ISO(c.start_datetime, c.end_datetime)}
+                                                </p>
+                                            )}
+                                                {companyUrl && (
+                                                    <a 
+                                                        href={companyUrl} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer" 
+                                                        onClick={(e) => e.stopPropagation()} // ── Segurança para o link não mexer no estado do card
+                                                        className="text-[10px] text-[#c8ff00] font-black uppercase tracking-widest hover:underline shrink-0 mt-0.5 cursor-pointer"
+                                                    >
+                                                        Visitar Website
+                                                    </a>
+                                                )}
+                                        </div>
+                                        <div className="flex items-center gap-1 ml-auto">
+                                            {c.company_linkedin && (
+                                                <a
+                                                    href={c.company_linkedin}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
+                                                >
+                                                    <img src={linkedin_logo} alt="LinkedIn" className="rounded-sm inline-block w-6 h-6 mr-1 " />
+                                                </a>
+                                            )}
+                                            {c.company_facebook && (
+                                                <a
+                                                    href={c.company_facebook}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
+                                                >
+                                                    <img src={facebook_logo} alt="Facebook" className="rounded-sm inline-block w-6 h-6 mr-1 " />
+                                                </a>
+                                            )}
+                                            {c.company_instagram && (
+                                                <a
+                                                    href={c.company_instagram}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
+                                                >
+                                                    <img src={instagram_logo} alt="Instagram" className="rounded-sm inline-block w-6 h-6 mr-1 " />
+                                                </a>
+                                            )}
+                                        </div>
+
                                     </div>
                                 </div>
 
