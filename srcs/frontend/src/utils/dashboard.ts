@@ -214,6 +214,24 @@ export function formatEventDateRange(start: string | null, end: string | null): 
         : `${d1} de ${month} ${y}`;
 }
 
+export function formatEventDateRange_ISO(start: string | null, end: string | null): string {
+    if (!start || !end) return 'Em Breve';
+
+    // O Date do JavaScript consegue interpretar perfeitamente strings ISO como "2026-07-17T11:42:00+01:00"
+    const startDt = new Date(start);
+    const endDt = new Date(end);
+
+    // Se por algum motivo a data for inválida, evita mostrar NaN
+    if (isNaN(startDt.getTime()) || isNaN(endDt.getTime())) return 'Em Breve';
+
+    const startDay = startDt.getDate();
+    const endDay = endDt.getDate();
+
+    // Se o início e o fim forem no mesmo dia, mostra apenas "Dia X"
+    // Caso contrário, mostra "de X a Y"
+    return startDay === endDay ? `Dia ${startDay}` : `Dias ${startDay} a ${endDay}`;
+}
+
 const formatFieldName = (field: string): string => {
     return field
         .split("_")
