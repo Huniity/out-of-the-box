@@ -250,7 +250,7 @@ const SpeedHunting = () => {
                                         {isExpanded ? 'Clique para encolher ▲' : 'Clique para ler tudo ▼'}
                                     </button>
                                     )}
-                                    <div className="flex items-centergap-4 mt-3">
+                                    <div className="flex items-center gap-4 mt-3">
                                         <div>
                                             {c.start_datetime && c.end_datetime && (
                                                 <p className="text-[10px] text-white/25 mt-2.5 flex items-center gap-1 cursor-default" onClick={(e) => e.stopPropagation()}>
@@ -269,7 +269,7 @@ const SpeedHunting = () => {
                                                     </a>
                                                 )}
                                         </div>
-                                        <div className="flex items-center gap-3 ml-auto">
+                                        <div className="flex items-center gap-1 ml-auto">
                                             {c.company_linkedin && (
                                                 <a
                                                     href={c.company_linkedin}
@@ -277,7 +277,7 @@ const SpeedHunting = () => {
                                                     rel="noopener noreferrer"
                                                     className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
                                                 >
-                                                    <img src={linkedin_logo} alt="LinkedIn" className="inline-block w-8 h-8 mr-1 " />
+                                                    <img src={linkedin_logo} alt="LinkedIn" className="rounded-sm inline-block w-6 h-6 mr-1 " />
                                                 </a>
                                             )}
                                             {c.company_facebook && (
@@ -287,7 +287,7 @@ const SpeedHunting = () => {
                                                     rel="noopener noreferrer"
                                                     className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
                                                 >
-                                                    <img src={facebook_logo} alt="Facebook" className="inline-block w-8 h-8 mr-1 " />
+                                                    <img src={facebook_logo} alt="Facebook" className="rounded-sm inline-block w-6 h-6 mr-1 " />
                                                 </a>
                                             )}
                                             {c.company_instagram && (
@@ -297,7 +297,7 @@ const SpeedHunting = () => {
                                                     rel="noopener noreferrer"
                                                     className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
                                                 >
-                                                    <img src={instagram_logo} alt="Instagram" className="inline-block w-8 h-8 mr-1 " />
+                                                    <img src={instagram_logo} alt="Instagram" className="rounded-sm inline-block w-6 h-6 mr-1 " />
                                                 </a>
                                             )}
                                         </div>
