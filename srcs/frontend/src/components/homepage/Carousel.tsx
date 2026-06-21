@@ -20,9 +20,9 @@ function parseDt(iso: string | null) {
   if (!iso) return { day: 0, month: 'JUL', time: '--:--' }
   const d = new Date(iso)
   return {
-    day:   d.getUTCDate(),
-    month: d.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', ''),
-    time:  d.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }),
+    day:   d.getDate(),
+    month: d.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', ''),
+    time:  d.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }),
   }
 }
 

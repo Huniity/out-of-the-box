@@ -1,9 +1,10 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import get_object_or_404
+from django.utils import timezone as dj_tz
 
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
@@ -68,31 +69,31 @@ class TotalVisitorsView(APIView):
 
 
 class ExposicoesViewSet(viewsets.ModelViewSet):
-    queryset = Exposicoes.objects.all()
+    queryset = Exposicoes.objects.all().order_by(F('start_date').asc(nulls_last=True))
     serializer_class = ExposicoesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class SunsetTalksViewSet(viewsets.ModelViewSet):
-    queryset = SunsetTalks.objects.all()
+    queryset = SunsetTalks.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = SunsetTalksSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class WorkshopsViewSet(viewsets.ModelViewSet):
-    queryset = Workshops.objects.all()
+    queryset = Workshops.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = WorkshopsSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class CinemaViewSet(viewsets.ModelViewSet):
-    queryset = Cinema.objects.all()
+    queryset = Cinema.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = CinemaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ConcertosViewSet(viewsets.ModelViewSet):
-    queryset = Concertos.objects.all()
+    queryset = Concertos.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = ConcertosSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -107,13 +108,13 @@ class ConcertosViewSet(viewsets.ModelViewSet):
 
 
 class SpeedHuntingViewSet(viewsets.ModelViewSet):
-    queryset = SpeedHunting.objects.all()
+    queryset = SpeedHunting.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = SpeedHuntingSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class SemanaLabiaViewSet(viewsets.ModelViewSet):
-    queryset = SemanaLabia.objects.all()
+    queryset = SemanaLabia.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
     serializer_class = SemanaLabiaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -121,7 +122,10 @@ class SemanaLabiaViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def highlights_view(request):
     def fmt(dt):
-        return dt.isoformat() if dt else None
+        if not dt:
+            return None
+        return dj_tz.localtime(dt).isoformat()
+
 
     def img(field):
         if not field:

@@ -36,7 +36,7 @@ const Concertos = () => {
     const featured = programme[0]
     const featuredDt = featured ? new Date(featured.start_datetime) : null
     const featuredDay = featuredDt ? featuredDt.getDate() : ''
-    const featuredMonth = featuredDt ? featuredDt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '') : ''
+    const featuredMonth = featuredDt ? featuredDt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : ''
     const featuredTime = featuredDt ? featuredDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
     return (

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import facebook_logo from '../assets/icons/SPEEDHUNTING/facebook.svg';
 import instagram_logo from '../assets/icons/SPEEDHUNTING/instagram.svg';
 import linkedin_logo from '../assets/icons/SPEEDHUNTING/linkedin.svg';
-import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCategories as categories, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
+import { speedHuntingMetrics as metrics, speedHuntingSteps as steps, speedHuntingTips as tips, speedHuntingCategoryColor, speedHuntingCategoryLabel } from '../utils/metrics'
 import { speedHuntingApi } from '../services/api/speedHunting.api'
 import type { SpeedHuntingContract } from '../api/contracts'
 import { formatEventDateRange, resolveMediaUrl,formatEventDateRange_ISO } from '../utils/dashboard'
@@ -29,20 +29,31 @@ const SpeedHunting = () => {
     const [companies, setCompanies] = useState<SpeedHuntingContract[]>([])
     useEffect(() => { speedHuntingApi.getCompanies().then(data => setCompanies(data)) }, [])
 
-    const [activeCategory, setActiveCategory] = useState('TODAS')
+    const [selectedDay, setSelectedDay] = useState<number | null>(null)
     
     // 👇 NOVO: Estado para controlar qual card de empresa está expandido
     const [expandedCard, setExpandedCard] = useState<number | null>(null)
     
-    // Resetar o card expandido quando mudas de categoria para evitar bugs visuais
-    const handleCategoryChange = (cat: string) => {
-        setActiveCategory(cat)
+    // Resetar o card expandido quando mudas de filtro para evitar bugs visuais
+    const handleDayChange = (day: number | null) => {
+        setSelectedDay(day)
         setExpandedCard(null)
     }
 
+    const eventDays = useMemo(() => {
+        const days = new Set<number>()
+        companies.forEach(c => {
+            if (c.start_datetime) days.add(parseInt(c.start_datetime.slice(8, 10), 10))
+        })
+        return Array.from(days).sort((a, b) => a - b)
+    }, [companies])
+
     const filtered = useMemo(
-        () => activeCategory === 'TODAS' ? companies : companies.filter(c => c.category === activeCategory),
-        [companies, activeCategory]
+        () => selectedDay === null ? companies : companies.filter(c => {
+            if (!c.start_datetime) return false
+            return parseInt(c.start_datetime.slice(8, 10), 10) === selectedDay
+        }),
+        [companies, selectedDay]
     )
 
     return (
@@ -161,26 +172,36 @@ const SpeedHunting = () => {
                     </div>
                 </div>
 
-                {/* Category filters */}
+                {/* Day filter */}
                 <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5 mb-12">
-                    <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2">
-                        {categories.map(cat => (
+                    <div className="flex flex-wrap justify-center gap-2">
+                        <button
+                            onClick={() => handleDayChange(null)}
+                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
+                                selectedDay === null
+                                    ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
+                                    : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
+                            }`}
+                        >
+                            Todos os dias
+                        </button>
+                        {eventDays.map(day => (
                             <button
-                                key={cat}
-                                onClick={() => handleCategoryChange(cat)}
+                                key={day}
+                                onClick={() => handleDayChange(day)}
                                 className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-sm border transition-colors duration-200 ${
-                                    activeCategory === cat
+                                    selectedDay === day
                                         ? 'bg-[#c8ff00] border-[#c8ff00] text-black'
                                         : 'bg-transparent border-white/20 text-white/50 hover:border-white/40 hover:text-white'
                                 }`}
                             >
-                                {cat === 'TODAS' ? 'TODAS' : (speedHuntingCategoryLabel[cat] ?? cat)}
+                                DIA {day} JUL
                             </button>
                         ))}
                     </div>
                     <div className="flex justify-center mt-3">
                         <button
-                            onClick={() => handleCategoryChange('TODAS')}
+                            onClick={() => handleDayChange(null)}
                             className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#c8ff00] hover:opacity-70 transition-opacity"
                         >
                             <RefreshCw size={13} /> Limpar Filtros
