@@ -30,7 +30,7 @@ const Concertos = () => {
         } = usePageData('concertos');
 
     const [programme, setProgramme] = useState<ConcertosContract[]>([])
-    useEffect(() => { concertosApi.getConcertos().then(data => setProgramme(data)) }, [])
+    useEffect(() => { concertosApi.getConcertos().then(data => setProgramme([...data].sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()))) }, [])
     const [activeCard, setActiveCard] = useState<number | null>(null)
 
     const featured = programme[0]

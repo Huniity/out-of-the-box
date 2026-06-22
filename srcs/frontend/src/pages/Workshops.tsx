@@ -33,7 +33,7 @@ const Workshops = () => {
             } = usePageData('workshops');
 
     const [workshops, setWorkshops] = useState<WorkshopsContract[]>([])
-    useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops(data)) }, [])
+    useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops([...data].sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()))) }, [])
 
     const [activeArea, setActiveArea] = useState('TODAS')
     

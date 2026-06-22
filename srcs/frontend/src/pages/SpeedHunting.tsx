@@ -209,8 +209,8 @@ const SpeedHunting = () => {
                     </div>
                 </div>
 
-                <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
-                    {filtered.map((c, i) => {
+                <motion.div key={selectedDay ?? 'all'} variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
+                    {filtered.map((c) => {
                         const catColor = speedHuntingCategoryColor[c.category ?? ''] ?? '#ffffff'
                         const catLabel = speedHuntingCategoryLabel[c.category ?? ''] ?? c.category ?? ''
                         const initials = (c.company_name ?? '')
@@ -218,10 +218,10 @@ const SpeedHunting = () => {
                         const logoSrc = c.company_logo ? resolveMediaUrl(c.company_logo) : null
                         const companyUrl = c.company_website || null
                         // 👇 DETERMINA SE ESTE CARD ESPECÍFICO ESTÁ ABERTO
-                        const isExpanded = expandedCard === i
+                        const isExpanded = expandedCard === c.id
                         return (
                             <motion.div 
-                                key={i} 
+                                key={c.id} 
                                 variants={cardItem} 
                                 layout="position" // ── Transição suave ao esticar
                                 className={`flex flex-col sm:flex-row overflow-hidden rounded-sm border bg-[#0d0d0d] hover:border-white/20 transition-all duration-300 group cursor-default ${
@@ -265,7 +265,7 @@ const SpeedHunting = () => {
                                         className="text-[9px] text-[#c8ff00]/60 mt-1.5 block cursor-pointer text-left font-bold uppercase tracking-wider hover:text-[#c8ff00] transition-colors"
                                         onClick={(e) => {
                                             e.stopPropagation() // ── Isola o clique totalmente no botão
-                                            setExpandedCard(isExpanded ? null : i)
+                                            setExpandedCard(isExpanded ? null : c.id)
                                         }}
                                     >
                                         {isExpanded ? 'Clique para encolher ▲' : 'Clique para ler tudo ▼'}
