@@ -46,6 +46,7 @@ export interface SunsetTalksContract {
     type?: string | null;
     day?: number | null;
     moderator?: string | null;
+    priority: number;
 }
 
 export interface WorkshopsContract {
@@ -123,4 +124,5 @@ export interface HighlightContract {
     start_datetime: string | null
     location: string
     image: string | null
+    priority: number
 }

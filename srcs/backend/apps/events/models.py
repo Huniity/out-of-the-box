@@ -57,6 +57,7 @@ class Exposicoes(models.Model):
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
+    priority = models.IntegerField(default=0, help_text="Prioridade de destaque (maior = aparece primeiro)")
 
     def __str__(self):
         return f"[{self.category}] {self.title}"
@@ -80,6 +81,7 @@ class SunsetTalks(models.Model):
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
+    priority = models.IntegerField(default=0, help_text="Prioridade de destaque (maior = aparece primeiro)")
 
     def __str__(self):
         return self.title
@@ -100,6 +102,7 @@ class Workshops(models.Model):
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
+    priority = models.IntegerField(default=0, help_text="Prioridade de destaque (maior = aparece primeiro)")
 
     def __str__(self):
         return self.title
@@ -118,6 +121,7 @@ class Cinema(models.Model):
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
+    priority = models.IntegerField(default=0, help_text="Prioridade de destaque (maior = aparece primeiro)")
 
     def __str__(self):
         return self.title
@@ -134,6 +138,7 @@ class Concertos(models.Model):
     location = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_highlight = models.BooleanField(default=False)
+    priority = models.IntegerField(default=0, help_text="Prioridade de destaque (maior = aparece primeiro)")
 
     def __str__(self):
         return self.band_name

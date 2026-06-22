@@ -226,13 +226,13 @@ export const workshopsAreas = [
 ]
 
 export const workshopsAreaColor: Record<string, string> = {
-    'DESIGN':    '#d0ea73',
-    'FOTO':      '#f8ad2c',
-    'VIDEO':     '#d35f99',
-    'SOM':       '#918fc0',
-    'PW':        '#69ffa0',
-    'MARKETING': '#f97316',
-    'JOGOS':     '#3b82f6'
+    'DESIGN':    '#c7dd7f',
+    'FOTO':      '#f8a259',
+    'VIDEO':     '#ee508c',
+    'SOM':       '#8c8cc5',
+    'PW':        '#0a925b',
+    'MARKETING': '#e76726',
+    'JOGOS':     '#4d5aa8'
 }
 
 export const workshopsAreaLabel: Record<string, string> = {
