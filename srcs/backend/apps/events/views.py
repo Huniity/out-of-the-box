@@ -75,7 +75,7 @@ class ExposicoesViewSet(viewsets.ModelViewSet):
 
 
 class SunsetTalksViewSet(viewsets.ModelViewSet):
-    queryset = SunsetTalks.objects.all().order_by(F('start_datetime').asc(nulls_last=True))
+    queryset = SunsetTalks.objects.all().order_by(F('priority').desc(nulls_last=True), F('start_datetime').asc(nulls_last=True))
     serializer_class = SunsetTalksSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -143,6 +143,7 @@ def highlights_view(request):
             'start_datetime': fmt(c.start_datetime),
             'location': c.location,
             'image': img(c.image),
+            'priority': c.priority,
         })
 
     for s in SunsetTalks.objects.filter(is_highlight=True, is_active=True):
@@ -153,6 +154,7 @@ def highlights_view(request):
             'start_datetime': fmt(s.start_datetime),
             'location': s.location,
             'image': img(s.image),
+            'priority': s.priority,
         })
 
     for w in Workshops.objects.filter(is_highlight=True, is_active=True):
@@ -163,6 +165,7 @@ def highlights_view(request):
             'start_datetime': fmt(w.start_datetime),
             'location': w.location,
             'image': None,
+            'priority': w.priority,
         })
 
     for ci in Cinema.objects.filter(is_highlight=True, is_active=True):
@@ -173,6 +176,7 @@ def highlights_view(request):
             'start_datetime': fmt(ci.start_datetime),
             'location': ci.location,
             'image': img(ci.image),
+            'priority': ci.priority,
         })
 
     for e in Exposicoes.objects.filter(is_highlight=True, is_active=True):
@@ -183,9 +187,10 @@ def highlights_view(request):
             'start_datetime': e.start_date.isoformat() if e.start_date else None,
             'location': e.location,
             'image': img(e.image),
+            'priority': e.priority,
         })
 
-    results.sort(key=lambda x: x['start_datetime'] or '')
+    results.sort(key=lambda x: (-x['priority'], x['start_datetime'] or ''))
     return Response(results)
 
 

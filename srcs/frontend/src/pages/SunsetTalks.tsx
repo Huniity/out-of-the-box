@@ -54,10 +54,6 @@ const SunsetTalks = () => {
     const matchDay  = selectedDay === null || sessionDay === selectedDay
     const matchArea = selectedArea === 'TODAS' || s.category === selectedArea
     return matchDay && matchArea
-  }).sort((a, b) => {
-    const ta = a.start_datetime ? new Date(a.start_datetime).getTime() : Infinity
-    const tb = b.start_datetime ? new Date(b.start_datetime).getTime() : Infinity
-    return ta - tb
   })
 
   const visibleDays = eventDays.filter(day => sessions.some(session => {

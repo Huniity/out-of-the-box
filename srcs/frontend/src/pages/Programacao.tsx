@@ -627,7 +627,7 @@ const Programacao = () => {
             </section>
 
             {/* ── Session list ── */}
-            <motion.section id="sessoes" className="scroll-mt-32 px-8 xl:px-20 pb-16 flex flex-col gap-4" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
+            <motion.section key={`${selectedDay}-${selectedArea}`} id="sessoes" className="scroll-mt-32 px-8 xl:px-20 pb-16 flex flex-col gap-4" variants={fadeUp} initial="hidden" animate="visible">
                 {loading && (
                     <div className="py-20 text-center text-white/40 text-sm font-bold uppercase tracking-widest">A carregar eventos...</div>
                 )}
