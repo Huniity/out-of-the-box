@@ -51,7 +51,9 @@ const SpeedHunting = () => {
     const filtered = useMemo(
         () => selectedDay === null ? companies : companies.filter(c => {
             if (!c.start_datetime) return false
-            return parseInt(c.start_datetime.slice(8, 10), 10) === selectedDay
+            const start = parseInt(c.start_datetime.slice(8, 10), 10)
+            const end = c.end_datetime ? parseInt(c.end_datetime.slice(8, 10), 10) : start
+            return selectedDay >= start && selectedDay <= end
         }),
         [companies, selectedDay]
     )
