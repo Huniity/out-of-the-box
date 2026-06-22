@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { MoveDown, RefreshCw, CalendarDays, MapPin, Mic, ArrowRight, ChevronDown, ExternalLink, Share2 } from 'lucide-react'
 import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
-import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksPageSize as pageSize } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 import type { SunsetTalksContract } from '../api/contracts'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
@@ -13,6 +13,12 @@ import { heroStagger, heroItem } from '../utils/animations'
 import HeroPageSection from '../components/core/HeroPageSection'
 
 
+
+const categoryDisplayLabel: Record<string, string> = {
+  DESIGN: 'Design', FOTO: 'Fotografia', MARKETING: 'Marketing',
+  PW: 'Programação', SOM: 'Som', VIDEO: 'Vídeo',
+  JOGOS: 'Videojogos', CINEMA: 'Cinema / TV', OUTROS: 'Outros',
+}
 
 const SunsetTalks = () => {
   const {
@@ -31,6 +37,12 @@ const SunsetTalks = () => {
   const [shown, setShown] = useState(pageSize)
   const daysRef = useRef<HTMLDivElement>(null)
 
+  const availableAreas = useMemo(() => {
+    const areas = new Set<string>()
+    sessions.forEach(s => { if (s.category) areas.add(s.category) })
+    return Array.from(areas).sort()
+  }, [sessions])
+
   const clearFilters = () => {
     setSelectedDay(null)
     setSelectedArea('TODAS')
@@ -40,7 +52,7 @@ const SunsetTalks = () => {
   const filtered = sessions.filter(s => {
     const sessionDay = s.start_datetime ? parseInt(s.start_datetime.slice(8, 10), 10) : null
     const matchDay  = selectedDay === null || sessionDay === selectedDay
-    const matchArea = selectedArea === 'TODAS' || s.area === selectedArea
+    const matchArea = selectedArea === 'TODAS' || s.category === selectedArea
     return matchDay && matchArea
   }).sort((a, b) => {
     const ta = a.start_datetime ? new Date(a.start_datetime).getTime() : Infinity
@@ -108,8 +120,8 @@ const SunsetTalks = () => {
                   className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
                 >
                   <option value="TODAS">Todos</option>
-                  {Object.entries(areaLabel).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
+                  {availableAreas.map(area => (
+                    <option key={area} value={area}>{categoryDisplayLabel[area] ?? area}</option>
                   ))}
                 </select>
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
@@ -195,7 +207,7 @@ const SunsetTalks = () => {
         {visible.map((s) => {
           const typeColor = typeColors[s.type as keyof typeof typeColors] ?? '#c8ff00'
           const cat = s.category ?? ''
-          const catColor = cat && cat !== 'OUTROS' ? (areaColor[cat] ?? '#ffffff') : '#ffffff'
+          const catColor = '#c8ff00'
 
           const startDt  = s.start_datetime ? new Date(s.start_datetime) : null
           const dayNum   = startDt ? startDt.getDate() : null
@@ -231,7 +243,7 @@ const SunsetTalks = () => {
                     className="block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-black rounded-sm w-full text-center truncate"
                     style={{ backgroundColor: catColor }}
                   >
-                    {cat === 'OUTROS' ? (s.category_other ?? 'Outros') : (areaLabel[cat] ?? cat)}
+                    {cat === 'OUTROS' ? (s.category_other ?? 'Outros') : (categoryDisplayLabel[cat] ?? cat)}
                   </span>
                 )}
                 {s.type && (
