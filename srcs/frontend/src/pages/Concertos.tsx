@@ -30,13 +30,13 @@ const Concertos = () => {
         } = usePageData('concertos');
 
     const [programme, setProgramme] = useState<ConcertosContract[]>([])
-    useEffect(() => { concertosApi.getConcertos().then(data => setProgramme(data)) }, [])
+    useEffect(() => { concertosApi.getConcertos().then(data => setProgramme([...data].sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()))) }, [])
     const [activeCard, setActiveCard] = useState<number | null>(null)
 
     const featured = programme[0]
     const featuredDt = featured ? new Date(featured.start_datetime) : null
     const featuredDay = featuredDt ? featuredDt.getDate() : ''
-    const featuredMonth = featuredDt ? featuredDt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '') : ''
+    const featuredMonth = featuredDt ? featuredDt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : ''
     const featuredTime = featuredDt ? featuredDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
     return (
