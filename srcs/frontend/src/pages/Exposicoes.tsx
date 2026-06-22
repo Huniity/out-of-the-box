@@ -28,8 +28,8 @@ import { fadeUp, stagger, cardItem, heroStagger, heroItem, viewport } from '../u
 const parseDateBadge = (dateStr: string) => {
   const d = new Date(dateStr)
   return {
-    day:   d.getUTCDate(),
-    month: d.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', ''),
+    day:   d.getDate(),
+    month: d.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', ''),
   }
 }
 

@@ -4,7 +4,7 @@ import Fundo from '../assets/etic_algarve/FUNDO2.webp'
 import { PrimaryButton, SecondaryButton } from '../components/buttons/MainButton'
 import { usePageData } from '../hooks/usePageData'
 import { formatEventDateRange, resolveMediaUrl } from '../utils/dashboard'
-import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksAllTypes as allTypes, sunsetTalksAllSalas as allSalas, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
+import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays, sunsetTalksPageSize as pageSize, workshopsAreaColor as areaColor, workshopsAreaLabel as areaLabel } from '../utils/metrics'
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 import type { SunsetTalksContract } from '../api/contracts'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
@@ -12,51 +12,6 @@ import { motion } from 'framer-motion'
 import { heroStagger, heroItem } from '../utils/animations'
 import HeroPageSection from '../components/core/HeroPageSection'
 
-type AreaKind =
-  | 'TODAS'
-  | 'ANIMACAO_VIDEOJOGOS'
-  | 'DESIGN'
-  | 'FOTO'
-  | 'MARKETING_COMUNICACAO'
-  | 'PW'
-  | 'SOM_MUSICA'
-  | 'VIDEO'
-  | 'VIDEOJOGOS'
-
-const AREA_OPTIONS: Array<{ value: Exclude<AreaKind, 'TODAS'>; label: string }> = [
-  { value: 'ANIMACAO_VIDEOJOGOS', label: 'Animação e Videojogos' },
-  { value: 'DESIGN', label: 'Design' },
-  { value: 'FOTO', label: 'Fotografia' },
-  { value: 'MARKETING_COMUNICACAO', label: 'Marketing & Comunicação' },
-  { value: 'PW', label: 'Programação' },
-  { value: 'SOM_MUSICA', label: 'Som & Música' },
-  { value: 'VIDEO', label: 'Vídeo' },
-  { value: 'VIDEOJOGOS', label: 'Videojogos' },
-]
-
-const normalizeArea = (value?: string | null): Exclude<AreaKind, 'TODAS'> | null => {
-  switch (value) {
-    case 'ANIMACAO_VIDEOJOGOS':
-    case 'DESIGN':
-    case 'FOTO':
-    case 'MARKETING_COMUNICACAO':
-    case 'PW':
-    case 'SOM_MUSICA':
-    case 'VIDEO':
-    case 'VIDEOJOGOS':
-      return value
-    case 'MARKETING':
-      return 'MARKETING_COMUNICACAO'
-    case 'SOM':
-      return 'SOM_MUSICA'
-    case 'JOGOS':
-      return 'ANIMACAO_VIDEOJOGOS'
-    case 'CINEMA':
-      return 'VIDEO'
-    default:
-      return null
-  }
-}
 
 
 const SunsetTalks = () => {
@@ -72,29 +27,31 @@ const SunsetTalks = () => {
   useEffect(() => { sunsetTalksApi.getTalks().then(data => setSessions(data)) }, [])
 
   const [selectedDay,  setSelectedDay]  = useState<number | null>(null)
-  const [selectedArea, setSelectedArea] = useState<AreaKind>('TODAS')
-  const [selectedType, setSelectedType] = useState<string>('TODAS')
-  const [selectedSala, setSelectedSala] = useState<string>('TODAS')
+  const [selectedArea, setSelectedArea] = useState('TODAS')
   const [shown, setShown] = useState(pageSize)
   const daysRef = useRef<HTMLDivElement>(null)
 
   const clearFilters = () => {
     setSelectedDay(null)
     setSelectedArea('TODAS')
-    setSelectedType('TODAS')
-    setSelectedSala('TODAS')
     setShown(pageSize)
   }
 
   const filtered = sessions.filter(s => {
-    const matchDay  = selectedDay  === null          || s.day  === selectedDay
-    const matchArea = selectedArea === 'TODAS'       || normalizeArea(s.category) === selectedArea
-    const matchType = selectedType === 'TODAS'       || s.type === selectedType
-    const matchSala = selectedSala === 'TODAS'       || s.location === selectedSala
-    return matchDay && matchArea && matchType && matchSala
+    const sessionDay = s.start_datetime ? parseInt(s.start_datetime.slice(8, 10), 10) : null
+    const matchDay  = selectedDay === null || sessionDay === selectedDay
+    const matchArea = selectedArea === 'TODAS' || s.area === selectedArea
+    return matchDay && matchArea
+  }).sort((a, b) => {
+    const ta = a.start_datetime ? new Date(a.start_datetime).getTime() : Infinity
+    const tb = b.start_datetime ? new Date(b.start_datetime).getTime() : Infinity
+    return ta - tb
   })
 
-  const visibleDays = eventDays.filter(day => sessions.some(session => session.day === day.day))
+  const visibleDays = eventDays.filter(day => sessions.some(session => {
+    const sessionDay = session.start_datetime ? parseInt(session.start_datetime.slice(8, 10), 10) : null
+    return sessionDay === day.day
+  }))
 
   const visible = filtered.slice(0, shown)
 
@@ -140,7 +97,6 @@ const SunsetTalks = () => {
       <section id="filtros" className="px-8 xl:px-20 pb-8">
         <div className="bg-[#0d0d0d] border border-white/10 rounded-sm p-5 ">
           <div className="flex flex-wrap items-end gap-4 justify-center">
-            { /* FIlter Area */}
 
             {/* ÁREA */}
             <div className="flex flex-col gap-1.5 min-w-[180px]">
@@ -148,30 +104,13 @@ const SunsetTalks = () => {
               <div className="relative">
                 <select
                   value={selectedArea}
-                  onChange={e => { setSelectedArea(e.target.value as AreaKind); setShown(pageSize) }}
+                  onChange={e => { setSelectedArea(e.target.value); setShown(pageSize) }}
                   className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
                 >
-                  <option value="TODAS">TODAS</option>
-                  {AREA_OPTIONS.map(area => (
-                    <option key={area.value} value={area.value}>
-                      {area.label}
-                    </option>
+                  <option value="TODAS">Todos</option>
+                  {Object.entries(areaLabel).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
                   ))}
-                </select>
-                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
-              </div>
-            </div>
-
-            {/* CATEGORIA */}
-            <div className="flex flex-col gap-1.5 min-w-[140px]">
-              <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Categoria</label>
-              <div className="relative">
-                <select
-                  value={selectedType}
-                  onChange={e => { setSelectedType(e.target.value); setShown(pageSize) }}
-                  className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
-                >
-                  {allTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
               </div>
@@ -186,23 +125,8 @@ const SunsetTalks = () => {
                   onChange={e => { setSelectedDay(e.target.value === '' ? null : Number(e.target.value)); setShown(pageSize) }}
                   className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
                 >
-                  <option value="">TODAS</option>
+                  <option value="">Todos</option>
                   {eventDays.map(d => <option key={d.day} value={d.day}>{d.day} JUL</option>)}
-                </select>
-                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
-              </div>
-            </div>
-
-            {/* SALA */}
-            <div className="flex flex-col gap-1.5 min-w-[140px]">
-              <label className="text-[10px] font-black text-white/30 uppercase tracking-widest">Sala</label>
-              <div className="relative">
-                <select
-                  value={selectedSala}
-                  onChange={e => { setSelectedSala(e.target.value); setShown(pageSize) }}
-                  className="w-full appearance-none bg-black border border-white/15 rounded-sm px-3 py-2.5 text-xs font-black uppercase tracking-widest text-white cursor-pointer focus:outline-none focus:border-[#c8ff00] transition-colors pr-7"
-                >
-                  {allSalas.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none text-xs">▾</span>
               </div>
@@ -224,7 +148,7 @@ const SunsetTalks = () => {
         <div ref={daysRef} className="flex gap-2 overflow-x-auto no-scrollbar pb-1 justify-center">
           {visibleDays.map(d => {
             const isActive = selectedDay === d.day
-            const hasSession = sessions.some(s => (s.start_datetime ? new Date(s.start_datetime).getDate() : s.day) === d.day)
+            const hasSession = sessions.some(s => (s.start_datetime ? parseInt(s.start_datetime.slice(8, 10), 10) : null) === d.day)
             return (
               <button
                 key={d.day}
@@ -275,7 +199,7 @@ const SunsetTalks = () => {
 
           const startDt  = s.start_datetime ? new Date(s.start_datetime) : null
           const dayNum   = startDt ? startDt.getDate() : null
-          const monthStr = startDt ? startDt.toLocaleString('pt-PT', { month: 'short', timeZone: 'UTC' }).toUpperCase().replace('.', '') : ''
+          const monthStr = startDt ? startDt.toLocaleString('pt-PT', { month: 'short' }).toUpperCase().replace('.', '') : ''
           const timeStr  = startDt ? startDt.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }) : ''
 
           const imgSrc           = s.image ? resolveMediaUrl(s.image) : Fundo
