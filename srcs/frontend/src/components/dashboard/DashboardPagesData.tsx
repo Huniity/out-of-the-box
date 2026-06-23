@@ -57,7 +57,12 @@ export default function PageDataTable({ page }: DashboardProps) {
             const q = search.trim().toLowerCase();
             filtered = filtered.filter(row =>
                 String(row.title ?? "").toLowerCase().includes(q) ||
-                String(row.description ?? "").toLowerCase().includes(q)
+                String(row.description ?? "").toLowerCase().includes(q) ||
+                String(row.band_name ?? "").toLowerCase().includes(q) ||
+                String(row.company_name ?? "").toLowerCase().includes(q) ||
+                String(row.speaker_name ?? "").toLowerCase().includes(q) ||
+                String(row.mentor_name ?? "").toLowerCase().includes(q) ||
+                String(row.director_team ?? "").toLowerCase().includes(q)
             );
         }
         //is_active

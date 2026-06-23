@@ -33,7 +33,13 @@ const Workshops = () => {
             } = usePageData('workshops');
 
     const [workshops, setWorkshops] = useState<WorkshopsContract[]>([])
-    useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops([...data].sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()))) }, [])
+    useEffect(() => { workshopsApi.getWorkshops().then(data => setWorkshops(
+        [...data].filter(w => w.is_active).sort((a, b) => {
+            if (b.priority !== a.priority) return b.priority - a.priority
+            if (Number(b.is_highlight) !== Number(a.is_highlight)) return Number(b.is_highlight) - Number(a.is_highlight)
+            return new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()
+        })
+    )) }, [])
 
     const [activeArea, setActiveArea] = useState('TODAS')
     
