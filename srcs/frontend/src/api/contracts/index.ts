@@ -63,6 +63,8 @@ export interface WorkshopsContract {
     start_datetime: string;
     location: string;
     is_active: boolean;
+    is_highlight: boolean;
+    priority: number;
 }
 
 export interface CinemaContract {
