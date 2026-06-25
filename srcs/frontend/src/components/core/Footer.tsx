@@ -8,12 +8,12 @@ import leafImg3 from '../../assets/doodles/Artboard_12.webp'
 import '../../styles/leaves.css'
 
 import adobe from '../../assets/supports/adobe.png'
+import minitel from '../../assets/supports/minitel.png'
 import ipdj from '../../assets/partners/ipdj_faro.png'
 import republica from '../../assets/partners/republica_pt.png'
-
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-white/5 px-6 pb-28 py-12 text-white md:px-16">
+    <footer className="relative overflow-hidden border-t pb-20 border-white/10 bg-white/5 px-6 py-12 text-white md:px-16">
       <img
         src={leafImg2}
         alt=""
@@ -67,10 +67,10 @@ export default function Footer() {
 
           {/* 2. Bloco dos Logótipos com Alturas Iguais */}
           {/* O 'items-stretch' força todas as colunas a terem a mesma altura máxima */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 items-stretch mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-y-6 items-stretch mt-4">
             
             {/* Parceria: República Portuguesa */}
-            <div className="flex flex-col justify-between gap-3 h-full border-b border-white/5 pb-4 md:border-none md:pb-0">
+            <div className="flex flex-col justify-between gap-3 h-full border-b border-white/5 min-h-[100px] pb-4 md:border-none md:pb-0">
               <div className="flex flex-col gap-2">
                 <p className="text-[12px] text-left text-white/45 font-medium">
                   Parceria:
@@ -81,21 +81,23 @@ export default function Footer() {
 
             {/* IPDJ */}
             {/* Usamos 'justify-center' para centralizar o logo verticalmente, alinhando visualmente com a República */}
-            <div className="flex flex-col justify-center gap-2 h-full pb-4 md:pb-0">
+            <div className="flex flex-col min-h-[100px] justify-center gap-2 h-full pb-4 md:pb-0">
               <img src={ipdj} alt="IPDJ Logo" className="w-24 shrink-0 object-contain" />
             </div>
 
             {/* Apoio: Adobe */}
             {/* No mobile ocupa a largura total por baixo, mas mantém a estrutura flexível interna limpa */}
-            <div className="col-span-2 md:col-span-1 flex flex-col justify-between gap-2 h-full pt-2 md:pt-0">
+            <div className="flex flex-col min-h-[110px] justify-between gap-3 h-full border-b border-white/5 pb-4 md:border-none md:pb-0">
               <div className="flex flex-col gap-2">
                 <p className="text-[12px] text-left text-white/45 font-medium">
-                  Apoio:
+                  Apoios:
                 </p>
                 <img src={adobe} alt="Adobe Logo" className="w-24 shrink-0 object-contain" />
               </div>
             </div>
-
+            <div className="flex flex-col min-h-[110px] justify-center gap-2 h-full pb-4 md:pb-0">
+                <img src={minitel} alt="Minitel Logo" className="w-24 shrink-0 object-contain" />
+            </div>
           </div>
         </div>
         {/* Navigation */}
