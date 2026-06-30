@@ -8,6 +8,7 @@ import { sunsetTalksTypeColors as typeColors, sunsetTalksEventDays as eventDays,
 import { sunsetTalksApi } from '../services/api/sunsetTalks.api'
 import type { SunsetTalksContract } from '../api/contracts'
 import polaroid_sunset_talks from '../assets/polaroids/polaroid_sunset-talks.webp'
+import HenriqueCayatte from '../assets/polaroids/HenriqueCayatte.webp'
 import { motion } from 'framer-motion'
 import { heroStagger, heroItem } from '../utils/animations'
 import HeroPageSection from '../components/core/HeroPageSection'
@@ -68,7 +69,7 @@ const SunsetTalks = () => {
 
       {/* ── Hero ── */}
       <HeroPageSection
-        polaroidSrc={polaroid_sunset_talks}
+        polaroidSrc={HenriqueCayatte}
         heroImgSrc={Fundo}
         heroImgAlt="Sunset Talks"
         zigzag={{ from: { x: 30, y: 2 }, to: { x: 70, y: 98 }, steps: 3, amplitude: 24, curve: 2.2, strokeWidth: 4, dashLength: 12, dashGap: 10, opacity: 0.7 }}

@@ -56,7 +56,7 @@ export default function Footer() {
       />
       <div className="relative z-10 grid gap-1 md:grid-cols-12 md:items-start">
         {/* Brand */}
-        <div className="md:col-span-5 flex flex-col gap-1 mb-12 md:mb-0">
+        <div className="md:col-span-3 sm:col-span-2 flex flex-col gap-1 mb-12 md:mb-0">
           {/* 1. Bloco do Logo + Copyright */}
           <div className="flex flex-col gap-1">
             <img src={EticWhite} alt="ETIC_Algarve Logo" className="w-60 shrink-0" />
@@ -101,7 +101,7 @@ export default function Footer() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="md:col-span-2 text-left">
+        <div className="md:col-span-3 text-left pl-10px">
           <h3 className="mb-4 text-sm font-black uppercase tracking-wide text-white">
             Navegação
           </h3>
